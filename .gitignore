@@ -1,6 +1,10 @@
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
+/doc
+moneta.iml
+jsr354-ri.iml
+.classpath
+-project
+/.resourceCache
+/.project
+/.idea
+
