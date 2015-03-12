@@ -15,16 +15,16 @@
  */
 package org.javamoney.moneta.internal;
 
+import org.javamoney.moneta.spi.base.BaseMonetaryAmountsSingletonSpi;
+
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryException;
 import javax.money.spi.Bootstrap;
 import javax.money.spi.MonetaryAmountFactoryProviderSpi;
-import javax.money.spi.MonetaryAmountsSingletonSpi;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * initially once, using the
  * JSR's {@link javax.money.spi.Bootstrap} mechanism.
  */
-public class DefaultMonetaryAmountsSingletonSpi implements MonetaryAmountsSingletonSpi {
+public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingletonSpi {
 
     private Map<Class<? extends MonetaryAmount>, MonetaryAmountFactoryProviderSpi<?>> factories =
             new ConcurrentHashMap<>();
@@ -92,8 +92,10 @@ public class DefaultMonetaryAmountsSingletonSpi implements MonetaryAmountsSingle
                 }
             }
         }
-        return Optional.ofNullable(configuredDefaultAmountType)
-                .orElseThrow(() -> new MonetaryException("No MonetaryAmountFactoryProviderSpi registered."));
+        if(configuredDefaultAmountType==null){
+            throw new MonetaryException("No MonetaryAmountFactoryProviderSpi registered.");
+        }
+        return configuredDefaultAmountType;
     }
 
 }

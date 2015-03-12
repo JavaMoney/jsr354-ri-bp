@@ -1022,7 +1022,12 @@ public class FastMoneyTest{
      */
     @Test
     public void testQuery(){
-        MonetaryQuery<Integer> q = amount -> FastMoney.from(amount).getPrecision();
+        MonetaryQuery<Integer> q = new MonetaryQuery<Integer>() {
+            @Override
+            public Integer queryFrom(MonetaryAmount amount) {
+                return FastMoney.from(amount).getPrecision();
+            }
+        };
         FastMoney[] moneys = new FastMoney[]{FastMoney.of(100, "CHF"), FastMoney.of(34242344, "USD"),
                 FastMoney.of(23123213.435, "EUR"), FastMoney.of(-23123213.435, "USS"), FastMoney.of(-23123213, "USN"),
                 FastMoney.of(0, "GBP")};
@@ -1074,14 +1079,24 @@ public class FastMoneyTest{
      */
     @Test
     public void testWithMonetaryOperator(){
-        MonetaryOperator adj = amount -> FastMoney.of(-100, amount.getCurrency());
+        MonetaryOperator adj = new MonetaryOperator(){
+            @Override
+            public MonetaryAmount apply(MonetaryAmount amount) {
+                return FastMoney.of(-100, amount.getCurrency());
+            }
+        };
         FastMoney m = FastMoney.of(new BigDecimal("1.2345"), "XXX");
         FastMoney a = m.with(adj);
         assertNotNull(a);
         assertNotSame(m, a);
         assertEquals(m.getCurrency(), a.getCurrency());
         assertEquals(FastMoney.of(-100, m.getCurrency()), a);
-        adj = amount -> amount.multiply(2).getFactory().setCurrency(MonetaryCurrencies.getCurrency("CHF")).create();
+        adj = new MonetaryOperator(){
+            @Override
+            public MonetaryAmount apply(MonetaryAmount amount) {
+                return amount.multiply(2).getFactory().setCurrency(MonetaryCurrencies.getCurrency("CHF")).create();
+            }
+        };
         a = m.with(adj);
         assertNotNull(a);
         assertNotSame(m, a);

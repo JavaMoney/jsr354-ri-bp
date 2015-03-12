@@ -18,15 +18,11 @@ package org.javamoney.moneta.convert.internal;
 import java.io.InputStream;
 import java.math.MathContext;
 import java.net.MalformedURLException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.temporal.TemporalUnit;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import javax.money.CurrencyUnit;
@@ -65,7 +61,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
     /**
      * Historic exchange rates, rate timestamp as UTC long.
      */
-    private final Map<LocalDate, Map<String, ExchangeRate>> historicRates = new ConcurrentHashMap<>();
+    private final Map<String, Map<String, ExchangeRate>> historicRates = new ConcurrentHashMap<>();
     /**
      * Parser factory.
      */
@@ -102,14 +98,10 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
         if (historicRates.isEmpty()) {
             return null;
         }
-        LocalDate date = query.get(LocalDate.class);
+        Calendar date = query.get(GregorianCalendar.class);
         if (date == null) {
-            LocalDateTime dateTime = query.get(LocalDateTime.class);
-            if (dateTime != null) {
-                date = dateTime.toLocalDate();
-            } else {
-                date = LocalDate.now().minus(Period.ofDays(1));
-            }
+            date = GregorianCalendar.getInstance();
+            date.add(GregorianCalendar.DAY_OF_YEAR, -1);
         }
         ExchangeRateBuilder builder = getBuilder(query, date);
 
@@ -163,7 +155,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
     }
 
 
-    private ExchangeRateBuilder getBuilder(ConversionQuery query, LocalDate localDate) {
+    private ExchangeRateBuilder getBuilder(ConversionQuery query, Calendar localDate) {
         ExchangeRateBuilder builder = new ExchangeRateBuilder(
                 ConversionContextBuilder.create(getContext(), RateType.HISTORIC)
                         .set(localDate).build());

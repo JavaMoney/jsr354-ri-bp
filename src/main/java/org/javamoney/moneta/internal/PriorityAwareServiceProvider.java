@@ -19,6 +19,7 @@ import javax.annotation.Priority;
 import javax.money.spi.ServiceProvider;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,6 +38,14 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
      */
     private final ConcurrentHashMap<Class, List<Object>> servicesLoaded = new ConcurrentHashMap<>();
 
+    private static final Comparator<Object> SERVICE_COMPARATOR = new Comparator<Object>(){
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            return PriorityAwareServiceProvider.compareServices(o1, o2);
+        }
+    };
+
     /**
      * Returns a prioritx value of 10.
      *
@@ -52,7 +61,6 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
      *
      * @param serviceType The service type.
      * @param <T>         the concrete type.
-     * @param defaultList the list of items returned, if no services were found.
      * @return the items found, never {@code null}.
      */
     @Override
@@ -64,6 +72,15 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
         }
 
         return loadServices(serviceType);
+    }
+
+    @Override
+    public <T> T getService(Class<T> serviceType) {
+        List<T> services = getServices(serviceType);
+        if(services.isEmpty()){
+            return null;
+        }
+        return services.get(0);
     }
 
     public static int compareServices(Object o1, Object o2) {
@@ -91,7 +108,6 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
      *
      * @param serviceType The service type.
      * @param <T>         the concrete type.
-     * @param defaultList the list of items returned, if no services were found.
      * @return the items found, never {@code null}.
      */
     private <T> List<T> loadServices(final Class<T> serviceType) {
@@ -100,14 +116,14 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
             for (T t : ServiceLoader.load(serviceType)) {
                 services.add(t);
             }
-            services.sort(PriorityAwareServiceProvider::compareServices);
+            services.sort(SERVICE_COMPARATOR);
             @SuppressWarnings("unchecked")
             final List<T> previousServices = (List<T>) servicesLoaded.putIfAbsent(serviceType, (List<Object>) services);
             return Collections.unmodifiableList(previousServices != null ? previousServices : services);
         } catch (Exception e) {
             Logger.getLogger(PriorityAwareServiceProvider.class.getName()).log(Level.WARNING,
                     "Error loading services of type " + serviceType, e);
-            services.sort(PriorityAwareServiceProvider::compareServices);
+            services.sort(SERVICE_COMPARATOR);
             return services;
         }
     }

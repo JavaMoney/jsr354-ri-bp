@@ -1,5 +1,7 @@
 package org.javamoney.moneta.function;
 
+import org.javamoney.moneta.spi.base.BaseExchangeRateProvider;
+
 import javax.money.CurrencyUnit;
 import javax.money.convert.ConversionQuery;
 import javax.money.convert.CurrencyConversion;
@@ -13,7 +15,7 @@ import javax.money.convert.ProviderContext;
  *
  * @author otaviojava
  */
-class ExchangeRateProviderMock implements ExchangeRateProvider {
+class ExchangeRateProviderMock extends BaseExchangeRateProvider {
 
     @Override
     public ProviderContext getContext() {

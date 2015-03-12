@@ -15,11 +15,12 @@
  */
 package org.javamoney.moneta.internal;
 
+import org.javamoney.moneta.spi.base.BaseMonetaryAmountsSingletonQuerySpi;
+
 import javax.money.*;
 import javax.money.spi.Bootstrap;
 import javax.money.spi.MonetaryAmountFactoryProviderSpi;
 import javax.money.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
-import javax.money.spi.MonetaryAmountsSingletonQuerySpi;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ import java.util.*;
  * initially once, using the
  * JSR's {@link javax.money.spi.Bootstrap} mechanism.
  */
-public class DefaultMonetaryAmountsSingletonQuerySpi implements MonetaryAmountsSingletonQuerySpi{
+public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmountsSingletonQuerySpi{
 
     private static final Comparator<MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount>> CONTEXT_COMPARATOR =
             new Comparator<MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount>>() {

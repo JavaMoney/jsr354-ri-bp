@@ -15,11 +15,10 @@
  */
 package org.javamoney.moneta.internal;
 
+import org.javamoney.moneta.spi.base.BaseCurrencyProviderSpi;
+
 import javax.money.CurrencyQuery;
 import javax.money.CurrencyUnit;
-import javax.money.spi.CurrencyProviderSpi;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class provides a programmatic singleton for globally registering new {@link java.util.Currency}  into the
  * {@link javax.money.MonetaryCurrencies} singleton either by currency code, locale, or both.
  */
-public class ConfigurableCurrencyUnitProvider implements CurrencyProviderSpi {
+public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
     /**
      * The currency units, identified by currency code.
      */
@@ -48,9 +47,6 @@ public class ConfigurableCurrencyUnitProvider implements CurrencyProviderSpi {
      */
     public Set<CurrencyUnit> getCurrencies(CurrencyQuery currencyQuery) {
         Set<CurrencyUnit> result = new HashSet<>(currencyUnits.size());
-        if (currencyQuery.get(LocalDateTime.class) != null || currencyQuery.get(LocalDate.class) != null) {
-            return Collections.emptySet();
-        }
         if (!currencyQuery.getCurrencyCodes().isEmpty()) {
             for (String code : currencyQuery.getCurrencyCodes()) {
                 CurrencyUnit cu = currencyUnits.get(code);

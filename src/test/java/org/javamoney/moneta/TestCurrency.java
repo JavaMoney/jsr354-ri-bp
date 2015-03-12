@@ -150,8 +150,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
         }
 
         public Builder withCurrencyCode(String currencyCode) {
-            this.currencyCode = Optional.ofNullable(currencyCode)
-                    .orElseThrow(() -> new IllegalArgumentException("currencyCode may not be null."));
+            this.currencyCode = Objects.requireNonNull(currencyCode,"currencyCode may not be null.");
             return this;
         }
 
@@ -222,8 +221,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
          * @param currency the JDK currency instance
          */
         private JDKCurrencyAdapter(Currency currency) {
-            this.currency =
-                    Optional.ofNullable(currency).orElseThrow(() -> new IllegalArgumentException("Currency required."));
+            this.currency = Objects.requireNonNull(currency, "Currency required.");
         }
 
         @Override

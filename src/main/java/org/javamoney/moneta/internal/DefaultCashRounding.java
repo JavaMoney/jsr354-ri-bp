@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Implementation class providing cash rounding {@link javax.money.MonetaryOperator}
@@ -65,10 +64,12 @@ final class DefaultCashRounding implements MonetaryRounding, Serializable {
         if (scale < 0) {
             throw new IllegalArgumentException("scale < 0");
         }
-        this.context = RoundingContextBuilder.of("default", "default").set(CASHROUNDING_KEY, true).
-                set(PROVCLASS_KEY, getClass().getName()).set(MINMINORS_KEY, minimalMinors).set(SCALE_KEY, scale)
-                .set(Optional.ofNullable(roundingMode)
-                        .orElseThrow(() -> new IllegalArgumentException("roundingMode missing"))).build();
+        RoundingContextBuilder b = RoundingContextBuilder.of("default", "default").set(CASHROUNDING_KEY, true).
+                set(PROVCLASS_KEY, getClass().getName()).set(MINMINORS_KEY, minimalMinors).set(SCALE_KEY, scale);
+        if(roundingMode==null){
+            throw new IllegalArgumentException("roundingMode missing");
+        }
+        this.context = b.set(roundingMode).build();
     }
 
     /**

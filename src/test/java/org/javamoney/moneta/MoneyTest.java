@@ -1025,7 +1025,12 @@ public class MoneyTest {
      */
     @Test
     public void testQuery() {
-        MonetaryQuery<Integer> q = amount -> Money.from(amount).getNumber().getPrecision();
+        MonetaryQuery<Integer> q = new MonetaryQuery<Integer>(){
+            @Override
+            public Integer queryFrom(MonetaryAmount amount) {
+                return Money.from(amount).getNumber().getPrecision();
+            }
+        };
         Money[] moneys = new Money[]{Money.of(100, "CHF"), Money.of(34242344, "USD"), Money.of(23123213.435, "EUR"),
                 Money.of(-23123213.435, "USS"), Money.of(-23123213, "USN"), Money.of(0, "GBP")};
         for (Money money : moneys) {
@@ -1091,14 +1096,24 @@ public class MoneyTest {
      */
     @Test
     public void testWithMonetaryOperator() {
-        MonetaryOperator adj = amount -> Money.of(-100, amount.getCurrency());
+        MonetaryOperator adj = new MonetaryOperator(){
+            @Override
+            public MonetaryAmount apply(MonetaryAmount amount) {
+                return Money.of(-100, amount.getCurrency());
+            }
+        };
         Money m = Money.of(1.23455645d, "XXX");
         Money a = m.with(adj);
         assertNotNull(a);
         assertNotSame(m, a);
         assertEquals(m.getCurrency(), a.getCurrency());
         assertEquals(Money.of(-100, m.getCurrency()), a);
-        adj = amount -> amount.multiply(2).getFactory().setCurrency(MonetaryCurrencies.getCurrency("CHF")).create();
+        adj = new MonetaryOperator(){
+            @Override
+            public MonetaryAmount apply(MonetaryAmount amount) {
+                return amount.multiply(2).getFactory().setCurrency(MonetaryCurrencies.getCurrency("CHF")).create();
+            }
+        };
         a = m.with(adj);
         assertNotNull(a);
         assertNotSame(m, a);

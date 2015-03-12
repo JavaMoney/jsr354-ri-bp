@@ -70,11 +70,18 @@ public class GroupMonetarySummaryStatistics {
         Objects.requireNonNull(another);
 
         for (CurrencyUnit keyCurrency : another.groupSummary.keySet()) {
-            groupSummary.putIfAbsent(keyCurrency,
-                    new DefaultMonetarySummaryStatistics(keyCurrency));
-			groupSummary.merge(keyCurrency,
-					another.groupSummary.get(keyCurrency),
-					MonetarySummaryStatistics::combine);
+            MonetarySummaryStatistics stats = groupSummary.get(keyCurrency);
+            if(stats==null){
+                stats = new DefaultMonetarySummaryStatistics(keyCurrency);
+                groupSummary.put(keyCurrency,stats);
+            }
+
+            MonetarySummaryStatistics oldValue = groupSummary.get(keyCurrency);
+            MonetarySummaryStatistics newValue = another.groupSummary.get(keyCurrency);
+            if(oldValue!=null) {
+                newValue = oldValue.combine(another.groupSummary.get(keyCurrency));
+            }
+            groupSummary.put(keyCurrency, newValue);
         }
         return this;
     }

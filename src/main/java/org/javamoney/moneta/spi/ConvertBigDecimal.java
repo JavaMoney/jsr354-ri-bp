@@ -124,14 +124,14 @@ public enum ConvertBigDecimal {
 		}
 		return DEFAULT;
 	}
-	
-	private static List<Class<? extends Number>> INSTEGERS = Arrays.asList(
-			Long.class, Integer.class, Short.class, Byte.class,
+
+    private static List<Class> FLOATINGS = Arrays.asList(
+            (Class)Float.class, Double.class);
+
+	private static List<Class> INSTEGERS = Arrays.asList(
+            (Class)Long.class, Integer.class, Short.class, Byte.class,
 			AtomicLong.class, AtomicInteger.class);
-	
-	private static List<Class<? extends Number>> FLOATINGS = Arrays.asList(
-			Float.class, Double.class);
-	
+
 	private static BigDecimal isScaleZero(BigDecimal result) {
 		if (result.signum() == 0) {
 			return BigDecimal.ZERO;

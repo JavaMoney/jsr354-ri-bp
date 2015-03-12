@@ -145,4 +145,9 @@ public class TestRoundingProvider implements RoundingProviderSpi {
         return customIds;
     }
 
+    @Override
+    public String getProviderName() {
+        return getClass().getSimpleName();
+    }
+
 }

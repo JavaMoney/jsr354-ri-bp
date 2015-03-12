@@ -1,10 +1,10 @@
 package org.javamoney.moneta.convert.internal;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.money.CurrencyUnit;
@@ -42,13 +42,13 @@ class RateReadingHandler extends DefaultHandler {
     /**
      * Current timestamp for the given section.
      */
-    private LocalDate localDate;
+    private String localDate;
 
-    private final Map<LocalDate, Map<String, ExchangeRate>> historicRates;
+    private final Map<String, Map<String, ExchangeRate>> historicRates;
 
     private ProviderContext context;
 
-    public RateReadingHandler(Map<LocalDate, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
+    public RateReadingHandler(Map<String, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
         this.historicRates = historicRates;
         this.context = context;
     }
@@ -59,7 +59,7 @@ class RateReadingHandler extends DefaultHandler {
         if ("Cube".equals(qName)) {
             if (Objects.nonNull(attributes.getValue("time"))) {
 
-                this.localDate = LocalDate.parse(attributes.getValue("time")).atStartOfDay().toLocalDate();
+                this.localDate = formatLocalDate(attributes.getValue("time"));
             } else if (Objects.nonNull(attributes.getValue("currency"))) {
                 // read data <Cube currency="USD" rate="1.3349"/>
                 CurrencyUnit tgtCurrency = MonetaryCurrencies
@@ -71,19 +71,23 @@ class RateReadingHandler extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
     }
 
+    private String formatLocalDate(String time) {
+        return time;
+    }
+
     /**
      * Method to add a currency exchange rate.
      *
      * @param term      the term (target) currency, mapped from EUR.
-     * @param timestamp The target day.
+     * @param localDate The target day.
      * @param rate      The rate.
      */
-    void addRate(CurrencyUnit term, LocalDate localDate, Number rate) {
+    void addRate(CurrencyUnit term, String localDate, Number rate) {
         RateType rateType = RateType.HISTORIC;
         ExchangeRateBuilder builder;
         if (Objects.nonNull(localDate)) {
             // TODO check/test!
-            if (localDate.equals(LocalDate.now())) {
+            if (localDate.equals(nowLocalDate())) {
                 rateType = RateType.DEFERRED;
             }
             builder = new ExchangeRateBuilder(
@@ -98,12 +102,18 @@ class RateReadingHandler extends DefaultHandler {
         Map<String, ExchangeRate> rateMap = this.historicRates.get(localDate);
         if (Objects.isNull(rateMap)) {
             synchronized (this.historicRates) {
-                rateMap = Optional.ofNullable(this.historicRates.get(localDate)).orElse(new ConcurrentHashMap<>());
-                this.historicRates.putIfAbsent(localDate, rateMap);
-
+                rateMap = this.historicRates.get(localDate);
+                if(rateMap==null) {
+                    rateMap = new ConcurrentHashMap<>();
+                    this.historicRates.put(localDate, rateMap);
+                }
             }
         }
         rateMap.put(term.getCurrencyCode(), exchangeRate);
+    }
+
+    private String nowLocalDate() {
+        return new SimpleDateFormat("ddMMyyyy").format(new Date());
     }
 
 }

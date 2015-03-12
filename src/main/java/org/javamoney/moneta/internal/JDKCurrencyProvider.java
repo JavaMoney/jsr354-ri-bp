@@ -15,13 +15,14 @@
  */
 package org.javamoney.moneta.internal;
 
+import org.javamoney.moneta.spi.base.BaseCurrencyProviderSpi;
+
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.money.CurrencyQuery;
 import javax.money.CurrencyUnit;
-import javax.money.spi.CurrencyProviderSpi;
 
 /**
  * Default implementation of a {@link CurrencyUnit} based on the using the JDK's
@@ -31,7 +32,7 @@ import javax.money.spi.CurrencyProviderSpi;
  * @author Anatole Tresch
  * @author Werner Keil
  */
-public class JDKCurrencyProvider implements CurrencyProviderSpi {
+public class JDKCurrencyProvider extends BaseCurrencyProviderSpi {
 
 	/** Internal shared cache of {@link javax.money.CurrencyUnit} instances. */
 	private static final Map<String, CurrencyUnit> CACHED = new HashMap<>();
