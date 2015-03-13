@@ -4,7 +4,7 @@ JavaMoney Implementation Backport
 This respoitory contains the Java 7 compatible backport of the reference implementation. We strongly recommend the
 Java 8 based version to be used to enjoy all benefits provided by JSR 354.
 
-The backport is NOT an implementation of JSR 354, as that would require jumping through lots of unnecessary hoops. Instead, this is a simple backport intended to allow users to use the JSR 354 API on Java SE 6 and 7. The backport should be referred to using the "JavaMoney" project name.
+The backport is NOT an implementation of JSR 354. Instead, this is a simple backport intended to allow users to use the JSR 354 API on Java SE 6, 7 or similar platforms (ME 8 Embedded, Android,...). The backport should be referred to using the "JavaMoney" project name.
 
 Or the GitHub page:
 http://javamoney.github.io/ri.html
