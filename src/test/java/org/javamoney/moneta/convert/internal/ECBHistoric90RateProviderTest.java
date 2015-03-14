@@ -21,9 +21,8 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 import javax.money.CurrencyUnit;
@@ -160,8 +159,9 @@ public class ECBHistoric90RateProviderTest {
     @Test
     public void shouldSetTimeInLocalDateTime() {
 
-        LocalDate localDate = LocalDate.now().minusDays(90)
-                .with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+        Calendar localDate = GregorianCalendar.getInstance();
+        localDate.add(Calendar.DAY_OF_YEAR, -80);
+        localDate.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
 
         ConversionQuery conversionQuery = ConversionQueryBuilder.of()
                 .setTermCurrency(EURO).set(localDate).build();

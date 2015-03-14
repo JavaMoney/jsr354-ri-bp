@@ -22,6 +22,7 @@ import javax.money.convert.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -134,5 +135,10 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
         }
         return new DefaultNumberValue(
                 dividend.numberValueExact(BigDecimal.class).divide(divisor.numberValue(BigDecimal.class), context));
+    }
+
+    protected String formatLocalDate(Calendar calendar){
+        return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) +
+                "-" + calendar.get(Calendar.DAY_OF_MONTH);
     }
 }

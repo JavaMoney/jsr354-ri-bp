@@ -19,7 +19,6 @@ import javax.money.*;
 import javax.money.spi.RoundingProviderSpi;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.*;
 
 public class TestRoundingProvider implements RoundingProviderSpi {
@@ -91,7 +90,10 @@ public class TestRoundingProvider implements RoundingProviderSpi {
 
     @Override
     public MonetaryRounding getRounding(RoundingQuery roundingQuery) {
-        LocalDate timestamp = roundingQuery.get(LocalDate.class);
+        Calendar timestamp = roundingQuery.get(Calendar.class);
+        if(timestamp==null){
+            timestamp = roundingQuery.get(GregorianCalendar.class);
+        }
         if (roundingQuery.getRoundingName() == null) {
             return getRounding(roundingQuery, timestamp, "default");
         } else {
@@ -99,7 +101,7 @@ public class TestRoundingProvider implements RoundingProviderSpi {
         }
     }
 
-    private MonetaryRounding getRounding(RoundingQuery roundingQuery, LocalDate timestamp, String roundingId) {
+    private MonetaryRounding getRounding(RoundingQuery roundingQuery, Calendar timestamp, String roundingId) {
         if ("foo".equals(roundingId)) {
             return null;
         }
@@ -107,7 +109,7 @@ public class TestRoundingProvider implements RoundingProviderSpi {
             CurrencyUnit currency = roundingQuery.getCurrency();
             if (Objects.nonNull(currency)) {
                 if (currency.getCurrencyCode().equals("XXX")) {
-                    if (timestamp != null && timestamp.isAfter(LocalDate.now())) {
+                    if (timestamp != null && timestamp.after(GregorianCalendar.getInstance())) {
                         return minusOneRounding;
                     } else {
                         return zeroRounding;

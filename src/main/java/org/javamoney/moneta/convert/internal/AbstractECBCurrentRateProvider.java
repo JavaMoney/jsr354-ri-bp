@@ -18,6 +18,8 @@ package org.javamoney.moneta.convert.internal;
 import java.io.InputStream;
 import java.math.MathContext;
 import java.net.MalformedURLException;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -83,7 +85,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
         final int oldSize = this.historicRates.size();
         try {
             SAXParser parser = saxParserFactory.newSAXParser();
-            parser.parse(is, new RateReadingHandler(historicRates, getContext()));
+            parser.parse(is, new ECBRateReader(historicRates, getContext()));
         } catch (Exception e) {
             LOGGER.log(Level.FINEST, "Error during data load.", e);
         }
@@ -106,7 +108,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
         ExchangeRateBuilder builder = getBuilder(query, date);
 
         Map<String, ExchangeRate> targets = this.historicRates
-                .get(date);
+                .get(formatDate(date));
         if (Objects.isNull(targets)) {
             return null;
         }
@@ -115,6 +117,16 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
         ExchangeRate target = targets
                 .get(query.getCurrency().getCurrencyCode());
         return createExchangeRate(query, builder, sourceRate, target);
+    }
+
+    protected String formatDate(Calendar date) {
+        NumberFormat nf = NumberFormat.getIntegerInstance();
+        nf.setGroupingUsed(false);
+        nf.setMaximumIntegerDigits(2);
+        nf.setMinimumIntegerDigits(2);
+        return date.get(Calendar.YEAR) +
+                "-" + nf.format(date.get(Calendar.MONTH)+1)+
+                "-"+nf.format(date.get(Calendar.DAY_OF_MONTH));
     }
 
     private ExchangeRate createExchangeRate(ConversionQuery query,

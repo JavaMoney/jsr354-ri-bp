@@ -21,9 +21,8 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.YearMonth;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 import javax.money.CurrencyUnit;
@@ -159,7 +158,8 @@ public class ECBHistoricRateProviderTest {
     @Test
     public void shouldSetTimeInLocalDateTime() {
 
-        LocalDate localDate = YearMonth.of(2014, Month.JANUARY).atDay(9);
+        Calendar localDate = new GregorianCalendar(2014, Calendar.JANUARY, 9);
+
         ConversionQuery conversionQuery = ConversionQueryBuilder.of()
                 .setTermCurrency(EURO).set(localDate).build();
         CurrencyConversion currencyConversion = provider

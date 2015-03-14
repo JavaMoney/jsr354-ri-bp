@@ -87,8 +87,11 @@ public final class MonetaryConfig {
                 priorities.put(key, prio);
                 config.put(key, value);
             } else if (existingPrio == prio) {
-                throw new IllegalStateException(
-                        "AmbiguousConfiguration detected for '" + key + "'.");
+                String oldValue = props.getProperty(key);
+                if(!value.equals(oldValue)){
+                    throw new IllegalStateException(
+                            "AmbiguousConfiguration detected for '" + key + "'.");
+                }
             }
             // else ignore entry with lower prio!
         }

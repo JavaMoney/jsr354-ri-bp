@@ -2,7 +2,9 @@ package org.javamoney.moneta.convert.internal;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,7 +40,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Anatole Tresch
  * @author otaviojava
  */
-class RateReadingHandler extends DefaultHandler {
+class ECBRateReader extends DefaultHandler {
     /**
      * Current timestamp for the given section.
      */
@@ -48,7 +50,7 @@ class RateReadingHandler extends DefaultHandler {
 
     private ProviderContext context;
 
-    public RateReadingHandler(Map<String, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
+    public ECBRateReader(Map<String, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
         this.historicRates = historicRates;
         this.context = context;
     }
@@ -58,9 +60,10 @@ class RateReadingHandler extends DefaultHandler {
                              Attributes attributes) throws SAXException {
         if ("Cube".equals(qName)) {
             if (Objects.nonNull(attributes.getValue("time"))) {
-
-                this.localDate = formatLocalDate(attributes.getValue("time"));
-            } else if (Objects.nonNull(attributes.getValue("currency"))) {
+                // <Cube time="2015-03-13">...
+                this.localDate = attributes.getValue("time");
+            }
+            if (Objects.nonNull(attributes.getValue("currency"))) {
                 // read data <Cube currency="USD" rate="1.3349"/>
                 CurrencyUnit tgtCurrency = MonetaryCurrencies
                         .getCurrency(attributes.getValue("currency"));
@@ -69,10 +72,6 @@ class RateReadingHandler extends DefaultHandler {
             }
         }
         super.startElement(uri, localName, qName, attributes);
-    }
-
-    private String formatLocalDate(String time) {
-        return time;
     }
 
     /**
@@ -113,7 +112,8 @@ class RateReadingHandler extends DefaultHandler {
     }
 
     private String nowLocalDate() {
-        return new SimpleDateFormat("ddMMyyyy").format(new Date());
+        // <Cube time="2015-03-13">...
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
 }
