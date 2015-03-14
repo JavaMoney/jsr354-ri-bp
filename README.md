@@ -1,14 +1,10 @@
-JSR 354: Money and Currency Reference Implementation
+JavaMoney Implementation Backport 
 ====================================================
 
 This respoitory contains the Java 7 compatible backport of the reference implementation. We strongly recommend the
-Java 8 based version to be used to enjoy all benefits provided by this JSR.
+Java 8 based version to be used to enjoy all benefits provided by JSR 354.
 
-JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with Money and Currency. 
-This module implements JSR 354 Money & Currency. Hereby basic implementations of amounts, currency and roundings are provided.
-
-See the JCP detail page:
-http://jcp.org/en/jsr/detail?id=354
+The backport is NOT an implementation of JSR 354. Instead, this is a simple backport intended to allow users to use the JSR 354 API on Java SE 6, 7 or similar platforms (ME 8 Embedded, Android,...). The backport should be referred to using the "JavaMoney" project name.
 
 Or the GitHub page:
 http://javamoney.github.io/ri.html
