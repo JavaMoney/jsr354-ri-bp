@@ -52,7 +52,7 @@ public class IMFRateProviderTest {
 
     @Test
     public void shouldReturnsIMFRateProvider() {
-        assertTrue(Objects.nonNull(provider));
+        assertNotNull(provider);
         assertEquals(provider.getClass(), IMFRateProvider.class);
     }
 

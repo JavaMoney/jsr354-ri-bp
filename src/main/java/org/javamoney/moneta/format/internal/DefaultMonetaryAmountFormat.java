@@ -192,10 +192,10 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
         }
         CurrencyUnit unit = ctx.getParsedCurrency();
         Number num = ctx.getParsedNumber();
-        if (Objects.isNull(unit)) {
+        if (unit==null) {
             unit = this.amountFormatContext.get(CurrencyUnit.class);
         }
-        if (Objects.isNull(num)) {
+        if (num==null) {
             throw new MonetaryParseException(text.toString(), -1);
         }
         MonetaryAmountFactory<?> factory = this.amountFormatContext.getParseFactory();
@@ -235,7 +235,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
         } else {
             // split into (potential) plus, minus patterns
             char patternSeparator = ';';
-            if (Objects.nonNull(amountFormatContext.get(DecimalFormatSymbols.class))) {
+            if (amountFormatContext.get(DecimalFormatSymbols.class)!=null) {
                 patternSeparator = amountFormatContext.get(DecimalFormatSymbols.class).getPatternSeparator();
             }
             String[] plusMinusPatterns = pattern.split(String.valueOf(patternSeparator));

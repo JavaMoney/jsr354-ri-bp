@@ -93,7 +93,7 @@ public final class MoneyUtils {
      */
     public static BigDecimal getBigDecimal(Number num, MonetaryContext moneyContext) {
         BigDecimal bd = getBigDecimal(num);
-        if (Objects.nonNull(moneyContext)) {
+        if (moneyContext!=null) {
             return new BigDecimal(bd.toString(), getMathContext(moneyContext, RoundingMode.HALF_EVEN));
         }
         return bd;
@@ -109,7 +109,7 @@ public final class MoneyUtils {
      */
     public static MathContext getMathContext(MonetaryContext monetaryContext, RoundingMode defaultMode) {
         MathContext ctx = monetaryContext.get(MathContext.class);
-        if (Objects.nonNull(ctx)) {
+        if (ctx!=null) {
             return ctx;
         }
         RoundingMode roundingMode = monetaryContext.get(RoundingMode.class);

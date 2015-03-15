@@ -4,7 +4,6 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +36,7 @@ class DefaultMonetaryContextFactory {
         try {
             Map<String, String> config = MonetaryConfig.getConfig();
             String value = config.get("org.javamoney.moneta.Money.defaults.precision");
-            if (Objects.nonNull(value)) {
+            if (value!=null) {
                 return createMonetaryContextNonNullConfig(config, Integer.parseInt(value));
             } else {
                 return createContextWithConfig(config);
@@ -52,7 +51,7 @@ class DefaultMonetaryContextFactory {
     private MonetaryContext createContextWithConfig(Map<String, String> config) {
         MonetaryContextBuilder builder = MonetaryContextBuilder.of(Money.class);
         String value = config.get("org.javamoney.moneta.Money.defaults.mathContext");
-        if (Objects.nonNull(value)) {
+        if (value!=null) {
             switch (value.toUpperCase(Locale.ENGLISH)) {
                 case "DECIMAL32":
                     Logger.getLogger(Money.class.getName()).info(
@@ -89,7 +88,7 @@ class DefaultMonetaryContextFactory {
 
     private MonetaryContext createMonetaryContextNonNullConfig(Map<String, String> config, int prec) {
         String value = config.get("org.javamoney.moneta.Money.defaults.roundingMode");
-        RoundingMode rm = Objects.nonNull(value) ? RoundingMode.valueOf(value
+        RoundingMode rm = value!=null ? RoundingMode.valueOf(value
                 .toUpperCase(Locale.ENGLISH)) : RoundingMode.HALF_UP;
         MonetaryContext mc = MonetaryContextBuilder.of(Money.class).setPrecision(prec).set(rm).set(Money.class).build();
         Logger.getLogger(DefaultMonetaryContextFactory.class.getName()).info("Using custom MathContext: precision=" + prec

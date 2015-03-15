@@ -102,7 +102,7 @@ public class ExchangeRateBuilder {
      */
     public ExchangeRateBuilder setRateChain(ExchangeRate... exchangeRates) {
         this.rateChain.clear();
-        if (Objects.nonNull(exchangeRates)) {
+        if (exchangeRates!=null) {
             this.rateChain.addAll(Arrays.asList(exchangeRates.clone()));
         }
         return this;
@@ -116,7 +116,7 @@ public class ExchangeRateBuilder {
      */
     public ExchangeRateBuilder setRateChain(List<ExchangeRate> exchangeRates) {
         this.rateChain.clear();
-        if (Objects.nonNull(exchangeRates)) {
+        if (exchangeRates!=null) {
             this.rateChain.addAll(exchangeRates);
         }
         return this;

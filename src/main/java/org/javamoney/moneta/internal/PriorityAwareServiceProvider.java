@@ -116,14 +116,14 @@ public class PriorityAwareServiceProvider implements ServiceProvider {
             for (T t : ServiceLoader.load(serviceType)) {
                 services.add(t);
             }
-            services.sort(SERVICE_COMPARATOR);
+            Collections.sort(services, SERVICE_COMPARATOR);
             @SuppressWarnings("unchecked")
             final List<T> previousServices = (List<T>) servicesLoaded.putIfAbsent(serviceType, (List<Object>) services);
             return Collections.unmodifiableList(previousServices != null ? previousServices : services);
         } catch (Exception e) {
             Logger.getLogger(PriorityAwareServiceProvider.class.getName()).log(Level.WARNING,
                     "Error loading services of type " + serviceType, e);
-            services.sort(SERVICE_COMPARATOR);
+            Collections.sort(services, SERVICE_COMPARATOR);
             return services;
         }
     }

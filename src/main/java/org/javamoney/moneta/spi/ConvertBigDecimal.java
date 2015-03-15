@@ -20,7 +20,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -89,8 +88,9 @@ public enum ConvertBigDecimal {
 				result = new BigDecimal(num.toString());
 			} catch (NumberFormatException ignored) {
 			}
-			result = Optional.ofNullable(result).orElse(
-					BigDecimal.valueOf(num.doubleValue()));
+			if(result==null){
+                result = BigDecimal.valueOf(num.doubleValue());
+            }
 			return isScaleZero(result);
 		}
 	};

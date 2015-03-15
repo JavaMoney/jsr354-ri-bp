@@ -54,7 +54,7 @@ final class CurrencyToken implements FormatToken {
     public CurrencyToken(CurrencyStyle style, Locale locale) {
         Objects.requireNonNull(locale, "Locale null");
         this.locale = locale;
-        if (Objects.nonNull(style)) {
+        if (style!=null) {
             this.style = style;
         }
     }
@@ -114,7 +114,7 @@ final class CurrencyToken implements FormatToken {
      */
     private String getCurrencyName(CurrencyUnit currency) {
         Currency jdkCurrency = getCurrency(currency.getCurrencyCode());
-        if (Objects.nonNull(jdkCurrency)) {
+        if (jdkCurrency!=null) {
             return jdkCurrency.getDisplayName(locale);
         }
         return currency.getCurrencyCode();
@@ -147,7 +147,7 @@ final class CurrencyToken implements FormatToken {
      */
     private String getCurrencySymbol(CurrencyUnit currency) {
         Currency jdkCurrency = getCurrency(currency.getCurrencyCode());
-        if (Objects.nonNull(jdkCurrency)) {
+        if (jdkCurrency!=null) {
             return jdkCurrency.getSymbol(locale);
         }
         return currency.getCurrencyCode();
@@ -170,7 +170,7 @@ final class CurrencyToken implements FormatToken {
     public void parse(ParseContext context)
             throws MonetaryParseException {
         String token = context.lookupNextToken();
-        while (Objects.nonNull(token)) {
+        while (token!=null) {
             if (token.trim().isEmpty()) {
                 context.consume(token);
                 token = context.lookupNextToken();
@@ -213,7 +213,7 @@ final class CurrencyToken implements FormatToken {
                 default:
                     throw new UnsupportedOperationException("Not yet implemented");
             }
-            if (Objects.nonNull(cur)) {
+            if (cur!=null) {
                 context.setParsedCurrency(cur);
             }
         } catch (Exception e) {

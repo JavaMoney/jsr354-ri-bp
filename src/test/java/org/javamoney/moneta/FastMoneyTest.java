@@ -259,9 +259,9 @@ public class FastMoneyTest{
         m = FastMoney.of(new BigDecimal(Long.MIN_VALUE).movePointLeft(5), "CHF");
         assertFalse(m.isPositiveOrZero());
         try {
-            assertTrue(m.abs().isPositiveOrZero());
+            assertTrue(m.abs().isPositiveOrZero(), "FastMoney.abs() >= 0 failed for " + m);
         } catch (ArithmeticException e) {
-            // should happen
+            // could happen
         }
     }
 
@@ -553,7 +553,7 @@ public class FastMoneyTest{
         m = FastMoney.of(new BigDecimal(Long.MIN_VALUE).movePointLeft(5), "CHF");
         assertTrue(m.isNegative());
         try {
-            assertFalse(m.negate().isNegative());
+            assertFalse(m.negate().isNegative(), "FastMoney.negate() < 0 failed for " + m);
         } catch (ArithmeticException e) {
             // should happen
         }

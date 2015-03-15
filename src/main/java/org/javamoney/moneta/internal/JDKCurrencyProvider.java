@@ -85,7 +85,7 @@ public class JDKCurrencyProvider extends BaseCurrencyProviderSpi {
 		Currency cur;
 		try {
 			cur = Currency.getInstance(locale);
-			if (Objects.nonNull(cur)) {
+			if (cur!=null) {
 				return CACHED.get(cur.getCurrencyCode());
 			}
 		} catch (Exception e) {

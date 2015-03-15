@@ -42,7 +42,10 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
 
     public DefaultMonetaryAmountsSingletonSpi() {
         for (MonetaryAmountFactoryProviderSpi<?> f : Bootstrap.getServices(MonetaryAmountFactoryProviderSpi.class)) {
-            factories.putIfAbsent(f.getAmountType(), f);
+            MonetaryAmountFactoryProviderSpi<?> factory = factories.get(f.getAmountType());
+            if(factory==null){
+                factories.put(f.getAmountType(), f);
+            }
         }
     }
 
@@ -66,7 +69,7 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
     @Override
     public <T extends MonetaryAmount> MonetaryAmountFactory<T> getAmountFactory(Class<T> amountType) {
         MonetaryAmountFactoryProviderSpi<T> f = MonetaryAmountFactoryProviderSpi.class.cast(factories.get(amountType));
-        if (Objects.nonNull(f)) {
+        if (f!=null) {
             return f.createMonetaryAmountFactory();
         }
         throw new MonetaryException("No matching MonetaryAmountFactory found, type=" + amountType.getName());
@@ -84,7 +87,7 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
      */
     @Override
     public Class<? extends MonetaryAmount> getDefaultAmountType() {
-        if (Objects.isNull(configuredDefaultAmountType)) {
+        if (configuredDefaultAmountType==null) {
             for (MonetaryAmountFactoryProviderSpi<?> f : Bootstrap.getServices(MonetaryAmountFactoryProviderSpi.class)) {
                 if (f.getQueryInclusionPolicy() == MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy.ALWAYS) {
                     configuredDefaultAmountType = f.getAmountType();

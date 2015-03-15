@@ -107,16 +107,18 @@ public class TestRoundingProvider implements RoundingProviderSpi {
         }
         if ("default".equals(roundingId)) {
             CurrencyUnit currency = roundingQuery.getCurrency();
-            if (Objects.nonNull(currency)) {
+            if (currency!=null) {
                 if (currency.getCurrencyCode().equals("XXX")) {
                     if (timestamp != null && timestamp.after(GregorianCalendar.getInstance())) {
                         return minusOneRounding;
                     } else {
                         return zeroRounding;
                     }
-                } else if (Optional.ofNullable(roundingQuery.getBoolean("cashRounding")).orElse(Boolean.FALSE)) {
-                    if (currency.getCurrencyCode().equals("CHF")) {
-                        return chfCashRounding;
+                } else{
+                    if(roundingQuery.getBoolean("cashRounding")!=null && roundingQuery.getBoolean("cashRounding")){
+                        if (currency.getCurrencyCode().equals("CHF")) {
+                            return chfCashRounding;
+                        }
                     }
                 }
             }

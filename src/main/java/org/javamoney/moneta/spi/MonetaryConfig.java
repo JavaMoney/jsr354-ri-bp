@@ -80,7 +80,7 @@ public final class MonetaryConfig {
                 }
             }
             Integer existingPrio = priorities.get(key);
-            if (Objects.isNull(existingPrio)) {
+            if (existingPrio==null) {
                 priorities.put(key, prio);
                 config.put(key, value);
             } else if (existingPrio < prio) {

@@ -16,6 +16,7 @@
 package org.javamoney.moneta.convert;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class ExchangeRateTypeTest {
     public void shouldReturnsECBCurrentRateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider(ExchangeRateType.ECB);
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         assertEquals(ECBCurrentRateProvider.class, prov.getClass());
     }
 
@@ -45,7 +46,7 @@ public class ExchangeRateTypeTest {
     public void shouldReturnsECBHistoricRateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider(ExchangeRateType.ECB_HIST);
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         assertEquals(ECBHistoricRateProvider.class, prov.getClass());
     }
 
@@ -53,7 +54,7 @@ public class ExchangeRateTypeTest {
     public void shouldReturnsECBHistoric90RateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider(ExchangeRateType.ECB_HIST90);
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         assertEquals(ECBHistoric90RateProvider.class, prov.getClass());
     }
 
@@ -61,7 +62,7 @@ public class ExchangeRateTypeTest {
     public void shouldReturnsIMFRateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider(ExchangeRateType.IMF);
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         assertEquals(IMFRateProvider.class, prov.getClass());
     }
 
@@ -69,7 +70,7 @@ public class ExchangeRateTypeTest {
     public void shouldReturnsIdentityRateProvider() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider(ExchangeRateType.IDENTITY);
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         assertEquals(IdentityRateProvider.class, prov.getClass());
     }
 

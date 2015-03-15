@@ -38,7 +38,7 @@ public class MonetaryConversionTest {
     public void testGetExchangeRateDefault() {
         ExchangeRateProvider prov = MonetaryConversions
                 .getExchangeRateProvider();
-        assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
         ExchangeRate rate = prov.getExchangeRate("CHF", "EUR");
         assertNotNull(rate);
     }
@@ -47,7 +47,7 @@ public class MonetaryConversionTest {
 	public void testGetExchangeRateProvider() {
 		ExchangeRateProvider prov = MonetaryConversions
 				.getExchangeRateProvider("ECB");
-		assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
 		assertEquals(ECBCurrentRateProvider.class, prov.getClass());
 	}
 
@@ -55,19 +55,19 @@ public class MonetaryConversionTest {
 	public void testGetExchangeRateProvider_Chained() throws InterruptedException {
 		ExchangeRateProvider prov = MonetaryConversions
 				.getExchangeRateProvider("ECB", "IMF");
-		assertTrue(Objects.nonNull(prov));
+        assertNotNull(prov);
 		assertEquals(CompoundRateProvider.class, prov.getClass());
 		// Test rate provided by IMF (derived)
 		Thread.sleep(5000L); // wait for provider to load...
 		ExchangeRate r = prov.getExchangeRate(
 				MonetaryCurrencies.getCurrency("USD"),
 				MonetaryCurrencies.getCurrency("INR"));
-		assertTrue(Objects.nonNull(r));
+        assertNotNull(r);
 		assertTrue(r.isDerived());
 		// Test rate provided by ECB
 		r = prov.getExchangeRate(MonetaryCurrencies.getCurrency("EUR"),
 				MonetaryCurrencies.getCurrency("CHF"));
-		assertTrue(Objects.nonNull(r));
+        assertNotNull(r);
 		assertFalse(r.isDerived());
 	}
 

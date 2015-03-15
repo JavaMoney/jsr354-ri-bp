@@ -57,7 +57,7 @@ final class AmountNumberToken implements FormatToken {
         formatFormat = (DecimalFormat) DecimalFormat.getInstance(amountFormatContext.get(Locale.class));
         parseFormat = (DecimalFormat) DecimalFormat.getInstance(amountFormatContext.get(Locale.class));
         DecimalFormatSymbols syms = amountFormatContext.get(DecimalFormatSymbols.class);
-        if (Objects.nonNull(syms)) {
+        if (syms!=null) {
             formatFormat.setDecimalFormatSymbols(syms);
             parseFormat.setDecimalFormatSymbols(syms);
         }
@@ -102,7 +102,7 @@ final class AmountNumberToken implements FormatToken {
         if (numberParts.length != 2) {
             appendable.append(preformattedValue);
         } else {
-            if (Objects.isNull(numberGroup)) {
+            if (numberGroup==null) {
                 char[] groupChars = amountFormatContext.get(AmountFormatParams.GROUPING_GROUPING_SEPARATORS, char[].class);
                 if (groupChars == null || groupChars.length == 0) {
                     groupChars = new char[]{this.formatFormat
@@ -135,7 +135,7 @@ final class AmountNumberToken implements FormatToken {
     @Override
     public void parse(ParseContext context) throws MonetaryParseException {
         String token = context.lookupNextToken();
-        if (Objects.nonNull(token) && !context.isComplete()) {
+        if (token!=null && !context.isComplete()) {
             parseToken(context, token);
             if (context.hasError()) {
                 throw new MonetaryParseException(context.getErrorMessage(), context.getInput(), context.getIndex());
@@ -149,7 +149,7 @@ final class AmountNumberToken implements FormatToken {
     private void parseToken(ParseContext context, String token) {
         try {
             Number number = this.parseFormat.parse(token);
-            if (Objects.nonNull(number)) {
+            if (number!=null) {
                 context.setParsedNumber(number);
                 context.consume(token);
             }

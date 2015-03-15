@@ -52,7 +52,7 @@ public class IdentityRateProviderTest {
 
     @Test
     public void shouldReturnsIdentityRateProvider() {
-        assertTrue(Objects.nonNull(provider));
+        assertNotNull(provider);
         assertEquals(provider.getClass(), IdentityRateProvider.class);
     }
 

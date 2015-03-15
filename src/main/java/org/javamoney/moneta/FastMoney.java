@@ -301,7 +301,26 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (amount.isZero()) {
             return this;
         }
-        return new FastMoney(Math.addExact(this.number, getInternalNumber(amount.getNumber(), false)), getCurrency());
+        return new FastMoney(addExact(this.number, getInternalNumber(amount.getNumber(), false)), getCurrency());
+    }
+
+    private long addExact(long num1, long num2) {
+        if(num1==0){
+            return num2;
+        }
+        if(num2==0){
+            return num1;
+        }
+        boolean pos = num1>0 && num2 >0;
+        boolean neg = num1<0 && num2 <0;
+        long exact = num1 + num2;
+        if(pos && exact <=0){
+            throw new ArithmeticException("Long evaluation positive overflow.");
+        }
+        if(neg && exact >=0){
+            throw new ArithmeticException("Long evaluation negative overflow.");
+        }
+        return exact;
     }
 
     private void checkAmountParameter(MonetaryAmount amount) {
@@ -375,8 +394,30 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (isOne(multiplicand)) {
             return this;
         }
-        return new FastMoney(Math.multiplyExact(this.number, getInternalNumber(multiplicand, false)) / 100000L,
+        return new FastMoney(multiplyExact(this.number, getInternalNumber(multiplicand, false)) / 100000L,
                 getCurrency());
+    }
+
+    private long multiplyExact(long num1, long num2) {
+        if(num1==0){
+            return num2;
+        }
+        if(num2==0){
+            return num1;
+        }
+        boolean pos = num1>0 && num2 >0;
+        boolean neg = num1<0 && num2 <0;
+        long exact = num1 * num2;
+        if(pos && exact <=0){
+            throw new ArithmeticException("Long evaluation positive overflow.");
+        }
+        if(neg && exact <=0){
+            throw new ArithmeticException("Long evaluation negative overflow.");
+        }
+        if(!neg && !pos && exact >=0){
+            throw new ArithmeticException("Long negative overflow.");
+        }
+        return exact;
     }
 
     /*
@@ -385,7 +426,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      */
     @Override
     public FastMoney negate() {
-        return new FastMoney(Math.multiplyExact(this.number, -1), getCurrency());
+        return new FastMoney(multiplyExact(this.number, -1), getCurrency());
     }
 
     /*
@@ -397,7 +438,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (this.number >= 0) {
             return this;
         }
-        return new FastMoney(Math.multiplyExact(this.number, -1), getCurrency());
+        return new FastMoney(multiplyExact(this.number, -1), getCurrency());
     }
 
     /*
@@ -410,8 +451,26 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (subtrahend.isZero()) {
             return this;
         }
-        return new FastMoney(Math.subtractExact(this.number, getInternalNumber(subtrahend.getNumber(), false)),
+        return new FastMoney(subtractExact(this.number, getInternalNumber(subtrahend.getNumber(), false)),
                 getCurrency());
+    }
+
+    private long subtractExact(long num1, long num2) {
+        if(num2==0){
+            return num1;
+        }
+        if(num1==num2){
+            return 0;
+        }
+        boolean pos = num1>num2;
+        long exact = num1 - num2;
+        if(pos && exact <=0){
+            throw new ArithmeticException("Long evaluation negative overflow.");
+        }
+        if(!pos && exact >=0){
+            throw new ArithmeticException("Long evaluation positive overflow.");
+        }
+        return exact;
     }
 
     /*
@@ -659,9 +718,12 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
             throw new ArithmeticException("Precision exceeds maximal precision: " + MAX_BD.precision());
         }
         if (bd.scale() > SCALE) {
-            if (Boolean.parseBoolean(MonetaryConfig.getConfig()
-                    .getOrDefault("org.javamoney.moneta.FastMoney.enforceScaleCompatibility",
-                            "false"))) {
+            String val = MonetaryConfig.getConfig()
+                    .get("org.javamoney.moneta.FastMoney.enforceScaleCompatibility");
+            if(val==null){
+                val = "false";
+            }
+            if (Boolean.parseBoolean(val)) {
                 throw new ArithmeticException("Scale of " + bd + " exceeds maximal scale: " + SCALE);
             } else {
                 if (LOG.isLoggable(Level.FINEST)) {
@@ -811,7 +873,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (multiplicand == 0) {
             return new FastMoney(0L, this.currency);
         }
-        return new FastMoney(Math.multiplyExact(multiplicand, this.number), this.currency);
+        return new FastMoney(multiplyExact(multiplicand, this.number), this.currency);
     }
 
     @Override

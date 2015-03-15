@@ -52,7 +52,7 @@ public class ECBCurrentRateProviderTest {
 
     @Test
     public void shouldReturnsECBCurrentRateProvider() {
-        assertTrue(Objects.nonNull(provider));
+        assertNotNull(provider);
         assertEquals(provider.getClass(), ECBCurrentRateProvider.class);
     }
 

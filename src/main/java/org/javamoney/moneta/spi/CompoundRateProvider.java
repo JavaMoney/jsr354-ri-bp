@@ -94,7 +94,7 @@ public class CompoundRateProvider extends AbstractRateProvider {
         for (ExchangeRateProvider prov : this.providers) {
             if (prov.isAvailable(conversionQuery)) {
                 ExchangeRate rate = prov.getExchangeRate(conversionQuery);
-                if (Objects.nonNull(rate)) {
+                if (rate!=null) {
                     return rate;
                 }
             }

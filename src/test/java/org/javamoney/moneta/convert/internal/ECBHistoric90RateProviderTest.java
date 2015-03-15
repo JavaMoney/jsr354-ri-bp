@@ -59,7 +59,7 @@ public class ECBHistoric90RateProviderTest {
 
     @Test
     public void shouldReturnsECBHistoric90RateProvider() {
-        assertTrue(Objects.nonNull(provider));
+        assertNotNull(provider);
         assertEquals(provider.getClass(), ECBHistoric90RateProvider.class);
     }
 

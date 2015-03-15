@@ -88,10 +88,10 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
      * @return the result of the multiplication as {@link NumberValue}
      */
     protected static NumberValue multiply(NumberValue multiplicand, NumberValue multiplier) {
-        if (Objects.isNull(multiplicand)) {
+        if (multiplicand==null) {
             throw new ArithmeticException("The multiplicand cannot be null");
         }
-        if (Objects.isNull(multiplier)) {
+        if (multiplier==null) {
             throw new ArithmeticException("The multiplier cannot be null");
         }
         return new DefaultNumberValue(
@@ -107,10 +107,10 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
      * @return the result of the division as {@link NumberValue}
      */
     protected static NumberValue divide(NumberValue dividend, NumberValue divisor) {
-        if (Objects.isNull(dividend)) {
+        if (dividend==null) {
             throw new ArithmeticException("The dividend cannot be null");
         }
-        if (Objects.isNull(divisor)) {
+        if (divisor==null) {
             throw new ArithmeticException("The divisor cannot be null");
         }
         return new DefaultNumberValue(
@@ -127,10 +127,10 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
      * @return the result of the division as {@link NumberValue}
      */
     protected static NumberValue divide(NumberValue dividend, NumberValue divisor, MathContext context) {
-        if (Objects.isNull(dividend)) {
+        if (dividend==null) {
             throw new ArithmeticException("The dividend cannot be null");
         }
-        if (Objects.isNull(divisor)) {
+        if (divisor==null) {
             throw new ArithmeticException("The divisor cannot be null");
         }
         return new DefaultNumberValue(

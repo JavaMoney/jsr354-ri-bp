@@ -332,14 +332,14 @@ public class LoadableResource {
         } catch (Exception e) {
             LOG.log(Level.INFO, "Failed to load resource input for " + resourceId + " from " + itemToLoad, e);
         } finally {
-            if (Objects.nonNull(is)) {
+            if (is!=null) {
                 try {
                     is.close();
                 } catch (Exception e) {
                     LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
                 }
             }
-            if (Objects.nonNull(bos)) {
+            if (bos!=null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
@@ -365,10 +365,10 @@ public class LoadableResource {
         if (result == null && loadIfNeeded) {
             accessCount.incrementAndGet();
             byte[] currentData = this.data == null ? null : this.data.get();
-            if (Objects.isNull(currentData)) {
+            if (currentData==null) {
                 synchronized (LOCK) {
                     currentData = this.data == null ? null : this.data.get();
-                    if (Objects.isNull(currentData)) {
+                    if (currentData==null) {
                         if (!loadRemote()) {
                             loadFallback();
                         }
@@ -376,7 +376,7 @@ public class LoadableResource {
                 }
             }
             currentData = this.data == null ? null : this.data.get();
-            if (Objects.isNull(currentData)) {
+            if (currentData==null) {
                 throw new IllegalStateException("Failed to load remote as well as fallback resources for " + this);
             }
             return currentData.clone();

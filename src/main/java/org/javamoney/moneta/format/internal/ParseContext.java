@@ -76,7 +76,7 @@ final class ParseContext {
      * @return true, if the item is available.
      */
     public boolean isComplete() {
-        return Objects.nonNull(parsedNumber) && Objects.nonNull(parsedCurrency);
+        return parsedNumber!=null && parsedCurrency!=null;
     }
 
     /**

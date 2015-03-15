@@ -91,7 +91,7 @@ public class DefaultLoaderService implements LoaderService {
         // Cancel any running tasks
         Timer oldTimer = timer;
         timer = new Timer();
-        if (Objects.nonNull(oldTimer)) {
+        if (oldTimer!=null) {
             oldTimer.cancel();
         }
         // (re)initialize
@@ -133,7 +133,7 @@ public class DefaultLoaderService implements LoaderService {
      */
     public void unload(String resourceId) {
         LoadableResource res = this.resources.get(resourceId);
-        if (Objects.nonNull(res)) {
+        if (res!=null) {
             res.unload();
         }
     }
@@ -215,7 +215,7 @@ public class DefaultLoaderService implements LoaderService {
     @Override
     public Map<String, String> getUpdateConfiguration(String resourceId) {
         LoadableResource load = this.resources.get(resourceId);
-        if (Objects.nonNull(load)) {
+        if (load!=null) {
             return load.getProperties();
         }
         return null;
@@ -250,7 +250,7 @@ public class DefaultLoaderService implements LoaderService {
     @Override
     public InputStream getData(String resourceId) throws IOException {
         LoadableResource load = this.resources.get(resourceId);
-        if (Objects.nonNull(load)) {
+        if (load!=null) {
             load.getDataStream();
         }
         throw new IllegalArgumentException("No such resource: " + resourceId);
@@ -291,7 +291,7 @@ public class DefaultLoaderService implements LoaderService {
     @Override
     public boolean loadDataLocal(String resourceId) {
         LoadableResource load = this.resources.get(resourceId);
-        if (Objects.nonNull(load)) {
+        if (load!=null) {
             try {
                 if (load.loadFallback()) {
                     triggerListeners(resourceId, load.getDataStream());
@@ -314,7 +314,7 @@ public class DefaultLoaderService implements LoaderService {
      */
     private boolean loadDataSynch(String resourceId) {
         LoadableResource load = this.resources.get(resourceId);
-        if (Objects.nonNull(load)) {
+        if (load!=null) {
             try {
                 if (load.load()) {
                     triggerListeners(resourceId, load.getDataStream());
@@ -362,7 +362,7 @@ public class DefaultLoaderService implements LoaderService {
                 }
             }
         }
-        if (!(Objects.isNull(dataId) || dataId.isEmpty())) {
+        if (!(dataId==null || dataId.isEmpty())) {
             listeners = getListeners(dataId);
             synchronized (listeners) {
                 for (LoaderListener ll : listeners) {
@@ -408,14 +408,14 @@ public class DefaultLoaderService implements LoaderService {
      * @return the according listeners
      */
     private List<LoaderListener> getListeners(String dataId) {
-        if (Objects.isNull(dataId)) {
+        if (dataId==null) {
             dataId = "";
         }
         List<LoaderListener> listeners = this.listenersMap.get(dataId);
-        if (Objects.isNull(listeners)) {
+        if (listeners==null) {
             synchronized (listenersMap) {
                 listeners = this.listenersMap.get(dataId);
-                if (Objects.isNull(listeners)) {
+                if (listeners==null) {
                     listeners = Collections.synchronizedList(new ArrayList<LoaderListener>());
                     this.listenersMap.put(dataId, listeners);
                 }
@@ -481,7 +481,7 @@ public class DefaultLoaderService implements LoaderService {
             }
         };
         Map<String, String> props = load.getProperties();
-        if (Objects.nonNull(props)) {
+        if (props!=null) {
             String value = props.get("period");
             long periodMS = parseDuration(value);
             value = props.get("delay");
@@ -490,7 +490,7 @@ public class DefaultLoaderService implements LoaderService {
                 timer.scheduleAtFixedRate(task, delayMS, periodMS);
             } else {
                 value = props.get("at");
-                if (Objects.nonNull(value)) {
+                if (value!=null) {
                     List<GregorianCalendar> dates = parseDates(value);
                     for(GregorianCalendar date:dates){
                         timer.schedule(task, date.getTime(), 3_600_000 * 24 /* daily */);
@@ -546,7 +546,7 @@ public class DefaultLoaderService implements LoaderService {
      */
     protected long parseDuration(String value) {
         long periodMS = 0L;
-        if (Objects.nonNull(value)) {
+        if (value!=null) {
             String[] parts = value.split(":");
             for (int i = 0; i < parts.length; i++) {
                 switch (i) {

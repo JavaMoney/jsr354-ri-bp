@@ -153,8 +153,8 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         // Currency January 31, 2013 January 30, 2013 January 29, 2013
         // January 28, 2013 January 25, 2013
         // Euro 1.137520 1.137760 1.143840 1.142570 1.140510
-        List<Calendar> timestamps = null;
-        while (Objects.nonNull(line)) {
+        List<LocalDate> timestamps = null;
+        while (line!=null) {
             if (line.trim().isEmpty()) {
                 line = pr.readLine();
                 continue;
@@ -174,22 +174,22 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
             }
             String[] parts = line.split("\\t");
             CurrencyUnit currency = currenciesByName.get(parts[0]);
-            if (Objects.isNull(currency)) {
+            if (currency==null) {
                 LOGGER.finest("Uninterpretable data from IMF data feed: " + parts[0]);
                 line = pr.readLine();
                 continue;
             }
             Double[] values = parseValues(f, parts);
             for (int i = 0; i < values.length; i++) {
-                if (Objects.isNull(values[i])) {
+                if (values[i]==null) {
                     continue;
                 }
-                Calendar fromTS = timestamps != null ? timestamps.get(i) : null;
+                LocalDate fromTS = timestamps != null ? timestamps.get(i) : null;
                 if (fromTS == null) {
                     continue;
                 }
                 RateType rateType = RateType.HISTORIC;
-                if (fromTS.equals(localDateNow())) {
+                if (fromTS.equals(LocalDate.now())) {
                     rateType = RateType.DEFERRED;
                 }
                 if (currencyToSdr) { // Currency -> SDR
@@ -204,8 +204,10 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                     rates.add(rate);
                 } else { // SDR -> Currency
                     ExchangeRate rate = new ExchangeRateBuilder(
-                            ConversionContextBuilder.create(CONTEXT, rateType).set(fromTS).build())
-                            .setBase(SDR).setTerm(currency).setFactor(DefaultNumberValue.of(1d / values[i])).build();
+                            ConversionContextBuilder.create(CONTEXT, rateType).set(fromTS)
+                                    .set("LocalTime",fromTS.toString()).build())
+                                    .setBase(SDR).setTerm(currency)
+                                    .setFactor(DefaultNumberValue.of(1d / values[i])).build();
                     List<ExchangeRate> rates = newSdrToCurrency.get(currency);
                     if(rates==null){
                         rates = new ArrayList<ExchangeRate>(5);
@@ -233,15 +235,6 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         }
     }
 
-    private String localDateNow() {
-        Calendar date = GregorianCalendar.getInstance();
-        date.set(Calendar.HOUR, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        return formatLocalDate(date);
-    }
-
     private Double[] parseValues(NumberFormat f, String[] parts) throws ParseException {
         Double[] result = new Double[parts.length - 1];
         for (int i = 1; i < parts.length; i++) {
@@ -253,16 +246,16 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         return result;
     }
 
-    private List<Calendar> readTimestamps(String line) throws ParseException {
+    private List<LocalDate> readTimestamps(String line) throws ParseException {
         // Currency May 01, 2013 April 30, 2013 April 29, 2013 April 26, 2013
         // April 25, 2013
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
         String[] parts = line.split("\\\t");
-        List<Calendar> dates = new ArrayList<>(parts.length);
+        List<LocalDate> dates = new ArrayList<LocalDate>(parts.length);
         for (int i = 1; i < parts.length; i++) {
             Calendar date = GregorianCalendar.getInstance();
             date.setTime(sdf.parse(parts[i]));
-            dates.add(date);
+            dates.add(LocalDate.from(date));
         }
         return dates;
     }
@@ -278,21 +271,36 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         if (timestamp == null) {
             timestamp = conversionQuery.get(GregorianCalendar.class);
         }
+        ExchangeRate rate1;
+        ExchangeRate rate2;
+        LocalDate localDate;
         if (timestamp == null) {
-            timestamp = conversionQuery.get(Calendar.class);
+            localDate = LocalDate.yesterday();
+            rate1 = lookupRate(currencyToSdr.get(base), localDate);
+            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+            if(rate1==null || rate2==null){
+                localDate = LocalDate.beforeDays(2);
+            }
+            rate1 = lookupRate(currencyToSdr.get(base), localDate);
+            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+            if(rate1==null || rate2==null){
+                localDate = LocalDate.beforeDays(3);
+            }
         }
-        if (timestamp == null) {
+        else{
+            localDate = LocalDate.from(timestamp);
+            rate1 = lookupRate(currencyToSdr.get(base), localDate);
+            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+        }
+        if(rate1==null || rate2==null){
             return null;
         }
-        String localDate = formatLocalDate(timestamp);
-        ExchangeRate rate1 = lookupRate(currencyToSdr.get(base), localDate);
-        ExchangeRate rate2 = lookupRate(sdrToCurrency.get(term), localDate);
         if (base.equals(SDR)) {
             return rate2;
         } else if (term.equals(SDR)) {
             return rate1;
         }
-        if (Objects.isNull(rate1) || Objects.isNull(rate2)) {
+        if (rate1==null || rate2==null) {
             return null;
         }
         ExchangeRateBuilder builder =
@@ -304,16 +312,16 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         return builder.build();
     }
 
-    private ExchangeRate lookupRate(List<ExchangeRate> list, String localDate) {
-        if (Objects.isNull(list)) {
+    private ExchangeRate lookupRate(List<ExchangeRate> list, LocalDate localDate) {
+        if (list==null) {
             return null;
         }
         ExchangeRate found = null;
         for (ExchangeRate rate : list) {
-            if (Objects.isNull(localDate)) {
-                localDate = localDateNow();
+            if (localDate==null) {
+                localDate = LocalDate.now();
             }
-            if (!Objects.isNull(rate)) {
+            if (rate!=null) {
                 return rate;
             }
         }

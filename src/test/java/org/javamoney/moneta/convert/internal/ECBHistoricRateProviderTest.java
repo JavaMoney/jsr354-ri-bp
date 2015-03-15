@@ -58,7 +58,7 @@ public class ECBHistoricRateProviderTest {
 
     @Test
     public void shouldReturnsECBHistoricRateProvider() {
-        assertTrue(Objects.nonNull(provider));
+        Objects.requireNonNull(provider);
         assertEquals(provider.getClass(), ECBHistoricRateProvider.class);
     }
 

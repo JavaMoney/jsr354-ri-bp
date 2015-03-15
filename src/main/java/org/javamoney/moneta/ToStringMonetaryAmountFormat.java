@@ -47,7 +47,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
 
     @Override
     public String queryFrom(MonetaryAmount amount) {
-        if (Objects.isNull(amount)) {
+        if (amount==null) {
             return null;
         }
         return amount.toString();

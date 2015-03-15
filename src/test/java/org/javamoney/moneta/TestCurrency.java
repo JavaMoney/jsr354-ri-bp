@@ -77,7 +77,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
     public static CurrencyUnit of(Currency currency) {
         String key = ISO_NAMESPACE + ':' + currency.getCurrencyCode();
         CurrencyUnit cachedItem = CACHED.get(key);
-        if (Objects.isNull(cachedItem)) {
+        if (cachedItem==null) {
             cachedItem = new JDKCurrencyAdapter(currency);
             CACHED.put(key, cachedItem);
         }
@@ -87,9 +87,9 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
 
     public static CurrencyUnit of(String currencyCode) {
         CurrencyUnit cu = CACHED.get(currencyCode);
-        if (Objects.isNull(cu)) {
+        if (cu==null) {
             Currency cur = Currency.getInstance(currencyCode);
-            if (Objects.nonNull(cur)) {
+            if (cur!=null) {
                 return of(cur);
             }
         }
@@ -176,13 +176,13 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
         }
 
         public CurrencyUnit build(boolean cache) {
-            if (Objects.isNull(currencyCode) || currencyCode.isEmpty()) {
+            if (currencyCode==null || currencyCode.isEmpty()) {
                 throw new IllegalStateException("Can not of TestCurrencyUnit.");
             }
             if (cache) {
                 String key = currencyCode;
                 CurrencyUnit current = CACHED.get(key);
-                if (Objects.isNull(current)) {
+                if (current==null) {
                     current = new TestCurrency(currencyCode, numericCode, defaultFractionDigits);
                     CACHED.put(key, current);
                 }

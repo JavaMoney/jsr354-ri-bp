@@ -118,7 +118,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     private Money(BigDecimal number, CurrencyUnit currency, MonetaryContext monetaryContext) {
         Objects.requireNonNull(currency, "Currency is required.");
         this.currency = currency;
-        if (Objects.nonNull(monetaryContext)) {
+        if (monetaryContext!=null) {
             this.monetaryContext = monetaryContext;
         } else {
             this.monetaryContext = DEFAULT_MONETARY_CONTEXT;

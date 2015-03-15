@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Objects;
+import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.money.CurrencyUnit;
@@ -44,13 +45,13 @@ class ECBRateReader extends DefaultHandler {
     /**
      * Current timestamp for the given section.
      */
-    private String localDate;
+    private LocalDate localDate;
 
-    private final Map<String, Map<String, ExchangeRate>> historicRates;
+    private final Map<LocalDate, Map<String, ExchangeRate>> historicRates;
 
     private ProviderContext context;
 
-    public ECBRateReader(Map<String, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
+    public ECBRateReader(Map<LocalDate, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
         this.historicRates = historicRates;
         this.context = context;
     }
@@ -59,11 +60,11 @@ class ECBRateReader extends DefaultHandler {
     public void startElement(String uri, String localName, String qName,
                              Attributes attributes) throws SAXException {
         if ("Cube".equals(qName)) {
-            if (Objects.nonNull(attributes.getValue("time"))) {
+            if (attributes.getValue("time")!=null) {
                 // <Cube time="2015-03-13">...
-                this.localDate = attributes.getValue("time");
+                this.localDate = parseLocalDate(attributes.getValue("time"));
             }
-            if (Objects.nonNull(attributes.getValue("currency"))) {
+            if (attributes.getValue("currency")!=null) {
                 // read data <Cube currency="USD" rate="1.3349"/>
                 CurrencyUnit tgtCurrency = MonetaryCurrencies
                         .getCurrency(attributes.getValue("currency"));
@@ -74,6 +75,12 @@ class ECBRateReader extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
     }
 
+    private LocalDate parseLocalDate(String date) {
+        // 2015-03-13
+        String[] parts = date.split("-");
+        return new LocalDate(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+    }
+
     /**
      * Method to add a currency exchange rate.
      *
@@ -81,12 +88,12 @@ class ECBRateReader extends DefaultHandler {
      * @param localDate The target day.
      * @param rate      The rate.
      */
-    void addRate(CurrencyUnit term, String localDate, Number rate) {
+    void addRate(CurrencyUnit term, LocalDate localDate, Number rate) {
         RateType rateType = RateType.HISTORIC;
         ExchangeRateBuilder builder;
-        if (Objects.nonNull(localDate)) {
+        if (localDate!=null) {
             // TODO check/test!
-            if (localDate.equals(nowLocalDate())) {
+            if (localDate.equals(LocalDate.now())) {
                 rateType = RateType.DEFERRED;
             }
             builder = new ExchangeRateBuilder(
@@ -99,21 +106,16 @@ class ECBRateReader extends DefaultHandler {
         builder.setFactor(DefaultNumberValue.of(rate));
         ExchangeRate exchangeRate = builder.build();
         Map<String, ExchangeRate> rateMap = this.historicRates.get(localDate);
-        if (Objects.isNull(rateMap)) {
+        if (rateMap==null) {
             synchronized (this.historicRates) {
                 rateMap = this.historicRates.get(localDate);
                 if(rateMap==null) {
-                    rateMap = new ConcurrentHashMap<>();
+                    rateMap = new ConcurrentHashMap<String, ExchangeRate>();
                     this.historicRates.put(localDate, rateMap);
                 }
             }
         }
         rateMap.put(term.getCurrencyCode(), exchangeRate);
-    }
-
-    private String nowLocalDate() {
-        // <Cube time="2015-03-13">...
-        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
 }

@@ -38,9 +38,11 @@ public class GroupMonetarySummaryStatistics {
 
     public GroupMonetarySummaryStatistics accept(MonetaryAmount amount) {
         CurrencyUnit currency = Objects.requireNonNull(amount).getCurrency();
-        groupSummary.putIfAbsent(currency, new DefaultMonetarySummaryStatistics(
-                currency));
-		MonetarySummaryStatistics summary = groupSummary.get(currency);
+        MonetarySummaryStatistics summary = groupSummary.get(currency);
+        if(summary==null){
+            summary = new DefaultMonetarySummaryStatistics(currency);
+            groupSummary.put(currency, summary);
+        }
         summary.accept(amount);
         return this;
     }

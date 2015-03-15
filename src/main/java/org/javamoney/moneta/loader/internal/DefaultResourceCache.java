@@ -63,7 +63,7 @@ public class DefaultResourceCache implements ResourceCache {
             LOG.severe("Error initializing cache dir  " + localDir + ", not writable, resource cache disabled!");
             localDir = null;
         }
-        if (Objects.nonNull(localDir)) {
+        if (localDir!=null) {
             File[] files = localDir.listFiles();
             if (files != null) {
                 for (File file : files) {
@@ -87,7 +87,7 @@ public class DefaultResourceCache implements ResourceCache {
     public void write(String resourceId, byte[] data) {
         try {
             File f = this.cachedResources.get(resourceId);
-            if (Objects.isNull(f)) {
+            if (f==null) {
                 f = new File(localDir, resourceId + SUFFIX);
                 writeFile(f, data);
                 this.cachedResources.put(resourceId, f);
@@ -114,7 +114,7 @@ public class DefaultResourceCache implements ResourceCache {
             bos.flush();
         } finally {
             try {
-                if (Objects.nonNull(bos)) {
+                if (bos!=null) {
                     bos.close();
                 }
             } catch (Exception e2) {
@@ -145,7 +145,7 @@ public class DefaultResourceCache implements ResourceCache {
     @Override
     public byte[] read(String resourceId) {
         File f = this.cachedResources.get(resourceId);
-        if (Objects.isNull(f)) {
+        if (f==null) {
             return null;
         }
         return readFile(f);
@@ -189,7 +189,7 @@ public class DefaultResourceCache implements ResourceCache {
             return null;
         } finally {
             try {
-                if (Objects.nonNull(is)) {
+                if (is!=null) {
                     is.close();
                 }
             } catch (Exception e2) {

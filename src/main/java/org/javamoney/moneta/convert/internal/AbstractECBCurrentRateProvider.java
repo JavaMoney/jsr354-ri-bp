@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.math.MathContext;
 import java.net.MalformedURLException;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -63,7 +62,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
     /**
      * Historic exchange rates, rate timestamp as UTC long.
      */
-    private final Map<String, Map<String, ExchangeRate>> historicRates = new ConcurrentHashMap<>();
+    private final Map<LocalDate, Map<String, ExchangeRate>> historicRates = new ConcurrentHashMap<>();
     /**
      * Parser factory.
      */
@@ -100,33 +99,36 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
         if (historicRates.isEmpty()) {
             return null;
         }
-        Calendar date = query.get(GregorianCalendar.class);
-        if (date == null) {
-            date = GregorianCalendar.getInstance();
-            date.add(GregorianCalendar.DAY_OF_YEAR, -1);
+        LocalDate date;
+        Calendar cal = query.get(GregorianCalendar.class);
+        if(cal==null){
+            cal = query.get(Calendar.class);
         }
-        ExchangeRateBuilder builder = getBuilder(query, date);
+        if(cal==null){
+            date = LocalDate.yesterday();
+        }
+        else{
+            date = LocalDate.from(cal);
+        }
+        Map<String, ExchangeRate> targets = this.historicRates.get(date);
+        if(targets==null){
+            date = LocalDate.beforeDays(2);
+            targets = this.historicRates.get(date);
+        }
+        if(targets==null){
+            date = LocalDate.beforeDays(3);
+            targets = this.historicRates.get(date);
+        }
 
-        Map<String, ExchangeRate> targets = this.historicRates
-                .get(formatDate(date));
-        if (Objects.isNull(targets)) {
+        if (targets==null) {
             return null;
         }
+        ExchangeRateBuilder builder = getBuilder(query, date);
         ExchangeRate sourceRate = targets.get(query.getBaseCurrency()
                 .getCurrencyCode());
         ExchangeRate target = targets
                 .get(query.getCurrency().getCurrencyCode());
         return createExchangeRate(query, builder, sourceRate, target);
-    }
-
-    protected String formatDate(Calendar date) {
-        NumberFormat nf = NumberFormat.getIntegerInstance();
-        nf.setGroupingUsed(false);
-        nf.setMaximumIntegerDigits(2);
-        nf.setMinimumIntegerDigits(2);
-        return date.get(Calendar.YEAR) +
-                "-" + nf.format(date.get(Calendar.MONTH)+1)+
-                "-"+nf.format(date.get(Calendar.DAY_OF_MONTH));
     }
 
     private ExchangeRate createExchangeRate(ConversionQuery query,
@@ -137,7 +139,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
             builder.setFactor(DefaultNumberValue.ONE);
             return builder.build();
         } else if (BASE_CURRENCY_CODE.equals(query.getCurrency().getCurrencyCode())) {
-            if (Objects.isNull(sourceRate)) {
+            if (sourceRate==null) {
                 return null;
             }
             return reverse(sourceRate);
@@ -151,7 +153,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
             ExchangeRate rate2 = getExchangeRate(
                     query.toBuilder().setBaseCurrency(MonetaryCurrencies.getCurrency(BASE_CURRENCY_CODE))
                             .setTermCurrency(query.getCurrency()).build());
-            if (Objects.nonNull(rate1) && Objects.nonNull(rate2)) {
+            if (rate1!=null && rate2!=null) {
                 builder.setFactor(multiply(rate1.getFactor(), rate2.getFactor()));
                 builder.setRateChain(rate1, rate2);
                 return builder.build();
@@ -167,17 +169,17 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
     }
 
 
-    private ExchangeRateBuilder getBuilder(ConversionQuery query, Calendar localDate) {
+    private ExchangeRateBuilder getBuilder(ConversionQuery query, LocalDate localDate) {
         ExchangeRateBuilder builder = new ExchangeRateBuilder(
                 ConversionContextBuilder.create(getContext(), RateType.HISTORIC)
-                        .set(localDate).build());
+                        .set(localDate).set("LocalDate", localDate.toString()).build());
         builder.setBase(query.getBaseCurrency());
         builder.setTerm(query.getCurrency());
         return builder;
     }
 
     private ExchangeRate reverse(ExchangeRate rate) {
-        if (Objects.isNull(rate)) {
+        if (rate==null) {
             throw new IllegalArgumentException("Rate null is not reversable.");
         }
         return new ExchangeRateBuilder(rate).setRate(rate).setBase(rate.getCurrency()).setTerm(rate.getBaseCurrency())
