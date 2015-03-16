@@ -1,2 +1,2 @@
-org.javamoney.moneta.internal.JDKCurrencyProvider
-org.javamoney.moneta.internal.ConfigurableCurrencyUnitProvider
+org.javamoney.moneta.bp.internal.JDKCurrencyProvider
+org.javamoney.moneta.bp.internal.ConfigurableCurrencyUnitProvider
