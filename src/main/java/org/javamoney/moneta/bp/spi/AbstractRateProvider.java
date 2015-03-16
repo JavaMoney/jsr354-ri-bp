@@ -15,15 +15,15 @@
  */
 package org.javamoney.moneta.bp.spi;
 
-import org.javamoney.bp.convert.ConversionContext;
-import org.javamoney.bp.convert.ConversionQuery;
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ProviderContext;
-import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.api.convert.ConversionContext;
+import org.javamoney.bp.api.convert.ConversionQuery;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ProviderContext;
+import org.javamoney.bp.api.convert.RateType;
 import org.javamoney.moneta.bp.spi.base.BaseExchangeRateProvider;
 
-import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.api.NumberValue;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
- * Abstract base class for {@link org.javamoney.bp.convert.ExchangeRateProvider} implementations.
+ * Abstract base class for {@link org.javamoney.bp.api.convert.ExchangeRateProvider} implementations.
  *
  * @author Anatole Tresch
  * @author Werner Keil
@@ -45,7 +45,7 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
     protected final Logger LOGGER = Logger.getLogger(getClass().getName());
 
     /**
-     * The {@link org.javamoney.bp.convert.ConversionContext} of this provider.
+     * The {@link org.javamoney.bp.api.convert.ConversionContext} of this provider.
      */
     private ProviderContext providerContext;
 
@@ -62,7 +62,7 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
     /*
      * (non-Javadoc)
      *
-     * @see org.javamoney.bp.convert.spi.ExchangeRateProviderSpi#getExchangeRateType
+     * @see org.javamoney.bp.api.convert.spi.ExchangeRateProviderSpi#getExchangeRateType
      * ()
      */
     @Override

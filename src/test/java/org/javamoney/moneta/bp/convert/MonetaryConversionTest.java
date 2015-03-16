@@ -22,10 +22,10 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
 
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ExchangeRateProvider;
-import org.javamoney.bp.convert.MonetaryConversions;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ExchangeRateProvider;
+import org.javamoney.bp.api.convert.MonetaryConversions;
 
 import org.javamoney.moneta.bp.internal.convert.ECBCurrentRateProvider;
 import org.javamoney.moneta.bp.spi.CompoundRateProvider;

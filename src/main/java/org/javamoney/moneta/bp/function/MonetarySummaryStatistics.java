@@ -1,7 +1,7 @@
 package org.javamoney.moneta.bp.function;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
 
 /**
  * A state object for collecting statistics such as count, min, max, sum, and

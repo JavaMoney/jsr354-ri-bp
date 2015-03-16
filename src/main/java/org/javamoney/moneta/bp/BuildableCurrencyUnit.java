@@ -15,15 +15,18 @@
  */
 package org.javamoney.moneta.bp;
 
-import org.javamoney.bp.*;
+
+import org.javamoney.bp.api.CurrencyContext;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryException;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Implementation of {@link org.javamoney.bp.CurrencyUnit} that allows to of new instances using a fluent API.
+ * Implementation of {@link org.javamoney.bp.api.CurrencyUnit} that allows to of new instances using a fluent API.
  * Instances created also can be added to the {@link org.javamoney.moneta.bp.internal.ConfigurableCurrencyUnitProvider}
- * singleton, which publishes the instances, so they are visible from the {@link org.javamoney.bp.MonetaryCurrencies}
+ * singleton, which publishes the instances, so they are visible from the {@link org.javamoney.bp.api.MonetaryCurrencies}
  * singleton.
  */
 final class BuildableCurrencyUnit implements CurrencyUnit, Comparable<CurrencyUnit>, Serializable {
@@ -47,7 +50,7 @@ final class BuildableCurrencyUnit implements CurrencyUnit, Comparable<CurrencyUn
     /**
      * THe currency's context.
      */
-    private org.javamoney.bp.CurrencyContext currencyContext;
+    private org.javamoney.bp.api.CurrencyContext currencyContext;
 
     /**
      * Constructor, called from the Builder.

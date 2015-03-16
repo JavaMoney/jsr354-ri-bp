@@ -24,7 +24,7 @@ package org.javamoney.moneta.bp.internal.loader;
  */
 public interface ResourceCache {
     /**
-     * Write the given byte array to the internal store and register it on the
+     * Write the given byte array to the format store and register it on the
      * given resource ID.
      *
      * @param resourceId

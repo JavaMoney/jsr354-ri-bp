@@ -8,8 +8,8 @@
  */
 package org.javamoney.moneta.bp.spi.base;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.format.MonetaryAmountFormat;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.format.MonetaryAmountFormat;
 import java.io.IOException;
 
 /**
@@ -18,15 +18,15 @@ import java.io.IOException;
  * </p>
  * <p>
  * To obtain a <code>MonetaryAmountFormat</code> for a specific locale, including the default
- * locale, call {@link org.javamoney.bp.format.MonetaryFormats#getAmountFormat(java.util.Locale, String...)}.
+ * locale, call {@link org.javamoney.bp.api.format.MonetaryFormats#getAmountFormat(java.util.Locale, String...)}.
  *
- * More complex formatting scenarios can be implemented by registering instances of {@link org.javamoney.bp.spi
+ * More complex formatting scenarios can be implemented by registering instances of {@link org.javamoney.bp.api.spi
  * .MonetaryAmountFormatProviderSpi}.
  * The spi implementation creates new instances of {@link BaseMonetaryAmountFormat} based on the
- * <i>styleId</i> and <i> (arbitrary) attributes</i> passed within the {@link org.javamoney.bp.format.AmountFormatContext}.
+ * <i>styleId</i> and <i> (arbitrary) attributes</i> passed within the {@link org.javamoney.bp.api.format.AmountFormatContext}.
  * </p>
  * <p>In general, do prefer
- * accessing <code>MonetaryAmountFormat</code> instances from the {@link org.javamoney.bp.format.MonetaryFormats} singleton,
+ * accessing <code>MonetaryAmountFormat</code> instances from the {@link org.javamoney.bp.api.format.MonetaryFormats} singleton,
  * instead of instantiating implementations directly, since the <code>MonetaryFormats</code> factory
  * method may return different subclasses or may implement contextual behaviour (in a EE context).
  * If you need to customize the format object, do something like this:
@@ -87,7 +87,7 @@ import java.io.IOException;
 public abstract class BaseMonetaryAmountFormat implements MonetaryAmountFormat{
 
     /**
-     * Formats the given {@link org.javamoney.bp.MonetaryAmount} to a String.
+     * Formats the given {@link org.javamoney.bp.api.MonetaryAmount} to a String.
      *
      * @param amount the amount to format, not {@code null}
      * @return the string printed using the settings of this formatter

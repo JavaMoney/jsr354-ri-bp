@@ -17,7 +17,7 @@ package org.javamoney.moneta.bp.internal.loader;
 
 import org.javamoney.moneta.bp.spi.LoaderService;
 
-import org.javamoney.bp.spi.Bootstrap;
+import org.javamoney.bp.api.spi.Bootstrap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -42,8 +42,8 @@ import java.util.logging.Logger;
  * This class provides a mechanism to register resources, that may be updated
  * regularly. The implementation, based on the {@link UpdatePolicy}
  * loads/updates the resources from arbitrary locations and stores it to the
- * internal file cache. Default loading tasks can be configured within the javamoney.properties
- * file, @see org.javamoney.moneta.loader.internal.LoaderConfigurator .
+ * format file cache. Default loading tasks can be configured within the javamoney.properties
+ * file, @see org.javamoney.moneta.loader.format.LoaderConfigurator .
  * <p/>
  *
  * @author Anatole Tresch

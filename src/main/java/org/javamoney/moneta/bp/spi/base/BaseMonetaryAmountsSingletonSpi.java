@@ -8,39 +8,39 @@
  */
 package org.javamoney.moneta.bp.spi.base;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryAmountFactory;
-import org.javamoney.bp.spi.MonetaryAmountsSingletonSpi;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.spi.MonetaryAmountsSingletonSpi;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
- * SPI (core) for the backing implementation of the {@link org.javamoney.bp.MonetaryAmounts} singleton. It
+ * SPI (core) for the backing implementation of the {@link org.javamoney.bp.api.MonetaryAmounts} singleton. It
  * should load and manage (including contextual behavior), if needed) the different registered
- * {@link org.javamoney.bp.MonetaryAmountFactory} instances.
+ * {@link org.javamoney.bp.api.MonetaryAmountFactory} instances.
  *
  * @author Anatole Tresch
  */
 public abstract class BaseMonetaryAmountsSingletonSpi implements MonetaryAmountsSingletonSpi{
 
     /**
-     * Access the default {@link org.javamoney.bp.MonetaryAmountFactory}.
+     * Access the default {@link org.javamoney.bp.api.MonetaryAmountFactory}.
      *
-     * @return a the default {@link org.javamoney.bp.MonetaryAmount} type corresponding, never {@code null}.
-     * @throws org.javamoney.bp.MonetaryException if no {@link org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi} is available, or no
-     *                           {@link org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi} targeting the configured default
-     *                           {@link org.javamoney.bp.MonetaryAmount} type.
-     * @see org.javamoney.bp.MonetaryAmounts#getDefaultAmountType()
+     * @return a the default {@link org.javamoney.bp.api.MonetaryAmount} type corresponding, never {@code null}.
+     * @throws org.javamoney.bp.api.MonetaryException if no {@link org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi} is available, or no
+     *                           {@link org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi} targeting the configured default
+     *                           {@link org.javamoney.bp.api.MonetaryAmount} type.
+     * @see org.javamoney.bp.api.MonetaryAmounts#getDefaultAmountType()
      */
     public MonetaryAmountFactory<?> getDefaultAmountFactory(){
         return getAmountFactory(getDefaultAmountType());
     }
 
     /**
-     * Get the currently registered {@link org.javamoney.bp.MonetaryAmount} implementation classes.
+     * Get the currently registered {@link org.javamoney.bp.api.MonetaryAmount} implementation classes.
      *
-     * @return the {@link java.util.Set} if registered {@link org.javamoney.bp.MonetaryAmount} implementations, never
+     * @return the {@link java.util.Set} if registered {@link org.javamoney.bp.api.MonetaryAmount} implementations, never
      * {@code null}.
      */
     public Collection<MonetaryAmountFactory<?>> getAmountFactories(){

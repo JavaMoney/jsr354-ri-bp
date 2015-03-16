@@ -18,9 +18,9 @@ package org.javamoney.moneta.bp.convert;
 import org.javamoney.moneta.bp.Money;
 import org.testng.annotations.Test;
 
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.ExchangeRateProvider;
-import org.javamoney.bp.convert.MonetaryConversions;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.ExchangeRateProvider;
+import org.javamoney.bp.api.convert.MonetaryConversions;
 
 import static org.testng.AssertJUnit.assertEquals;
 

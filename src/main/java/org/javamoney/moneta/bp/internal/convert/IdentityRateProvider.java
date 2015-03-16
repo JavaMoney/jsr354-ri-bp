@@ -18,17 +18,17 @@ package org.javamoney.moneta.bp.internal.convert;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 
-import org.javamoney.bp.convert.ConversionQuery;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ProviderContext;
-import org.javamoney.bp.convert.ProviderContextBuilder;
-import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.api.convert.ConversionQuery;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ProviderContext;
+import org.javamoney.bp.api.convert.ProviderContextBuilder;
+import org.javamoney.bp.api.convert.RateType;
 import org.javamoney.moneta.bp.ExchangeRateBuilder;
 import org.javamoney.moneta.bp.spi.AbstractRateProvider;
 import org.javamoney.moneta.bp.spi.DefaultNumberValue;
 
 /**
- * This class implements an {@link org.javamoney.bp.convert.ExchangeRateProvider} that provides exchange rate with factor
+ * This class implements an {@link org.javamoney.bp.api.convert.ExchangeRateProvider} that provides exchange rate with factor
  * one for identical base/term currencies.
  *
  * @author Anatole Tresch
@@ -37,7 +37,7 @@ import org.javamoney.moneta.bp.spi.DefaultNumberValue;
 public class IdentityRateProvider extends AbstractRateProvider {
 
     /**
-     * The {@link org.javamoney.bp.convert.ConversionContext} of this provider.
+     * The {@link org.javamoney.bp.api.convert.ConversionContext} of this provider.
      */
     private static final ProviderContext CONTEXT =
             ProviderContextBuilder.of("IDENT", RateType.OTHER).set("providerDescription", "Identitiy Provider").build();
@@ -77,7 +77,7 @@ public class IdentityRateProvider extends AbstractRateProvider {
      * (non-Javadoc)
 	 *
 	 * @see
-	 * org.javamoney.bp.convert.ExchangeRateProvider#getReversed(org.javamoney.bp.convert
+	 * org.javamoney.bp.api.convert.ExchangeRateProvider#getReversed(org.javamoney.bp.api.convert
 	 * .ExchangeRate)
 	 */
     @Override

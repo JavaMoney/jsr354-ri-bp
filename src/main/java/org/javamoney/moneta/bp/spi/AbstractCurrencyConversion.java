@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.bp.spi;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryOperator;
-import org.javamoney.bp.NumberValue;
-import org.javamoney.bp.convert.ConversionContext;
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.CurrencyConversionException;
-import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.NumberValue;
+import org.javamoney.bp.api.convert.ConversionContext;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.CurrencyConversionException;
+import org.javamoney.bp.api.convert.ExchangeRate;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
@@ -79,7 +79,7 @@ public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.convert.CurrencyConversion#with(org.javamoney.bp.convert.ConversionContext)
+     * @see org.javamoney.bp.api.convert.CurrencyConversion#with(org.javamoney.bp.api.convert.ConversionContext)
      */
     public abstract CurrencyConversion with(ConversionContext conversionContext);
 

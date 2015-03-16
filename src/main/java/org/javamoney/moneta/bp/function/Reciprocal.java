@@ -19,9 +19,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryOperator;
-import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.NumberValue;
 
 /**
  * This class allows to extract the reciprocal value (multiplicative inversion)

@@ -18,14 +18,14 @@ package org.javamoney.moneta.bp.internal;
 import org.javamoney.moneta.bp.RoundedMoney;
 import org.javamoney.moneta.bp.spi.AbstractAmountBuilder;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryContextBuilder;
-import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryContextBuilder;
+import org.javamoney.bp.api.NumberValue;
 import java.math.RoundingMode;
 
 /**
- * Implementation of {@link org.javamoney.bp.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta
+ * Implementation of {@link org.javamoney.bp.api.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta
  * .RoundedMoney}.
  *
  * @author Anatole Tresch
@@ -39,8 +39,8 @@ public class RoundedMoneyAmountBuilder extends AbstractAmountBuilder<RoundedMone
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.moneta.bp.spi.AbstractAmountFactory#of(org.javamoney.bp.CurrencyUnit,
-     * java.lang.Number, org.javamoney.bp.MonetaryContext)
+     * @see org.javamoney.moneta.bp.spi.AbstractAmountFactory#of(org.javamoney.bp.api.CurrencyUnit,
+     * java.lang.Number, org.javamoney.bp.api.MonetaryContext)
      */
     @Override
     protected RoundedMoney create(Number number, CurrencyUnit currency, MonetaryContext monetaryContext) {
@@ -59,7 +59,7 @@ public class RoundedMoneyAmountBuilder extends AbstractAmountBuilder<RoundedMone
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#getAmountType()
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#getAmountType()
      */
     @Override
     public Class<RoundedMoney> getAmountType() {

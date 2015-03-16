@@ -18,7 +18,7 @@ package org.javamoney.moneta.bp.function;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import org.javamoney.bp.*;
+import org.javamoney.bp.api.*;
 
 /**
  * This class allows to extract the major part of a {@link MonetaryAmount}

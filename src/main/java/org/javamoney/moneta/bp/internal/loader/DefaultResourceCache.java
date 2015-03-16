@@ -79,7 +79,7 @@ public class DefaultResourceCache implements ResourceCache {
      * (non-Javadoc)
      *
      * @see
-     * org.javamoney.moneta.loader.internal.ResourceCache#write(java.lang.String
+     * org.javamoney.moneta.loader.format.ResourceCache#write(java.lang.String
      * , byte[])
      */
     @Override
@@ -127,7 +127,7 @@ public class DefaultResourceCache implements ResourceCache {
      * (non-Javadoc)
      *
      * @see
-     * org.javamoney.moneta.loader.internal.ResourceCache#isCached(java.lang
+     * org.javamoney.moneta.loader.format.ResourceCache#isCached(java.lang
      * .String)
      */
     @Override
@@ -139,7 +139,7 @@ public class DefaultResourceCache implements ResourceCache {
      * (non-Javadoc)
      *
      * @see
-     * org.javamoney.moneta.loader.internal.ResourceCache#read(java.lang.String)
+     * org.javamoney.moneta.loader.format.ResourceCache#read(java.lang.String)
      */
     @Override
     public byte[] read(String resourceId) {

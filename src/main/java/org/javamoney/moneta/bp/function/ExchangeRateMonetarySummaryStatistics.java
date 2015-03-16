@@ -17,10 +17,10 @@ package org.javamoney.moneta.bp.function;
 
 import java.util.Objects;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.ExchangeRateProvider;
 
 class ExchangeRateMonetarySummaryStatistics  extends DefaultMonetarySummaryStatistics {
 

@@ -1,10 +1,10 @@
 package org.javamoney.moneta.bp;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.NumberValue;
-import org.javamoney.bp.convert.ConversionContext;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.NumberValue;
+import org.javamoney.bp.api.convert.ConversionContext;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.RateType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Builder for creating new instances of {@link org.javamoney.bp.convert.ExchangeRate}. Note that
+ * Builder for creating new instances of {@link org.javamoney.bp.api.convert.ExchangeRate}. Note that
  * instances of this class are not thread-safe.
  *
  * @author Anatole Tresch
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class ExchangeRateBuilder {
 
     /**
-     * The {@link org.javamoney.bp.convert.ConversionContext}.
+     * The {@link org.javamoney.bp.api.convert.ConversionContext}.
      */
     ConversionContext conversionContext;
     /**
@@ -44,7 +44,7 @@ public class ExchangeRateBuilder {
     /**
      * Sets the exchange rate type
      *
-     * @param rateType the {@link org.javamoney.bp.convert.RateType} contained
+     * @param rateType the {@link org.javamoney.bp.api.convert.RateType} contained
      */
     public ExchangeRateBuilder(String provider, RateType rateType) {
         this(ConversionContext.of(provider, rateType));
@@ -53,7 +53,7 @@ public class ExchangeRateBuilder {
     /**
      * Sets the exchange rate type
      *
-     * @param context the {@link org.javamoney.bp.convert.ConversionContext} to be applied
+     * @param context the {@link org.javamoney.bp.api.convert.ConversionContext} to be applied
      */
     public ExchangeRateBuilder(ConversionContext context) {
         setContext(context);
@@ -62,7 +62,7 @@ public class ExchangeRateBuilder {
     /**
      * Sets the exchange rate type
      *
-     * @param rate the {@link org.javamoney.bp.convert.ExchangeRate} to be applied
+     * @param rate the {@link org.javamoney.bp.api.convert.ExchangeRate} to be applied
      */
     public ExchangeRateBuilder(ExchangeRate rate) {
         setContext(rate.getContext());
@@ -73,9 +73,9 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Sets the base {@link org.javamoney.bp.CurrencyUnit}
+     * Sets the base {@link org.javamoney.bp.api.CurrencyUnit}
      *
-     * @param base to base (source) {@link org.javamoney.bp.CurrencyUnit} to be applied
+     * @param base to base (source) {@link org.javamoney.bp.api.CurrencyUnit} to be applied
      * @return the builder instance
      */
     public ExchangeRateBuilder setBase(CurrencyUnit base) {
@@ -84,9 +84,9 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Sets the terminating (target) {@link org.javamoney.bp.CurrencyUnit}
+     * Sets the terminating (target) {@link org.javamoney.bp.api.CurrencyUnit}
      *
-     * @param term to terminating {@link org.javamoney.bp.CurrencyUnit} to be applied
+     * @param term to terminating {@link org.javamoney.bp.api.CurrencyUnit} to be applied
      * @return the builder instance
      */
     public ExchangeRateBuilder setTerm(CurrencyUnit term) {
@@ -95,9 +95,9 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Sets the {@link org.javamoney.bp.convert.ExchangeRate} chain.
+     * Sets the {@link org.javamoney.bp.api.convert.ExchangeRate} chain.
      *
-     * @param exchangeRates the {@link org.javamoney.bp.convert.ExchangeRate} chain to be applied
+     * @param exchangeRates the {@link org.javamoney.bp.api.convert.ExchangeRate} chain to be applied
      * @return the builder instance
      */
     public ExchangeRateBuilder setRateChain(ExchangeRate... exchangeRates) {
@@ -109,9 +109,9 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Sets the {@link org.javamoney.bp.convert.ExchangeRate} chain.
+     * Sets the {@link org.javamoney.bp.api.convert.ExchangeRate} chain.
      *
-     * @param exchangeRates the {@link org.javamoney.bp.convert.ExchangeRate} chain to be applied
+     * @param exchangeRates the {@link org.javamoney.bp.api.convert.ExchangeRate} chain to be applied
      * @return the builder instance
      */
     public ExchangeRateBuilder setRateChain(List<ExchangeRate> exchangeRates) {
@@ -138,7 +138,7 @@ public class ExchangeRateBuilder {
     /**
      * Sets the provider to be applied.
      *
-     * @param conversionContext the {@link org.javamoney.bp.convert.ConversionContext}, not null.
+     * @param conversionContext the {@link org.javamoney.bp.api.convert.ConversionContext}, not null.
      * @return The builder.
      */
     public ExchangeRateBuilder setContext(ConversionContext conversionContext) {
@@ -148,9 +148,9 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Builds a new instance of {@link org.javamoney.bp.convert.ExchangeRate}.
+     * Builds a new instance of {@link org.javamoney.bp.api.convert.ExchangeRate}.
      *
-     * @return a new instance of {@link org.javamoney.bp.convert.ExchangeRate}.
+     * @return a new instance of {@link org.javamoney.bp.api.convert.ExchangeRate}.
      * @throws IllegalArgumentException if the rate could not be built.
      */
     public ExchangeRate build() {
@@ -158,7 +158,7 @@ public class ExchangeRateBuilder {
     }
 
     /**
-     * Initialize the {@link ExchangeRateBuilder} with an {@link org.javamoney.bp.convert.ExchangeRate}. This is
+     * Initialize the {@link ExchangeRateBuilder} with an {@link org.javamoney.bp.api.convert.ExchangeRate}. This is
      * useful for creating a new rate, reusing some properties from an
      * existing one.
      *

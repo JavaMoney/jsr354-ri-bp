@@ -18,8 +18,8 @@ package org.javamoney.moneta.bp.convert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-import org.javamoney.bp.convert.ExchangeRateProvider;
-import org.javamoney.bp.convert.MonetaryConversions;
+import org.javamoney.bp.api.convert.ExchangeRateProvider;
+import org.javamoney.bp.api.convert.MonetaryConversions;
 
 import org.javamoney.moneta.bp.ExchangeRateType;
 import org.javamoney.moneta.bp.internal.convert.ECBCurrentRateProvider;

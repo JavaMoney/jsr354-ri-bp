@@ -3,7 +3,7 @@ package org.javamoney.moneta.bp.function;
 import static org.javamoney.moneta.bp.function.StreamFactory.BRAZILIAN_REAL;
 import static org.javamoney.moneta.bp.function.StreamFactory.DOLLAR;
 
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyUnit;
 
 import junit.framework.Assert;
 

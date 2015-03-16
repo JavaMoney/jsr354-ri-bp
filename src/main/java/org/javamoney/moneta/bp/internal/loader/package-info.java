@@ -14,6 +14,6 @@
  * the License.
  */
 /**
- * Contains internal loader for updating resources loaded from remote, e.g. current conversion rates.
+ * Contains format loader for updating resources loaded from remote, e.g. current conversion rates.
  */
 package org.javamoney.moneta.bp.internal.loader;

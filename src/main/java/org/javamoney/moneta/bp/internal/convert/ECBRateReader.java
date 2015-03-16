@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.convert.ConversionContextBuilder;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ProviderContext;
-import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.convert.ConversionContextBuilder;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ProviderContext;
+import org.javamoney.bp.api.convert.RateType;
 
 import org.javamoney.moneta.bp.ExchangeRateBuilder;
 import org.javamoney.moneta.bp.spi.DefaultNumberValue;

@@ -15,14 +15,22 @@
  */
 package org.javamoney.moneta.bp;
 
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryContextBuilder;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryException;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryQuery;
+import org.javamoney.bp.api.NumberValue;
+import org.javamoney.bp.api.format.MonetaryAmountFormat;
 import org.javamoney.moneta.bp.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
 import org.javamoney.moneta.bp.internal.FastMoneyAmountBuilder;
 import org.javamoney.moneta.bp.spi.DefaultNumberValue;
 import org.javamoney.moneta.bp.spi.MonetaryConfig;
 import org.javamoney.moneta.bp.spi.MoneyUtils;
-
-import org.javamoney.bp.*;
-import org.javamoney.bp.format.MonetaryAmountFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -157,7 +165,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     /**
      * Creates a new instance os {@link FastMoney}.
      *
-     * @param number   The internal number value
+     * @param number   The format number value
      * @param currency the currency, not null.
      */
     private FastMoney(long number, CurrencyUnit currency) {
@@ -172,7 +180,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      * specific implementation of {@link CurrencyUnit} if desired.
      *
      * @return the currency, never {@code null}
-     * @see org.javamoney.bp.MonetaryAmount#getCurrency()
+     * @see org.javamoney.bp.api.MonetaryAmount#getCurrency()
      */
     @Override
     public CurrencyUnit getCurrency() {
@@ -183,7 +191,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      * Access the {@link MonetaryContext} used by this instance.
      *
      * @return the {@link MonetaryContext} used, never null.
-     * @see org.javamoney.bp.MonetaryAmount#getContext()
+     * @see org.javamoney.bp.api.MonetaryAmount#getContext()
      */
     @Override
     public MonetaryContext getContext() {
@@ -279,7 +287,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#abs()
+     * @see org.javamoney.bp.api.MonetaryAmount#abs()
      */
     @Override
     public FastMoney abs() {
@@ -293,7 +301,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#add(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#add(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public FastMoney add(MonetaryAmount amount) {
@@ -337,7 +345,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
          * (non-Javadoc)
-         * @see org.javamoney.bp.MonetaryAmount#divide(java.lang.Number)
+         * @see org.javamoney.bp.api.MonetaryAmount#divide(java.lang.Number)
          */
     @Override
     public FastMoney divide(Number divisor) {
@@ -353,7 +361,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#divideAndRemainder(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#divideAndRemainder(java.lang.Number)
      */
     @Override
     public FastMoney[] divideAndRemainder(Number divisor) {
@@ -372,7 +380,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#divideToIntegralValue(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#divideToIntegralValue(java.lang.Number)
      */
     @Override
     public FastMoney divideToIntegralValue(Number divisor) {
@@ -422,7 +430,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#negate()
+     * @see org.javamoney.bp.api.MonetaryAmount#negate()
      */
     @Override
     public FastMoney negate() {
@@ -431,7 +439,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#plus()
+     * @see org.javamoney.bp.api.MonetaryAmount#plus()
      */
     @Override
     public FastMoney plus() {
@@ -443,7 +451,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#subtract(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#subtract(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public FastMoney subtract(MonetaryAmount subtrahend) {
@@ -475,7 +483,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#remainder(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#remainder(java.lang.Number)
      */
     @Override
     public FastMoney remainder(Number divisor) {
@@ -499,7 +507,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#scaleByPowerOfTen(int)
+     * @see org.javamoney.bp.api.MonetaryAmount#scaleByPowerOfTen(int)
      */
     @Override
     public FastMoney scaleByPowerOfTen(int n) {
@@ -508,7 +516,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isZero()
      */
     @Override
     public boolean isZero() {
@@ -517,7 +525,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isPositive()
+     * @see org.javamoney.bp.api.MonetaryAmount#isPositive()
      */
     @Override
     public boolean isPositive() {
@@ -526,7 +534,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isPositiveOrZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isPositiveOrZero()
      */
     @Override
     public boolean isPositiveOrZero() {
@@ -535,7 +543,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isNegative()
+     * @see org.javamoney.bp.api.MonetaryAmount#isNegative()
      */
     @Override
     public boolean isNegative() {
@@ -544,7 +552,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isNegativeOrZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isNegativeOrZero()
      */
     @Override
     public boolean isNegativeOrZero() {
@@ -553,7 +561,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getScale()
+     * @see org.javamoney.bp.api.MonetaryAmount#getScale()
      */
     public int getScale() {
         return FastMoney.SCALE;
@@ -561,7 +569,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getPrecision()
+     * @see org.javamoney.bp.api.MonetaryAmount#getPrecision()
      */
     public int getPrecision() {
         return getNumber().numberValue(BigDecimal.class).precision();
@@ -569,7 +577,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
 	/*
      * (non-Javadoc)
-	 * @see org.javamoney.bp.MonetaryAmount#signum()
+	 * @see org.javamoney.bp.api.MonetaryAmount#signum()
 	 */
 
     @Override
@@ -585,7 +593,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThan(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThan(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isLessThan(MonetaryAmount amount) {
@@ -595,7 +603,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThan(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThan(java.lang.Number)
      */
     public boolean isLessThan(Number number) {
         checkNumber(number);
@@ -604,7 +612,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isLessThanOrEqualTo(MonetaryAmount amount) {
@@ -614,7 +622,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThanOrEqualTo(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThanOrEqualTo(java.lang.Number)
      */
     public boolean isLessThanOrEqualTo(Number number) {
         checkNumber(number);
@@ -623,7 +631,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThan(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThan(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isGreaterThan(MonetaryAmount amount) {
@@ -633,7 +641,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThan(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThan(java.lang.Number)
      */
     public boolean isGreaterThan(Number number) {
         checkNumber(number);
@@ -642,7 +650,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount ) #see
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount ) #see
      */
     @Override
     public boolean isGreaterThanOrEqualTo(MonetaryAmount amount) {
@@ -652,7 +660,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThanOrEqualTo(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThanOrEqualTo(java.lang.Number)
      */
     public boolean isGreaterThanOrEqualTo(Number number) {
         checkNumber(number);
@@ -661,7 +669,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isEqualTo(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#isEqualTo(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isEqualTo(MonetaryAmount amount) {
@@ -671,7 +679,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#hasSameNumberAs(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#hasSameNumberAs(java.lang.Number)
      */
     public boolean hasSameNumberAs(Number number) {
         checkNumber(number);
@@ -736,7 +744,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     /*
      * }(non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
+     * @see org.javamoney.bp.api.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
      */
     @Override
     public FastMoney with(MonetaryOperator operator) {
@@ -776,7 +784,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      * @return FastMoney instance
      * @throws NullPointerException
      * @throws NumberFormatException
-     * @throws UnknownCurrencyException
+     * @throws org.javamoney.bp.api.UnknownCurrencyException
      */
     public static FastMoney parse(CharSequence text) {
         return parse(text, DEFAULT_FORMATTER);

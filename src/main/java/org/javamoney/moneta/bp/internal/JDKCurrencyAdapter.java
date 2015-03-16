@@ -19,9 +19,9 @@ import java.io.Serializable;
 import java.util.Currency;
 import java.util.Objects;
 
-import org.javamoney.bp.CurrencyContext;
-import org.javamoney.bp.CurrencyContextBuilder;
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyContext;
+import org.javamoney.bp.api.CurrencyContextBuilder;
+import org.javamoney.bp.api.CurrencyUnit;
 
 /**
  * Default implementation of a {@link CurrencyUnit} based on the using the JDK's
@@ -70,7 +70,7 @@ public final class JDKCurrencyAdapter implements CurrencyUnit, Serializable, Com
      * currencies can have different codes. Also there is no constraint
      * about the formatting of alternate codes, despite they fact that
      * the currency codes must be unique.
-     * @see org.javamoney.bp.CurrencyUnit#getCurrencyCode()
+     * @see org.javamoney.bp.api.CurrencyUnit#getCurrencyCode()
      */
     public String getCurrencyCode() {
         return baseCurrency.getCurrencyCode();

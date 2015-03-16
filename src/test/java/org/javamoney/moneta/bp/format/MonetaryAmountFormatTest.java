@@ -22,10 +22,10 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Locale;
 
-import org.javamoney.bp.MonetaryAmounts;
-import org.javamoney.bp.format.AmountFormatQueryBuilder;
-import org.javamoney.bp.format.MonetaryAmountFormat;
-import org.javamoney.bp.format.MonetaryFormats;
+import org.javamoney.bp.api.MonetaryAmounts;
+import org.javamoney.bp.api.format.AmountFormatQueryBuilder;
+import org.javamoney.bp.api.format.MonetaryAmountFormat;
+import org.javamoney.bp.api.format.MonetaryFormats;
 
 import org.javamoney.moneta.bp.Money;
 import org.testng.annotations.Test;
@@ -38,7 +38,7 @@ public class MonetaryAmountFormatTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.format.MonetaryAmountFormat#format(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.bp.api.format.MonetaryAmountFormat#format(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testFormat() {
@@ -66,7 +66,7 @@ public class MonetaryAmountFormatTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.format.MonetaryAmountFormat#format(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.bp.api.format.MonetaryAmountFormat#format(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testFormatWithBuilder() {
@@ -79,7 +79,7 @@ public class MonetaryAmountFormatTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.format.MonetaryAmountFormat#format(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.bp.api.format.MonetaryAmountFormat#format(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testFormatWithBuilder2() {
@@ -96,7 +96,7 @@ public class MonetaryAmountFormatTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.format.MonetaryAmountFormat#print(java.lang.Appendable, org.javamoney.bp.MonetaryAmount)}
+     * {@link org.javamoney.bp.api.format.MonetaryAmountFormat#print(java.lang.Appendable, org.javamoney.bp.api.MonetaryAmount)}
      * .
      *
      * @throws IOException
@@ -131,7 +131,7 @@ public class MonetaryAmountFormatTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.bp.format.MonetaryAmountFormat#parse(java.lang.CharSequence)}
+     * Test method for {@link org.javamoney.bp.api.format.MonetaryAmountFormat#parse(java.lang.CharSequence)}
      * .
      *
      * @throws ParseException

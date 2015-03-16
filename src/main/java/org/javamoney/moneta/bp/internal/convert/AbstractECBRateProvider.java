@@ -25,15 +25,15 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.convert.ConversionContextBuilder;
-import org.javamoney.bp.convert.ConversionQuery;
-import org.javamoney.bp.convert.CurrencyConversionException;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ProviderContext;
-import org.javamoney.bp.convert.RateType;
-import org.javamoney.bp.spi.Bootstrap;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.convert.ConversionContextBuilder;
+import org.javamoney.bp.api.convert.ConversionQuery;
+import org.javamoney.bp.api.convert.CurrencyConversionException;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ProviderContext;
+import org.javamoney.bp.api.convert.RateType;
+import org.javamoney.bp.api.spi.Bootstrap;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 

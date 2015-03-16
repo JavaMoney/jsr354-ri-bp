@@ -8,35 +8,35 @@
  */
 package org.javamoney.moneta.bp.spi.base;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryAmountFactory;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryCurrencies;
 
 /**
- * Factory for {@link org.javamoney.bp.MonetaryAmount} instances for a given type. It can be accessed, by
+ * Factory for {@link org.javamoney.bp.api.MonetaryAmount} instances for a given type. It can be accessed, by
  * <ul>
- * <li>calling {@link org.javamoney.bp.MonetaryAmount#getFactory()}, returning a {@link BaseMonetaryAmountFactory}
+ * <li>calling {@link org.javamoney.bp.api.MonetaryAmount#getFactory()}, returning a {@link BaseMonetaryAmountFactory}
  * creating amounts of the same implementation type, which also provided the factory instance.</li>
- * <li>calling {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(Class)} accessing a
+ * <li>calling {@link org.javamoney.bp.api.MonetaryAmounts#getAmountFactory(Class)} accessing a
  * {@link BaseMonetaryAmountFactory} for a concrete type <code>Class<T></code>.</li>
- * <li>calling {@link org.javamoney.bp.MonetaryAmounts#getDefaultAmountFactory()} accessing a default
+ * <li>calling {@link org.javamoney.bp.api.MonetaryAmounts#getDefaultAmountFactory()} accessing a default
  * {@link BaseMonetaryAmountFactory}.
  * </ul>
  * <p>
- * Implementations of this interface allow to get {@link org.javamoney.bp.MonetaryAmount} instances providing
+ * Implementations of this interface allow to get {@link org.javamoney.bp.api.MonetaryAmount} instances providing
  * different data as required:
  * <ul>
- * <li>the {@link org.javamoney.bp.CurrencyUnit}, or the corresponding currency code (must be solvable by
- * {@link org.javamoney.bp.MonetaryCurrencies}).</li>
+ * <li>the {@link org.javamoney.bp.api.CurrencyUnit}, or the corresponding currency code (must be solvable by
+ * {@link org.javamoney.bp.api.MonetaryCurrencies}).</li>
  * <li>the number part</li>
- * <li>the {@link org.javamoney.bp.MonetaryContext}</li>
- * <li>by passing any {@link org.javamoney.bp.MonetaryAmount} instance, it is possible to convert an arbitrary amount
+ * <li>the {@link org.javamoney.bp.api.MonetaryContext}</li>
+ * <li>by passing any {@link org.javamoney.bp.api.MonetaryAmount} instance, it is possible to convert an arbitrary amount
  * implementation to the implementation provided by this factory. If the current factory cannot
  * support the precision/scale as required by the current {@link org.javamoney.bp.NumberValue} a
- * {@link org.javamoney.bp.MonetaryException} must be thrown.</li>
+ * {@link org.javamoney.bp.api.MonetaryException} must be thrown.</li>
  * </ul>
- * If not defined a default {@link org.javamoney.bp.MonetaryContext} is used, which can also be configured by adding
+ * If not defined a default {@link org.javamoney.bp.api.MonetaryContext} is used, which can also be configured by adding
  * configuration to a file {@code /javamoney.properties} to the classpath.
  * <p>
  * Hereby the entries. e.g. for a class {@code MyMoney} should start with {@code a.b.MyMoney.ctx}. The entries valid
@@ -59,10 +59,10 @@ import org.javamoney.bp.MonetaryCurrencies;
 public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implements MonetaryAmountFactory<T> {
 
     /**
-     * Sets the {@link org.javamoney.bp.CurrencyUnit} to be used.
+     * Sets the {@link org.javamoney.bp.api.CurrencyUnit} to be used.
      *
      * @param currencyCode the currencyCode of the currency to be used, not {@code null}. The currency code
-     *                     will be resolved using {@link org.javamoney.bp.MonetaryCurrencies#getCurrency(String, String...)}.
+     *                     will be resolved using {@link org.javamoney.bp.api.MonetaryCurrencies#getCurrency(String, String...)}.
      * @return This factory instance, for chaining.
      * @throws org.javamoney.bp.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
      */
@@ -71,7 +71,7 @@ public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implem
     }
 
     /**
-     * Uses an arbitrary {@link org.javamoney.bp.MonetaryAmount} to initialize this factory. Properties reused are:
+     * Uses an arbitrary {@link org.javamoney.bp.api.MonetaryAmount} to initialize this factory. Properties reused are:
      * <ul>
      * <li>CurrencyUnit,</li>
      * <li>Number value,</li>
@@ -80,7 +80,7 @@ public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implem
      *
      * @param amount the amount to be used, not {@code null}.
      * @return this factory instance, for chaining.
-     * @throws org.javamoney.bp.MonetaryException when the {@link org.javamoney.bp.MonetaryContext} implied by {@code amount.getContext()}
+     * @throws org.javamoney.bp.api.MonetaryException when the {@link org.javamoney.bp.api.MonetaryContext} implied by {@code amount.getContext()}
      *                           exceeds the capabilities supported by this factory type.
      */
     public MonetaryAmountFactory<T> setAmount(MonetaryAmount amount) {
@@ -91,10 +91,10 @@ public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implem
     }
 
     /**
-     * Returns the maximal {@link org.javamoney.bp.MonetaryContext} supported, for requests that exceed these maximal
+     * Returns the maximal {@link org.javamoney.bp.api.MonetaryContext} supported, for requests that exceed these maximal
      * capabilities, an {@link ArithmeticException} must be thrown.
      *
-     * @return the maximal {@link org.javamoney.bp.MonetaryContext} supported, never {@code null}
+     * @return the maximal {@link org.javamoney.bp.api.MonetaryContext} supported, never {@code null}
      */
     public MonetaryContext getMaximalMonetaryContext() {
         return getDefaultMonetaryContext();

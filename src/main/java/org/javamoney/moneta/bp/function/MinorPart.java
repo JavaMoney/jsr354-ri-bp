@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryOperator;
 
 /**
  * This class allows to extract the minor part of a {@link MonetaryAmount}

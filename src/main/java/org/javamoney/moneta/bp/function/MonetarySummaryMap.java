@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyUnit;
 
 /**
  * This map is decorator of HashMap that returns an empty Summary when there

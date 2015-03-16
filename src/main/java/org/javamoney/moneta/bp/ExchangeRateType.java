@@ -1,6 +1,6 @@
 package org.javamoney.moneta.bp;
 
-import org.javamoney.bp.convert.ExchangeRateProviderSupplier;
+import org.javamoney.bp.api.convert.ExchangeRateProviderSupplier;
 
 import org.javamoney.moneta.bp.internal.convert.ECBHistoric90RateProvider;
 import org.javamoney.moneta.bp.internal.convert.ECBHistoricRateProvider;

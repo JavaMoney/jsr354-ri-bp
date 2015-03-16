@@ -15,13 +15,24 @@
  */
 package org.javamoney.moneta.bp;
 
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryContextBuilder;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryException;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryQuery;
+import org.javamoney.bp.api.MonetaryRoundings;
+import org.javamoney.bp.api.NumberValue;
+import org.javamoney.bp.api.RoundingQueryBuilder;
 import org.javamoney.moneta.bp.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
 import org.javamoney.moneta.bp.internal.RoundedMoneyAmountBuilder;
 import org.javamoney.moneta.bp.spi.DefaultNumberValue;
 import org.javamoney.moneta.bp.spi.MoneyUtils;
 
-import org.javamoney.bp.*;
-import org.javamoney.bp.format.MonetaryAmountFormat;
+import org.javamoney.bp.api.format.MonetaryAmountFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -282,7 +293,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getCurrency()
+     * @see org.javamoney.bp.api.MonetaryAmount#getCurrency()
      */
     @Override
     public CurrencyUnit getCurrency() {
@@ -321,7 +332,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#divide(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#divide(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public RoundedMoney divide(Number divisor) {
@@ -339,7 +350,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#divideAndRemainder(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#divideAndRemainder(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public RoundedMoney[] divideAndRemainder(Number divisor) {
@@ -358,7 +369,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#divideToIntegralValue(Number) )D
+     * @see org.javamoney.bp.api.MonetaryAmount#divideToIntegralValue(Number) )D
      */
     @Override
     public RoundedMoney divideToIntegralValue(Number divisor) {
@@ -372,7 +383,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#multiply(Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#multiply(Number)
      */
     @Override
     public RoundedMoney multiply(Number multiplicand) {
@@ -390,7 +401,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#negate()
+     * @see org.javamoney.bp.api.MonetaryAmount#negate()
      */
     @Override
     public RoundedMoney negate() {
@@ -404,7 +415,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#plus()
+     * @see org.javamoney.bp.api.MonetaryAmount#plus()
      */
     @Override
     public RoundedMoney plus() {
@@ -418,7 +429,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#subtract(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#subtract(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public RoundedMoney subtract(MonetaryAmount subtrahend) {
@@ -436,7 +447,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#pow(int)
+     * @see org.javamoney.bp.api.MonetaryAmount#pow(int)
      */
     public RoundedMoney pow(int n) {
         MathContext mc = this.monetaryContext.get(MathContext.class);
@@ -449,7 +460,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#ulp()
+     * @see org.javamoney.bp.api.MonetaryAmount#ulp()
      */
     public RoundedMoney ulp() {
         return new RoundedMoney(this.number.ulp(), this.currency, this.rounding);
@@ -457,7 +468,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#remainder(Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#remainder(Number)
      */
     @Override
     public RoundedMoney remainder(Number divisor) {
@@ -471,7 +482,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#scaleByPowerOfTen(int)
+     * @see org.javamoney.bp.api.MonetaryAmount#scaleByPowerOfTen(int)
      */
     @Override
     public RoundedMoney scaleByPowerOfTen(int n) {
@@ -480,7 +491,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isZero()
      */
     @Override
     public boolean isZero() {
@@ -489,7 +500,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isPositive()
+     * @see org.javamoney.bp.api.MonetaryAmount#isPositive()
      */
     @Override
     public boolean isPositive() {
@@ -498,7 +509,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isPositiveOrZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isPositiveOrZero()
      */
     @Override
     public boolean isPositiveOrZero() {
@@ -507,7 +518,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isNegative()
+     * @see org.javamoney.bp.api.MonetaryAmount#isNegative()
      */
     @Override
     public boolean isNegative() {
@@ -516,7 +527,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isNegativeOrZero()
+     * @see org.javamoney.bp.api.MonetaryAmount#isNegativeOrZero()
      */
     @Override
     public boolean isNegativeOrZero() {
@@ -525,7 +536,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#with(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#with(java.lang.Number)
      */
     public RoundedMoney with(Number amount) {
         checkNumber(amount);
@@ -546,7 +557,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#with(CurrencyUnit, java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmount#with(CurrencyUnit, java.lang.Number)
      */
     public RoundedMoney with(CurrencyUnit currency, Number amount) {
         checkNumber(amount);
@@ -555,7 +566,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getScale()
+     * @see org.javamoney.bp.api.MonetaryAmount#getScale()
      */
     public int getScale() {
         return this.number.scale();
@@ -563,7 +574,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getPrecision()
+     * @see org.javamoney.bp.api.MonetaryAmount#getPrecision()
      */
     public int getPrecision() {
         return this.number.precision();
@@ -571,7 +582,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
 	/*
      * (non-Javadoc)
-	 * @see org.javamoney.bp.MonetaryAmount#signum()
+	 * @see org.javamoney.bp.api.MonetaryAmount#signum()
 	 */
 
     @Override
@@ -581,7 +592,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThan(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThan(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isLessThan(MonetaryAmount amount) {
@@ -592,7 +603,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#lessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#lessThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isLessThanOrEqualTo(MonetaryAmount amount) {
@@ -603,7 +614,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThan(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThan(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isGreaterThan(MonetaryAmount amount) {
@@ -614,7 +625,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#greaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount ) #see
+     * @see org.javamoney.bp.api.MonetaryAmount#greaterThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount ) #see
      */
     @Override
     public boolean isGreaterThanOrEqualTo(MonetaryAmount amount) {
@@ -625,7 +636,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isEqualTo(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#isEqualTo(org.javamoney.bp.api.MonetaryAmount)
      */
     @Override
     public boolean isEqualTo(MonetaryAmount amount) {
@@ -636,7 +647,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#isNotEqualTo(org.javamoney.bp.MonetaryAmount)
+     * @see org.javamoney.bp.api.MonetaryAmount#isNotEqualTo(org.javamoney.bp.api.MonetaryAmount)
      */
     public boolean isNotEqualTo(MonetaryAmount amount) {
         MoneyUtils.checkAmountParameter(amount, this.currency);
@@ -646,7 +657,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * }(non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
+     * @see org.javamoney.bp.api.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
      */
     @Override
     public RoundedMoney with(MonetaryOperator operator) {
@@ -680,7 +691,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
      * @return RoundedMoney instance
      * @throws NullPointerException
      * @throws NumberFormatException
-     * @throws UnknownCurrencyException
+     * @throws org.javamoney.bp.api.UnknownCurrencyException
      */
     public static RoundedMoney parse(CharSequence text) {
         return parse(text, DEFAULT_FORMATTER);
@@ -702,7 +713,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * }(non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
+     * @see org.javamoney.bp.api.MonetaryAmount#adjust(org.javamoney.bp.AmountAdjuster)
      */
     @Override
     public <T> T query(MonetaryQuery<T> query) {
@@ -717,7 +728,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
     }
 
     /*
-     * @see org.javamoney.bp.MonetaryAmount#asType(java.lang.Class)
+     * @see org.javamoney.bp.api.MonetaryAmount#asType(java.lang.Class)
      */
     @SuppressWarnings("unchecked")
     public <T> T asType(Class<T> type) {
@@ -753,7 +764,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * }(non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#asType(java.lang.Class, org.javamoney.bp.Rounding)
+     * @see org.javamoney.bp.api.MonetaryAmount#asType(java.lang.Class, org.javamoney.bp.Rounding)
      */
     public <T> T asType(Class<T> type, MonetaryOperator adjuster) {
         RoundedMoney amount = (RoundedMoney) adjuster.apply(this);
@@ -812,7 +823,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmount#getNumber()
+     * @see org.javamoney.bp.api.MonetaryAmount#getNumber()
      */
     @Override
     public NumberValue getNumber() {

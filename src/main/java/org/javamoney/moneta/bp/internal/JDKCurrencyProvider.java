@@ -21,8 +21,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.javamoney.bp.CurrencyQuery;
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyQuery;
+import org.javamoney.bp.api.CurrencyUnit;
 
 /**
  * Default implementation of a {@link CurrencyUnit} based on the using the JDK's
@@ -34,7 +34,7 @@ import org.javamoney.bp.CurrencyUnit;
  */
 public class JDKCurrencyProvider extends BaseCurrencyProviderSpi {
 
-	/** Internal shared cache of {@link org.javamoney.bp.CurrencyUnit} instances. */
+	/** Internal shared cache of {@link org.javamoney.bp.api.CurrencyUnit} instances. */
 	private static final Map<String, CurrencyUnit> CACHED = new HashMap<>();
 
 	public JDKCurrencyProvider() {
@@ -51,9 +51,9 @@ public class JDKCurrencyProvider extends BaseCurrencyProviderSpi {
 
     /**
      * Return a {@link CurrencyUnit} instances matching the given
-     * {@link org.javamoney.bp.CurrencyContext}.
+     * {@link org.javamoney.bp.api.CurrencyContext}.
      *
-     * @param currencyQuery the {@link org.javamoney.bp.CurrencyContext} containing the parameters determining the query. not null.
+     * @param currencyQuery the {@link org.javamoney.bp.api.CurrencyContext} containing the parameters determining the query. not null.
      * @return the corresponding {@link CurrencyUnit}, or null, if no such unit
      * is provided by this provider.
      */

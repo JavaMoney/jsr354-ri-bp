@@ -21,8 +21,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Locale;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryOperator;
 
 /**
  * This class allows to extract the percentage of a {@link MonetaryAmount}

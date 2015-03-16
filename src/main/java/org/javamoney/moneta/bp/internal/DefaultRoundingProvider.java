@@ -15,15 +15,18 @@
  */
 package org.javamoney.moneta.bp.internal;
 
-import org.javamoney.bp.*;
-import org.javamoney.bp.spi.RoundingProviderSpi;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryRounding;
+import org.javamoney.bp.api.MonetaryRoundings;
+import org.javamoney.bp.api.RoundingQuery;
+import org.javamoney.bp.api.spi.RoundingProviderSpi;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * Defaulr implementation of a {@link org.javamoney.bp.spi.RoundingProviderSpi} that creates instances of {@link org
- * .javamoney.moneta.internal.DefaultRounding} that relies on the default fraction units defined by {@link java.util
+ * Defaulr implementation of a {@link org.javamoney.bp.api.spi.RoundingProviderSpi} that creates instances of {@link org
+ * .javamoney.moneta.format.DefaultRounding} that relies on the default fraction units defined by {@link java.util
  * .Currency#getDefaultFractionDigits()}.
  */
 public class DefaultRoundingProvider implements RoundingProviderSpi {

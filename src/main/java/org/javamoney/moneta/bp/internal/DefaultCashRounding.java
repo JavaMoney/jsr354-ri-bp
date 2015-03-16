@@ -15,14 +15,19 @@
  */
 package org.javamoney.moneta.bp.internal;
 
-import org.javamoney.bp.*;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryRounding;
+import org.javamoney.bp.api.RoundingContext;
+import org.javamoney.bp.api.RoundingContextBuilder;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
- * Implementation class providing cash rounding {@link org.javamoney.bp.MonetaryOperator}
+ * Implementation class providing cash rounding {@link org.javamoney.bp.api.MonetaryOperator}
  * instances for {@link CurrencyUnit} instances. modeling rounding based on
  * minimal minor units available for cash payments.
  * <p>
@@ -85,7 +90,7 @@ final class DefaultCashRounding implements MonetaryRounding, Serializable {
     }
 
     /**
-     * Creates an {@link MonetaryOperator} for rounding {@link MonetaryAmount}
+     * Creates an {@link org.javamoney.bp.api.MonetaryOperator} for rounding {@link MonetaryAmount}
      * instances given a currency.
      *
      * @param currency The currency, which determines the required precision. As
@@ -99,7 +104,7 @@ final class DefaultCashRounding implements MonetaryRounding, Serializable {
     /*
      * (non-Javadoc)
      *
-     * @see org.javamoney.bp.MonetaryFunction#apply(java.lang.Object)
+     * @see org.javamoney.bp.api.MonetaryFunction#apply(java.lang.Object)
      */
     @Override
     public MonetaryAmount apply(MonetaryAmount value) {

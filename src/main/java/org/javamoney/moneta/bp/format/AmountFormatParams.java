@@ -16,8 +16,8 @@
 package org.javamoney.moneta.bp.format;
 
 /**
- * Class holding constants for passing additional parameters to {@link org.javamoney.bp.MonetaryAmountFactoryQuery}
- * instances for configuring {@link org.javamoney.bp.format.MonetaryAmountFormat} instances to be accessed.
+ * Class holding constants for passing additional parameters to {@link org.javamoney.bp.api.MonetaryAmountFactoryQuery}
+ * instances for configuring {@link org.javamoney.bp.api.format.MonetaryAmountFormat} instances to be accessed.
  */
 public final class AmountFormatParams {
 

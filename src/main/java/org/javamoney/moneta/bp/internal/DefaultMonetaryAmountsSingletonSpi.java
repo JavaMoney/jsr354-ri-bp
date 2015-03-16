@@ -17,20 +17,20 @@ package org.javamoney.moneta.bp.internal;
 
 import org.javamoney.moneta.bp.spi.base.BaseMonetaryAmountsSingletonSpi;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryAmountFactory;
-import org.javamoney.bp.MonetaryException;
-import org.javamoney.bp.spi.Bootstrap;
-import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryException;
+import org.javamoney.bp.api.spi.Bootstrap;
+import org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Default implementation ot {@link org.javamoney.bp.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
+ * Default implementation ot {@link org.javamoney.bp.api.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
  * initially once, using the
- * JSR's {@link org.javamoney.bp.spi.Bootstrap} mechanism.
+ * JSR's {@link org.javamoney.bp.api.spi.Bootstrap} mechanism.
  */
 public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingletonSpi {
 
@@ -82,7 +82,7 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
     /*
      * (non-Javadoc)
      *
-     * @see org.javamoney.bp.spi.MonetaryAmountsSpi#getDefaultAmountType()
+     * @see org.javamoney.bp.api.spi.MonetaryAmountsSpi#getDefaultAmountType()
      */
     @Override
     public Class<? extends MonetaryAmount> getDefaultAmountType() {

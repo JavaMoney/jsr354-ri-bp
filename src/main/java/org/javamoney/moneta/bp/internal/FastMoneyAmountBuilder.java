@@ -17,15 +17,15 @@ package org.javamoney.moneta.bp.internal;
 
 import java.math.RoundingMode;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryContextBuilder;
-import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryContextBuilder;
+import org.javamoney.bp.api.NumberValue;
 import org.javamoney.moneta.bp.FastMoney;
 import org.javamoney.moneta.bp.spi.AbstractAmountBuilder;
 
 /**
- * Implementation of {@link org.javamoney.bp.MonetaryAmountFactory} creating instances of {@link FastMoney}.
+ * Implementation of {@link org.javamoney.bp.api.MonetaryAmountFactory} creating instances of {@link FastMoney}.
  *
  * @author Anatole Tresch
  */

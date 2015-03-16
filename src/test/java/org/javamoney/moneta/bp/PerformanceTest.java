@@ -17,10 +17,10 @@ package org.javamoney.moneta.bp;
 
 import java.math.BigDecimal;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.MonetaryRoundings;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryRoundings;
 
 import org.testng.annotations.Test;
 

@@ -15,21 +15,21 @@
  */
 package org.javamoney.moneta.bp.spi;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryAmountFactory;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryContextBuilder;
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryContextBuilder;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryException;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Basic implementation of {@link org.javamoney.bp.MonetaryAmountFactory}, which simplifies development of the SPI interface.
+ * Basic implementation of {@link org.javamoney.bp.api.MonetaryAmountFactory}, which simplifies development of the SPI interface.
  *
- * @param <T> the target class implementing {@link org.javamoney.bp.MonetaryAmount}.
+ * @param <T> the target class implementing {@link org.javamoney.bp.api.MonetaryAmount}.
  */
 public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements MonetaryAmountFactory<T> {
 
@@ -77,7 +77,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#withCurrency(org.javamoney.bp.CurrencyUnit)
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#withCurrency(org.javamoney.bp.api.CurrencyUnit)
      */
     @Override
     public MonetaryAmountFactory<T> setCurrency(CurrencyUnit currency) {
@@ -88,7 +88,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#with(java.lang.Number)
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#with(java.lang.Number)
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(Number number) {
@@ -98,7 +98,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#withCurrency(java.lang.String)
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#withCurrency(java.lang.String)
      */
     @Override
     public MonetaryAmountFactory<T> setCurrency(String currencyCode) {
@@ -107,7 +107,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
     }
 
     /**
-     * Creates a new instance of {@link org.javamoney.bp.MonetaryAmounts}, using the default {@link MonetaryContext}.
+     * Creates a new instance of {@link org.javamoney.bp.api.MonetaryAmounts}, using the default {@link MonetaryContext}.
      *
      * @param number numeric value.
      * @return a {@code Money} combining the numeric value and currency unit.
@@ -123,7 +123,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#with(long)
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#with(long)
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(long number) {
@@ -133,7 +133,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.bp.MonetaryAmountFactory#with(org.javamoney.bp.MonetaryContext)
+     * @see org.javamoney.bp.api.MonetaryAmountFactory#with(org.javamoney.bp.api.MonetaryContext)
      */
     @Override
     public MonetaryAmountFactory<T> setContext(MonetaryContext monetaryContext) {

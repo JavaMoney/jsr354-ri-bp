@@ -14,8 +14,8 @@
  * the License.
  */
 /**
- * Contains internal artifacts implementing {@link org.javamoney.bp.spi.CurrencyProviderSpi},
- * {@link org.javamoney.bp.MonetaryAmountFactory},
- * {@link org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi} and {@link org.javamoney.bp.spi.RoundingProviderSpi}.
+ * Contains format artifacts implementing {@link org.javamoney.bp.api.spi.CurrencyProviderSpi},
+ * {@link org.javamoney.bp.api.MonetaryAmountFactory},
+ * {@link org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi} and {@link org.javamoney.bp.api.spi.RoundingProviderSpi}.
  */
 package org.javamoney.moneta.bp.internal;

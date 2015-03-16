@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.bp.internal;
 
-import org.javamoney.bp.*;
+import org.javamoney.bp.api.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
- * Implementation class providing rounding {@link org.javamoney.bp.MonetaryOperator} instances
+ * Implementation class providing rounding {@link org.javamoney.bp.api.MonetaryOperator} instances
  * for {@link CurrencyUnit} instances. modeling rounding based on standard JDK
  * math, a scale and {@link RoundingMode}.
  * <p>
@@ -79,7 +79,7 @@ final class DefaultRounding implements MonetaryRounding, Serializable {
     /*
      * (non-Javadoc)
      *
-     * @see org.javamoney.bp.MonetaryFunction#apply(java.lang.Object)
+     * @see org.javamoney.bp.api.MonetaryFunction#apply(java.lang.Object)
      */
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {

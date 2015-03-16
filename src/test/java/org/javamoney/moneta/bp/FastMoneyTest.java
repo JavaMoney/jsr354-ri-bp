@@ -15,6 +15,11 @@
  */
 package org.javamoney.moneta.bp;
 
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryQuery;
 import org.javamoney.moneta.bp.FastMoney;
 import org.javamoney.moneta.bp.Money;
 import org.testng.annotations.Test;
@@ -43,7 +48,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#of(java.lang.Number, org.javamoney.bp.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.bp.FastMoney#of(java.lang.Number, org.javamoney.bp.api.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitBigDecimal(){
@@ -120,7 +125,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#of(java.lang.Number, org.javamoney.bp.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.bp.FastMoney#of(java.lang.Number, org.javamoney.bp.api.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitNumber(){
@@ -219,7 +224,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#compareTo(org.javamoney.bp.MonetaryAmount)}
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#compareTo(org.javamoney.bp.api.MonetaryAmount)}
      * .
      */
     @Test
@@ -268,7 +273,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#add(org.javamoney.bp.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#add(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testAdd(){
@@ -573,7 +578,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#subtract(org.javamoney.bp.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#subtract(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testSubtract(){
@@ -771,7 +776,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#getFactory()#setCurrency(org.javamoney.bp.CurrencyUnit)} and {@link org
+     * {@link org.javamoney.moneta.bp.FastMoney#getFactory()#setCurrency(org.javamoney.bp.api.CurrencyUnit)} and {@link org
      * .javamoney.moneta.FastMoney#getFactory()#setNumber(java.lang.Number)}  .
      */
     @Test
@@ -928,7 +933,7 @@ public class FastMoneyTest{
 
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#isLessThan(org.javamoney.bp.MonetaryAmount)}
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#isLessThan(org.javamoney.bp.api.MonetaryAmount)}
      * .
      */
     @Test
@@ -944,7 +949,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#isLessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.bp.FastMoney#isLessThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testIsLessThanOrEqualTo(){
@@ -960,7 +965,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#isGreaterThan(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.bp.FastMoney#isGreaterThan(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testIsGreaterThan(){
@@ -976,7 +981,7 @@ public class FastMoneyTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.bp.FastMoney#isGreaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.bp.FastMoney#isGreaterThanOrEqualTo(org.javamoney.bp.api.MonetaryAmount)} .
      */
     @Test
     public void testIsGreaterThanOrEqualTo(){
@@ -991,7 +996,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#isEqualTo(org.javamoney.bp.MonetaryAmount)}
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#isEqualTo(org.javamoney.bp.api.MonetaryAmount)}
      * .
      */
     @Test
@@ -1020,7 +1025,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#query(org.javamoney.bp.MonetaryQuery)}.
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#query(org.javamoney.bp.api.MonetaryQuery)}.
      */
     @Test
     public void testQuery(){
@@ -1077,7 +1082,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#with(org.javamoney.bp.MonetaryOperator)} .
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#with(org.javamoney.bp.api.MonetaryOperator)} .
      */
     @Test
     public void testWithMonetaryOperator(){
@@ -1107,7 +1112,7 @@ public class FastMoneyTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.FastMoney#from(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.FastMoney#from(org.javamoney.bp.api.MonetaryAmount)}.
      */
     @Test
     public void testFrom(){
@@ -1141,7 +1146,7 @@ public class FastMoneyTest{
 	}
 
     /**
-     * Test method for {@link org.javamoney.moneta.bp.Money#from(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#from(org.javamoney.bp.api.MonetaryAmount)}.
      */
     @Test
     public void testFromInversed(){

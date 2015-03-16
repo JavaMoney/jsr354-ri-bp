@@ -17,14 +17,14 @@ package org.javamoney.moneta.bp.internal;
 
 import org.javamoney.moneta.bp.spi.base.BaseCurrencyProviderSpi;
 
-import org.javamoney.bp.CurrencyQuery;
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyQuery;
+import org.javamoney.bp.api.CurrencyUnit;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class provides a programmatic singleton for globally registering new {@link java.util.Currency}  into the
- * {@link org.javamoney.bp.MonetaryCurrencies} singleton either by currency code, locale, or both.
+ * {@link org.javamoney.bp.api.MonetaryCurrencies} singleton either by currency code, locale, or both.
  */
 public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
     /**
@@ -39,9 +39,9 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
 
     /**
      * Return a {@link CurrencyUnit} instances matching the given
-     * {@link org.javamoney.bp.CurrencyContext}.
+     * {@link org.javamoney.bp.api.CurrencyContext}.
      *
-     * @param currencyQuery the {@link org.javamoney.bp.CurrencyQuery} containing the parameters determining the query. not null.
+     * @param currencyQuery the {@link org.javamoney.bp.api.CurrencyQuery} containing the parameters determining the query. not null.
      * @return the corresponding {@link CurrencyUnit}, or null, if no such unit
      * is provided by this provider.
      */

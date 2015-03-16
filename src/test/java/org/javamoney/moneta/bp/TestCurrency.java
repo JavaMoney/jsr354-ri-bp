@@ -15,9 +15,9 @@
  */
 package org.javamoney.moneta.bp;
 
-import org.javamoney.bp.CurrencyContext;
-import org.javamoney.bp.CurrencyContextBuilder;
-import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.api.CurrencyContext;
+import org.javamoney.bp.api.CurrencyContextBuilder;
+import org.javamoney.bp.api.CurrencyUnit;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

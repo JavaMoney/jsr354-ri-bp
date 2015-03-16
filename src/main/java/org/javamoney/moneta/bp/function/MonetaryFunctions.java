@@ -18,11 +18,11 @@ package org.javamoney.moneta.bp.function;
 import java.util.Comparator;
 import java.util.Objects;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryException;
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryException;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.bp.spi.MoneyUtils;
 
@@ -128,7 +128,7 @@ public final class MonetaryFunctions {
 //    /**
 //	 * Create predicate that filters by CurrencyUnit.
 //	 * @param currencies
-//	 *            the target {@link org.javamoney.bp.CurrencyUnit}
+//	 *            the target {@link org.javamoney.bp.api.CurrencyUnit}
 //	 * @return the predicate from CurrencyUnit
 //	 */
 //	public static Predicate<MonetaryAmount> isCurrency(
@@ -152,7 +152,7 @@ public final class MonetaryFunctions {
 //
 //    /**
 //     * Create predicate that filters by CurrencyUnit.
-//     * @param currencyUnit the target {@link org.javamoney.bp.CurrencyUnit}
+//     * @param currencyUnit the target {@link org.javamoney.bp.api.CurrencyUnit}
 //     * @return the predicate from CurrencyUnit
 //     */
 //	public static Predicate<MonetaryAmount> filterByExcludingCurrency(

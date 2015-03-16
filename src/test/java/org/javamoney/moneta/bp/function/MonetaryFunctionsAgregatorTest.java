@@ -12,10 +12,10 @@
 //import java.util.Map;
 //import java.util.stream.Stream;
 //
-//import org.javamoney.bp.CurrencyUnit;
-//import org.javamoney.bp.MonetaryAmount;
-//import org.javamoney.bp.MonetaryException;
-//import org.javamoney.bp.convert.ExchangeRateProvider;
+//import org.javamoney.bp.api.CurrencyUnit;
+//import org.javamoney.bp.api.MonetaryAmount;
+//import org.javamoney.bp.api.MonetaryException;
+//import org.javamoney.bp.api.convert.ExchangeRateProvider;
 //
 //import org.javamoney.moneta.bp.Money;
 //import org.testng.Assert;

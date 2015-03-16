@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.NumberValue;
-import org.javamoney.bp.convert.ConversionContext;
-import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.NumberValue;
+import org.javamoney.bp.api.convert.ConversionContext;
+import org.javamoney.bp.api.convert.ExchangeRate;
 
 /**
  * This class models an exchange rate, which defines the factor the numeric value of a base amount in some currency
@@ -31,7 +31,7 @@ import org.javamoney.bp.convert.ExchangeRate;
  * to get the corresponding amount in the terminating currency 'B'. Hereby
  * <ul>
  * <li>an exchange rate always models one rate from a base (source) to a term
- * (target) {@link org.javamoney.bp.CurrencyUnit}.</li>
+ * (target) {@link org.javamoney.bp.api.CurrencyUnit}.</li>
  * <li>an exchange rate is always bound to a rate type, which typically matches
  * the data source of the conversion data, e.g. different credit card providers
  * may use different rates for the same conversion.</li>
@@ -48,7 +48,7 @@ import org.javamoney.bp.convert.ExchangeRate;
  * overall factor, by multiplying the individual chain rate factors. Of course,
  * this also requires that each subsequent rate's base currency in the chain
  * does match the previous term currency (and vice versa):</li>
- * <li>Whereas the factor should be directly implied by the internal rate chain
+ * <li>Whereas the factor should be directly implied by the format rate chain
  * for derived rates, this is obviously not the case for the validity range,
  * since rates can have a undefined validity range. Nevertheless in many cases
  * also the validity range can (but must not) be derived from the rate chain.</li>
@@ -56,7 +56,7 @@ import org.javamoney.bp.convert.ExchangeRate;
  * where the reciprocal value of {@link #factor} matches the correct reverse
  * rate. But in most use cases the reverse rate either has a different rate (not
  * equal to the reciprocal value), or might not be defined at all. Therefore for
- * reversing a ExchangeRate one must access an {@link org.javamoney.bp.convert.ExchangeRateProvider} and
+ * reversing a ExchangeRate one must access an {@link org.javamoney.bp.api.convert.ExchangeRateProvider} and
  * query for the reverse rate.</li>
  * </ul>
  * <p>
@@ -73,10 +73,10 @@ import org.javamoney.bp.convert.ExchangeRate;
  * exchange rates are {@link java.io.Serializable}, hereby serializing in the following
  * form and order:
  * <ul>
- * <li>The base {@link org.javamoney.bp.CurrencyUnit}
- * <li>The target {@link org.javamoney.bp.CurrencyUnit}
+ * <li>The base {@link org.javamoney.bp.api.CurrencyUnit}
+ * <li>The target {@link org.javamoney.bp.api.CurrencyUnit}
  * <li>The factor (NumberValue)
- * <li>The {@link org.javamoney.bp.convert.ConversionContext}
+ * <li>The {@link org.javamoney.bp.api.convert.ConversionContext}
  * <li>The rate chain
  * </ul>
  *
@@ -105,7 +105,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      */
     private final NumberValue factor;
     /**
-     * The {@link org.javamoney.bp.convert.ConversionContext}
+     * The {@link org.javamoney.bp.api.convert.ConversionContext}
      */
     private final ConversionContext conversionContext;
     /**
@@ -154,7 +154,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
     }
 
     /**
-     * Access the {@link org.javamoney.bp.convert.ConversionContext} of {@link org.javamoney.bp.convert.ExchangeRate}.
+     * Access the {@link org.javamoney.bp.api.convert.ConversionContext} of {@link org.javamoney.bp.api.convert.ExchangeRate}.
      *
      * @return the conversion context, never null.
      */
@@ -163,18 +163,18 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
     }
 
     /**
-     * Get the base (source) {@link org.javamoney.bp.CurrencyUnit}.
+     * Get the base (source) {@link org.javamoney.bp.api.CurrencyUnit}.
      *
-     * @return the base {@link org.javamoney.bp.CurrencyUnit}.
+     * @return the base {@link org.javamoney.bp.api.CurrencyUnit}.
      */
     public final CurrencyUnit getBaseCurrency() {
         return this.base;
     }
 
     /**
-     * Get the term (target) {@link org.javamoney.bp.CurrencyUnit}.
+     * Get the term (target) {@link org.javamoney.bp.api.CurrencyUnit}.
      *
-     * @return the term {@link org.javamoney.bp.CurrencyUnit}.
+     * @return the term {@link org.javamoney.bp.api.CurrencyUnit}.
      */
     public final CurrencyUnit getCurrency() {
         return this.term;

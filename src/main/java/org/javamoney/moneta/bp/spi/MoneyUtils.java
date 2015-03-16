@@ -15,10 +15,10 @@
  */
 package org.javamoney.moneta.bp.spi;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;

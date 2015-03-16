@@ -15,22 +15,22 @@
  */
 package org.javamoney.moneta.bp.internal;
 
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryAmountFactory;
-import org.javamoney.bp.MonetaryAmountFactoryQuery;
-import org.javamoney.bp.MonetaryContext;
-import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryAmountFactoryQuery;
+import org.javamoney.bp.api.MonetaryContext;
+import org.javamoney.bp.api.MonetaryException;
 import org.javamoney.moneta.bp.spi.base.BaseMonetaryAmountsSingletonQuerySpi;
 
-import org.javamoney.bp.spi.Bootstrap;
-import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
-import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
+import org.javamoney.bp.api.spi.Bootstrap;
+import org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.api.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
 import java.util.*;
 
 /**
- * Default implementation ot {@link org.javamoney.bp.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
+ * Default implementation ot {@link org.javamoney.bp.api.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
  * initially once, using the
- * JSR's {@link org.javamoney.bp.spi.Bootstrap} mechanism.
+ * JSR's {@link org.javamoney.bp.api.spi.Bootstrap} mechanism.
  */
 public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmountsSingletonQuerySpi{
 
@@ -68,7 +68,7 @@ public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmounts
     /**
      * (non-Javadoc)
      *
-     * @see org.javamoney.bp.spi.MonetaryAmountsSingletonQuerySpi#getAmountFactories(org.javamoney.bp.MonetaryAmountFactoryQuery)
+     * @see org.javamoney.bp.api.spi.MonetaryAmountsSingletonQuerySpi#getAmountFactories(org.javamoney.bp.api.MonetaryAmountFactoryQuery)
      */
     @SuppressWarnings("unchecked")
     @Override

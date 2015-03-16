@@ -2,11 +2,11 @@ package org.javamoney.moneta.bp.function;
 
 import org.javamoney.moneta.bp.spi.base.BaseExchangeRateProvider;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.convert.ConversionQuery;
-import org.javamoney.bp.convert.CurrencyConversion;
-import org.javamoney.bp.convert.ExchangeRate;
-import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.convert.ConversionQuery;
+import org.javamoney.bp.api.convert.CurrencyConversion;
+import org.javamoney.bp.api.convert.ExchangeRate;
+import org.javamoney.bp.api.convert.ProviderContext;
 
 /**
  * This class mock the exchange rate to test some {@link MonetaryFunctions} that

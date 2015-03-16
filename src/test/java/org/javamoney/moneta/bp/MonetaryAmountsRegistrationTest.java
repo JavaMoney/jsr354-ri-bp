@@ -15,6 +15,11 @@
  */
 package org.javamoney.moneta.bp;
 
+import org.javamoney.bp.api.MonetaryAmountFactory;
+import org.javamoney.bp.api.MonetaryAmountFactoryQuery;
+import org.javamoney.bp.api.MonetaryAmountFactoryQueryBuilder;
+import org.javamoney.bp.api.MonetaryAmounts;
+import org.javamoney.bp.api.MonetaryException;
 import org.testng.annotations.Test;
 
 import org.javamoney.bp.*;
@@ -27,7 +32,7 @@ import static org.testng.Assert.*;
 public class MonetaryAmountsRegistrationTest{
 
     /**
-     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(java.lang.Class)}.
+     * Test method for {@link org.javamoney.bp.api.MonetaryAmounts#getAmountFactory(java.lang.Class)}.
      */
     @Test
     public void testGetFactory(){
@@ -39,7 +44,7 @@ public class MonetaryAmountsRegistrationTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getAmountTypes()}.
+     * Test method for {@link org.javamoney.bp.api.MonetaryAmounts#getAmountTypes()}.
      */
     @Test
     public void testGetTypes(){
@@ -51,7 +56,7 @@ public class MonetaryAmountsRegistrationTest{
     }
 
     /**
-     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getDefaultAmountType()}.
+     * Test method for {@link org.javamoney.bp.api.MonetaryAmounts#getDefaultAmountType()}.
      */
     @Test
     public void testGetDefaultAmountType(){
@@ -61,7 +66,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)} .
+     * {@link org.javamoney.bp.api.MonetaryAmounts#getAmountFactory(org.javamoney.bp.api.MonetaryAmountFactoryQuery)} .
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetAmountFactory_WithNull(){
@@ -70,7 +75,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)}.
+     * {@link org.javamoney.bp.api.MonetaryAmounts#getAmountFactory(org.javamoney.bp.api.MonetaryAmountFactoryQuery)}.
      */
     @Test
     public void testQueryAmountType(){
@@ -112,7 +117,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)} .
+     * {@link org.javamoney.bp.api.MonetaryAmounts#getAmountFactory(org.javamoney.bp.api.MonetaryAmountFactoryQuery)} .
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testQueryAmountType_InvalidContext(){

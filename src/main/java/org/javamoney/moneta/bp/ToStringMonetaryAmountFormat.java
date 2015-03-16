@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
-import org.javamoney.bp.MonetaryCurrencies;
-import org.javamoney.bp.format.AmountFormatContext;
-import org.javamoney.bp.format.MonetaryParseException;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryCurrencies;
+import org.javamoney.bp.api.format.AmountFormatContext;
+import org.javamoney.bp.api.format.MonetaryParseException;
 
 /**
  * class to format and parse a text string such as 'EUR 25.25' or vice versa.

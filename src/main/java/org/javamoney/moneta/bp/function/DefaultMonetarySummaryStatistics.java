@@ -17,8 +17,8 @@ package org.javamoney.moneta.bp.function;
 
 import java.util.Objects;
 
-import org.javamoney.bp.CurrencyUnit;
-import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.api.CurrencyUnit;
+import org.javamoney.bp.api.MonetaryAmount;
 
 import org.javamoney.moneta.bp.FastMoney;
 
@@ -45,7 +45,7 @@ class DefaultMonetarySummaryStatistics implements MonetarySummaryStatistics {
 
     /**
      * Creates a new instance, targeting the given
-     * {@link org.javamoney.bp.CurrencyUnit}.
+     * {@link org.javamoney.bp.api.CurrencyUnit}.
      *
      * @param currencyUnit the target currency, not null.
      */

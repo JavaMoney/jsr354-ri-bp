@@ -15,7 +15,12 @@
  */
 package org.javamoney.moneta.bp.function;
 
-import org.javamoney.bp.*;
+import org.javamoney.bp.api.MonetaryAmount;
+import org.javamoney.bp.api.MonetaryOperator;
+import org.javamoney.bp.api.MonetaryRounding;
+import org.javamoney.bp.api.MonetaryRoundings;
+import org.javamoney.bp.api.RoundingQueryBuilder;
+
 import java.math.RoundingMode;
 import java.util.Objects;
 

@@ -28,16 +28,16 @@ public enum CurrencyStyle {
 	/**
 	 * The currency will be rendered as its (non localized) currency code.
 	 * 
-	 * @see org.javamoney.bp.CurrencyUnit#getCurrencyCode()
+	 * @see org.javamoney.bp.api.CurrencyUnit#getCurrencyCode()
 	 */
 	CODE,
 
 	/**
 	 * The currency will be rendered as its localized display name. If no display
-	 * name is known for the required {@link org.javamoney.bp.CurrencyUnit}, the currency code
+	 * name is known for the required {@link org.javamoney.bp.api.CurrencyUnit}, the currency code
 	 * should be used as a fall-back.
 	 * 
-	 * @see org.javamoney.bp.CurrencyUnit#getCurrencyCode()
+	 * @see org.javamoney.bp.api.CurrencyUnit#getCurrencyCode()
 	 * @see java.util.Currency#getDisplayName(java.util.Locale)
 	 */
 	NAME,
@@ -45,16 +45,16 @@ public enum CurrencyStyle {
 	/**
 	 * The currency will be rendered as its (non localized) numeric code.
 	 * 
-	 * @see org.javamoney.bp.CurrencyUnit#getNumericCode()
+	 * @see org.javamoney.bp.api.CurrencyUnit#getNumericCode()
 	 */
 	NUMERIC_CODE,
 
 	/**
 	 * The currency will be rendered as its localized currency symbol. If no
-	 * symbol name is known for the required {@link org.javamoney.bp.CurrencyUnit}, the currency
+	 * symbol name is known for the required {@link org.javamoney.bp.api.CurrencyUnit}, the currency
 	 * code should be used as a fall-back.
 	 * 
-	 * @see org.javamoney.bp.CurrencyUnit#getCurrencyCode()
+	 * @see org.javamoney.bp.api.CurrencyUnit#getCurrencyCode()
 	 * @see java.util.Currency#getSymbol(java.util.Locale)
 	 */
 	SYMBOL
