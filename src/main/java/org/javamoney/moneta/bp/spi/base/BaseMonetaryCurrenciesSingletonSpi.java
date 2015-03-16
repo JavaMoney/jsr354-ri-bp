@@ -43,7 +43,7 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
      * @param providers    the (optional) specification of providers to consider. If not set (empty) the providers
      *                     as defined by #getDefaultProviderChain() should be used.
      * @return the corresponding {@link org.javamoney.bp.api.CurrencyUnit} instance.
-     * @throws org.javamoney.bp.UnknownCurrencyException if no such currency exists.
+     * @throws org.javamoney.bp.api.UnknownCurrencyException if no such currency exists.
      */
     public CurrencyUnit getCurrency(String currencyCode, String... providers) {
         Objects.requireNonNull(currencyCode, "Currency Code may not be null");
@@ -67,7 +67,7 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
      * @param providers the (optional) specification of providers to consider. If not set (empty) the providers
      *                  as defined by #getDefaultProviderChain() should be used.
      * @return the corresponding {@link org.javamoney.bp.api.CurrencyUnit} instance.
-     * @throws org.javamoney.bp.UnknownCurrencyException if no such currency exists.
+     * @throws org.javamoney.bp.api.UnknownCurrencyException if no such currency exists.
      */
     public CurrencyUnit getCurrency(Locale country, String... providers) {
         Collection<CurrencyUnit> found =

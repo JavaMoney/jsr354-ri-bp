@@ -26,7 +26,6 @@ import org.javamoney.bp.api.MonetaryRoundings;
 import org.javamoney.bp.api.RoundingQueryBuilder;
 import org.testng.annotations.Test;
 
-import org.javamoney.bp.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;

@@ -31,8 +31,6 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-import org.javamoney.bp.*;
-
 import org.javamoney.bp.api.CurrencyUnit;
 import org.javamoney.bp.api.MonetaryAmount;
 import org.javamoney.bp.api.MonetaryContext;

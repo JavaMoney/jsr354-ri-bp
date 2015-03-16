@@ -113,7 +113,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
      * @return a {@code Money} combining the numeric value and currency unit.
      * @throws ArithmeticException      If the number exceeds the capabilities of the default {@link MonetaryContext}
      *                                  used.
-     * @throws org.javamoney.bp.UnknownCurrencyException if the currency code can not be resolved to {@link CurrencyUnit}.
+     * @throws org.javamoney.bp.api.UnknownCurrencyException if the currency code can not be resolved to {@link CurrencyUnit}.
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(double number) {

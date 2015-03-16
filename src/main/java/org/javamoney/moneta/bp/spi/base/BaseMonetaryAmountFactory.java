@@ -33,7 +33,7 @@ import org.javamoney.bp.api.MonetaryCurrencies;
  * <li>the {@link org.javamoney.bp.api.MonetaryContext}</li>
  * <li>by passing any {@link org.javamoney.bp.api.MonetaryAmount} instance, it is possible to convert an arbitrary amount
  * implementation to the implementation provided by this factory. If the current factory cannot
- * support the precision/scale as required by the current {@link org.javamoney.bp.NumberValue} a
+ * support the precision/scale as required by the current {@link org.javamoney.bp.api.NumberValue} a
  * {@link org.javamoney.bp.api.MonetaryException} must be thrown.</li>
  * </ul>
  * If not defined a default {@link org.javamoney.bp.api.MonetaryContext} is used, which can also be configured by adding
@@ -64,7 +64,8 @@ public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implem
      * @param currencyCode the currencyCode of the currency to be used, not {@code null}. The currency code
      *                     will be resolved using {@link org.javamoney.bp.api.MonetaryCurrencies#getCurrency(String, String...)}.
      * @return This factory instance, for chaining.
-     * @throws org.javamoney.bp.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
+     * @throws org.javamoney.bp.api.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
+     * @throws org.javamoney.bp.api.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
      */
     public MonetaryAmountFactory<T> setCurrency(String currencyCode) {
         return setCurrency(MonetaryCurrencies.getCurrency(currencyCode));

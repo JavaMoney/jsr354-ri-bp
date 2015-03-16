@@ -75,7 +75,7 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
     /**
      * Query a specific rounding with the given query. If multiple roundings match the query the first one is
      * selected, since the query allows to determine the providers and their ordering by setting {@link
-     * org.javamoney.bp.RoundingQuery#getProviderNames()}.
+     * org.javamoney.bp.api.RoundingQuery#getProviderNames()}.
      *
      * @param query the rounding query, not null.
      * @return the rounding found, or null, if no rounding matches the query.

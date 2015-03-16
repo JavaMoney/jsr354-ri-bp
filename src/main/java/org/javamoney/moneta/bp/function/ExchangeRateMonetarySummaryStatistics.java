@@ -107,8 +107,7 @@ class ExchangeRateMonetarySummaryStatistics  extends DefaultMonetarySummaryStati
         if (!super.equals(o)) return false;
 
         ExchangeRateMonetarySummaryStatistics that = (ExchangeRateMonetarySummaryStatistics) o;
-        if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
-        return true;
+        return !(provider != null ? !provider.equals(that.provider) : that.provider != null);
     }
 
     @Override

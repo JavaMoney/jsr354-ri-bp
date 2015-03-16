@@ -24,7 +24,7 @@ import org.javamoney.bp.api.MonetaryQuery;
  * This context contains detailed information on the numeric capabilities, e.g. the supported
  * precision and maximal scale, as well as the common implementation flavor.
  *
- * Also a {@link BaseMonetaryAmount} provides a {@link org.javamoney.bp.NumberValue}, which allows easily to extract the
+ * Also a {@link BaseMonetaryAmount} provides a {@link org.javamoney.bp.api.NumberValue}, which allows easily to extract the
  * numeric value, of the amount. And finally {@link #getFactory()} provides a
  * {@link org.javamoney.bp.api.MonetaryAmountFactory}, which allows to of instances of {@link BaseMonetaryAmount} based
  * on the same numeric implementation.
@@ -40,8 +40,8 @@ import org.javamoney.bp.api.MonetaryQuery;
  * multiplication. Adding or subtracting of amounts must only be possible by passing instances of
  * {@link BaseMonetaryAmount}.</li>
  * <li>Nevertheless numeric truncation is also explicitly supported when calling
- * {@link org.javamoney.bp.NumberValue#numberValue(Class)}, whereas the <i>exact</i> counterpart,
- * {@link org.javamoney.bp.NumberValue#numberValueExact(Class)}, works similar to
+ * {@link org.javamoney.bp.api.NumberValue#numberValue(Class)}, whereas the <i>exact</i> counterpart,
+ * {@link org.javamoney.bp.api.NumberValue#numberValueExact(Class)}, works similar to
  * {@link java.math.BigDecimal#longValueExact()}.
  * <li>Since implementations are recommended to be immutable, an operation should never change any
  * format state of an instance. Given an instance, all operations are required to be fully

@@ -24,8 +24,6 @@ import org.javamoney.moneta.bp.FastMoney;
 import org.javamoney.moneta.bp.Money;
 import org.testng.annotations.Test;
 
-import org.javamoney.bp.*;
-
 import java.io.*;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;

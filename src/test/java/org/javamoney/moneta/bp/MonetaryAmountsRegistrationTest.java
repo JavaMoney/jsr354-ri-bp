@@ -22,7 +22,6 @@ import org.javamoney.bp.api.MonetaryAmounts;
 import org.javamoney.bp.api.MonetaryException;
 import org.testng.annotations.Test;
 
-import org.javamoney.bp.*;
 
 import static org.testng.Assert.*;
 

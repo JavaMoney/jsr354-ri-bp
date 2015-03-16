@@ -1,1 +1,1 @@
-format.DefaultAmountFormatProviderSpi
+org.javamoney.moneta.bp.internal.format.DefaultAmountFormatProviderSpi
