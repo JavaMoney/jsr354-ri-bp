@@ -14,6 +14,6 @@
  * the License.
  */
 /**
- * Contains {@link javax.money.convert.ExchangeRateProvider} implementations.
+ * Contains {@link org.javamoney.bp.convert.ExchangeRateProvider} implementations.
  */
 package org.javamoney.moneta.convert.internal;

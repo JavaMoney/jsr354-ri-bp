@@ -21,17 +21,17 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryCurrencies;
-import javax.money.MonetaryException;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
-import javax.money.NumberValue;
-import javax.money.UnknownCurrencyException;
-import javax.money.format.MonetaryAmountFormat;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryAmountFactory;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.MonetaryQuery;
+import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.UnknownCurrencyException;
+import org.javamoney.bp.format.MonetaryAmountFormat;
 
 import org.javamoney.moneta.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
 import org.javamoney.moneta.internal.MoneyAmountBuilder;
@@ -133,7 +133,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * specific implementation of {@link CurrencyUnit} if desired.
      *
      * @return the currency, never {@code null}
-     * @see javax.money.MonetaryAmount#getCurrency()
+     * @see org.javamoney.bp.MonetaryAmount#getCurrency()
      */
     @Override
     public CurrencyUnit getCurrency() {
@@ -144,7 +144,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * Access the {@link MonetaryContext} used by this instance.
      *
      * @return the {@link MonetaryContext} used, never null.
-     * @see javax.money.MonetaryAmount#getContext()
+     * @see org.javamoney.bp.MonetaryAmount#getContext()
      */
     @Override
     public MonetaryContext getContext() {
@@ -154,7 +154,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /**
      * Gets the number representation of the numeric value of this item.
      *
-     * @return The {@link Number} represention matching best.
+     * @return The {@link Number} representation matching best.
      */
     @Override
     public NumberValue getNumber() {
@@ -192,7 +192,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#abs()
+     * @see org.javamoney.bp.MonetaryAmount#abs()
      */
     @Override
     public Money abs() {
@@ -205,7 +205,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#divide(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#divide(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money divide(long divisor) {
@@ -218,7 +218,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#divide(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#divide(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money divide(double divisor) {
@@ -235,7 +235,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * javax.money.MonetaryAmount#divideAndRemainder(javax.money.MonetaryAmount)
+     * org.javamoney.bp.MonetaryAmount#divideAndRemainder(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money[] divideAndRemainder(long divisor) {
@@ -249,7 +249,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * javax.money.MonetaryAmount#divideAndRemainder(javax.money.MonetaryAmount)
+     * org.javamoney.bp.MonetaryAmount#divideAndRemainder(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money[] divideAndRemainder(double divisor) {
@@ -263,7 +263,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#multiply(Number)
+     * @see org.javamoney.bp.MonetaryAmount#multiply(Number)
      */
     @Override
     public Money multiply(long multiplicand) {
@@ -276,7 +276,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#multiply(Number)
+     * @see org.javamoney.bp.MonetaryAmount#multiply(Number)
      */
     @Override
     public Money multiply(double multiplicand) {
@@ -290,7 +290,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#remainder(Number)
+     * @see org.javamoney.bp.MonetaryAmount#remainder(Number)
      */
     @Override
     public Money remainder(long divisor) {
@@ -303,7 +303,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#remainder(Number)
+     * @see org.javamoney.bp.MonetaryAmount#remainder(Number)
      */
     @Override
     public Money remainder(double divisor) {
@@ -316,7 +316,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isZero()
+     * @see org.javamoney.bp.MonetaryAmount#isZero()
      */
     @Override
     public boolean isZero() {
@@ -326,7 +326,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isPositive()
+     * @see org.javamoney.bp.MonetaryAmount#isPositive()
      */
     @Override
     public boolean isPositive() {
@@ -336,7 +336,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isPositiveOrZero()
+     * @see org.javamoney.bp.MonetaryAmount#isPositiveOrZero()
      */
     @Override
     public boolean isPositiveOrZero() {
@@ -346,7 +346,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isNegative()
+     * @see org.javamoney.bp.MonetaryAmount#isNegative()
      */
     @Override
     public boolean isNegative() {
@@ -356,7 +356,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isNegativeOrZero()
+     * @see org.javamoney.bp.MonetaryAmount#isNegativeOrZero()
      */
     @Override
     public boolean isNegativeOrZero() {
@@ -367,7 +367,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * }(non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#query(javax.money.MonetaryQuery)
+     * @see org.javamoney.bp.MonetaryAmount#query(org.javamoney.bp.MonetaryQuery)
      */
     @Override
     public <R> R query(MonetaryQuery<R> query) {
@@ -384,7 +384,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
+     * @see org.javamoney.bp.MonetaryAmount#with(org.javamoney.bp.MonetaryOperator)
      */
     @Override
     public Money with(MonetaryOperator operator) {
@@ -401,7 +401,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#add(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#add(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money add(MonetaryAmount amount) {
@@ -415,7 +415,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#divide(java.lang.Number)
+     * @see org.javamoney.bp.MonetaryAmount#divide(java.lang.Number)
      */
     @Override
     public Money divide(Number divisor) {
@@ -494,7 +494,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#negate()
+     * @see org.javamoney.bp.MonetaryAmount#negate()
      */
     @Override
     public Money negate() {
@@ -504,7 +504,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#plus()
+     * @see org.javamoney.bp.MonetaryAmount#plus()
      */
     @Override
     public Money plus() {
@@ -514,7 +514,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#subtract(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#subtract(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public Money subtract(MonetaryAmount subtrahend) {
@@ -528,7 +528,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#stripTrailingZeros()
+     * @see org.javamoney.bp.MonetaryAmount#stripTrailingZeros()
      */
     @Override
     public Money stripTrailingZeros() {
@@ -555,7 +555,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#scaleByPowerOfTen(int)
+     * @see org.javamoney.bp.MonetaryAmount#scaleByPowerOfTen(int)
      */
     @Override
     public Money scaleByPowerOfTen(int n) {
@@ -565,7 +565,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#signum()
+     * @see org.javamoney.bp.MonetaryAmount#signum()
      */
     @Override
     public int signum() {
@@ -575,7 +575,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isLessThan(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#isLessThan(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public boolean isLessThan(MonetaryAmount amount) {
@@ -588,7 +588,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * javax.money.MonetaryAmount#isLessThanOrEqualTo(javax.money.MonetaryAmount
+     * org.javamoney.bp.MonetaryAmount#isLessThanOrEqualTo(org.javamoney.bp.MonetaryAmount
      * )
      */
     @Override
@@ -601,7 +601,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isGreaterThan(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#isGreaterThan(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public boolean isGreaterThan(MonetaryAmount amount) {
@@ -614,7 +614,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * javax.money.MonetaryAmount#isGreaterThanOrEqualTo(javax.money.MonetaryAmount
+     * org.javamoney.bp.MonetaryAmount#isGreaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount
      * ) #see
      */
     @Override
@@ -627,7 +627,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#isEqualTo(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryAmount#isEqualTo(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public boolean isEqualTo(MonetaryAmount amount) {
@@ -639,7 +639,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryAmount#getFactory()
+     * @see org.javamoney.bp.MonetaryAmount#getFactory()
      */
     @Override
     public MonetaryAmountFactory<Money> getFactory() {

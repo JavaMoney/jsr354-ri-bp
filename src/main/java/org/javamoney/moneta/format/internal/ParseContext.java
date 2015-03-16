@@ -18,9 +18,9 @@ package org.javamoney.moneta.format.internal;
 import java.text.ParsePosition;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.format.MonetaryAmountFormat;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.format.MonetaryAmountFormat;
 
 /**
  * Context passed along to each {@link FormatToken} in-line, when parsing an

@@ -18,10 +18,9 @@ package org.javamoney.moneta.function;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-import javax.money.CurrencyUnit;
+import org.javamoney.bp.CurrencyUnit;
 
 /**
  * This map is decorator of HashMap that returns an empty Summary when there

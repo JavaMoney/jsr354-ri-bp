@@ -17,8 +17,8 @@ package org.javamoney.moneta.format.internal;
 
 import java.io.IOException;
 
-import javax.money.MonetaryAmount;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.format.MonetaryParseException;
 
 /**
  * Abstraction for a token that is part of a token stream, used for formatting

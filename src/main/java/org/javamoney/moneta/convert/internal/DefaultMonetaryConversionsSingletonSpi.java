@@ -24,18 +24,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.money.MonetaryException;
-import javax.money.convert.ConversionQuery;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.spi.Bootstrap;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.spi.Bootstrap;
 
 import org.javamoney.moneta.spi.CompoundRateProvider;
 import org.javamoney.moneta.spi.MonetaryConfig;
 import org.javamoney.moneta.spi.base.BaseMonetaryConversionsSingletonSpi;
 
 /**
- * This is the default implementation of the {@link javax.money.spi.MonetaryConversionsSingletonSpi} interface, backing
- * up the {@link javax.money.convert.MonetaryConversions} singleton.
+ * This is the default implementation of the {@link org.javamoney.bp.spi.MonetaryConversionsSingletonSpi} interface, backing
+ * up the {@link org.javamoney.bp.convert.MonetaryConversions} singleton.
  */
 public class DefaultMonetaryConversionsSingletonSpi extends BaseMonetaryConversionsSingletonSpi {
     /**
@@ -49,7 +49,7 @@ public class DefaultMonetaryConversionsSingletonSpi extends BaseMonetaryConversi
     private Map<String, ExchangeRateProvider> conversionProviders = new ConcurrentHashMap<>();
 
     /**
-     * Constructors, loads the providers from the {@link javax.money.spi.Bootstrap} component.
+     * Constructors, loads the providers from the {@link org.javamoney.bp.spi.Bootstrap} component.
      */
     public DefaultMonetaryConversionsSingletonSpi() {
         reload();

@@ -8,13 +8,13 @@
  */
 package org.javamoney.moneta.spi.base;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryContext;
-import javax.money.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
 
 /**
- * SPI (core): Implementations of this interface are used by the {@link javax.money.spi.MonetaryAmountsSingletonSpi} to evaluate the
- * correct {@link javax.money.MonetaryAmountFactory} instances.
+ * SPI (core): Implementations of this interface are used by the {@link org.javamoney.bp.spi.MonetaryAmountsSingletonSpi} to evaluate the
+ * correct {@link org.javamoney.bp.MonetaryAmountFactory} instances.
  *
  * @param <T> the concrete amount type.
  * @author Anatole Tresch
@@ -24,21 +24,21 @@ implements MonetaryAmountFactoryProviderSpi<T>{
 
     /**
      * Method that determines if this factory should be considered for general evaluation of
-     * matching {@link javax.money.MonetaryAmount} implementation types when calling
-     * {@link javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)}.
+     * matching {@link org.javamoney.bp.MonetaryAmount} implementation types when calling
+     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)}.
      *
      * @return {@code true} to include this factory into the evaluation.
-     * @see javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)
+     * @see org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)
      */
     public QueryInclusionPolicy getQueryInclusionPolicy(){
         return QueryInclusionPolicy.ALWAYS;
     }
 
     /**
-     * Returns the maximal {@link javax.money.MonetaryContext} supported, for requests that exceed these maximal
+     * Returns the maximal {@link org.javamoney.bp.MonetaryContext} supported, for requests that exceed these maximal
      * capabilities, an {@link ArithmeticException} must be thrown.
      *
-     * @return the maximal {@link javax.money.MonetaryContext} supported, never {@code null}
+     * @return the maximal {@link org.javamoney.bp.MonetaryContext} supported, never {@code null}
      */
     public MonetaryContext getMaximalMonetaryContext(){
         return getDefaultMonetaryContext();

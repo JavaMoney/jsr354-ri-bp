@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.internal;
 
-import javax.money.*;
+import org.javamoney.bp.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
- * Implementation class providing cash rounding {@link javax.money.MonetaryOperator}
+ * Implementation class providing cash rounding {@link org.javamoney.bp.MonetaryOperator}
  * instances for {@link CurrencyUnit} instances. modeling rounding based on
  * minimal minor units available for cash payments.
  * <p>
@@ -99,7 +99,7 @@ final class DefaultCashRounding implements MonetaryRounding, Serializable {
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryFunction#apply(java.lang.Object)
+     * @see org.javamoney.bp.MonetaryFunction#apply(java.lang.Object)
      */
     @Override
     public MonetaryAmount apply(MonetaryAmount value) {

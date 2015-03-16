@@ -12,11 +12,11 @@
  */
 package org.javamoney.moneta.spi.base;
 
-import javax.money.CurrencyQuery;
-import javax.money.spi.CurrencyProviderSpi;
+import org.javamoney.bp.CurrencyQuery;
+import org.javamoney.bp.spi.CurrencyProviderSpi;
 
 /**
- * SPI (core) to be registered using the {@link javax.money.spi.Bootstrap}, which allows to
+ * SPI (core) to be registered using the {@link org.javamoney.bp.spi.Bootstrap}, which allows to
  * register/provide additional currencies into the system automatically on
  * startup. The implementation is allowed to be implemented in y contextual way,
  * so depending on the runtime context, different currencies may be available.
@@ -35,10 +35,10 @@ public abstract class BaseCurrencyProviderSpi implements CurrencyProviderSpi{
     }
 
     /**
-     * CHecks if a {@link javax.money.CurrencyUnit} instances matching the given
-     * {@link javax.money.CurrencyContext} is available from this provider.
+     * CHecks if a {@link org.javamoney.bp.CurrencyUnit} instances matching the given
+     * {@link org.javamoney.bp.CurrencyContext} is available from this provider.
      *
-     * @param query the {@link javax.money.CurrencyQuery} containing the parameters determining the query. not null.
+     * @param query the {@link org.javamoney.bp.CurrencyQuery} containing the parameters determining the query. not null.
      * @return false, if no such unit is provided by this provider.
      */
     public boolean isCurrencyAvailable(CurrencyQuery query){

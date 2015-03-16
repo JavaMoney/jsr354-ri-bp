@@ -19,8 +19,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
 
-import javax.money.MonetaryAmount;
-import javax.money.NumberValue;
+import org.javamoney.bp.NumberValue;
 
 /**
  * Default implementation of {@link NumberValue} based on {@link BigDecimal}.
@@ -62,7 +61,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getNumberType()
+	 * @see org.javamoney.bp.NumberValue#getNumberType()
 	 */
 	@Override
 	public Class<?> getNumberType() {
@@ -71,7 +70,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getPrecision()
+	 * @see org.javamoney.bp.NumberValue#getPrecision()
 	 */
 	@Override
 	public int getPrecision() {
@@ -80,7 +79,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getScale()
+	 * @see org.javamoney.bp.NumberValue#getScale()
 	 */
 	@Override
 	public int getScale() {
@@ -89,7 +88,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getIntValue()
+	 * @see org.javamoney.bp.NumberValue#getIntValue()
 	 */
 	@Override
 	public int intValue() {
@@ -98,7 +97,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getIntValueExact()
+	 * @see org.javamoney.bp.NumberValue#getIntValueExact()
 	 */
 	@Override
 	public int intValueExact() {
@@ -107,7 +106,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getLongValue()
+	 * @see org.javamoney.bp.NumberValue#getLongValue()
 	 */
 	@Override
 	public long longValue() {
@@ -116,7 +115,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getLongValueExact()
+	 * @see org.javamoney.bp.NumberValue#getLongValueExact()
 	 */
 	@Override
 	public long longValueExact() {
@@ -125,7 +124,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getFloatValue()
+	 * @see org.javamoney.bp.NumberValue#getFloatValue()
 	 */
 	@Override
 	public float floatValue() {
@@ -134,7 +133,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getDoubleValue()
+	 * @see org.javamoney.bp.NumberValue#getDoubleValue()
 	 */
 	@Override
 	public double doubleValue() {
@@ -143,7 +142,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getDoubleValueExact()
+	 * @see org.javamoney.bp.NumberValue#getDoubleValueExact()
 	 */
 	@Override
 	public double doubleValueExact() {
@@ -157,7 +156,7 @@ public final class DefaultNumberValue extends NumberValue {
 
     /*
      * (non-Javadoc)
-	 * @see javax.money.NumberValue#getAmountFractionNumerator()
+	 * @see org.javamoney.bp.NumberValue#getAmountFractionNumerator()
      */
     @Override
     public long getAmountFractionNumerator(){
@@ -167,7 +166,7 @@ public final class DefaultNumberValue extends NumberValue {
 
     /*
      * (non-Javadoc)
-	 * @see javax.money.NumberValue#getAmountFractionDenominator()
+	 * @see org.javamoney.bp.NumberValue#getAmountFractionDenominator()
      */
     @Override
     public long getAmountFractionDenominator(){
@@ -176,7 +175,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see javax.money.NumberValue#getNumberValue(java.lang.Class)
+	 * @see org.javamoney.bp.NumberValue#getNumberValue(java.lang.Class)
 	 */
 	@Override
 	public <T extends Number> T numberValue(Class<T> numberType) {
@@ -185,7 +184,7 @@ public final class DefaultNumberValue extends NumberValue {
 
     /*
      * (non-Javadoc)
-	 * @see javax.money.NumberValue#round(java.math.MathContext)
+	 * @see org.javamoney.bp.NumberValue#round(java.math.MathContext)
 	 */
     @Override
     public NumberValue round(MathContext mathContext) {
@@ -197,7 +196,7 @@ public final class DefaultNumberValue extends NumberValue {
 
     /*
      * (non-Javadoc)
-     * @see javax.money.NumberValue#numberValueExact(java.lang.Class)
+     * @see org.javamoney.bp.NumberValue#numberValueExact(java.lang.Class)
      */
     @Override
 	public <T extends Number> T numberValueExact(Class<T> numberType) {

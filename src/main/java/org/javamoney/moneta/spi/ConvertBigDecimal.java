@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.money.NumberValue;
+import org.javamoney.bp.NumberValue;
 
 /**
  * This enumeration provides general utility functions supporting conversion of number types to BigDecimal.

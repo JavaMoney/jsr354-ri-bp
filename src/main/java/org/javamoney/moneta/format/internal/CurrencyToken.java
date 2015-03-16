@@ -17,11 +17,11 @@ package org.javamoney.moneta.format.internal;
 
 import org.javamoney.moneta.format.CurrencyStyle;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
-import javax.money.MonetaryException;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.format.MonetaryParseException;
 import java.io.IOException;
 import java.util.Currency;
 import java.util.Locale;
@@ -171,12 +171,14 @@ final class CurrencyToken implements FormatToken {
             throws MonetaryParseException {
         String token = context.lookupNextToken();
         while (token!=null) {
-            if (token.trim().isEmpty()) {
-                context.consume(token);
-                token = context.lookupNextToken();
-                continue;
+            if (!token.trim().isEmpty()) {
+                break;
             }
-            break;
+            context.consume(token);
+            token = context.lookupNextToken();
+        }
+        if(token==null){
+            throw new MonetaryException("Error parsing CurrencyUnit: token expected");
         }
         try {
             CurrencyUnit cur;
@@ -228,7 +230,6 @@ final class CurrencyToken implements FormatToken {
      * @return the first letter based part, or the full token.
      */
     private String parseCurrencyCode(String token) {
-        StringBuilder b = new StringBuilder();
         int letterIndex = 0;
         for (char ch : token.toCharArray()) {
             if (Character.isLetter(ch)) {

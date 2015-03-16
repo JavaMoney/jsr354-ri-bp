@@ -18,8 +18,8 @@ package org.javamoney.moneta.function;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
 
 /**
  * Internal class implementing grouped statistic functionality.

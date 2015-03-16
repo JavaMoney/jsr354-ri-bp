@@ -19,12 +19,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-import javax.money.NumberValue;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.NumberValue;
 
 /**
- * This class allows to extract the reciprocal value (multiplcative inversion)
+ * This class allows to extract the reciprocal value (multiplicative inversion)
  * of a {@link MonetaryAmount} instance.
  *
  * @author Anatole Tresch
@@ -40,11 +40,11 @@ final class Reciprocal implements MonetaryOperator{
 
 
     /**
-     * Gets the amount as reciprocal / multiplcative inversed value (1/n).
+     * Gets the amount as reciprocal / multiplicative inversed value (1/n).
      * <p>
      * E.g. 'EUR 2.0' will be converted to 'EUR 0.5'.
      *
-     * @return the reciprocal / multiplcative inversed of the amount
+     * @return the reciprocal / multiplicative inversed of the amount
      * @throws ArithmeticException if the arithmetic operation failed
      */
     @Override

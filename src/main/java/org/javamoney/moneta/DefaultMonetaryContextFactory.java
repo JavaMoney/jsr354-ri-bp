@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.money.MonetaryContext;
-import javax.money.MonetaryContextBuilder;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryContextBuilder;
 
 import org.javamoney.moneta.spi.MonetaryConfig;
 

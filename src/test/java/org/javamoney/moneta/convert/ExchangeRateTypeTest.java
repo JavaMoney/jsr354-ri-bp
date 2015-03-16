@@ -17,12 +17,9 @@ package org.javamoney.moneta.convert;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
 
-import java.util.Objects;
-
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.MonetaryConversions;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.MonetaryConversions;
 
 import org.javamoney.moneta.ExchangeRateType;
 import org.javamoney.moneta.convert.internal.ECBCurrentRateProvider;

@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import javax.money.CurrencyUnit;
+import org.javamoney.bp.CurrencyUnit;
 
 import org.testng.annotations.Test;
 

@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
+import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.MonetaryQuery;
 
 /**
  * This singleton class provides access to the predefined monetary functions.

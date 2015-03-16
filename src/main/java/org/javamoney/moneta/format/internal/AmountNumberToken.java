@@ -22,12 +22,11 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.logging.Logger;
 
-import javax.money.MonetaryAmount;
-import javax.money.format.AmountFormatContext;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.format.AmountFormatContext;
+import org.javamoney.bp.format.MonetaryParseException;
 
 /**
  * {@link FormatToken} which allows to format a {@link MonetaryAmount} type.
@@ -68,7 +67,7 @@ final class AmountNumberToken implements FormatToken {
     /**
      * Access the underlying amount fomat context.
      *
-     * @return the {@link javax.money.format.AmountFormatContext}.
+     * @return the {@link org.javamoney.bp.format.AmountFormatContext}.
      */
     public AmountFormatContext getAmountFormatContext() {
         return amountFormatContext;
@@ -87,7 +86,6 @@ final class AmountNumberToken implements FormatToken {
     @Override
     public void print(Appendable appendable, MonetaryAmount amount)
             throws IOException {
-        int digits = amount.getCurrency().getDefaultFractionDigits();
         if (amountFormatContext.get(AmountFormatParams.GROUPING_SIZES, int[].class) == null ||
                 amountFormatContext.get(AmountFormatParams.GROUPING_SIZES, int[].class).length == 0) {
             appendable.append(this.formatFormat.format(amount.getNumber()

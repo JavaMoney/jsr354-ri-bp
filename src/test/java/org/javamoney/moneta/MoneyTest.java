@@ -31,15 +31,15 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmounts;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryContextBuilder;
-import javax.money.MonetaryCurrencies;
-import javax.money.MonetaryException;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryAmounts;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryContextBuilder;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.MonetaryQuery;
 
 import org.testng.annotations.Test;
 
@@ -57,7 +57,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, javax.money.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitBigDecimal() {
@@ -165,8 +165,8 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, javax.money.CurrencyUnit,
-     * javax.money.MonetaryContext)}
+     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
+     * org.javamoney.bp.MonetaryContext)}
      * .
      */
     @Test
@@ -184,7 +184,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.lang.Number, javax.money.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.Money#of(java.lang.Number, org.javamoney.bp.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitNumber() {
@@ -225,8 +225,8 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, javax.money.CurrencyUnit,
-     * javax.money.MonetaryContext)} .
+     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
+     * org.javamoney.bp.MonetaryContext)} .
      * .
      */
     @Test
@@ -320,7 +320,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(Number, String, javax.money.MonetaryContext)} .
+     * {@link org.javamoney.moneta.Money#of(Number, String, org.javamoney.bp.MonetaryContext)} .
      * .
      */
     @Test
@@ -419,7 +419,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#compareTo(javax.money.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.Money#compareTo(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testCompareTo() {
@@ -474,7 +474,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#add(javax.money.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.Money#add(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testAdd() {
@@ -609,7 +609,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#subtract(javax.money.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.Money#subtract(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testSubtract() {
@@ -786,7 +786,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link Money#getFactory()#setCurrency(javax.money.CurrencyUnit)} and {@link Money#getFactory()#setNumber
+     * {@link Money#getFactory()#setCurrency(org.javamoney.bp.CurrencyUnit)} and {@link Money#getFactory()#setNumber
      * (Number)}.
      */
     @Test
@@ -924,7 +924,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isLessThan(javax.money.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.Money#isLessThan(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsLessThan() {
@@ -939,7 +939,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#isLessThanOrEqualTo(javax.money.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.Money#isLessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsLessThanOrEqualTo() {
@@ -953,7 +953,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isGreaterThan(javax.money.MonetaryAmount)}
+     * Test method for {@link org.javamoney.moneta.Money#isGreaterThan(org.javamoney.bp.MonetaryAmount)}
      * .
      */
     @Test
@@ -969,7 +969,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#isGreaterThanOrEqualTo(javax.money.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.Money#isGreaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsGreaterThanOrEqualTo() {
@@ -984,7 +984,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isEqualTo(javax.money.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.Money#isEqualTo(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testIsEqualTo() {
@@ -1021,7 +1021,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#query(javax.money.MonetaryQuery)}.
+     * Test method for {@link org.javamoney.moneta.Money#query(org.javamoney.bp.MonetaryQuery)}.
      */
     @Test
     public void testQuery() {
@@ -1092,7 +1092,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#with(javax.money.MonetaryOperator)}.
+     * Test method for {@link org.javamoney.moneta.Money#with(org.javamoney.bp.MonetaryOperator)}.
      */
     @Test
     public void testWithMonetaryOperator() {
@@ -1122,7 +1122,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#from(javax.money.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.Money#from(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testFrom() {
@@ -1154,7 +1154,7 @@ public class MoneyTest {
     // Bad cases
 
     /**
-     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(javax.money.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testAdd_WrongCurrency() {
@@ -1164,7 +1164,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(javax.money.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testSubtract_WrongCurrency() {
@@ -1174,7 +1174,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(javax.money.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.RoundedMoney#add(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testDivide_WrongCurrency() {

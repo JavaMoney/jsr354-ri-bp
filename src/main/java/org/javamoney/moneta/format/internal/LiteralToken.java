@@ -18,8 +18,8 @@ package org.javamoney.moneta.format.internal;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.money.MonetaryAmount;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.format.MonetaryParseException;
 
 /**
  * {@link FormatToken} which adds an arbitrary literal constant value to the
@@ -70,7 +70,7 @@ final class LiteralToken implements FormatToken, Serializable {
     /**
      * Prints the amount to the {@link Appendable} given.
      *
-     * @see org.javamoney.moneta.format.internal.FormatToken#print(Appendable, javax.money.MonetaryAmount)
+     * @see org.javamoney.moneta.format.internal.FormatToken#print(Appendable, org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public void print(Appendable appendable, MonetaryAmount amount)

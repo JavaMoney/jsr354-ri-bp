@@ -16,7 +16,7 @@
 package org.javamoney.moneta.internal;
 
 import javax.annotation.Priority;
-import javax.money.spi.ServiceProvider;
+import org.javamoney.bp.spi.ServiceProvider;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This class implements the (default) {@link javax.money.spi.ServiceProvider} interface and hereby uses the JDK
+ * This class implements the (default) {@link org.javamoney.bp.spi.ServiceProvider} interface and hereby uses the JDK
  * {@link java.util.ServiceLoader} to load the services required.
  *
  * @author Anatole Tresch

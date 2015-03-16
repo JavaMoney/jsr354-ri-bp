@@ -12,20 +12,20 @@
  */
 package org.javamoney.moneta.spi.base;
 
-import javax.money.CurrencyQuery;
-import javax.money.CurrencyQueryBuilder;
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryException;
-import javax.money.UnknownCurrencyException;
-import javax.money.spi.MonetaryCurrenciesSingletonSpi;
+import org.javamoney.bp.CurrencyQuery;
+import org.javamoney.bp.CurrencyQueryBuilder;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.UnknownCurrencyException;
+import org.javamoney.bp.spi.MonetaryCurrenciesSingletonSpi;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * Factory singleton backing interface for {@link javax.money.MonetaryCurrencies} that provides access to
- * different registered {@link javax.money.spi.CurrencyProviderSpi} instances.
+ * Factory singleton backing interface for {@link org.javamoney.bp.MonetaryCurrencies} that provides access to
+ * different registered {@link org.javamoney.bp.spi.CurrencyProviderSpi} instances.
  * <p>
  * Implementations of this interface must be thread safe.
  *
@@ -36,14 +36,14 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
 
     /**
      * Access a new instance based on the currency code. Currencies are
-     * available as provided by {@link javax.money.spi.CurrencyProviderSpi} instances registered
-     * with the {@link javax.money.spi.Bootstrap}.
+     * available as provided by {@link org.javamoney.bp.spi.CurrencyProviderSpi} instances registered
+     * with the {@link org.javamoney.bp.spi.Bootstrap}.
      *
      * @param currencyCode the ISO currency code, not {@code null}.
      * @param providers    the (optional) specification of providers to consider. If not set (empty) the providers
      *                     as defined by #getDefaultProviderChain() should be used.
-     * @return the corresponding {@link javax.money.CurrencyUnit} instance.
-     * @throws javax.money.UnknownCurrencyException if no such currency exists.
+     * @return the corresponding {@link org.javamoney.bp.CurrencyUnit} instance.
+     * @throws org.javamoney.bp.UnknownCurrencyException if no such currency exists.
      */
     public CurrencyUnit getCurrency(String currencyCode, String... providers) {
         Objects.requireNonNull(currencyCode, "Currency Code may not be null");
@@ -60,14 +60,14 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
 
     /**
      * Access a new instance based on the currency code. Currencies are
-     * available as provided by {@link javax.money.spi.CurrencyProviderSpi} instances registered
-     * with the {@link javax.money.spi.Bootstrap}.
+     * available as provided by {@link org.javamoney.bp.spi.CurrencyProviderSpi} instances registered
+     * with the {@link org.javamoney.bp.spi.Bootstrap}.
      *
      * @param country   the ISO currency's country, not {@code null}.
      * @param providers the (optional) specification of providers to consider. If not set (empty) the providers
      *                  as defined by #getDefaultProviderChain() should be used.
-     * @return the corresponding {@link javax.money.CurrencyUnit} instance.
-     * @throws javax.money.UnknownCurrencyException if no such currency exists.
+     * @return the corresponding {@link org.javamoney.bp.CurrencyUnit} instance.
+     * @throws org.javamoney.bp.UnknownCurrencyException if no such currency exists.
      */
     public CurrencyUnit getCurrency(Locale country, String... providers) {
         Collection<CurrencyUnit> found =
@@ -95,13 +95,13 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
     }
 
     /**
-     * Allows to check if a {@link javax.money.CurrencyUnit} instance is defined, i.e.
-     * accessible from {@link javax.money.spi.BaseMonetaryCurrenciesSingletonSpi#getCurrency(String, String...)}.
+     * Allows to check if a {@link org.javamoney.bp.CurrencyUnit} instance is defined, i.e.
+     * accessible from {@link BaseMonetaryCurrenciesSingletonSpi#getCurrency(String, String...)}.
      *
      * @param code      the currency code, not {@code null}.
      * @param providers the (optional) specification of providers to consider. If not set (empty) the providers
      *                  as defined by #getDefaultProviderChain() should be used.
-     * @return {@code true} if {@link javax.money.spi.BaseMonetaryCurrenciesSingletonSpi#getCurrency(String, String...)}
+     * @return {@code true} if {@link BaseMonetaryCurrenciesSingletonSpi#getCurrency(String, String...)}
      * would return a result for the given code.
      */
     public boolean isCurrencyAvailable(String code, String... providers) {
@@ -110,7 +110,7 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
     }
 
     /**
-     * Allows to check if a {@link javax.money.CurrencyUnit} instance is
+     * Allows to check if a {@link org.javamoney.bp.CurrencyUnit} instance is
      * defined, i.e. accessible from {@link #getCurrency(String, String...)}.
      *
      * @param locale    the target {@link java.util.Locale}, not {@code null}.
@@ -138,8 +138,8 @@ public abstract class BaseMonetaryCurrenciesSingletonSpi implements MonetaryCurr
      * Access a single currency by query.
      *
      * @param query The currency query, not null.
-     * @return the {@link javax.money.CurrencyUnit} found, never null.
-     * @throws javax.money.MonetaryException if multiple currencies match the query.
+     * @return the {@link org.javamoney.bp.CurrencyUnit} found, never null.
+     * @throws org.javamoney.bp.MonetaryException if multiple currencies match the query.
      */
     public CurrencyUnit getCurrency(CurrencyQuery query) {
         Set<CurrencyUnit> currencies = getCurrencies(query);

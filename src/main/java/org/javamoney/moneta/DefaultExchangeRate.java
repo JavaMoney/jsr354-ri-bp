@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.NumberValue;
-import javax.money.convert.ConversionContext;
-import javax.money.convert.ExchangeRate;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.NumberValue;
+import org.javamoney.bp.convert.ConversionContext;
+import org.javamoney.bp.convert.ExchangeRate;
 
 /**
  * This class models an exchange rate, which defines the factor the numeric value of a base amount in some currency
@@ -31,7 +31,7 @@ import javax.money.convert.ExchangeRate;
  * to get the corresponding amount in the terminating currency 'B'. Hereby
  * <ul>
  * <li>an exchange rate always models one rate from a base (source) to a term
- * (target) {@link javax.money.CurrencyUnit}.</li>
+ * (target) {@link org.javamoney.bp.CurrencyUnit}.</li>
  * <li>an exchange rate is always bound to a rate type, which typically matches
  * the data source of the conversion data, e.g. different credit card providers
  * may use different rates for the same conversion.</li>
@@ -56,7 +56,7 @@ import javax.money.convert.ExchangeRate;
  * where the reciprocal value of {@link #factor} matches the correct reverse
  * rate. But in most use cases the reverse rate either has a different rate (not
  * equal to the reciprocal value), or might not be defined at all. Therefore for
- * reversing a ExchangeRate one must access an {@link javax.money.convert.ExchangeRateProvider} and
+ * reversing a ExchangeRate one must access an {@link org.javamoney.bp.convert.ExchangeRateProvider} and
  * query for the reverse rate.</li>
  * </ul>
  * <p>
@@ -73,10 +73,10 @@ import javax.money.convert.ExchangeRate;
  * exchange rates are {@link java.io.Serializable}, hereby serializing in the following
  * form and order:
  * <ul>
- * <li>The base {@link javax.money.CurrencyUnit}
- * <li>The target {@link javax.money.CurrencyUnit}
+ * <li>The base {@link org.javamoney.bp.CurrencyUnit}
+ * <li>The target {@link org.javamoney.bp.CurrencyUnit}
  * <li>The factor (NumberValue)
- * <li>The {@link javax.money.convert.ConversionContext}
+ * <li>The {@link org.javamoney.bp.convert.ConversionContext}
  * <li>The rate chain
  * </ul>
  *
@@ -105,7 +105,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      */
     private final NumberValue factor;
     /**
-     * The {@link javax.money.convert.ConversionContext}
+     * The {@link org.javamoney.bp.convert.ConversionContext}
      */
     private final ConversionContext conversionContext;
     /**
@@ -154,7 +154,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
     }
 
     /**
-     * Access the {@link javax.money.convert.ConversionContext} of {@link javax.money.convert.ExchangeRate}.
+     * Access the {@link org.javamoney.bp.convert.ConversionContext} of {@link org.javamoney.bp.convert.ExchangeRate}.
      *
      * @return the conversion context, never null.
      */
@@ -163,18 +163,18 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
     }
 
     /**
-     * Get the base (source) {@link javax.money.CurrencyUnit}.
+     * Get the base (source) {@link org.javamoney.bp.CurrencyUnit}.
      *
-     * @return the base {@link javax.money.CurrencyUnit}.
+     * @return the base {@link org.javamoney.bp.CurrencyUnit}.
      */
     public final CurrencyUnit getBaseCurrency() {
         return this.base;
     }
 
     /**
-     * Get the term (target) {@link javax.money.CurrencyUnit}.
+     * Get the term (target) {@link org.javamoney.bp.CurrencyUnit}.
      *
-     * @return the term {@link javax.money.CurrencyUnit}.
+     * @return the term {@link org.javamoney.bp.CurrencyUnit}.
      */
     public final CurrencyUnit getCurrency() {
         return this.term;

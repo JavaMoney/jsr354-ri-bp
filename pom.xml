@@ -49,7 +49,7 @@
     </licenses>
 
     <properties>
-        <jsr.version>${project.version}</jsr.version>
+        <bp.version>${project.version}</bp.version>
         <jdkVersion>1.7</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
@@ -313,9 +313,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.money</groupId>
+            <groupId>org.javamoney</groupId>
             <artifactId>money-api-bp</artifactId>
-            <version>${jsr.version}</version>
+            <version>${bp.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

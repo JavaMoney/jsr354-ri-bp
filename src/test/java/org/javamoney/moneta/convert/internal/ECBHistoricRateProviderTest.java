@@ -15,7 +15,7 @@
  */
 package org.javamoney.moneta.convert.internal;
 
-import static javax.money.convert.MonetaryConversions.getExchangeRateProvider;
+import static org.javamoney.bp.convert.MonetaryConversions.getExchangeRateProvider;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
@@ -25,13 +25,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
-import javax.money.convert.ConversionQuery;
-import javax.money.convert.ConversionQueryBuilder;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ConversionQueryBuilder;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.ExchangeRateType;
 import org.javamoney.moneta.Money;

@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.spi;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.convert.ConversionContext;
-import javax.money.convert.ConversionQuery;
-import javax.money.convert.ConversionQueryBuilder;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.convert.ConversionContext;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ConversionQueryBuilder;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 /**
  * This class defines a {@link CurrencyConversion} that is converting to a

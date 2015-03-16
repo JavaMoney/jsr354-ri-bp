@@ -17,13 +17,13 @@ package org.javamoney.moneta.convert.internal;
 
 import java.net.MalformedURLException;
 
-import javax.money.convert.ConversionContext;
-import javax.money.convert.ProviderContext;
-import javax.money.convert.ProviderContextBuilder;
-import javax.money.convert.RateType;
+import org.javamoney.bp.convert.ConversionContext;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.ProviderContextBuilder;
+import org.javamoney.bp.convert.RateType;
 
 /**
- * This class implements an {@link javax.money.convert.ExchangeRateProvider} that loads data from
+ * This class implements an {@link org.javamoney.bp.convert.ExchangeRateProvider} that loads data from
  * the European Central Bank data feed (XML). It loads the current exchange
  * rates. The provider loads all data up to 1999 into its
  * historic data cache.
@@ -32,7 +32,7 @@ import javax.money.convert.RateType;
  * @author Werner Keil
  * @author otaviojava
  */
-public class ECBCurrentRateProvider extends AbstractECBCurrentRateProvider {
+public class ECBCurrentRateProvider extends AbstractECBRateProvider {
 
     /**
      * The data id used for the LoaderService.

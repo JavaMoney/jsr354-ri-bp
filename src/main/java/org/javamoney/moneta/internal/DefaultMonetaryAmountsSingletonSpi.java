@@ -17,21 +17,20 @@ package org.javamoney.moneta.internal;
 
 import org.javamoney.moneta.spi.base.BaseMonetaryAmountsSingletonSpi;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryException;
-import javax.money.spi.Bootstrap;
-import javax.money.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryAmountFactory;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.spi.Bootstrap;
+import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Default implementation ot {@link javax.money.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
+ * Default implementation ot {@link org.javamoney.bp.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
  * initially once, using the
- * JSR's {@link javax.money.spi.Bootstrap} mechanism.
+ * JSR's {@link org.javamoney.bp.spi.Bootstrap} mechanism.
  */
 public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingletonSpi {
 
@@ -53,7 +52,7 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
      * Tries to load the default {@link MonetaryAmount} class from
      * {@code javamoney.properties} with contents as follows:<br/>
      * <code>
-     * javax.money.defaults.amount.class=my.fully.qualified.ClassName
+     * org.javamoney.bp.defaults.amount.class=my.fully.qualified.ClassName
      * </code>
      *
      * @return the loaded default class, or {@code null}
@@ -83,7 +82,7 @@ public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingl
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.spi.MonetaryAmountsSpi#getDefaultAmountType()
+     * @see org.javamoney.bp.spi.MonetaryAmountsSpi#getDefaultAmountType()
      */
     @Override
     public Class<? extends MonetaryAmount> getDefaultAmountType() {

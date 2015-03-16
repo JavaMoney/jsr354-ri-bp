@@ -18,11 +18,11 @@ package org.javamoney.moneta.function;
 import java.util.Comparator;
 import java.util.Objects;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryException;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.spi.MoneyUtils;
 
@@ -59,7 +59,7 @@ public final class MonetaryFunctions {
 	/**
 	 * comparator to sort the {@link MonetaryAmount} considering the
 	 * {@link ExchangeRate}
-	 * @param provider
+	 * @param provider the rate provider to be used.
 	 * @return the sort of {@link MonetaryAmount} using {@link ExchangeRate}
 	 */
 	public static Comparator<? super MonetaryAmount> sortValiable(
@@ -77,7 +77,7 @@ public final class MonetaryFunctions {
 	/**
 	 * Descending order of
 	 * {@link MonetaryFunctions#sortValiable(ExchangeRateProvider)}
-	 * @param provider
+	 * @param provider the rate provider to be used.
 	 * @return the Descending order of
 	 *         {@link MonetaryFunctions#sortValiable(ExchangeRateProvider)}
 	 */
@@ -128,7 +128,7 @@ public final class MonetaryFunctions {
 //    /**
 //	 * Create predicate that filters by CurrencyUnit.
 //	 * @param currencies
-//	 *            the target {@link javax.money.CurrencyUnit}
+//	 *            the target {@link org.javamoney.bp.CurrencyUnit}
 //	 * @return the predicate from CurrencyUnit
 //	 */
 //	public static Predicate<MonetaryAmount> isCurrency(
@@ -152,10 +152,10 @@ public final class MonetaryFunctions {
 //
 //    /**
 //     * Create predicate that filters by CurrencyUnit.
-//     * @param currencyUnit the target {@link javax.money.CurrencyUnit}
+//     * @param currencyUnit the target {@link org.javamoney.bp.CurrencyUnit}
 //     * @return the predicate from CurrencyUnit
 //     */
-//	public static Predicate<MonetaryAmount> fiterByExcludingCurrency(
+//	public static Predicate<MonetaryAmount> filterByExcludingCurrency(
 //			CurrencyUnit... currencies) {
 //
 //		if (Objects.isNull(currencies) || currencies.length == 0) {
@@ -291,10 +291,10 @@ public final class MonetaryFunctions {
 //			ExchangeRateProvider provider) {
 //
 //		return (m1, m2) -> {
-//			CurrencyConversion convertion = provider.getCurrencyConversion(m1
+//			CurrencyConversion conversion = provider.getCurrencyConversion(m1
 //					.getCurrency());
 //
-//			if (m1.isGreaterThan(convertion.apply(m2))) {
+//			if (m1.isGreaterThan(conversion.apply(m2))) {
 //				return m2;
 //			}
 //			return m1;
@@ -320,10 +320,10 @@ public final class MonetaryFunctions {
 //			ExchangeRateProvider provider) {
 //
 //		return (m1, m2) -> {
-//			CurrencyConversion convertion = provider
+//			CurrencyConversion conversion = provider
 //					.getCurrencyConversion(m1.getCurrency());
 //
-//			if (m1.isGreaterThan(convertion.apply(m2))) {
+//			if (m1.isGreaterThan(conversion.apply(m2))) {
 //				return m1;
 //			}
 //			return m2;

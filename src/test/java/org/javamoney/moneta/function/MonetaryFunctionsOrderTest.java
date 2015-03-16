@@ -1,6 +1,6 @@
 package org.javamoney.moneta.function;
 
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 import org.testng.annotations.Test;
 

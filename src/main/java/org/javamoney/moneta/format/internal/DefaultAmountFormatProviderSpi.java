@@ -25,10 +25,10 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.money.format.AmountFormatContextBuilder;
-import javax.money.format.AmountFormatQuery;
-import javax.money.format.MonetaryAmountFormat;
-import javax.money.spi.MonetaryAmountFormatProviderSpi;
+import org.javamoney.bp.format.AmountFormatContextBuilder;
+import org.javamoney.bp.format.AmountFormatQuery;
+import org.javamoney.bp.format.MonetaryAmountFormat;
+import org.javamoney.bp.spi.MonetaryAmountFormatProviderSpi;
 
 /**
  * Default format provider, which mainly maps the existing JDK functionality into the JSR 354 logic.
@@ -58,7 +58,7 @@ public class DefaultAmountFormatProviderSpi implements MonetaryAmountFormatProvi
     /*
          * (non-Javadoc)
          * @see
-         * javax.money.spi.MonetaryAmountFormatProviderSpi#getFormat(javax.money.format.AmountFormatContext)
+         * org.javamoney.bp.spi.MonetaryAmountFormatProviderSpi#getFormat(org.javamoney.bp.format.AmountFormatContext)
          */
     @Override
     public Collection<MonetaryAmountFormat> getAmountFormats(AmountFormatQuery amountFormatQuery) {

@@ -17,7 +17,7 @@ package org.javamoney.moneta.loader.internal;
 
 import org.javamoney.moneta.spi.LoaderService;
 
-import javax.money.spi.Bootstrap;
+import org.javamoney.bp.spi.Bootstrap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -351,6 +351,7 @@ public class DefaultLoaderService implements LoaderService {
      * @param dataId the data id, not null.
      * @param is     the InputStream, containing the latest data.
      */
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     private void triggerListeners(String dataId, InputStream is) {
         List<LoaderListener> listeners = getListeners("");
         synchronized (listeners) {
@@ -383,6 +384,7 @@ public class DefaultLoaderService implements LoaderService {
      * org.javamoney.moneta.spi.LoaderService#addLoaderListener(org.javamoney
      * .moneta.spi.LoaderService.LoaderListener, java.lang.String[])
      */
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void addLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {
@@ -431,6 +433,7 @@ public class DefaultLoaderService implements LoaderService {
      * org.javamoney.moneta.spi.LoaderService#removeLoaderListener(org.javamoney
      * .moneta.spi.LoaderService.LoaderListener, java.lang.String[])
      */
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void removeLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {

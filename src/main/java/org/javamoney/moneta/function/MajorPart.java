@@ -15,7 +15,7 @@
  */
 package org.javamoney.moneta.function;
 
-import javax.money.*;
+import org.javamoney.bp.*;
 import java.math.RoundingMode;
 import java.util.Objects;
 

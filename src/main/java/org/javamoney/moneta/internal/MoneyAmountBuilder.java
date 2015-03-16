@@ -17,16 +17,16 @@ package org.javamoney.moneta.internal;
 
 import java.math.RoundingMode;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryContextBuilder;
-import javax.money.NumberValue;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryContextBuilder;
+import org.javamoney.bp.NumberValue;
 
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.spi.AbstractAmountBuilder;
 
 /**
- * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link Money}.
+ * Implementation of {@link org.javamoney.bp.MonetaryAmountFactory} creating instances of {@link Money}.
  *
  * @author Anatole Tresch
  */

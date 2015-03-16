@@ -17,9 +17,9 @@ package org.javamoney.moneta.function;
 
 import org.testng.annotations.Test;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmounts;
-import javax.money.MonetaryOperator;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryAmounts;
+import org.javamoney.bp.MonetaryOperator;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Locale;

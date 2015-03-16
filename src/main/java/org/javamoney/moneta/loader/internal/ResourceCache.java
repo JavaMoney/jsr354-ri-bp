@@ -32,8 +32,6 @@ public interface ResourceCache {
      *            the resource id, never {@code null}.
      * @param data
      *            the data
-     * @throws IOException
-     *             when an IO error occurs.
      */
     void write(String resourceId, byte[] data);
 
@@ -60,7 +58,7 @@ public interface ResourceCache {
 
     /**
      * Remove a cache entry.
-     * @param resourceId the resource idntifer, not null.
+     * @param resourceId the resource identifier, not null.
      */
     void clear(String resourceId);
 }

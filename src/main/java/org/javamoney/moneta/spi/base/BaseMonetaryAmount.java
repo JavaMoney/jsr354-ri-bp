@@ -8,9 +8,9 @@
  */
 package org.javamoney.moneta.spi.base;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryOperator;
+import org.javamoney.bp.MonetaryQuery;
 
 /**
  * Interface defining a monetary amount. The effective internal representation of an amount may vary
@@ -20,13 +20,13 @@ import javax.money.MonetaryQuery;
  * and scale, whereas low latency order and trading systems require high calculation performance for
  * algorithmic operations.
  * <p>
- * Each instance of an amount provides additional meta-data in form of a {@link javax.money.MonetaryContext}.
+ * Each instance of an amount provides additional meta-data in form of a {@link org.javamoney.bp.MonetaryContext}.
  * This context contains detailed information on the numeric capabilities, e.g. the supported
  * precision and maximal scale, as well as the common implementation flavor.
  *
- * Also a {@link javax.money.spi.BaseMonetaryAmount} provides a {@link javax.money.NumberValue}, which allows easily to extract the
+ * Also a {@link BaseMonetaryAmount} provides a {@link org.javamoney.bp.NumberValue}, which allows easily to extract the
  * numeric value, of the amount. And finally {@link #getFactory()} provides a
- * {@link javax.money.MonetaryAmountFactory}, which allows to of instances of {@link javax.money.spi.BaseMonetaryAmount} based
+ * {@link org.javamoney.bp.MonetaryAmountFactory}, which allows to of instances of {@link BaseMonetaryAmount} based
  * on the same numeric implementation.
  * <p>
  * This JSR additionally recommends to consider the following aspects:
@@ -38,15 +38,15 @@ import javax.money.MonetaryQuery;
  * representation of a monetary amount.
  * <li>Monetary amounts should allow numbers as argument for arithmetic operations like division and
  * multiplication. Adding or subtracting of amounts must only be possible by passing instances of
- * {@link javax.money.spi.BaseMonetaryAmount}.</li>
+ * {@link BaseMonetaryAmount}.</li>
  * <li>Nevertheless numeric truncation is also explicitly supported when calling
- * {@link javax.money.NumberValue#numberValue(Class)}, whereas the <i>exact</i> counterpart,
- * {@link javax.money.NumberValue#numberValueExact(Class)}, works similar to
+ * {@link org.javamoney.bp.NumberValue#numberValue(Class)}, whereas the <i>exact</i> counterpart,
+ * {@link org.javamoney.bp.NumberValue#numberValueExact(Class)}, works similar to
  * {@link java.math.BigDecimal#longValueExact()}.
  * <li>Since implementations are recommended to be immutable, an operation should never change any
  * internal state of an instance. Given an instance, all operations are required to be fully
  * reproducible.</li>
- * <li>Finally the result of calling {@link #with(javax.money.MonetaryOperator)} must be of the same type as
+ * <li>Finally the result of calling {@link #with(org.javamoney.bp.MonetaryOperator)} must be of the same type as
  * type on which {@code with} was called. The {@code with} method also defines additional
  * interoperability requirements that are important to enable this invariant.</li>
  * <li>To enable further interoperability a static method {@code from(MonetaryAmount)} is
@@ -73,8 +73,8 @@ import javax.money.MonetaryQuery;
  * Implementations of this interface should be
  * <ul>
  * <li>final</li>
- * <li>serializable, hereby writing the numeric value, the {@link javax.money.MonetaryContext} and a serialized
- * {@link javax.money.CurrencyUnit}.</li>
+ * <li>serializable, hereby writing the numeric value, the {@link org.javamoney.bp.MonetaryContext} and a serialized
+ * {@link org.javamoney.bp.CurrencyUnit}.</li>
  * </ul>
  * Implementations of this interface must be
  * <ul>
@@ -95,7 +95,7 @@ import javax.money.MonetaryQuery;
  * @author Anatole Tresch
  * @author Werner Keil
  * @version 0.8.2
- * @see #with(javax.money.MonetaryOperator)
+ * @see #with(org.javamoney.bp.MonetaryOperator)
  */
 public abstract class BaseMonetaryAmount implements MonetaryAmount{
 
@@ -117,14 +117,14 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
 
     /**
      * Returns an operated object <b>of the same type</b> as this object with the operation made.
-     * Hereby returning an instannce <b>of the same type</b> is very important to prevent
+     * Hereby returning an instance <b>of the same type</b> is very important to prevent
      * uncontrolled mixup of implementations. Switching between implementations is still easily
-     * possible, e.g. by using according {@link javax.money.MonetaryAmountFactory} instances: <blockquote>
+     * possible, e.g. by using according {@link org.javamoney.bp.MonetaryAmountFactory} instances: <blockquote>
      * <p>
      * <pre>
      * // converting from Money to MyMoney
      * Money m = ...;
-     * MonetartyAmountFactory<MyMoney> f = MonetaryAmounts.queryAmountFactory(MyMoney.class);
+     * MonetaryAmountFactory<MyMoney> f = MonetaryAmounts.queryAmountFactory(MyMoney.class);
      * MyMoney myMoney = f.setAmount(m).of();
      * </blockquote>
      * </pre>

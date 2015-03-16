@@ -17,10 +17,10 @@ package org.javamoney.moneta.function;
 
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 class ExchangeRateMonetarySummaryStatistics  extends DefaultMonetarySummaryStatistics {
 
@@ -100,4 +100,21 @@ class ExchangeRateMonetarySummaryStatistics  extends DefaultMonetarySummaryStati
 		return another;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ExchangeRateMonetarySummaryStatistics)) return false;
+        if (!super.equals(o)) return false;
+
+        ExchangeRateMonetarySummaryStatistics that = (ExchangeRateMonetarySummaryStatistics) o;
+        if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (provider != null ? provider.hashCode() : 0);
+        return result;
+    }
 }

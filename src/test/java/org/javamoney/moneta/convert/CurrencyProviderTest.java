@@ -18,9 +18,9 @@ package org.javamoney.moneta.convert;
 import org.javamoney.moneta.Money;
 import org.testng.annotations.Test;
 
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.MonetaryConversions;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.MonetaryConversions;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -44,7 +44,7 @@ public class CurrencyProviderTest {
                 Money money = Money.of(10, currency);
                 System.out.println("ECB : " + money.with(ecbDollarConvertion));
                 System.out.println("IMF : " + money.with(imfDollarConversion));
-                assertEquals(money.with(ecbDollarConvertion).getNumber().doubleValue(), money.with(imfDollarConversion).getNumber().doubleValue(), 0.1d);
+                assertEquals(money.with(ecbDollarConvertion).getNumber().doubleValue(), money.with(imfDollarConversion).getNumber().doubleValue(), 0.3d);
             }
         } catch (InterruptedException e) {
             // This test may fail, if the network is slow or not available, so only write the exception as of now...

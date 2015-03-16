@@ -6,9 +6,9 @@ import static org.javamoney.moneta.function.StreamFactory.BRAZILIAN_REAL;
 import static org.javamoney.moneta.function.StreamFactory.DOLLAR;
 import static org.junit.Assert.assertNotNull;
 
-import javax.money.CurrencyUnit;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.MonetaryConversions;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.MonetaryConversions;
 
 import org.javamoney.moneta.Money;
 import org.testng.annotations.BeforeTest;

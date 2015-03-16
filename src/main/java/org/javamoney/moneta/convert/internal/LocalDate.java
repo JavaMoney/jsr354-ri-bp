@@ -35,6 +35,25 @@ public final class LocalDate implements Comparable<LocalDate>, Serializable{
         return from(cal);
     }
 
+    public LocalDate minusDays(int days){
+        Calendar cal = toCalendar();
+        cal.add(Calendar.DAY_OF_YEAR, days*-1);
+        return from(cal);
+    }
+
+    /**
+     * Create a new (local/default Locale based) GregorianCalendar instance.
+     * @return a new (local/default Locale based) GregorianCalendar instance, not null.
+     */
+    public Calendar toCalendar() {
+        return new GregorianCalendar(year, month-1, dayOfMonth);
+    }
+
+    /**
+     * Cerates a new instance from the given Calendar.
+     * @param cal the Calendar, not null.
+     * @return
+     */
     public static LocalDate from(Calendar cal) {
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH)+1;

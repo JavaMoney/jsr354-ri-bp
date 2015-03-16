@@ -17,8 +17,8 @@ package org.javamoney.moneta;
 
 import org.javamoney.moneta.internal.ConfigurableCurrencyUnitProvider;
 
-import javax.money.CurrencyContextBuilder;
-import javax.money.CurrencyUnit;
+import org.javamoney.bp.CurrencyContextBuilder;
+import org.javamoney.bp.CurrencyUnit;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -42,7 +42,7 @@ public final class CurrencyUnitBuilder {
     /**
      * The currency's context.
      */
-    javax.money.CurrencyContext currencyContext;
+    org.javamoney.bp.CurrencyContext currencyContext;
 
     /**
      * Private constructor, use #of() methods.
@@ -56,7 +56,7 @@ public final class CurrencyUnitBuilder {
      * @param currencyCode    the (unique) and identifying currency code, not null.
      * @param currencyContext The currency context to be used.
      */
-    public static CurrencyUnitBuilder of(String currencyCode, javax.money.CurrencyContext currencyContext) {
+    public static CurrencyUnitBuilder of(String currencyCode, org.javamoney.bp.CurrencyContext currencyContext) {
         return new CurrencyUnitBuilder(currencyCode, currencyContext);
     }
 
@@ -75,7 +75,7 @@ public final class CurrencyUnitBuilder {
      *
      * @param currencyCode the (unique) and identifying currency code, not null.
      */
-    private CurrencyUnitBuilder(String currencyCode, javax.money.CurrencyContext currencyContext) {
+    private CurrencyUnitBuilder(String currencyCode, org.javamoney.bp.CurrencyContext currencyContext) {
         Objects.requireNonNull(currencyCode, "currencyCode required");
         this.currencyCode = currencyCode;
         Objects.requireNonNull(currencyContext, "currencyContext required");
@@ -87,7 +87,7 @@ public final class CurrencyUnitBuilder {
      *
      * @param currencyCode the (unique) and identifying currency code, not null.
      * @return the Builder, for chaining.
-     * @see javax.money.CurrencyUnit#getCurrencyCode()
+     * @see org.javamoney.bp.CurrencyUnit#getCurrencyCode()
      */
     public CurrencyUnitBuilder setCurrencyCode(String currencyCode) {
         Objects.requireNonNull(currencyCode, "currencyCode required");
@@ -101,7 +101,7 @@ public final class CurrencyUnitBuilder {
      *
      * @param numericCode The numeric currency code, &gt;= -1. .1 hereby means <i>undefined</i>.
      * @return the Builder, for chaining.
-     * @see javax.money.CurrencyUnit#getNumericCode()
+     * @see org.javamoney.bp.CurrencyUnit#getNumericCode()
      */
     public CurrencyUnitBuilder setNumericCode(int numericCode) {
         if (numericCode < -1) {
@@ -116,7 +116,7 @@ public final class CurrencyUnitBuilder {
      *
      * @param defaultFractionDigits the default fraction digits, &gt;= 0.
      * @return the Builder, for chaining.
-     * @see javax.money.CurrencyUnit#getDefaultFractionDigits()
+     * @see org.javamoney.bp.CurrencyUnit#getDefaultFractionDigits()
      */
     public CurrencyUnitBuilder setDefaultFractionDigits(int defaultFractionDigits) {
         if (defaultFractionDigits < 0) {
@@ -130,7 +130,7 @@ public final class CurrencyUnitBuilder {
      * Returns a new instance of {@link BuildableCurrencyUnit}.
      *
      * @return the new CurrencyUnit instance.
-     * @throws javax.money.MonetaryException if creation fails
+     * @throws org.javamoney.bp.MonetaryException if creation fails
      */
     public CurrencyUnit build() {
         return build(false);
@@ -143,7 +143,7 @@ public final class CurrencyUnitBuilder {
      * @param register if {@code true} the instance created is published so it is accessible from
      *                 the {@code MonetaryCurrencies} singleton.
      * @return the new CurrencyUnit instance.
-     * @see javax.money.MonetaryCurrencies#getCurrency(String, String...)
+     * @see org.javamoney.bp.MonetaryCurrencies#getCurrency(String, String...)
      */
     public CurrencyUnit build(boolean register) {
         BuildableCurrencyUnit cu = new BuildableCurrencyUnit(this);
@@ -161,8 +161,8 @@ public final class CurrencyUnitBuilder {
      *                 the {@code MonetaryCurrencies} singleton.
      * @param locale   country Locale for making the currency for the given country.
      * @return the new CurrencyUnit instance.
-     * @see javax.money.MonetaryCurrencies#getCurrency(String, String...)
-     * @see javax.money.MonetaryCurrencies#getCurrency(java.util.Locale, String...)
+     * @see org.javamoney.bp.MonetaryCurrencies#getCurrency(String, String...)
+     * @see org.javamoney.bp.MonetaryCurrencies#getCurrency(java.util.Locale, String...)
      */
     public CurrencyUnit build(boolean register, Locale locale) {
         BuildableCurrencyUnit cu = new BuildableCurrencyUnit(this);

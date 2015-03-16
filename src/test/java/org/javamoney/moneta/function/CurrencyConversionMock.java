@@ -6,12 +6,12 @@ import static org.javamoney.moneta.function.StreamFactory.EURO;
 
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.convert.ConversionContext;
-import javax.money.convert.CurrencyConversion;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.convert.ConversionContext;
+import org.javamoney.bp.convert.CurrencyConversion;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.Money;
 

@@ -14,6 +14,6 @@
  * the License.
  */
 /**
- * Contains public core implementation artifacts, e.g. implementations of {@link javax.money.MonetaryAmount}.
+ * Contains public core implementation artifacts, e.g. implementations of {@link org.javamoney.bp.MonetaryAmount}.
  */
 package org.javamoney.moneta;

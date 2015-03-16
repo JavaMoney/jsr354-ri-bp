@@ -147,7 +147,7 @@ public class LoadableResource {
             clearCache();
         }
         if (!readCache()) {
-            if (!loadRemote()) {
+            if (loadRemote()) {
                 return loadFallback();
             }
         }
@@ -225,12 +225,12 @@ public class LoadableResource {
     public boolean loadRemote() {
         for (URI itemToLoad : remoteResources) {
             try {
-                return load(itemToLoad, false);
+                return !load(itemToLoad, false);
             } catch (Exception e) {
                 LOG.log(Level.INFO, "Failed to load resource: " + itemToLoad, e);
             }
         }
-        return false;
+        return true;
     }
 
     /**
@@ -307,6 +307,7 @@ public class LoadableResource {
      *
      * @param itemToLoad   the target {@link URL}
      * @param fallbackLoad true, for a fallback URL.
+     * @return true, if load was successful.
      */
     protected boolean load(URI itemToLoad, boolean fallbackLoad) {
         InputStream is = null;
@@ -339,12 +340,10 @@ public class LoadableResource {
                     LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
                 }
             }
-            if (bos!=null) {
-                try {
-                    bos.close();
-                } catch (IOException e) {
-                    LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
-                }
+            try {
+                bos.close();
+            } catch (IOException e) {
+                LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
             }
         }
         return false;
@@ -369,7 +368,7 @@ public class LoadableResource {
                 synchronized (LOCK) {
                     currentData = this.data == null ? null : this.data.get();
                     if (currentData==null) {
-                        if (!loadRemote()) {
+                        if (loadRemote()) {
                             loadFallback();
                         }
                     }

@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.spi;
 
-import javax.money.*;
+import org.javamoney.bp.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * Basic implementation of {@link javax.money.MonetaryAmountFactory}, which simplifies development of the SPI interface.
+ * Basic implementation of {@link org.javamoney.bp.MonetaryAmountFactory}, which simplifies development of the SPI interface.
  *
- * @param <T> the target class implementing {@link javax.money.MonetaryAmount}.
+ * @param <T> the target class implementing {@link org.javamoney.bp.MonetaryAmount}.
  */
 public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements MonetaryAmountFactory<T> {
 
@@ -70,7 +70,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#withCurrency(javax.money.CurrencyUnit)
+     * @see org.javamoney.bp.MonetaryAmountFactory#withCurrency(org.javamoney.bp.CurrencyUnit)
      */
     @Override
     public MonetaryAmountFactory<T> setCurrency(CurrencyUnit currency) {
@@ -81,7 +81,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#with(java.lang.Number)
+     * @see org.javamoney.bp.MonetaryAmountFactory#with(java.lang.Number)
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(Number number) {
@@ -91,7 +91,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#withCurrency(java.lang.String)
+     * @see org.javamoney.bp.MonetaryAmountFactory#withCurrency(java.lang.String)
      */
     @Override
     public MonetaryAmountFactory<T> setCurrency(String currencyCode) {
@@ -116,7 +116,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#with(long)
+     * @see org.javamoney.bp.MonetaryAmountFactory#with(long)
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(long number) {
@@ -126,7 +126,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#with(javax.money.MonetaryContext)
+     * @see org.javamoney.bp.MonetaryAmountFactory#with(org.javamoney.bp.MonetaryContext)
      */
     @Override
     public MonetaryAmountFactory<T> setContext(MonetaryContext monetaryContext) {

@@ -1,21 +1,15 @@
 package org.javamoney.moneta.convert.internal;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Map;
-import java.util.Objects;
-import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
-import javax.money.convert.ConversionContextBuilder;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ProviderContext;
-import javax.money.convert.RateType;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.convert.ConversionContextBuilder;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.RateType;
 
 import org.javamoney.moneta.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.DefaultNumberValue;

@@ -15,7 +15,13 @@
  */
 package org.javamoney.moneta.spi;
 
-import javax.money.convert.*;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.ProviderContextBuilder;
+import org.javamoney.bp.convert.RateType;
+
 import java.util.*;
 
 /**
@@ -26,7 +32,7 @@ import java.util.*;
  */
 public class CompoundRateProvider extends AbstractRateProvider {
     /**
-     * Kery used to store a list of child {@link javax.money.convert.ProviderContext} instances of the providers
+     * Kery used to store a list of child {@link org.javamoney.bp.convert.ProviderContext} instances of the providers
      * contained within this instance.
      */
     public static final String CHILD_PROVIDER_CONTEXTS_KEY = "childProviderContexts";
@@ -85,9 +91,9 @@ public class CompoundRateProvider extends AbstractRateProvider {
      * (non-Javadoc)
      *
      * @see
-     * javax.money.convert.ExchangeRateProvider#getExchangeRate(javax.money.
-     * CurrencyUnit, javax.money.CurrencyUnit,
-     * javax.money.convert.ConversionContext)
+     * org.javamoney.bp.convert.ExchangeRateProvider#getExchangeRate(org.javamoney.bp.
+     * CurrencyUnit, org.javamoney.bp.CurrencyUnit,
+     * org.javamoney.bp.convert.ConversionContext)
      */
     @Override
     public ExchangeRate getExchangeRate(ConversionQuery conversionQuery) {

@@ -16,13 +16,13 @@
 package org.javamoney.moneta.format;
 
 /**
- * Class holding constants for passing additional parameters to {@link javax.money.MonetaryAmountFactoryQuery}
- * instances for configuring {@link javax.money.format.MonetaryAmountFormat} instances to be accessed.
+ * Class holding constants for passing additional parameters to {@link org.javamoney.bp.MonetaryAmountFactoryQuery}
+ * instances for configuring {@link org.javamoney.bp.format.MonetaryAmountFormat} instances to be accessed.
  */
 public final class AmountFormatParams {
 
     /**
-     * Non instantiatable class.
+     * Singleton class.
      */
     private AmountFormatParams() {
     }

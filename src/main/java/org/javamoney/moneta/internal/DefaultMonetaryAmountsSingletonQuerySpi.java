@@ -15,18 +15,22 @@
  */
 package org.javamoney.moneta.internal;
 
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryAmountFactory;
+import org.javamoney.bp.MonetaryAmountFactoryQuery;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryException;
 import org.javamoney.moneta.spi.base.BaseMonetaryAmountsSingletonQuerySpi;
 
-import javax.money.*;
-import javax.money.spi.Bootstrap;
-import javax.money.spi.MonetaryAmountFactoryProviderSpi;
-import javax.money.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
+import org.javamoney.bp.spi.Bootstrap;
+import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
 import java.util.*;
 
 /**
- * Default implementation ot {@link javax.money.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
+ * Default implementation ot {@link org.javamoney.bp.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
  * initially once, using the
- * JSR's {@link javax.money.spi.Bootstrap} mechanism.
+ * JSR's {@link org.javamoney.bp.spi.Bootstrap} mechanism.
  */
 public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmountsSingletonQuerySpi{
 
@@ -64,12 +68,12 @@ public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmounts
     /**
      * (non-Javadoc)
      *
-     * @see javax.money.spi.MonetaryAmountsSingletonQuerySpi#getAmountFactories(javax.money.MonetaryAmountFactoryQuery)
+     * @see org.javamoney.bp.spi.MonetaryAmountsSingletonQuerySpi#getAmountFactories(org.javamoney.bp.MonetaryAmountFactoryQuery)
      */
     @Override
     public Collection<MonetaryAmountFactory<?>> getAmountFactories(MonetaryAmountFactoryQuery factoryQuery){
         Objects.requireNonNull(factoryQuery);
-        List<MonetaryAmountFactory<?>> factories = new ArrayList<>();
+        List<MonetaryAmountFactory<?>> factories = new ArrayList<MonetaryAmountFactory<?>>();
         // first check for explicit type
         for(@SuppressWarnings("unchecked") MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount> f : Bootstrap
                 .getServices(MonetaryAmountFactoryProviderSpi.class)){

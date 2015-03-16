@@ -17,7 +17,7 @@ package org.javamoney.moneta;
 
 import org.testng.annotations.Test;
 
-import javax.money.*;
+import org.javamoney.bp.*;
 
 import static org.testng.Assert.*;
 
@@ -27,7 +27,7 @@ import static org.testng.Assert.*;
 public class MonetaryAmountsRegistrationTest{
 
     /**
-     * Test method for {@link javax.money.MonetaryAmounts#getAmountFactory(java.lang.Class)}.
+     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(java.lang.Class)}.
      */
     @Test
     public void testGetFactory(){
@@ -39,7 +39,7 @@ public class MonetaryAmountsRegistrationTest{
     }
 
     /**
-     * Test method for {@link javax.money.MonetaryAmounts#getAmountTypes()}.
+     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getAmountTypes()}.
      */
     @Test
     public void testGetTypes(){
@@ -51,7 +51,7 @@ public class MonetaryAmountsRegistrationTest{
     }
 
     /**
-     * Test method for {@link javax.money.MonetaryAmounts#getDefaultAmountType()}.
+     * Test method for {@link org.javamoney.bp.MonetaryAmounts#getDefaultAmountType()}.
      */
     @Test
     public void testGetDefaultAmountType(){
@@ -61,7 +61,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)} .
+     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)} .
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetAmountFactory_WithNull(){
@@ -70,7 +70,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)}.
+     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)}.
      */
     @Test
     public void testQueryAmountType(){
@@ -112,7 +112,7 @@ public class MonetaryAmountsRegistrationTest{
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)} .
+     * {@link org.javamoney.bp.MonetaryAmounts#getAmountFactory(org.javamoney.bp.MonetaryAmountFactoryQuery)} .
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testQueryAmountType_InvalidContext(){

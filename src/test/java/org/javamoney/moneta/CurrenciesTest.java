@@ -23,8 +23,8 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryCurrencies;
 
 import org.testng.annotations.Test;
 
@@ -115,7 +115,7 @@ public class CurrenciesTest {
 
 	/**
 	 * Test Comparable method for
-	 * {@link javax.money.CurrencyUnit}s.
+	 * {@link org.javamoney.bp.CurrencyUnit}s.
 	 */
 	@Test
 	public void testCompareTo() {

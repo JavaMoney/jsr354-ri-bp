@@ -15,10 +15,10 @@
  */
 package org.javamoney.moneta.spi;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryException;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -62,12 +62,10 @@ public final class MoneyUtils {
      * @return the corresponding {@link BigDecimal}
      */
     public static BigDecimal getBigDecimal(double num) {
-        if (num == Double.NaN) {
+        if (Double.isNaN(num)) {
             throw new ArithmeticException("Invalid input Double.NaN.");
-        } else if (num == Double.POSITIVE_INFINITY) {
-            throw new ArithmeticException("Invalid input Double.POSITIVE_INFINITY.");
-        } else if (num == Double.NEGATIVE_INFINITY) {
-            throw new ArithmeticException("Invalid input Double.NEGATIVE_INFINITY.");
+        } else if(Double.isInfinite(num)) {
+            throw new ArithmeticException("Invalid input Double.xxx_INFINITY.");
         }
         return new BigDecimal(String.valueOf(num));
     }

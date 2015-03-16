@@ -15,14 +15,14 @@
  */
 package org.javamoney.moneta.internal;
 
-import javax.money.*;
-import javax.money.spi.RoundingProviderSpi;
+import org.javamoney.bp.*;
+import org.javamoney.bp.spi.RoundingProviderSpi;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
 /**
- * Defaulr implementation of a {@link javax.money.spi.RoundingProviderSpi} that creates instances of {@link org
+ * Defaulr implementation of a {@link org.javamoney.bp.spi.RoundingProviderSpi} that creates instances of {@link org
  * .javamoney.moneta.internal.DefaultRounding} that relies on the default fraction units defined by {@link java.util
  * .Currency#getDefaultFractionDigits()}.
  */

@@ -1,7 +1,7 @@
 package org.javamoney.moneta.function;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryCurrencies;
 
 public class StreamFactory {
 

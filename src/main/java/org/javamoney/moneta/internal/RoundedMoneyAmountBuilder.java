@@ -18,14 +18,14 @@ package org.javamoney.moneta.internal;
 import org.javamoney.moneta.RoundedMoney;
 import org.javamoney.moneta.spi.AbstractAmountBuilder;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryContextBuilder;
-import javax.money.NumberValue;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.MonetaryContextBuilder;
+import org.javamoney.bp.NumberValue;
 import java.math.RoundingMode;
 
 /**
- * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta
+ * Implementation of {@link org.javamoney.bp.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta
  * .RoundedMoney}.
  *
  * @author Anatole Tresch
@@ -39,8 +39,8 @@ public class RoundedMoneyAmountBuilder extends AbstractAmountBuilder<RoundedMone
 
     /*
      * (non-Javadoc)
-     * @see org.javamoney.moneta.spi.AbstractAmountFactory#of(javax.money.CurrencyUnit,
-     * java.lang.Number, javax.money.MonetaryContext)
+     * @see org.javamoney.moneta.spi.AbstractAmountFactory#of(org.javamoney.bp.CurrencyUnit,
+     * java.lang.Number, org.javamoney.bp.MonetaryContext)
      */
     @Override
     protected RoundedMoney create(Number number, CurrencyUnit currency, MonetaryContext monetaryContext) {
@@ -59,7 +59,7 @@ public class RoundedMoneyAmountBuilder extends AbstractAmountBuilder<RoundedMone
 
     /*
      * (non-Javadoc)
-     * @see javax.money.MonetaryAmountFactory#getAmountType()
+     * @see org.javamoney.bp.MonetaryAmountFactory#getAmountType()
      */
     @Override
     public Class<RoundedMoney> getAmountType() {

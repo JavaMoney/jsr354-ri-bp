@@ -33,21 +33,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 
-import javax.money.CurrencyContextBuilder;
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
-import javax.money.convert.ConversionContext;
-import javax.money.convert.ConversionContextBuilder;
-import javax.money.convert.ConversionQuery;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.ProviderContext;
-import javax.money.convert.ProviderContextBuilder;
-import javax.money.convert.RateType;
-import javax.money.spi.Bootstrap;
+import org.javamoney.bp.CurrencyContextBuilder;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.convert.ConversionContext;
+import org.javamoney.bp.convert.ConversionContextBuilder;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.ProviderContextBuilder;
+import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.spi.Bootstrap;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.javamoney.moneta.ExchangeRateBuilder;
@@ -137,7 +136,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         Map<CurrencyUnit, List<ExchangeRate>> newSdrToCurrency = new HashMap<>();
         NumberFormat f = new DecimalFormat("#0.0000000000");
         f.setGroupingUsed(false);
-        BufferedReader pr = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader pr = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         String line = pr.readLine();
         // int lineType = 0;
         boolean currencyToSdr = true;
@@ -300,9 +299,6 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         } else if (term.equals(SDR)) {
             return rate1;
         }
-        if (rate1==null || rate2==null) {
-            return null;
-        }
         ExchangeRateBuilder builder =
                 new ExchangeRateBuilder(ConversionContext.of(CONTEXT.getProviderName(), RateType.HISTORIC));
         builder.setBase(base);
@@ -316,7 +312,6 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         if (list==null) {
             return null;
         }
-        ExchangeRate found = null;
         for (ExchangeRate rate : list) {
             if (localDate==null) {
                 localDate = LocalDate.now();
@@ -325,7 +320,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                 return rate;
             }
         }
-        return found;
+        return null;
     }
 
 }

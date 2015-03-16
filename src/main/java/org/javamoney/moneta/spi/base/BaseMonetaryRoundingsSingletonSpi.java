@@ -10,17 +10,17 @@
  */
 package org.javamoney.moneta.spi.base;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryException;
-import javax.money.MonetaryRounding;
-import javax.money.RoundingQuery;
-import javax.money.RoundingQueryBuilder;
-import javax.money.spi.MonetaryRoundingsSingletonSpi;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryException;
+import org.javamoney.bp.MonetaryRounding;
+import org.javamoney.bp.RoundingQuery;
+import org.javamoney.bp.RoundingQueryBuilder;
+import org.javamoney.bp.spi.MonetaryRoundingsSingletonSpi;
 import java.util.Collection;
 
 /**
  * This class models the accessor for rounding instances, modeled as
- * {@link javax.money.MonetaryOperator}.
+ * {@link org.javamoney.bp.MonetaryOperator}.
  * <p>
  * This class is thread-safe.
  *
@@ -30,16 +30,16 @@ import java.util.Collection;
 public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRoundingsSingletonSpi {
 
     /**
-     * Access a {@link javax.money.MonetaryRounding} for rounding {@link javax.money.MonetaryAmount}
+     * Access a {@link org.javamoney.bp.MonetaryRounding} for rounding {@link org.javamoney.bp.MonetaryAmount}
      * instances given a currency.
      *
      * @param currencyUnit The currency, which determines the required precision. As
      *                     {@link java.math.RoundingMode}, by default, {@link java.math.RoundingMode#HALF_UP}
      *                     is sued.
      * @param providers    the optional provider list and ordering to be used
-     * @return a new instance {@link javax.money.MonetaryOperator} implementing the
+     * @return a new instance {@link org.javamoney.bp.MonetaryOperator} implementing the
      * rounding, never {@code null}.
-     * @throws javax.money.MonetaryException if no such rounding could be provided.
+     * @throws org.javamoney.bp.MonetaryException if no such rounding could be provided.
      */
     public MonetaryRounding getRounding(CurrencyUnit currencyUnit, String... providers) {
         MonetaryRounding op =
@@ -53,14 +53,14 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
 
 
     /**
-     * Access a {@link javax.money.MonetaryRounding} using the rounding name.
+     * Access a {@link org.javamoney.bp.MonetaryRounding} using the rounding name.
      *
      * @param roundingName The rounding name, not null.
      * @param providers    the optional provider list and ordering to be used
-     * @return the corresponding {@link javax.money.MonetaryOperator} implementing the
+     * @return the corresponding {@link org.javamoney.bp.MonetaryOperator} implementing the
      * rounding, never {@code null}.
      * @throws IllegalArgumentException if no such rounding is registered using a
-     *                                  {@link javax.money.spi.RoundingProviderSpi} instance.
+     *                                  {@link org.javamoney.bp.spi.RoundingProviderSpi} instance.
      */
     public MonetaryRounding getRounding(String roundingName, String... providers) {
         MonetaryRounding op =
@@ -75,7 +75,7 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
     /**
      * Query a specific rounding with the given query. If multiple roundings match the query the first one is
      * selected, since the query allows to determine the providers and their ordering by setting {@link
-     * javax.money.RoundingQuery#getProviderNames()}.
+     * org.javamoney.bp.RoundingQuery#getProviderNames()}.
      *
      * @param query the rounding query, not null.
      * @return the rounding found, or null, if no rounding matches the query.
@@ -89,7 +89,7 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
     }
 
     /**
-     * Checks if any {@link javax.money.MonetaryRounding} is matching the given query.
+     * Checks if any {@link org.javamoney.bp.MonetaryRounding} is matching the given query.
      *
      * @param query the rounding query, not null.
      * @return true, if at least one rounding matches the query.
@@ -99,14 +99,14 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
     }
 
     /**
-     * Checks if a {@link javax.money.MonetaryRounding} is available given a roundingId.
+     * Checks if a {@link org.javamoney.bp.MonetaryRounding} is available given a roundingId.
      *
      * @param roundingId The rounding identifier.
      * @param providers  the providers and ordering to be used. By default providers and ordering as defined in
      *                   #getDefaultProviders is used.
-     * @return true, if a corresponding {@link javax.money.MonetaryRounding} is available.
+     * @return true, if a corresponding {@link org.javamoney.bp.MonetaryRounding} is available.
      * @throws IllegalArgumentException if no such rounding is registered using a
-     *                                  {@link javax.money.spi.RoundingProviderSpi} instance.
+     *                                  {@link org.javamoney.bp.spi.RoundingProviderSpi} instance.
      */
     public boolean isRoundingAvailable(String roundingId, String... providers) {
         return isRoundingAvailable(
@@ -114,15 +114,15 @@ public abstract class BaseMonetaryRoundingsSingletonSpi implements MonetaryRound
     }
 
     /**
-     * Checks if a {@link javax.money.MonetaryRounding} is available given a {@link javax.money.CurrencyUnit}.
+     * Checks if a {@link org.javamoney.bp.MonetaryRounding} is available given a {@link org.javamoney.bp.CurrencyUnit}.
      *
      * @param currencyUnit The currency, which determines the required precision. As {@link java.math.RoundingMode},
      *                     by default, {@link java.math.RoundingMode#HALF_UP} is used.
      * @param providers    the providers and ordering to be used. By default providers and ordering as defined in
      *                     #getDefaultProviders is used.
-     * @return true, if a corresponding {@link javax.money.MonetaryRounding} is available.
+     * @return true, if a corresponding {@link org.javamoney.bp.MonetaryRounding} is available.
      * @throws IllegalArgumentException if no such rounding is registered using a
-     *                                  {@link javax.money.spi.RoundingProviderSpi} instance.
+     *                                  {@link org.javamoney.bp.spi.RoundingProviderSpi} instance.
      */
     public boolean isRoundingAvailable(CurrencyUnit currencyUnit, String... providers) {
         return isRoundingAvailable(RoundingQueryBuilder.of().setProviderNames(providers).setCurrency(currencyUnit).build());

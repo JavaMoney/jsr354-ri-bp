@@ -18,7 +18,6 @@ package org.javamoney.moneta.convert.internal;
 import java.io.InputStream;
 import java.math.MathContext;
 import java.net.MalformedURLException;
-import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -26,15 +25,15 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
-import javax.money.convert.ConversionContextBuilder;
-import javax.money.convert.ConversionQuery;
-import javax.money.convert.CurrencyConversionException;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ProviderContext;
-import javax.money.convert.RateType;
-import javax.money.spi.Bootstrap;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.convert.ConversionContextBuilder;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.CurrencyConversionException;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.RateType;
+import org.javamoney.bp.spi.Bootstrap;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -49,7 +48,7 @@ import org.javamoney.moneta.spi.LoaderService.LoaderListener;
  *
  * @author otaviojava
  */
-abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider implements
+abstract class AbstractECBRateProvider extends AbstractRateProvider implements
         LoaderListener {
 
     static final String BASE_CURRENCY_CODE = "EUR";
@@ -62,13 +61,13 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
     /**
      * Historic exchange rates, rate timestamp as UTC long.
      */
-    private final Map<LocalDate, Map<String, ExchangeRate>> historicRates = new ConcurrentHashMap<>();
+    protected final Map<LocalDate, Map<String, ExchangeRate>> rates = new ConcurrentHashMap<>();
     /**
      * Parser factory.
      */
     private SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
-    public AbstractECBCurrentRateProvider(ProviderContext context) throws MalformedURLException {
+    public AbstractECBRateProvider(ProviderContext context) throws MalformedURLException {
         super(context);
         saxParserFactory.setNamespaceAware(false);
         saxParserFactory.setValidating(false);
@@ -81,23 +80,21 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
 
     @Override
     public void newDataLoaded(String data, InputStream is) {
-        final int oldSize = this.historicRates.size();
+        final int oldSize = this.rates.size();
         try {
             SAXParser parser = saxParserFactory.newSAXParser();
-            parser.parse(is, new ECBRateReader(historicRates, getContext()));
+            parser.parse(is, new ECBRateReader(rates, getContext()));
         } catch (Exception e) {
             LOGGER.log(Level.FINEST, "Error during data load.", e);
         }
-        int newSize = this.historicRates.size();
+        int newSize = this.rates.size();
         LOGGER.info("Loaded " + getDataId() + " exchange rates for days:" + (newSize - oldSize));
     }
 
 
-    @Override
-    public ExchangeRate getExchangeRate(ConversionQuery query) {
-        Objects.requireNonNull(query);
-        if (historicRates.isEmpty()) {
-            return null;
+    protected LocalDate[] getTargetDates(ConversionQuery query){
+        if (rates.isEmpty()) {
+            return new LocalDate[0];
         }
         LocalDate date;
         Calendar cal = query.get(GregorianCalendar.class);
@@ -105,25 +102,30 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
             cal = query.get(Calendar.class);
         }
         if(cal==null){
-            date = LocalDate.yesterday();
+            date = LocalDate.now();
         }
         else{
             date = LocalDate.from(cal);
         }
-        Map<String, ExchangeRate> targets = this.historicRates.get(date);
-        if(targets==null){
-            date = LocalDate.beforeDays(2);
-            targets = this.historicRates.get(date);
-        }
-        if(targets==null){
-            date = LocalDate.beforeDays(3);
-            targets = this.historicRates.get(date);
-        }
+        return new LocalDate[]{date, date.minusDays(1), date.minusDays(2), date.minusDays(3)};
+    }
 
+    @Override
+    public ExchangeRate getExchangeRate(ConversionQuery query) {
+        Objects.requireNonNull(query);
+        LocalDate selectedDate = null;
+        Map<String, ExchangeRate> targets = null;
+        for(LocalDate date: getTargetDates(query)){
+            targets = this.rates.get(date);
+            if(targets!=null){
+                selectedDate = date;
+                break;
+            }
+        }
         if (targets==null) {
             return null;
         }
-        ExchangeRateBuilder builder = getBuilder(query, date);
+        ExchangeRateBuilder builder = getBuilder(query, selectedDate);
         ExchangeRate sourceRate = targets.get(query.getBaseCurrency()
                 .getCurrencyCode());
         ExchangeRate target = targets
@@ -180,7 +182,7 @@ abstract class AbstractECBCurrentRateProvider extends AbstractRateProvider imple
 
     private ExchangeRate reverse(ExchangeRate rate) {
         if (rate==null) {
-            throw new IllegalArgumentException("Rate null is not reversable.");
+            throw new IllegalArgumentException("Rate null is not reversible.");
         }
         return new ExchangeRateBuilder(rate).setRate(rate).setBase(rate.getCurrency()).setTerm(rate.getBaseCurrency())
                 .setFactor(divide(DefaultNumberValue.ONE, rate.getFactor(), MathContext.DECIMAL64)).build();

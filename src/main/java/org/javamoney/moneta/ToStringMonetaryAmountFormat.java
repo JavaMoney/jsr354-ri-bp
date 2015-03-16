@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
-import javax.money.format.AmountFormatContext;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.format.AmountFormatContext;
+import org.javamoney.bp.format.MonetaryParseException;
 
 /**
  * class to format and parse a text string such as 'EUR 25.25' or vice versa.
@@ -56,7 +56,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
     @Override
     public AmountFormatContext getContext() {
         throw new UnsupportedOperationException(
-                "ToStringMonetaryAmountFormat does not the method suport getContext()");
+                "ToStringMonetaryAmountFormat does not support getContext()");
     }
 
     @Override
@@ -80,7 +80,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
         return new ParserMonetaryAmount(currencyUnit, number);
     }
 
-    private class ParserMonetaryAmount {
+    private static class ParserMonetaryAmount {
         public ParserMonetaryAmount(CurrencyUnit currencyUnit, BigDecimal number) {
             this.currencyUnit = currencyUnit;
             this.number = number;

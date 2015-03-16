@@ -27,10 +27,10 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.money.*;
-import javax.money.format.AmountFormatContext;
-import javax.money.format.MonetaryAmountFormat;
-import javax.money.format.MonetaryParseException;
+import org.javamoney.bp.*;
+import org.javamoney.bp.format.AmountFormatContext;
+import org.javamoney.bp.format.MonetaryAmountFormat;
+import org.javamoney.bp.format.MonetaryParseException;
 
 /**
  * Formats instances of {@code MonetaryAmount} to a {@link String} or an
@@ -63,7 +63,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
     private List<FormatToken> negativeTokens;
 
     /**
-     * The current {@link javax.money.format.AmountFormatContext}, never null.
+     * The current {@link org.javamoney.bp.format.AmountFormatContext}, never null.
      */
     private AmountFormatContext amountFormatContext;
 
@@ -71,7 +71,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
     /**
      * Creates a new instance.
      *
-     * @param amountFormatContext the {@link javax.money.format.AmountFormatContext} to be used, not {@code null}.
+     * @param amountFormatContext the {@link org.javamoney.bp.format.AmountFormatContext} to be used, not {@code null}.
      */
     DefaultMonetaryAmountFormat(AmountFormatContext amountFormatContext) {
         setAmountFormatContext(amountFormatContext);
@@ -169,7 +169,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
      * @param text the text to parse, not null
      * @return the parsed value, never {@code null}
      * @throws UnsupportedOperationException             if the formatter is unable to parse
-     * @throws javax.money.format.MonetaryParseException if there is a problem while parsing
+     * @throws org.javamoney.bp.format.MonetaryParseException if there is a problem while parsing
      */
     public MonetaryAmount parse(CharSequence text)
             throws MonetaryParseException {
@@ -208,7 +208,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
     /*
      * (non-Javadoc)
      *
-     * @see javax.money.MonetaryQuery#queryFrom(javax.money.MonetaryAmount)
+     * @see org.javamoney.bp.MonetaryQuery#queryFrom(org.javamoney.bp.MonetaryAmount)
      */
     @Override
     public String queryFrom(MonetaryAmount amount) {

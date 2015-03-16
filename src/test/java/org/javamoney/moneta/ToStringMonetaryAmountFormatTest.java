@@ -4,10 +4,10 @@ import static org.testng.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
-import javax.money.UnknownCurrencyException;
+import org.javamoney.bp.CurrencyUnit;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.UnknownCurrencyException;
 
 import org.javamoney.moneta.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
 import org.testng.annotations.BeforeTest;

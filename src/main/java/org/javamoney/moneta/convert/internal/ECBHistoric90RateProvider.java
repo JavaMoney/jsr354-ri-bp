@@ -16,14 +16,19 @@
 package org.javamoney.moneta.convert.internal;
 
 import java.net.MalformedURLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Map;
 
-import javax.money.convert.ProviderContext;
-import javax.money.convert.ProviderContextBuilder;
-import javax.money.convert.RateType;
+import org.javamoney.bp.convert.ConversionQuery;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ProviderContext;
+import org.javamoney.bp.convert.ProviderContextBuilder;
+import org.javamoney.bp.convert.RateType;
 
 /**
  * <p>
- * This class implements an {@link javax.money.convert.ExchangeRateProvider}
+ * This class implements an {@link org.javamoney.bp.convert.ExchangeRateProvider}
  * that loads data from the European Central Bank data feed (XML). It loads the
  * current exchange rates, as well as historic rates for the past 90 days. The
  * provider loads all data up to 1999 into its historic data cache.
@@ -40,7 +45,7 @@ import javax.money.convert.RateType;
  * @author Werner Keil
  * @author otaviojava
  */
-public class ECBHistoric90RateProvider extends AbstractECBCurrentRateProvider {
+public class ECBHistoric90RateProvider extends AbstractECBRateProvider {
 
 
     private static final String DATA_ID = ECBHistoric90RateProvider.class.getSimpleName();
@@ -57,6 +62,5 @@ public class ECBHistoric90RateProvider extends AbstractECBCurrentRateProvider {
     public String getDataId() {
         return DATA_ID;
     }
-
 
 }

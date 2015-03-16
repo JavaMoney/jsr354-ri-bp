@@ -6,7 +6,7 @@ import static org.javamoney.moneta.function.StreamFactory.EURO;
 
 import java.util.Map;
 
-import javax.money.CurrencyUnit;
+import org.javamoney.bp.CurrencyUnit;
 
 import org.javamoney.moneta.Money;
 import org.testng.Assert;

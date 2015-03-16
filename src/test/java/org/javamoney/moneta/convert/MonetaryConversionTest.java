@@ -21,12 +21,11 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
-import java.util.Objects;
 
-import javax.money.MonetaryCurrencies;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.MonetaryConversions;
+import org.javamoney.bp.MonetaryCurrencies;
+import org.javamoney.bp.convert.ExchangeRate;
+import org.javamoney.bp.convert.ExchangeRateProvider;
+import org.javamoney.bp.convert.MonetaryConversions;
 
 import org.javamoney.moneta.convert.internal.ECBCurrentRateProvider;
 import org.javamoney.moneta.spi.CompoundRateProvider;

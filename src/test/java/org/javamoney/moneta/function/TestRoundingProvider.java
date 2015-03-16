@@ -15,8 +15,8 @@
  */
 package org.javamoney.moneta.function;
 
-import javax.money.*;
-import javax.money.spi.RoundingProviderSpi;
+import org.javamoney.bp.*;
+import org.javamoney.bp.spi.RoundingProviderSpi;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;

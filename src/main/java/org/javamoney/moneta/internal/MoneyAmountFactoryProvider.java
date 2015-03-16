@@ -16,9 +16,9 @@
 package org.javamoney.moneta.internal;
 
 import javax.annotation.Priority;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryContext;
-import javax.money.spi.MonetaryAmountFactoryProviderSpi;
+import org.javamoney.bp.MonetaryAmountFactory;
+import org.javamoney.bp.MonetaryContext;
+import org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi;
 
 import org.javamoney.moneta.Money;
 
@@ -43,7 +43,7 @@ public final class MoneyAmountFactoryProvider implements MonetaryAmountFactoryPr
 
     /*
      * (non-Javadoc)
-     * @see javax.money.spi.MonetaryAmountFactoryProviderSpi#getQueryInclusionPolicy()
+     * @see org.javamoney.bp.spi.MonetaryAmountFactoryProviderSpi#getQueryInclusionPolicy()
      */
     @Override
     public QueryInclusionPolicy getQueryInclusionPolicy(){

@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.NumberFormat;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
+import org.javamoney.bp.MonetaryAmount;
+import org.javamoney.bp.MonetaryOperator;
 
 /**
  * This class allows to extract the permil of a {@link MonetaryAmount} instance.

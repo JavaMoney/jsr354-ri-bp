@@ -8,7 +8,7 @@
 //import java.util.List;
 //import java.util.stream.Collectors;
 //
-//import javax.money.MonetaryAmount;
+//import org.javamoney.bp.MonetaryAmount;
 //
 //import org.javamoney.moneta.FastMoney;
 //import org.junit.Assert;

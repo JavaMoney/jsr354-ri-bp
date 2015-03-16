@@ -17,7 +17,7 @@ package org.javamoney.moneta.function;
 
 import org.testng.annotations.Test;
 
-import javax.money.*;
+import org.javamoney.bp.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -34,7 +34,7 @@ import static org.testng.Assert.*;
 public class MonetaryRoundingsTest {
 
     /**
-     * Test method for {@link javax.money.MonetaryRoundings#getDefaultRounding()}.
+     * Test method for {@link org.javamoney.bp.MonetaryRoundings#getDefaultRounding()}.
      */
     @Test
     public void testGetRounding() {
@@ -50,7 +50,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(javax.money.RoundingQuery)} for arithmetic rounding.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(org.javamoney.bp.RoundingQuery)} for arithmetic rounding.
      * .
      */
     @Test
@@ -90,7 +90,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(javax.money.CurrencyUnit, String...)}
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(org.javamoney.bp.CurrencyUnit, String...)}
      * .
      */
     @Test
@@ -134,7 +134,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(javax.money.CurrencyUnit, String...)} for cash ropundings.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(org.javamoney.bp.CurrencyUnit, String...)} for cash ropundings.
      * .
      */
     @Test
@@ -155,7 +155,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(javax.money.RoundingQuery)} with timestamps.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(org.javamoney.bp.RoundingQuery)} with timestamps.
      * .
      */
     @Test
@@ -173,7 +173,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(javax.money.RoundingQuery)} with cashRounding, timestamps.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(org.javamoney.bp.RoundingQuery)} with cashRounding, timestamps.
      * .
      */
     @Test
@@ -191,7 +191,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(String, String...)}.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(String, String...)}.
      */
     @Test
     public void testGetRoundingString() {
@@ -206,7 +206,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRoundingNames(String...)}  .
+     * {@link org.javamoney.bp.MonetaryRoundings#getRoundingNames(String...)}  .
      */
     @Test
     public void testGetCustomRoundinNames() {
@@ -221,7 +221,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link javax.money.MonetaryRoundings#getRounding(java.lang.String, java.lang.String...)}.
+     * {@link org.javamoney.bp.MonetaryRoundings#getRounding(java.lang.String, java.lang.String...)}.
      */
     @Test(expectedExceptions = MonetaryException.class)
     public void testGetRoundingString_Invalid() {
