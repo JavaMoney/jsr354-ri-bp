@@ -70,10 +70,11 @@ public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmounts
      *
      * @see org.javamoney.bp.spi.MonetaryAmountsSingletonQuerySpi#getAmountFactories(org.javamoney.bp.MonetaryAmountFactoryQuery)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Collection<MonetaryAmountFactory<?>> getAmountFactories(MonetaryAmountFactoryQuery factoryQuery){
         Objects.requireNonNull(factoryQuery);
-        List<MonetaryAmountFactory<?>> factories = new ArrayList<MonetaryAmountFactory<?>>();
+        List<MonetaryAmountFactory<?>> factories = new ArrayList<>();
         // first check for explicit type
         for(@SuppressWarnings("unchecked") MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount> f : Bootstrap
                 .getServices(MonetaryAmountFactoryProviderSpi.class)){

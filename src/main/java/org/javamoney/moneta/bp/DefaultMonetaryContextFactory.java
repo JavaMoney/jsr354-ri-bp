@@ -21,10 +21,10 @@ import org.javamoney.moneta.bp.spi.MonetaryConfig;
  * <pre>
  * # Default MathContext for Money
  * #-------------------------------
- * # Custom MathContext, overrides entries from org.javamoney.moneta.Money.mathContext
+ * # Custom MathContext, overrides entries from org.javamoney.moneta.bp.Money.mathContext
  * # RoundingMode hereby is optional (default = HALF_EVEN)
- * org.javamoney.moneta.Money.defaults.precision=256
- * org.javamoney.moneta.Money.defaults.roundingMode=HALF_EVEN
+ * org.javamoney.moneta.bp.Money.defaults.precision=256
+ * org.javamoney.moneta.bp.Money.defaults.roundingMode=HALF_EVEN
  * </pre>
  * <p>
  * Hereby the roundingMode constants are the same as defined on
@@ -35,7 +35,7 @@ class DefaultMonetaryContextFactory {
     public MonetaryContext getContext() {
         try {
             Map<String, String> config = MonetaryConfig.getConfig();
-            String value = config.get("org.javamoney.moneta.Money.defaults.precision");
+            String value = config.get("org.javamoney.moneta.bp.Money.defaults.precision");
             if (value!=null) {
                 return createMonetaryContextNonNullConfig(config, Integer.parseInt(value));
             } else {
@@ -50,7 +50,7 @@ class DefaultMonetaryContextFactory {
 
     private MonetaryContext createContextWithConfig(Map<String, String> config) {
         MonetaryContextBuilder builder = MonetaryContextBuilder.of(Money.class);
-        String value = config.get("org.javamoney.moneta.Money.defaults.mathContext");
+        String value = config.get("org.javamoney.moneta.bp.Money.defaults.mathContext");
         if (value!=null) {
             switch (value.toUpperCase(Locale.ENGLISH)) {
                 case "DECIMAL32":
@@ -87,7 +87,7 @@ class DefaultMonetaryContextFactory {
     }
 
     private MonetaryContext createMonetaryContextNonNullConfig(Map<String, String> config, int prec) {
-        String value = config.get("org.javamoney.moneta.Money.defaults.roundingMode");
+        String value = config.get("org.javamoney.moneta.bp.Money.defaults.roundingMode");
         RoundingMode rm = value!=null ? RoundingMode.valueOf(value
                 .toUpperCase(Locale.ENGLISH)) : RoundingMode.HALF_UP;
         MonetaryContext mc = MonetaryContextBuilder.of(Money.class).setPrecision(prec).set(rm).set(Money.class).build();

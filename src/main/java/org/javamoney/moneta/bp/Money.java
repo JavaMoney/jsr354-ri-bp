@@ -55,10 +55,10 @@ import org.javamoney.moneta.bp.spi.MoneyUtils;
  * # Default MathContext for Money
  * #-------------------------------
  * # Custom MonetaryContext, overrides default entries from
- * # org.javamoney.moneta.Money.monetaryContext
+ * # org.javamoney.moneta.bp.Money.monetaryContext
  * # RoundingMode hereby is optional (default = HALF_EVEN)
- * org.javamoney.moneta.Money.defaults.precision=256
- * org.javamoney.moneta.Money.defaults.roundingMode=HALF_EVEN
+ * org.javamoney.moneta.bp.Money.defaults.precision=256
+ * org.javamoney.moneta.bp.Money.defaults.roundingMode=HALF_EVEN
  * </pre>
  *
  * @author Anatole Tresch

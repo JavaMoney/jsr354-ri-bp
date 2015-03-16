@@ -58,7 +58,7 @@ public abstract class BaseMonetaryAmountsSingletonQuerySpi implements MonetaryAm
      */
     public Collection<Class<? extends MonetaryAmount>> getAmountTypes(MonetaryAmountFactoryQuery query) {
         Collection<MonetaryAmountFactory<? extends MonetaryAmount>> factories = getAmountFactories(query);
-        Set<Class<? extends MonetaryAmount>> result = new HashSet<Class<? extends MonetaryAmount>>();
+        Set<Class<? extends MonetaryAmount>> result = new HashSet<>();
         for(MonetaryAmountFactory f:factories){
             //noinspection unchecked
             result.add(f.getAmountType());

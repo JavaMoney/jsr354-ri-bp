@@ -65,7 +65,7 @@ final class AmountNumberToken implements FormatToken {
     }
 
     /**
-     * Access the underlying amount fomat context.
+     * Access the underlying amount format context.
      *
      * @return the {@link org.javamoney.bp.format.AmountFormatContext}.
      */

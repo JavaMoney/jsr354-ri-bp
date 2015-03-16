@@ -151,7 +151,7 @@ public class MonetaryAmountFormatTest {
 
 
     /**
-     * Test related to {@link https://java.net/jira/browse/JAVAMONEY-92}.
+     * Test related to {@see https://java.net/jira/browse/JAVAMONEY-92}.
      */
     @Test
     public void testWithCustomPattern() {

@@ -57,7 +57,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.bp.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitBigDecimal() {
@@ -72,7 +72,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getCurrency()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getCurrency()}.
      */
     @Test
     public void testGetCurrency() {
@@ -112,7 +112,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#hashCode()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#hashCode()}.
      */
     @Test
     public void testHashCode() {
@@ -155,7 +155,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getContext()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getContext()}.
      */
     @Test
     public void testGetDefaultMathContext() {
@@ -165,7 +165,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
+     * {@link org.javamoney.moneta.bp.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
      * org.javamoney.bp.MonetaryContext)}
      * .
      */
@@ -184,7 +184,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.lang.Number, org.javamoney.bp.CurrencyUnit)} .
+     * {@link org.javamoney.moneta.bp.Money#of(java.lang.Number, org.javamoney.bp.CurrencyUnit)} .
      */
     @Test
     public void testOfCurrencyUnitNumber() {
@@ -225,7 +225,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
+     * {@link org.javamoney.moneta.bp.Money#of(java.math.BigDecimal, org.javamoney.bp.CurrencyUnit,
      * org.javamoney.bp.MonetaryContext)} .
      * .
      */
@@ -279,7 +279,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#of(java.lang.Number, java.lang.String)} .
+     * Test method for {@link org.javamoney.moneta.bp.Money#of(java.lang.Number, java.lang.String)} .
      */
     @Test
     public void testOfStringNumber() {
@@ -320,7 +320,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#of(Number, String, org.javamoney.bp.MonetaryContext)} .
+     * {@link org.javamoney.moneta.bp.Money#of(Number, String, org.javamoney.bp.MonetaryContext)} .
      * .
      */
     @Test
@@ -373,7 +373,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#equals(java.lang.Object)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#equals(java.lang.Object)}.
      */
     @Test
     public void testEqualsObject() {
@@ -406,7 +406,7 @@ public class MoneyTest {
 
     /**
      * Test differently created MonetaryAmount or Money instances for equality
-     * {@link org.javamoney.moneta.Money#equals(Object)}.
+     * {@link org.javamoney.moneta.bp.Money#equals(Object)}.
      */
     @Test
     public void testEqualsMonetarAmount() {
@@ -419,7 +419,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#compareTo(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#compareTo(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testCompareTo() {
@@ -442,7 +442,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getFactory()#setContext(java.math.MathContext)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getFactory()#setContext(java.math.MathContext)}.
      */
     @Test
     public void testWithMonetaryContext() {
@@ -458,7 +458,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#abs()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#abs()}.
      */
     @Test
     public void testAbs() {
@@ -474,7 +474,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#add(org.javamoney.bp.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.bp.Money#add(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testAdd() {
@@ -486,7 +486,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#divide(java.lang.Number)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#divide(java.lang.Number)}.
      */
     @Test
     public void testDivideNumber() {
@@ -496,7 +496,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#divideAndRemainder(java.lang.Number)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#divideAndRemainder(java.lang.Number)}.
      */
     @Test
     public void testDivideAndRemainderNumber() {
@@ -506,7 +506,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#divideToIntegralValue(java.lang.Number)} .
+     * Test method for {@link org.javamoney.moneta.bp.Money#divideToIntegralValue(java.lang.Number)} .
      */
     @Test
     public void testDivideToIntegralValueNumber() {
@@ -516,7 +516,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#multiply(java.lang.Number)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#multiply(java.lang.Number)}.
      */
     @Test
     public void testMultiplyNumber() {
@@ -528,7 +528,7 @@ public class MoneyTest {
 
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#multiply(double)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#multiply(double)}.
      */
     @Test
     public void testMultiplyBadDoubles() {
@@ -554,7 +554,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#divide(double)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#divide(double)}.
      */
     @Test
     public void testDivideBadDoubles() {
@@ -574,7 +574,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#divide(double)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#divide(double)}.
      */
     @Test
     public void testDivideInfinityDoubles() {
@@ -587,7 +587,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#negate()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#negate()}.
      */
     @Test
     public void testNegate() {
@@ -598,7 +598,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#plus()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#plus()}.
      */
     @Test
     public void testPlus() {
@@ -609,7 +609,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#subtract(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#subtract(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testSubtract() {
@@ -640,7 +640,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#remainder(java.lang.Number)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#remainder(java.lang.Number)}.
      */
     @Test
     public void testRemainderNumber() {
@@ -663,7 +663,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#scaleByPowerOfTen(int)} .
+     * Test method for {@link org.javamoney.moneta.bp.Money#scaleByPowerOfTen(int)} .
      */
     @Test
     public void testScaleByPowerOfTen() {
@@ -679,7 +679,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isZero()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isZero()}.
      */
     @Test
     public void testIsZero() {
@@ -696,7 +696,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isPositive()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isPositive()}.
      */
     @Test
     public void testIsPositive() {
@@ -713,7 +713,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isPositiveOrZero()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isPositiveOrZero()}.
      */
     @Test
     public void testIsPositiveOrZero() {
@@ -730,7 +730,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isNegative()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isNegative()}.
      */
     @Test
     public void testIsNegative() {
@@ -747,7 +747,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isNegativeOrZero()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isNegativeOrZero()}.
      */
     @Test
     public void testIsNegativeOrZero() {
@@ -809,7 +809,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getNumber()#longValue()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getNumber()#longValue()}.
      */
     @Test
     public void testLongValue() {
@@ -835,7 +835,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getNumber()#longValueExact()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getNumber()#longValueExact()}.
      */
     @Test
     public void testLongValueExact() {
@@ -875,7 +875,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getNumber()#doubleValue()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getNumber()#doubleValue()}.
      */
     @Test
     public void testDoubleValue() {
@@ -905,7 +905,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#signum()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#signum()}.
      */
     @Test
     public void testSignum() {
@@ -924,7 +924,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isLessThan(org.javamoney.bp.MonetaryAmount)} .
+     * Test method for {@link org.javamoney.moneta.bp.Money#isLessThan(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsLessThan() {
@@ -939,7 +939,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#isLessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.bp.Money#isLessThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsLessThanOrEqualTo() {
@@ -953,7 +953,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isGreaterThan(org.javamoney.bp.MonetaryAmount)}
+     * Test method for {@link org.javamoney.moneta.bp.Money#isGreaterThan(org.javamoney.bp.MonetaryAmount)}
      * .
      */
     @Test
@@ -969,7 +969,7 @@ public class MoneyTest {
 
     /**
      * Test method for
-     * {@link org.javamoney.moneta.Money#isGreaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
+     * {@link org.javamoney.moneta.bp.Money#isGreaterThanOrEqualTo(org.javamoney.bp.MonetaryAmount)} .
      */
     @Test
     public void testIsGreaterThanOrEqualTo() {
@@ -984,7 +984,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#isEqualTo(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#isEqualTo(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testIsEqualTo() {
@@ -1011,7 +1011,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getNumber()#getNumberType()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getNumber()#getNumberType()}.
      */
     @Test
     public void testGetImplementationType() {
@@ -1021,7 +1021,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#query(org.javamoney.bp.MonetaryQuery)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#query(org.javamoney.bp.MonetaryQuery)}.
      */
     @Test
     public void testQuery() {
@@ -1039,7 +1039,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#getNumber()#asType(java.lang.Class)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#getNumber()#asType(java.lang.Class)}.
      */
     @Test
     public void testAsTypeClassOfT() {
@@ -1055,7 +1055,7 @@ public class MoneyTest {
 
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#stripTrailingZeros()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#stripTrailingZeros()}.
      */
     @Test
     public void testStripTrailingZeroes() {
@@ -1080,7 +1080,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#toString()}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#toString()}.
      */
     @Test
     public void testToString() {
@@ -1092,7 +1092,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#with(org.javamoney.bp.MonetaryOperator)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#with(org.javamoney.bp.MonetaryOperator)}.
      */
     @Test
     public void testWithMonetaryOperator() {
@@ -1122,7 +1122,7 @@ public class MoneyTest {
     }
 
     /**
-     * Test method for {@link org.javamoney.moneta.Money#from(org.javamoney.bp.MonetaryAmount)}.
+     * Test method for {@link org.javamoney.moneta.bp.Money#from(org.javamoney.bp.MonetaryAmount)}.
      */
     @Test
     public void testFrom() {

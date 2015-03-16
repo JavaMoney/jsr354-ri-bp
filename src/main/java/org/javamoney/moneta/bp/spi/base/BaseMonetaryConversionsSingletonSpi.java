@@ -116,7 +116,7 @@ public abstract class BaseMonetaryConversionsSingletonSpi implements MonetaryCon
      * @throws org.javamoney.bp.MonetaryException if a provider could not be resolved.
      */
     public List<ExchangeRateProvider> getExchangeRateProviders(String... providers) {
-        List<ExchangeRateProvider> provInstances = new ArrayList<ExchangeRateProvider>();
+        List<ExchangeRateProvider> provInstances = new ArrayList<>();
         Collection<String> providerNames = Arrays.asList(providers);
         if (providerNames.isEmpty()) {
             providerNames = getProviderNames();

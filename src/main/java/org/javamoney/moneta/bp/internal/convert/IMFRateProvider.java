@@ -197,7 +197,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                             .setBase(currency).setTerm(SDR).setFactor(new DefaultNumberValue(1d / values[i])).build();
                     List<ExchangeRate> rates = newCurrencyToSdr.get(currency);
                     if(rates==null){
-                        rates = new ArrayList<ExchangeRate>(5);
+                        rates = new ArrayList<>(5);
                         newCurrencyToSdr.put(currency,rates);
                     }
                     rates.add(rate);
@@ -209,7 +209,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                                     .setFactor(DefaultNumberValue.of(1d / values[i])).build();
                     List<ExchangeRate> rates = newSdrToCurrency.get(currency);
                     if(rates==null){
-                        rates = new ArrayList<ExchangeRate>(5);
+                        rates = new ArrayList<>(5);
                         newSdrToCurrency.put(currency,rates);
                     }
                     rates.add(rate);
@@ -250,7 +250,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         // April 25, 2013
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
         String[] parts = line.split("\\\t");
-        List<LocalDate> dates = new ArrayList<LocalDate>(parts.length);
+        List<LocalDate> dates = new ArrayList<>(parts.length);
         for (int i = 1; i < parts.length; i++) {
             Calendar date = GregorianCalendar.getInstance();
             date.setTime(sdf.parse(parts[i]));

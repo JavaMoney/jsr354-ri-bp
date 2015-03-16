@@ -44,7 +44,7 @@ public abstract class BaseMonetaryAmountsSingletonSpi implements MonetaryAmounts
      * {@code null}.
      */
     public Collection<MonetaryAmountFactory<?>> getAmountFactories(){
-        List<MonetaryAmountFactory<?>> factories = new ArrayList<MonetaryAmountFactory<?>>();
+        List<MonetaryAmountFactory<?>> factories = new ArrayList<>();
         for(Class<? extends MonetaryAmount> type : getAmountTypes()){
             factories.add(getAmountFactory(type));
         }

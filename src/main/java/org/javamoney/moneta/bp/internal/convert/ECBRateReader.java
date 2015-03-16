@@ -104,7 +104,7 @@ class ECBRateReader extends DefaultHandler {
             synchronized (this.historicRates) {
                 rateMap = this.historicRates.get(localDate);
                 if(rateMap==null) {
-                    rateMap = new ConcurrentHashMap<String, ExchangeRate>();
+                    rateMap = new ConcurrentHashMap<>();
                     this.historicRates.put(localDate, rateMap);
                 }
             }

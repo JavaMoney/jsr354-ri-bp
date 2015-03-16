@@ -15,7 +15,6 @@
  */
 package org.javamoney.moneta.bp.internal.loader;
 
-import java.io.IOException;
 
 /**
  * Abstraction of a {@link ResourceCache}. By default a file cache is used:

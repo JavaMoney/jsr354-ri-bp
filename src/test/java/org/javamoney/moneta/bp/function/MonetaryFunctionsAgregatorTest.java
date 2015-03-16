@@ -17,7 +17,7 @@
 //import org.javamoney.bp.MonetaryException;
 //import org.javamoney.bp.convert.ExchangeRateProvider;
 //
-//import org.javamoney.moneta.Money;
+//import org.javamoney.moneta.bp.Money;
 //import org.testng.Assert;
 //import org.testng.annotations.Test;
 //

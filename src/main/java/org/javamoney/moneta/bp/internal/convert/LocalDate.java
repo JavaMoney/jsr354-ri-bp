@@ -52,7 +52,7 @@ public final class LocalDate implements Comparable<LocalDate>, Serializable{
     /**
      * Cerates a new instance from the given Calendar.
      * @param cal the Calendar, not null.
-     * @return
+     * @return the corresponding LocalDate instance, never null.
      */
     public static LocalDate from(Calendar cal) {
         int year = cal.get(Calendar.YEAR);
@@ -93,11 +93,8 @@ public final class LocalDate implements Comparable<LocalDate>, Serializable{
 
         LocalDate localDate = (LocalDate) o;
 
-        if (dayOfMonth != localDate.dayOfMonth) return false;
-        if (month != localDate.month) return false;
-        if (year != localDate.year) return false;
+        return dayOfMonth == localDate.dayOfMonth && month == localDate.month && year == localDate.year;
 
-        return true;
     }
 
     @Override
