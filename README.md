@@ -10,4 +10,6 @@ This module is licenced under the the [Apache 2 Licence](https://www.apache.org/
 
 [![Build Status](https://api.travis-ci.org/JavaMoney/javamoney-moneta-bp.png?branch=master)](https://travis-ci.org/JavaMoney/javamoney-moneta-bp) [![License](http://img.shields.io/badge/license-Apache2-red.svg)](http://opensource.org/licenses/apache-2.0)
 
+[![Coverage Status](https://coveralls.io/repos/JavaMoney/javamoney-moneta-bp/badge.svg)](https://coveralls.io/r/JavaMoney/javamoney-moneta-bp)
+
 [![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
