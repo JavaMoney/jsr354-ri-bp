@@ -22,8 +22,8 @@
         <version>1.0-RC3</version>
     </parent>
 
-    <artifactId>moneta-bp</artifactId>
-    <version>1.0-RC1</version>
+    <artifactId>moneta-java7</artifactId>
+    <version>1.0-RC3</version>
     <packaging>jar</packaging>
 
     <name>Moneta (JSR 354 RI)</name>
@@ -42,14 +42,13 @@
     <licenses>
         <license>
             <name>Apache 2 License</name>
-            <comments>Spec</comments>
-            <url>LICENSE.html</url>
+            <url>LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <properties>
-        <bp.version>${project.version}</bp.version>
+        <jsr.version>1.0-RC3</jsr.version>
         <jdkVersion>1.7</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
@@ -248,9 +247,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.javamoney</groupId>
-            <artifactId>money-api-bp</artifactId>
-            <version>${bp.version}</version>
+            <groupId>javax.money</groupId>
+            <artifactId>money-api-java7</artifactId>
+            <version>${jsr.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -328,6 +327,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <classifier>java7</classifier>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
@@ -360,6 +362,7 @@
                             <report>aggregate</report>
                         </reports>
                         <configuration>
+                            <classifier>java7</classifier>
                             <detectLinks>true</detectLinks>
                             <!-- <links> <link>http://static.springsource.org/spring/docs/${spring.version}/javadoc-api</link>
                                 <link>http://static.springsource.org/spring-security/site/docs/3.0.x/apidocs</link>
