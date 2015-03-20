@@ -116,6 +116,23 @@
         <url>https://github.com/JavaMoney/javamoney-moneta-bp</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>http://oss.jfrog.org/artifactory/libs-release</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>sonatype-nexus-staging</id>
