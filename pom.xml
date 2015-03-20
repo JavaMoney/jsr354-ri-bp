@@ -82,8 +82,8 @@
     </developers>
 
     <ciManagement>
-        <system>Jenkins</system>
-        <url>https://jsr354.ci.cloudbees.com/</url>
+        <system>Travis-CI</system>
+        <url>https://travis-ci.org/JavaMoney/javamoney-moneta-bp</url>
     </ciManagement>
 
     <mailingLists>
