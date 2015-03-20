@@ -25,7 +25,7 @@
     <artifactId>moneta-bp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+ 
     <name>Moneta (JSR 354 RI) - Java7 Compatible</name>
     <url>http://javamoney.org</url>
     <inceptionYear>2012</inceptionYear>
