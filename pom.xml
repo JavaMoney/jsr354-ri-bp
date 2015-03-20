@@ -25,7 +25,7 @@
     <artifactId>moneta-bp</artifactId>
     <packaging>jar</packaging>
 
-    <name>Moneta (JSR 354 RI) - Java6/7 Compatible</name>
+    <name>Moneta (JSR 354 RI) - Java7 Compatible</name>
     <url>http://javamoney.org</url>
     <inceptionYear>2012</inceptionYear>
     <description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
