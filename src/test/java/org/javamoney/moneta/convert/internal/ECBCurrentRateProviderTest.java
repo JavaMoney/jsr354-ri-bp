@@ -98,7 +98,7 @@ public class ECBCurrentRateProviderTest {
     }
 
     @Test
-    public void shouldConvertsDolarToEuro() {
+    public void shouldConvertsDollarToEuro() {
         CurrencyConversion currencyConversion = provider
                 .getCurrencyConversion(EURO);
         assertNotNull(currencyConversion);

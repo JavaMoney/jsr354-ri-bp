@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * SPI (conversoin) that implements the functionalities provided by the
+ * SPI (conversion) that implements the functionality provided by the
  * {@code MonetaryConversions} singleton accessor. It should be registered as a
  * service using the JDK {@code ServiceLoader}. Hereby only one instance can be
  * registered at a time.
@@ -93,7 +93,7 @@ public abstract class BaseMonetaryConversionsSingletonSpi implements MonetaryCon
      *
      * @param termCurrency the terminating/target currency unit, not null.
      * @param providers    the provider names defines a corresponding
-     *                     prpovider chain that must be encapsulated by the resulting {@link javax
+     *                     provider chain that must be encapsulated by the resulting {@link javax
      *                     .money.convert.CurrencyConversion}. By default the provider
      *                     chain as defined by #getDefaultProviderChain will be used.
      * @return {@code true}, if such a conversion is supported, meaning an according
