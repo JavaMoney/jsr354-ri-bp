@@ -19,7 +19,7 @@
     <parent>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
-        <version>1.0-RC3</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>moneta-bp</artifactId>
@@ -27,17 +27,11 @@
     <packaging>jar</packaging>
  
     <name>Moneta (JSR 354 RI) - Java7 Compatible</name>
-    <url>http://javamoney.org</url>
-    <inceptionYear>2012</inceptionYear>
+
     <description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
         Money and Currency.
         This module implements JSR 354.
     </description>
-
-    <organization>
-        <name>JavaMoney</name>
-        <url>http://javamoney.org</url>
-    </organization>
 
     <licenses>
         <license>
@@ -60,54 +54,15 @@
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
-    <developers>
-        <developer>
-            <id>atsticks</id>
-            <name>Anatole Tresch</name>
-            <organization>Credit Suisse</organization>
-            <roles>
-                <role>Specification Lead</role>
-            </roles>
-        </developer>
-        <developer>
-            <id>keilw</id>
-            <name>Werner Keil</name>
-            <roles>
-                <role>Expert Group Member</role>
-            </roles>
-        </developer>
-    </developers>
-
     <ciManagement>
         <system>Travis-CI</system>
         <url>https://travis-ci.org/JavaMoney/javamoney-moneta-bp</url>
     </ciManagement>
 
-    <mailingLists>
-        <mailingList>
-            <name>JSR354 Issues List</name>
-            <subscribe>https://java.net/projects/javamoney/lists</subscribe>
-            <unsubscribe>https://java.net/projects/javamoney/lists</unsubscribe>
-            <archive>https://java.net/projects/javamoney/lists/issues/archive</archive>
-            <post>issues@javamoney.java.net</post>
-        </mailingList>
-        <mailingList>
-            <name>JSR354 Public Mailing List</name>
-            <subscribe>https://java.net/projects/javamoney/lists</subscribe>
-            <unsubscribe>https://java.net/projects/javamoney/lists</unsubscribe>
-            <archive>http://java.net/projects/javamoney/lists/jcurrency_mail/archive</archive>
-            <post>jcurrency_mail@javamoney.java.net</post>
-        </mailingList>
-    </mailingLists>
-
     <issueManagement>
         <system>GITHUB</system>
         <url>https://github.com/JavaMoney/javamoney-moneta-bp/issues</url>
     </issueManagement>
-
-    <prerequisites>
-        <maven>3.0.4</maven>
-    </prerequisites>
 
     <scm>
         <connection>scm:git:https://github.com/JavaMoney/javamoney-moneta-bp.git</connection>
@@ -115,144 +70,6 @@
         <developerConnection>scm:git:https://github.com/JavaMoney/javamoney-moneta-bp.git</developerConnection>
         <url>https://github.com/JavaMoney/javamoney-moneta-bp</url>
     </scm>
-
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>libs-release</name>
-            <url>http://oss.jfrog.org/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>http://oss.jfrog.org/artifactory/libs-snapshot</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-            <name>Nexus Release Repository</name>
-        </repository>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <name>Sonatype Nexus Snapshots</name>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- Usage: mvn clean deploy -Dgpg.passphrase=yourpassphrase ; Or sign
-                            already deployed artifact: mvn gpg:sign-and-deploy-file -DpomFile=target/myapp-1.0.pom
-                            -Dfile=target/myapp-1.0.jar -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/
-                            -DrepositoryId=sonatype-nexus-staging -->
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <configuration>
-                            <defaultKeyring>false</defaultKeyring>
-                            <keyname>0E3BCC9A</keyname>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <!-- phase>verify</phase -->
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>license</id>
-            <activation>
-                <property>
-                    <name>license</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.code.maven-license-plugin</groupId>
-                        <artifactId>maven-license-plugin</artifactId>
-                        <version>1.4.0</version>
-                        <configuration>
-                            <basedir>${basedir}</basedir>
-                            <header>${basedir}/src/etc/header.txt</header>
-                            <quiet>false</quiet>
-                            <failIfMissing>true</failIfMissing>
-                            <aggregate>false</aggregate>
-                            <encoding>UTF-8</encoding>
-                            <excludes>
-                                <exclude>target/**</exclude>
-                                <exclude>LICENSE*.*</exclude>
-                                <exclude>README.*</exclude>
-                                <exclude>checkstyle*.*</exclude>
-                                <exclude>*.css</exclude>
-                                <exclude>*.xml</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>${testng.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
