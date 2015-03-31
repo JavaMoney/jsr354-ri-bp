@@ -19,11 +19,11 @@
     <parent>
         <groupId>org.javamoney</groupId>
         <artifactId>javamoney-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <artifactId>moneta-bp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
  
     <name>Moneta (JSR 354 RI) - Java7 Compatible</name>
@@ -42,7 +42,7 @@
     </licenses>
 
     <properties>
-        <jsr.version>1.0-SNAPSHOT</jsr.version>
+        <jsr.version>1.0</jsr.version>
         <jdkVersion>1.7</jdkVersion>
         <maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
         <maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
