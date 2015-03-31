@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * SPI (core) for the backing implementation of the {@link javax.money.MonetaryAmounts} singleton, implementing
+ * SPI (core) for the backing implementation of the {@link javax.money.Monetary} singleton, implementing
  * the query functionality for amounts.
  *
  * @author Anatole Tresch

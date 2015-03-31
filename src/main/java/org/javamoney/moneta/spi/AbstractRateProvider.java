@@ -27,6 +27,7 @@ import javax.money.NumberValue;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -47,7 +48,7 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
     /**
      * The {@link javax.money.convert.ConversionContext} of this provider.
      */
-    private ProviderContext providerContext;
+    private final ProviderContext providerContext;
 
     /**
      * Constructor.
@@ -55,8 +56,7 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
      * @param providerContext the {@link ProviderContext}, not null.
      */
     public AbstractRateProvider(ProviderContext providerContext) {
-        Objects.requireNonNull(providerContext);
-        this.providerContext = providerContext;
+        this.providerContext = Objects.requireNonNull(providerContext);
     }
 
     /*
@@ -119,7 +119,8 @@ public abstract class AbstractRateProvider extends BaseExchangeRateProvider {
             throw new ArithmeticException("The divisor cannot be null");
         }
         return new DefaultNumberValue(
-                dividend.numberValueExact(BigDecimal.class).divide(divisor.numberValue(BigDecimal.class)));
+                dividend.numberValueExact(BigDecimal.class).divide(divisor.numberValue(BigDecimal.class),
+                        RoundingMode.HALF_EVEN));
     }
 
     /**

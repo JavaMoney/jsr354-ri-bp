@@ -125,10 +125,10 @@ public enum ConvertBigDecimal {
 		return DEFAULT;
 	}
 
-    private static List<Class> FLOATINGS = Arrays.asList(
+    private static final List<Class> FLOATINGS = Arrays.asList(
             (Class)Float.class, Double.class);
 
-	private static List<Class> INSTEGERS = Arrays.asList(
+	private static final List<Class> INSTEGERS = Arrays.asList(
             (Class)Long.class, Integer.class, Short.class, Byte.class,
 			AtomicLong.class, AtomicInteger.class);
 

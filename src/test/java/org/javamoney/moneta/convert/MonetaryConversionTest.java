@@ -22,7 +22,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Collection;
 
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ExchangeRateProvider;
 import javax.money.convert.MonetaryConversions;
@@ -59,13 +59,13 @@ public class MonetaryConversionTest {
 		// Test rate provided by IMF (derived)
 		Thread.sleep(5000L); // wait for provider to load...
 		ExchangeRate r = prov.getExchangeRate(
-				MonetaryCurrencies.getCurrency("USD"),
-				MonetaryCurrencies.getCurrency("INR"));
+				Monetary.getCurrency("USD"),
+				Monetary.getCurrency("INR"));
         assertNotNull(r);
 		assertTrue(r.isDerived());
 		// Test rate provided by ECB
-		r = prov.getExchangeRate(MonetaryCurrencies.getCurrency("EUR"),
-				MonetaryCurrencies.getCurrency("CHF"));
+		r = prov.getExchangeRate(Monetary.getCurrency("EUR"),
+				Monetary.getCurrency("CHF"));
         assertNotNull(r);
 		assertFalse(r.isDerived());
 	}

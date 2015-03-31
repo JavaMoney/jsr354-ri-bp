@@ -24,17 +24,17 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class provides a programmatic singleton for globally registering new {@link java.util.Currency}  into the
- * {@link javax.money.MonetaryCurrencies} singleton either by currency code, locale, or both.
+ * {@link javax.money.Monetary} singleton either by currency code, locale, or both.
  */
 public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
     /**
      * The currency units, identified by currency code.
      */
-    private static Map<String, CurrencyUnit> currencyUnits = new ConcurrentHashMap<>();
+    private static final Map<String, CurrencyUnit> currencyUnits = new ConcurrentHashMap<>();
     /**
      * The currency units identified by Locale.
      */
-    private static Map<Locale, CurrencyUnit> currencyUnitsByLocale = new ConcurrentHashMap<>();
+    private static final Map<Locale, CurrencyUnit> currencyUnitsByLocale = new ConcurrentHashMap<>();
 
 
     /**

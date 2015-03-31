@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 import javax.money.convert.ConversionContextBuilder;
 import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
@@ -43,7 +43,7 @@ class ECBRateReader extends DefaultHandler {
 
     private final Map<LocalDate, Map<String, ExchangeRate>> historicRates;
 
-    private ProviderContext context;
+    private final ProviderContext context;
 
     public ECBRateReader(Map<LocalDate, Map<String, ExchangeRate>> historicRates, ProviderContext context) {
         this.historicRates = historicRates;
@@ -60,7 +60,7 @@ class ECBRateReader extends DefaultHandler {
             }
             if (attributes.getValue("currency")!=null) {
                 // read data <Cube currency="USD" rate="1.3349"/>
-                CurrencyUnit tgtCurrency = MonetaryCurrencies
+                CurrencyUnit tgtCurrency = Monetary
                         .getCurrency(attributes.getValue("currency"));
                 addRate(tgtCurrency, this.localDate, BigDecimal.valueOf(Double
                         .parseDouble(attributes.getValue("rate"))));

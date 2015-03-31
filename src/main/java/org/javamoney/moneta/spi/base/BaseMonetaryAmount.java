@@ -124,7 +124,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
      * <pre>
      * // converting from Money to MyMoney
      * Money m = ...;
-     * MonetaryAmountFactory<MyMoney> f = MonetaryAmounts.queryAmountFactory(MyMoney.class);
+     * MonetaryAmountFactory<MyMoney> f = Monetary.queryAmountFactory(MyMoney.class);
      * MyMoney myMoney = f.setAmount(m).of();
      * </blockquote>
      * </pre>

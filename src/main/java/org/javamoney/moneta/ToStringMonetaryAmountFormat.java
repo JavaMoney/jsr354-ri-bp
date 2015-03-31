@@ -22,8 +22,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
 import javax.money.format.AmountFormatContext;
 import javax.money.format.MonetaryParseException;
 
@@ -34,7 +34,7 @@ import javax.money.format.MonetaryParseException;
  */
 class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
 
-    private ToStringMonetaryAmountFormatStyle style;
+    private final ToStringMonetaryAmountFormatStyle style;
 
     private ToStringMonetaryAmountFormat(ToStringMonetaryAmountFormatStyle style) {
         this.style = Objects.requireNonNull(style);
@@ -75,7 +75,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
 
     private ParserMonetaryAmount parserMonetaryAmount(CharSequence text) {
         String[] array = Objects.requireNonNull(text).toString().split(" ");
-        CurrencyUnit currencyUnit = MonetaryCurrencies.getCurrency(array[0]);
+        CurrencyUnit currencyUnit = Monetary.getCurrency(array[0]);
         BigDecimal number = new BigDecimal(array[1]);
         return new ParserMonetaryAmount(currencyUnit, number);
     }
@@ -86,8 +86,8 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
             this.number = number;
         }
 
-        private CurrencyUnit currencyUnit;
-        private BigDecimal number;
+        private final CurrencyUnit currencyUnit;
+        private final BigDecimal number;
     }
 
     /**

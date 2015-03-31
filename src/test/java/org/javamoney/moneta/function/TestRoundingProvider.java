@@ -17,10 +17,9 @@ package org.javamoney.moneta.function;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmounts;
+import javax.money.Monetary;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRounding;
-import javax.money.MonetaryRoundings;
 import javax.money.RoundingContext;
 import javax.money.RoundingContextBuilder;
 import javax.money.RoundingQuery;
@@ -32,7 +31,7 @@ import java.util.*;
 
 public class TestRoundingProvider implements RoundingProviderSpi {
 
-    private Set<String> customIds = new HashSet<>();
+    private final Set<String> customIds = new HashSet<>();
 
     public TestRoundingProvider() {
         customIds.add("zero");
@@ -40,7 +39,7 @@ public class TestRoundingProvider implements RoundingProviderSpi {
         customIds.add("CHF-cash");
     }
 
-    private MonetaryRounding zeroRounding = new MonetaryRounding() {
+    private final MonetaryRounding zeroRounding = new MonetaryRounding() {
         private final RoundingContext CONTEXT = RoundingContextBuilder.of("TestRoundingProvider", "zero").build();
 
         @Override
@@ -55,7 +54,7 @@ public class TestRoundingProvider implements RoundingProviderSpi {
 
     };
 
-    private MonetaryRounding minusOneRounding = new MonetaryRounding() {
+    private final MonetaryRounding minusOneRounding = new MonetaryRounding() {
         private final RoundingContext CONTEXT = RoundingContextBuilder.of("TestRoundingProvider", "minusOne").build();
 
         @Override
@@ -69,7 +68,7 @@ public class TestRoundingProvider implements RoundingProviderSpi {
         }
     };
 
-    private MonetaryRounding chfCashRounding = new MonetaryRounding() {
+    private final MonetaryRounding chfCashRounding = new MonetaryRounding() {
         private final RoundingContext CONTEXT =
                 RoundingContextBuilder.of("TestRoundingProvider", "chfCashRounding").build();
 
@@ -80,15 +79,15 @@ public class TestRoundingProvider implements RoundingProviderSpi {
 
         @Override
         public MonetaryAmount apply(MonetaryAmount amount) {
-            MonetaryOperator minorRounding = MonetaryRoundings
+            MonetaryOperator minorRounding = Monetary
                     .getRounding(RoundingQueryBuilder.of().set("scale", 2).set(RoundingMode.HALF_UP).build());
             MonetaryAmount amt = amount.with(minorRounding);
             MonetaryAmount mp = amt.with(MonetaryUtil.minorPart());
             if (mp.isGreaterThanOrEqualTo(
-                    MonetaryAmounts.getDefaultAmountFactory().setCurrency(amount.getCurrency()).setNumber(0.03)
+                    Monetary.getDefaultAmountFactory().setCurrency(amount.getCurrency()).setNumber(0.03)
                             .create())) {
                 // add
-                return amt.add(MonetaryAmounts.getDefaultAmountFactory().setCurrency(amt.getCurrency())
+                return amt.add(Monetary.getDefaultAmountFactory().setCurrency(amt.getCurrency())
                         .setNumber(new BigDecimal("0.05")).create().subtract(mp));
             } else {
                 // subtract

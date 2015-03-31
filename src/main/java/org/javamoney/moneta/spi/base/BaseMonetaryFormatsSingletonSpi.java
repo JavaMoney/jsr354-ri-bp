@@ -27,12 +27,12 @@ import java.util.Locale;
 public abstract class BaseMonetaryFormatsSingletonSpi implements MonetaryFormatsSingletonSpi{
 
     /**
-     * Access an {@link javax.money.format.MonetaryAmountFormat} given a {@link org.javamoney.bp.api.format
+     * Access an {@link javax.money.format.MonetaryAmountFormat} given a {@link javax.money.format
      * .AmountFormatQuery}.
      *
      * @param formatQuery The format query defining the requirements of the formatter.
      * @return the corresponding {@link javax.money.format.MonetaryAmountFormat}
-     * @throws javax.money.MonetaryException if no registered {@link org.javamoney.bp.api.spi
+     * @throws javax.money.MonetaryException if no registered {@link javax.money.spi
      *                                       .MonetaryAmountFormatProviderSpi} can provide a
      *                                       corresponding {@link javax.money.format.MonetaryAmountFormat} instance.
      */
@@ -45,7 +45,7 @@ public abstract class BaseMonetaryFormatsSingletonSpi implements MonetaryFormats
     }
 
     /**
-     * Checks if a {@link javax.money.format.MonetaryAmountFormat} is available given a {@link org.javamoney.bp.api.format
+     * Checks if a {@link javax.money.format.MonetaryAmountFormat} is available given a {@link javax.money.format
      * .AmountFormatQuery}.
      *
      * @param formatQuery The format query defining the requirements of the formatter.
@@ -56,7 +56,7 @@ public abstract class BaseMonetaryFormatsSingletonSpi implements MonetaryFormats
     }
 
     /**
-     * Checks if a {@link javax.money.format.MonetaryAmountFormat} is available given a {@link org.javamoney.bp.api.format
+     * Checks if a {@link javax.money.format.MonetaryAmountFormat} is available given a {@link javax.money.format
      * .AmountFormatQuery}.
      *
      * @param locale    the target {@link java.util.Locale}, not {@code null}.

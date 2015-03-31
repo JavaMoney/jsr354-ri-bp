@@ -21,7 +21,7 @@ import java.util.Objects;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
-import javax.money.MonetaryRoundings;
+import javax.money.Monetary;
 import javax.money.RoundingQueryBuilder;
 
 /**
@@ -32,8 +32,8 @@ import javax.money.RoundingQueryBuilder;
  */
 final class MajorUnits implements MonetaryQuery<Long> {
 
-    private MonetaryOperator downRounding =
-            MonetaryRoundings.getRounding(RoundingQueryBuilder.of().setScale(0).set(RoundingMode.DOWN).build());
+    private final MonetaryOperator downRounding =
+            Monetary.getRounding(RoundingQueryBuilder.of().setScale(0).set(RoundingMode.DOWN).build());
 
     /**
      * Access the shared instance of {@link MajorUnits} for use.

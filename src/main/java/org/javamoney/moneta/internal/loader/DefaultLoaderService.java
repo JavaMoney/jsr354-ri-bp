@@ -56,7 +56,7 @@ public class DefaultLoaderService implements LoaderService {
     /**
      * The data resources managed by this instance.
      */
-    private Map<String, LoadableResource> resources = new ConcurrentHashMap<>();
+    private final Map<String, LoadableResource> resources = new ConcurrentHashMap<>();
     /**
      * The registered {@link LoaderListener} instances.
      */
@@ -70,7 +70,7 @@ public class DefaultLoaderService implements LoaderService {
     /**
      * The thread pool used for loading of data, triggered by the timer.
      */
-    private ExecutorService executors = Executors.newCachedThreadPool();
+    private final ExecutorService executors = Executors.newCachedThreadPool();
 
     /**
      * The timer used for schedules.

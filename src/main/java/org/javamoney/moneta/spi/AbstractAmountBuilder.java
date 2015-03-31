@@ -16,11 +16,11 @@
 package org.javamoney.moneta.spi;
 
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryContextBuilder;
-import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryException;
 
 import java.math.BigDecimal;
@@ -36,12 +36,12 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
     /**
      * The default {@link MonetaryContext} applied, if not set explicitly on creation.
      */
-    private MonetaryContext DEFAULT_MONETARY_CONTEXT = loadDefaultMonetaryContext();
+    private final MonetaryContext DEFAULT_MONETARY_CONTEXT = loadDefaultMonetaryContext();
 
     /**
      * The default {@link MonetaryContext} applied, if not set explicitly on creation.
      */
-    private MonetaryContext MAX_MONETARY_CONTEXT = loadMaxMonetaryContext();
+    private final MonetaryContext MAX_MONETARY_CONTEXT = loadMaxMonetaryContext();
 
     private CurrencyUnit currency;
     private Number number;
@@ -102,12 +102,12 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
      */
     @Override
     public MonetaryAmountFactory<T> setCurrency(String currencyCode) {
-        this.currency = MonetaryCurrencies.getCurrency(currencyCode);
+        this.currency = Monetary.getCurrency(currencyCode);
         return this;
     }
 
     /**
-     * Creates a new instance of {@link javax.money.MonetaryAmounts}, using the default {@link MonetaryContext}.
+     * Creates a new instance of {@link javax.money.Monetary}, using the default {@link MonetaryContext}.
      *
      * @param number numeric value.
      * @return a {@code Money} combining the numeric value and currency unit.

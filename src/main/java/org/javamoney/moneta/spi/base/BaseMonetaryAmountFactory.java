@@ -11,16 +11,16 @@ package org.javamoney.moneta.spi.base;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 
 /**
  * Factory for {@link javax.money.MonetaryAmount} instances for a given type. It can be accessed, by
  * <ul>
  * <li>calling {@link javax.money.MonetaryAmount#getFactory()}, returning a {@link BaseMonetaryAmountFactory}
  * creating amounts of the same implementation type, which also provided the factory instance.</li>
- * <li>calling {@link javax.money.MonetaryAmounts#getAmountFactory(Class)} accessing a
+ * <li>calling {@link javax.money.Monetary#getAmountFactory(Class)} accessing a
  * {@link BaseMonetaryAmountFactory} for a concrete type <code>Class<T></code>.</li>
- * <li>calling {@link javax.money.MonetaryAmounts#getDefaultAmountFactory()} accessing a default
+ * <li>calling {@link javax.money.Monetary#getDefaultAmountFactory()} accessing a default
  * {@link BaseMonetaryAmountFactory}.
  * </ul>
  * <p>
@@ -28,7 +28,7 @@ import javax.money.MonetaryCurrencies;
  * different data as required:
  * <ul>
  * <li>the {@link javax.money.CurrencyUnit}, or the corresponding currency code (must be solvable by
- * {@link javax.money.MonetaryCurrencies}).</li>
+ * {@link javax.money.Monetary}).</li>
  * <li>the number part</li>
  * <li>the {@link javax.money.MonetaryContext}</li>
  * <li>by passing any {@link javax.money.MonetaryAmount} instance, it is possible to convert an arbitrary amount
@@ -62,13 +62,13 @@ public abstract class BaseMonetaryAmountFactory<T extends MonetaryAmount> implem
      * Sets the {@link javax.money.CurrencyUnit} to be used.
      *
      * @param currencyCode the currencyCode of the currency to be used, not {@code null}. The currency code
-     *                     will be resolved using {@link javax.money.MonetaryCurrencies#getCurrency(String, String...)}.
+     *                     will be resolved using {@link javax.money.Monetary#getCurrency(String, String...)}.
      * @return This factory instance, for chaining.
      * @throws javax.money.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
      * @throws javax.money.UnknownCurrencyException if the {@code currencyCode} is not resolvable.
      */
     public MonetaryAmountFactory<T> setCurrency(String currencyCode) {
-        return setCurrency(MonetaryCurrencies.getCurrency(currencyCode));
+        return setCurrency(Monetary.getCurrency(currencyCode));
     }
 
     /**

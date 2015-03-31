@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultMonetaryAmountsSingletonSpi extends BaseMonetaryAmountsSingletonSpi {
 
-    private Map<Class<? extends MonetaryAmount>, MonetaryAmountFactoryProviderSpi<?>> factories =
+    private final Map<Class<? extends MonetaryAmount>, MonetaryAmountFactoryProviderSpi<?>> factories =
             new ConcurrentHashMap<>();
 
     private Class<? extends MonetaryAmount> configuredDefaultAmountType = loadDefaultAmountType();

@@ -11,7 +11,7 @@
 package org.javamoney.moneta.spi.base;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 import javax.money.convert.ConversionQuery;
 import javax.money.convert.ConversionQueryBuilder;
 import javax.money.convert.CurrencyConversion;
@@ -120,7 +120,7 @@ public abstract class BaseExchangeRateProvider implements ExchangeRateProvider{
      * @throws javax.money.MonetaryException if one of the currency codes passed is not valid.
      */
     public boolean isAvailable(String baseCode, String termCode){
-        return isAvailable(MonetaryCurrencies.getCurrency(baseCode), MonetaryCurrencies.getCurrency(termCode));
+        return isAvailable(Monetary.getCurrency(baseCode), Monetary.getCurrency(termCode));
     }
 
 
@@ -137,7 +137,7 @@ public abstract class BaseExchangeRateProvider implements ExchangeRateProvider{
      * @throws javax.money.MonetaryException           if one of the currency codes passed is not valid.
      */
     public ExchangeRate getExchangeRate(String baseCode, String termCode){
-        return getExchangeRate(MonetaryCurrencies.getCurrency(baseCode), MonetaryCurrencies.getCurrency(termCode));
+        return getExchangeRate(Monetary.getCurrency(baseCode), Monetary.getCurrency(termCode));
     }
 
 
@@ -170,7 +170,7 @@ public abstract class BaseExchangeRateProvider implements ExchangeRateProvider{
      * @throws javax.money.MonetaryException if one of the currency codes passed is not valid.
      */
     public CurrencyConversion getCurrencyConversion(String termCode){
-        return getCurrencyConversion(MonetaryCurrencies.getCurrency(termCode));
+        return getCurrencyConversion(Monetary.getCurrency(termCode));
     }
 
 }

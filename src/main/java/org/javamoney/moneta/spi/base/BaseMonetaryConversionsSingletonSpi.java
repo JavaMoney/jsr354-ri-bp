@@ -95,7 +95,7 @@ public abstract class BaseMonetaryConversionsSingletonSpi implements MonetaryCon
      * @param providers    the provider names defines a corresponding
      *                     provider chain that must be encapsulated by the resulting {@link javax
      *                     .money.convert.CurrencyConversion}. By default the provider
-     *                     chain as defined by #getDefaultProviderChain will be used.
+     *                     chain as defined by #getDefaultRoundingProviderChain will be used.
      * @return {@code true}, if such a conversion is supported, meaning an according
      * {@link javax.money.convert.CurrencyConversion} can be
      * accessed.
@@ -138,7 +138,7 @@ public abstract class BaseMonetaryConversionsSingletonSpi implements MonetaryCon
      *                  provider chain that must be
      *                  encapsulated by the resulting {@link javax.money.convert.ExchangeRateProvider}. By default
      *                  the default
-     *                  provider changes as defined in #getDefaultProviderChain will be used.
+     *                  provider changes as defined in #getDefaultRoundingProviderChain will be used.
      * @return an {@link javax.money.convert.ExchangeRateProvider} built up with the given sub
      * providers, never {@code null}.
      * @throws javax.money.MonetaryException if a provider listed could not be found.
@@ -171,7 +171,7 @@ public abstract class BaseMonetaryConversionsSingletonSpi implements MonetaryCon
      * @param providers    the {@link javax.money.convert.ConversionQuery} provider names defines a corresponding
      *                     provider chain that must be encapsulated by the resulting {@link javax
      *                     .money.convert.CurrencyConversion}. By default the default
-     *                     provider chain as defined by #getDefaultProviderChain will be used.
+     *                     provider chain as defined by #getDefaultRoundingProviderChain will be used.
      * @return the corresponding conversion, not null.
      * @throws javax.money.MonetaryException if no matching conversion could be found.
      * @see #isConversionAvailable(javax.money.convert.ConversionQuery)

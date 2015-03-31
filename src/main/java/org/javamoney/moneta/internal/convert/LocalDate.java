@@ -10,9 +10,9 @@ import java.util.GregorianCalendar;
  */
 @Deprecated
 public final class LocalDate implements Comparable<LocalDate>, Serializable{
-    int year;
-    int month;
-    int dayOfMonth;
+    final int year;
+    final int month;
+    final int dayOfMonth;
 
     LocalDate(int year, int month, int dayOfMonth){
     this.year = year;

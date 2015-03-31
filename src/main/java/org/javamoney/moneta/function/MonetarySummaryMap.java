@@ -31,7 +31,7 @@ import javax.money.CurrencyUnit;
 class MonetarySummaryMap implements
         Map<CurrencyUnit, MonetarySummaryStatistics> {
 
-    private Map<CurrencyUnit, MonetarySummaryStatistics> map = new HashMap<>();
+    private final Map<CurrencyUnit, MonetarySummaryStatistics> map = new HashMap<>();
 
     @Override
     public int size() {

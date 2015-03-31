@@ -35,8 +35,8 @@ import java.util.Objects;
  */
 public abstract class AbstractCurrencyConversion implements CurrencyConversion {
 
-    private CurrencyUnit termCurrency;
-    private ConversionContext conversionContext;
+    private final CurrencyUnit termCurrency;
+    private final ConversionContext conversionContext;
 
     public AbstractCurrencyConversion(CurrencyUnit termCurrency, ConversionContext conversionContext) {
         Objects.requireNonNull(termCurrency);

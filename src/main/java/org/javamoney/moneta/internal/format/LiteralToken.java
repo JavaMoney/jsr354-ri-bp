@@ -39,7 +39,7 @@ final class LiteralToken implements FormatToken, Serializable {
     /**
      * The literal part.
      */
-    private String token;
+    private final String token;
 
     /**
      * Creates a new {@link LiteralToken}.

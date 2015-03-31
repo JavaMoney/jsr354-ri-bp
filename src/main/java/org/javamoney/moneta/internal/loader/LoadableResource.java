@@ -48,27 +48,27 @@ public class LoadableResource {
     /**
      * resource id.
      */
-    private String resourceId;
+    private final String resourceId;
     /**
      * The remote URLs to be looked up (first wins).
      */
-    private List<URI> remoteResources = new ArrayList<>();
+    private final List<URI> remoteResources = new ArrayList<>();
     /**
      * The fallback location (classpath).
      */
-    private URI fallbackLocation;
+    private final URI fallbackLocation;
     /**
      * The cache used.
      */
-    private ResourceCache cache;
+    private final ResourceCache cache;
     /**
      * How many times this resource was successfully loaded.
      */
-    private AtomicInteger loadCount = new AtomicInteger();
+    private final AtomicInteger loadCount = new AtomicInteger();
     /**
      * How many times this resource was accessed.
      */
-    private AtomicInteger accessCount = new AtomicInteger();
+    private final AtomicInteger accessCount = new AtomicInteger();
     /**
      * The current data array.
      */

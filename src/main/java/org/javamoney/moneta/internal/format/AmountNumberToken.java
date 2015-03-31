@@ -36,7 +36,7 @@ import javax.money.format.MonetaryParseException;
  */
 final class AmountNumberToken implements FormatToken {
 
-    private AmountFormatContext amountFormatContext;
+    private final AmountFormatContext amountFormatContext;
     private String partialNumberPattern;
     private DecimalFormat parseFormat;
     private DecimalFormat formatFormat;

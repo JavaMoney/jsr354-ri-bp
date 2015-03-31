@@ -111,7 +111,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
     /**
      * The full chain, at least one instance long.
      */
-    private List<ExchangeRate> chain = new ArrayList<>();
+    private final List<ExchangeRate> chain = new ArrayList<>();
 
 
     /**

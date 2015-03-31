@@ -232,10 +232,9 @@ enum ConvertNumberValue {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	private Map<Class<? extends Number>, ConvertNumberValueI> convertIMap;
+	private final Map<Class<? extends Number>, ConvertNumberValueI> convertIMap = new HashMap<>();
 
 	{
-		convertIMap = new HashMap<>();
 		convertIMap.put(BigDecimal.class, new ConvertNumberValueBigDecimal());
 		convertIMap.put(BigInteger.class, new ConvertNumberValueBigInteger());
 		convertIMap.put(Float.class, new ConvertNumberValueFloat());

@@ -23,7 +23,7 @@ import org.javamoney.moneta.Money;
  */
 class CurrencyConversionMock implements CurrencyConversion {
 
-    private CurrencyUnit currency;
+    private final CurrencyUnit currency;
 
     private Conversation conversation;
 

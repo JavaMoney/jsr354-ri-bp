@@ -43,7 +43,7 @@ final class ParseContext {
     /**
      * The full input.
      */
-    private CharSequence originalInput;
+    private final CharSequence originalInput;
     /**
      * The currency parsed, used for creation of the {@link MonetaryAmount}.
      */

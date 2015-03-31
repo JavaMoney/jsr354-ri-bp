@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 import javax.money.convert.CurrencyConversion;
 import javax.money.convert.ExchangeRateProvider;
 
@@ -35,11 +35,11 @@ import org.testng.annotations.Test;
 
 public class IdentityRateProviderTest {
 
-    private static final CurrencyUnit EURO = MonetaryCurrencies
+    private static final CurrencyUnit EURO = Monetary
             .getCurrency("EUR");
-    private static final CurrencyUnit DOLLAR = MonetaryCurrencies
+    private static final CurrencyUnit DOLLAR = Monetary
             .getCurrency("USD");
-    private static final CurrencyUnit BRAZILIAN_REAL = MonetaryCurrencies
+    private static final CurrencyUnit BRAZILIAN_REAL = Monetary
             .getCurrency("BRL");
 
     private ExchangeRateProvider provider;

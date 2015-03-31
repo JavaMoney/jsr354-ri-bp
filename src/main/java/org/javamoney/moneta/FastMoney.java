@@ -16,11 +16,11 @@
 package org.javamoney.moneta;
 
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryContextBuilder;
-import javax.money.MonetaryCurrencies;
 import javax.money.MonetaryException;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryQuery;
@@ -121,7 +121,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     /**
      * Maximum possible value supported, using XX (no currency).
      */
-    public static final FastMoney MAX_VALUE = new FastMoney(Long.MAX_VALUE, MonetaryCurrencies.getCurrency("XXX"));
+    public static final FastMoney MAX_VALUE = new FastMoney(Long.MAX_VALUE, Monetary.getCurrency("XXX"));
     /**
      * Maximum possible numeric value supported.
      */
@@ -129,7 +129,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     /**
      * Minimum possible value supported, using XX (no currency).
      */
-    public static final FastMoney MIN_VALUE = new FastMoney(Long.MIN_VALUE, MonetaryCurrencies.getCurrency("XXX"));
+    public static final FastMoney MIN_VALUE = new FastMoney(Long.MIN_VALUE, Monetary.getCurrency("XXX"));
     /**
      * Minimum possible numeric value supported.
      */
@@ -242,7 +242,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      * @return A new instance of {@link FastMoney}.
      */
     public static FastMoney of(Number number, String currencyCode) {
-        CurrencyUnit currency = MonetaryCurrencies.getCurrency(currencyCode);
+        CurrencyUnit currency = Monetary.getCurrency(currencyCode);
         return of(number, currency);
     }
 
@@ -801,7 +801,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         return from(formatter.parse(text));
     }
 
-    private static ToStringMonetaryAmountFormat DEFAULT_FORMATTER = ToStringMonetaryAmountFormat
+    private static final ToStringMonetaryAmountFormat DEFAULT_FORMATTER = ToStringMonetaryAmountFormat
             .of(ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle.FAST_MONEY);
 
     private BigDecimal getBigDecimal() {

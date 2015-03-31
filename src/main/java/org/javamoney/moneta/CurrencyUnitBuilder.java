@@ -139,12 +139,12 @@ public final class CurrencyUnitBuilder {
 
     /**
      * Returns a new instance of {@link BuildableCurrencyUnit} and publishes it so it is
-     * accessible from the {@code MonetaryCurrencies} singleton.
+     * accessible from the {@code Monetary} singleton.
      *
      * @param register if {@code true} the instance created is published so it is accessible from
-     *                 the {@code MonetaryCurrencies} singleton.
+     *                 the {@code Monetary} singleton.
      * @return the new CurrencyUnit instance.
-     * @see javax.money.MonetaryCurrencies#getCurrency(String, String...)
+     * @see javax.money.Monetary#getCurrency(String, String...)
      */
     public CurrencyUnit build(boolean register) {
         BuildableCurrencyUnit cu = new BuildableCurrencyUnit(this);
@@ -156,14 +156,14 @@ public final class CurrencyUnitBuilder {
 
     /**
      * Returns a new instance of {@link BuildableCurrencyUnit} and publishes it so it is
-     * accessible from the {@code MonetaryCurrencies} singleton.
+     * accessible from the {@code Monetary} singleton.
      *
      * @param register if {@code true} the instance created is published so it is accessible from
-     *                 the {@code MonetaryCurrencies} singleton.
+     *                 the {@code Monetary} singleton.
      * @param locale   country Locale for making the currency for the given country.
      * @return the new CurrencyUnit instance.
-     * @see javax.money.MonetaryCurrencies#getCurrency(String, String...)
-     * @see javax.money.MonetaryCurrencies#getCurrency(java.util.Locale, String...)
+     * @see javax.money.Monetary#getCurrency(String, String...)
+     * @see javax.money.Monetary#getCurrency(java.util.Locale, String...)
      */
     public CurrencyUnit build(boolean register, Locale locale) {
         BuildableCurrencyUnit cu = new BuildableCurrencyUnit(this);

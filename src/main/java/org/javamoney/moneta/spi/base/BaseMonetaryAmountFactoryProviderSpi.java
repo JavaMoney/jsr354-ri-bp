@@ -25,10 +25,10 @@ implements MonetaryAmountFactoryProviderSpi<T>{
     /**
      * Method that determines if this factory should be considered for general evaluation of
      * matching {@link javax.money.MonetaryAmount} implementation types when calling
-     * {@link javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)}.
+     * {@link javax.money.Monetary#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)}.
      *
      * @return {@code true} to include this factory into the evaluation.
-     * @see javax.money.MonetaryAmounts#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)
+     * @see javax.money.Monetary#getAmountFactory(javax.money.MonetaryAmountFactoryQuery)
      */
     public QueryInclusionPolicy getQueryInclusionPolicy(){
         return QueryInclusionPolicy.ALWAYS;

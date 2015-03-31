@@ -18,7 +18,7 @@ package org.javamoney.moneta.internal.format;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryAmounts;
+import javax.money.Monetary;
 import org.javamoney.moneta.format.CurrencyStyle;
 
 import java.io.IOException;
@@ -203,7 +203,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
         }
         MonetaryAmountFactory<?> factory = this.amountFormatContext.getParseFactory();
         if (factory == null) {
-            factory = MonetaryAmounts.getDefaultAmountFactory();
+            factory = Monetary.getDefaultAmountFactory();
         }
         return factory.setCurrency(unit).setNumber(num).create();
     }

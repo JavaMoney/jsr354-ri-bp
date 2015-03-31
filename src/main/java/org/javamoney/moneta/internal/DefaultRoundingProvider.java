@@ -17,7 +17,7 @@ package org.javamoney.moneta.internal;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryRounding;
-import javax.money.MonetaryRoundings;
+import javax.money.Monetary;
 import javax.money.RoundingQuery;
 import javax.money.spi.RoundingProviderSpi;
 import java.math.MathContext;
@@ -79,7 +79,7 @@ public class DefaultRoundingProvider implements RoundingProviderSpi {
         } else if (roundingMode != null) {
             return new DefaultRounding(scale, roundingMode);
         } else if (roundingQuery.getRoundingName() != null && DEFAULT_ROUNDING_ID.equals(roundingQuery.getRoundingName())) {
-            return MonetaryRoundings.getDefaultRounding();
+            return Monetary.getDefaultRounding();
         }
         return null;
     }
