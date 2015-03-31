@@ -98,7 +98,7 @@ public class PerformanceTest {
 		b.setLength(0);
 		Money money1 = Money.of(BigDecimal.ONE,EURO);
 		long start = System.currentTimeMillis();
-		final int NUM = 100000;
+		final int NUM = 10000;
 		MonetaryAmount adding = Money.of( 1234567.3444,EURO);
 		MonetaryAmount subtracting = Money.of( 232323,EURO);
 		for (int i = 0; i < NUM; i++) {
