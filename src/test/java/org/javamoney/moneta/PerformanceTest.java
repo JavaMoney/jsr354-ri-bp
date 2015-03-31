@@ -32,7 +32,7 @@ public class PerformanceTest {
 	protected static final CurrencyUnit EURO = Monetary
 			.getCurrency("EUR");
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void comparePerformanceNoRounding() {
 		FastMoney money1 = FastMoney.of(BigDecimal.ONE,EURO);
 		long start = System.currentTimeMillis();
@@ -84,7 +84,7 @@ public class PerformanceTest {
 	}
 	
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void comparePerformance() {
 		StringBuilder b = new StringBuilder();
 		b.append("PerformanceTest - Looping code Money,BD:\n");
