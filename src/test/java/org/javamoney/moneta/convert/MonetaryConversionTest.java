@@ -72,7 +72,7 @@ public class MonetaryConversionTest {
 
 	@Test
 	public void testGetSupportedProviderContexts() {
-		Collection<String> types = MonetaryConversions.getProviderNames();
+		Collection<String> types = MonetaryConversions.getConversionProviderNames();
 		assertNotNull(types);
 		assertTrue(types.size() >= 1);
 		assertTrue(types.contains("IMF"));
