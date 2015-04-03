@@ -57,13 +57,13 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
     @Override
     public T create() {
         if (currency == null) {
-            throw new MonetaryException("Cannot of FastMoney instance: missing currency.");
+            throw new MonetaryException("Cannot create an instance of '"+this.getAmountType().getName()+"': missing currency.");
         }
         if (number == null) {
-            throw new MonetaryException("Cannot of FastMoney instance: missing number.");
+            throw new MonetaryException("Cannot create an instance of '"+this.getAmountType().getName()+"': missing number.");
         }
         if (monetaryContext == null) {
-            throw new MonetaryException("Cannot of FastMoney instance: missing context.");
+            throw new MonetaryException("Cannot create an instance of '"+this.getAmountType().getName()+"': missing context.");
         }
         return create(number, currency, monetaryContext);
     }
