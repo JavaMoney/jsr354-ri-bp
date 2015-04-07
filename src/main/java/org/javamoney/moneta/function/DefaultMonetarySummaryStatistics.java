@@ -23,8 +23,7 @@ import javax.money.MonetaryAmount;
 import org.javamoney.moneta.FastMoney;
 
 /**
- * the default implementations of {@link MonetarySummaryStatistics} This
- * implementations cannot do exchange rate
+ * The default implementations of {@link MonetarySummaryStatistics}.
  *
  * @author otaviojava
  * @author Anatole Tresch
