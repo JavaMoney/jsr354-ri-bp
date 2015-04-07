@@ -24,9 +24,9 @@
 
     <artifactId>moneta-bp</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
  
-    <name>Moneta (JSR 354 RI) - Java7 Compatible</name>
+    <name>Moneta (JSR 354 RI) for Java7</name>
 
     <description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
         Money and Currency.
@@ -150,13 +150,10 @@
                                     <requireJavaVersion>
                                         <version>1.7.0</version>
                                     </requireJavaVersion>
-                                    <!-- <bannedDependencies> <excludes> <exclude>commons-logging:*</exclude>
-                                        </excludes> </bannedDependencies> -->
                                     <requirePluginVersions>
                                         <banLatest>true</banLatest>
                                         <banRelease>true</banRelease>
                                         <banSnapshots>true</banSnapshots>
-                                        <!-- <unCheckedPluginList>org.codehaus.mojo:sonar-maven-plugin</unCheckedPluginList> -->
                                     </requirePluginVersions>
                                 </rules>
                             </configuration>
