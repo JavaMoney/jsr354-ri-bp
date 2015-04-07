@@ -55,7 +55,6 @@ public enum ExchangeRateType implements ExchangeRateProviderSupplier {
         return type;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
