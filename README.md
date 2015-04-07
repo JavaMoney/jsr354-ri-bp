@@ -1,7 +1,7 @@
-JavaMoney Implementation Backport 
+JavaMoney Moneta Reference Implementation for Java 7
 ====================================================
 
-This repository contains the Java 7 compatible backport of the reference implementation.
+This repository contains the Java 7 compatible backport of the Moneta reference implementation.
 
 This module is licenced under the the [Apache 2 Licence](https://www.apache.org/licenses/LICENSE-2.0.html).
 
