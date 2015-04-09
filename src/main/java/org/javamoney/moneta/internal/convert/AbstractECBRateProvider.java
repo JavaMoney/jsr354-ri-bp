@@ -17,7 +17,6 @@ package org.javamoney.moneta.internal.convert;
 
 import java.io.InputStream;
 import java.math.MathContext;
-import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -66,7 +65,7 @@ abstract class AbstractECBRateProvider extends AbstractRateProvider implements
      */
     private final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
-    public AbstractECBRateProvider(ProviderContext context) throws MalformedURLException {
+    public AbstractECBRateProvider(ProviderContext context) {
         super(context);
         saxParserFactory.setNamespaceAware(false);
         saxParserFactory.setValidating(false);

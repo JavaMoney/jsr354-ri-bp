@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -110,7 +109,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         currenciesByName.put("Bolivar Fuerte", Monetary.getCurrency("VEF"));
     }
 
-    public IMFRateProvider() throws MalformedURLException {
+    public IMFRateProvider() {
         super(CONTEXT);
         LoaderService loader = Bootstrap.getService(LoaderService.class);
         loader.addLoaderListener(this, DATA_ID);

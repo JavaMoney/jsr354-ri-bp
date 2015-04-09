@@ -85,11 +85,11 @@ public class LoadableResource {
     /**
      * The required update policy for this resource.
      */
-    private LoaderService.UpdatePolicy updatePolicy;
+    private final LoaderService.UpdatePolicy updatePolicy;
     /**
      * The resource configuration.
      */
-    private Map<String, String> properties;
+    private final Map<String, String> properties;
 
 
     /**
@@ -402,9 +402,8 @@ public class LoadableResource {
      * load counter.
      *
      * @return true on success.
-     * @throws IOException
      */
-    public boolean resetToFallback() throws IOException {
+    public boolean resetToFallback(){
         if (loadFallback()) {
             loadCount.set(0);
             return true;
@@ -426,7 +425,7 @@ public class LoadableResource {
      */
     private final class WrappedInputStream extends InputStream {
 
-        private InputStream wrapped;
+        private final InputStream wrapped;
 
         public WrappedInputStream(InputStream wrapped) {
             this.wrapped = wrapped;

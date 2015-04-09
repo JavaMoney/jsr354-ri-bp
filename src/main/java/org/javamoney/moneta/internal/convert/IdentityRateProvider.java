@@ -16,7 +16,6 @@
 package org.javamoney.moneta.internal.convert;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 
 import javax.money.convert.ConversionQuery;
 import javax.money.convert.ExchangeRate;
@@ -44,10 +43,8 @@ public class IdentityRateProvider extends AbstractRateProvider {
 
     /**
      * Constructor, also loads initial data.
-     *
-     * @throws java.net.MalformedURLException
      */
-    public IdentityRateProvider() throws MalformedURLException {
+    public IdentityRateProvider(){
         super(CONTEXT);
     }
 

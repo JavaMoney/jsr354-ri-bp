@@ -220,7 +220,6 @@
                             </docletArtifact>
                             <show>private</show>
                             <additionalparam>
-                                -Xdoclint:none
                                 -inferrel -inferdep -quiet -hide java.*
                                 -collpackages java.util.*
                                 -postfixpackage -nodefontname Tahoma
