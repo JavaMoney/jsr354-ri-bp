@@ -71,6 +71,19 @@
         <url>https://github.com/JavaMoney/javamoney-moneta-bp</url>
     </scm>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray-release</id>
+            <name>oss-jfrog-artifactory-release</name>
+            <url>https://oss.jfrog.org/artifactory/oss-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>bintray-snapshot</id>
+            <name>oss-jfrog-artifactory-snapshot</name>
+            <url>https://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <snapshots>
