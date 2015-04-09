@@ -10,3 +10,4 @@ This module is licenced under the the [Apache 2 Licence](https://www.apache.org/
 [![Coverage Status](https://coveralls.io/repos/JavaMoney/jsr354-ri-bp/badge.svg)](https://coveralls.io/r/JavaMoney/jsr354-ri-bp)
 
 [![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
+
