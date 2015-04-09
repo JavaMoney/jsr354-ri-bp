@@ -51,7 +51,6 @@
         <basedir>.</basedir>
         <!-- dependency versions -->
         <testng.version>6.8.5</testng.version>
-        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
 
     <ciManagement>
