@@ -17,12 +17,16 @@ package org.javamoney.moneta.internal.convert;
 
 import java.io.InputStream;
 import java.math.MathContext;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -100,7 +104,9 @@ abstract class AbstractECBRateProvider extends AbstractRateProvider implements
             cal = query.get(Calendar.class);
         }
         if(cal==null){
-            date = LocalDate.now();
+        	List<LocalDate>  dates = new ArrayList<>(rates.keySet());
+        	Collections.sort(dates);
+        	date = dates.get(dates.size()-1);
         }
         else{
             date = LocalDate.from(cal);

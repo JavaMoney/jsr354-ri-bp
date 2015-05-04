@@ -177,7 +177,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                 line = pr.readLine();
                 continue;
             }
-            Double[] values = parseValues(f, parts);
+            Double[] values = parseValues(parts);
             for (int i = 0; i < values.length; i++) {
                 if (values[i]==null) {
                     continue;
@@ -233,16 +233,25 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         }
     }
 
-    private Double[] parseValues(NumberFormat f, String[] parts) throws ParseException {
-        Double[] result = new Double[parts.length - 1];
-        for (int i = 1; i < parts.length; i++) {
-            if (parts[i].isEmpty()) {
-                continue;
-            }
-            result[i - 1] = f.parse(parts[i]).doubleValue();
-        }
-        return result;
-    }
+    private Double[] parseValues(String[] parts) throws ParseException {
+
+		ArrayList<Double> result = new ArrayList<>();
+		int index = 0;
+		for (String part : parts) {
+			if(index == 0) {
+				index++;
+				continue;
+			}
+			if (part.isEmpty() || "NA".equals(part)) {
+				index++;
+				result.add(null);
+				continue;
+			}
+			index++;
+			result.add(Double.valueOf(part.trim().replace(",", "")));
+		}
+		return result.toArray(new Double[parts.length - 1]);
+	}
 
     private List<LocalDate> readTimestamps(String line) throws ParseException {
         // Currency May 01, 2013 April 30, 2013 April 29, 2013 April 26, 2013
