@@ -46,8 +46,8 @@ public class ECBHistoricRateProviderTest {
     private static final CurrencyUnit DOLLAR = Monetary
             .getCurrency("USD");
 
-    private static final CurrencyUnit BRAZILIAN_REAL = Monetary
-            .getCurrency("BRL");
+    private static final CurrencyUnit YEN = Monetary
+            .getCurrency("JPY");
 
     private ExchangeRateProvider provider;
 
@@ -77,14 +77,14 @@ public class ECBHistoricRateProviderTest {
     }
 
     @Test
-    public void shouldReturnsSameBrazilianValue() {
+    public void shouldReturnsSameYenValue() {
         CurrencyConversion currencyConversion = provider
-                .getCurrencyConversion(BRAZILIAN_REAL);
+                .getCurrencyConversion(YEN);
         assertNotNull(currencyConversion);
-        MonetaryAmount money = Money.of(BigDecimal.TEN, BRAZILIAN_REAL);
+        MonetaryAmount money = Money.of(BigDecimal.TEN, YEN);
         MonetaryAmount result = currencyConversion.apply(money);
 
-        assertEquals(result.getCurrency(), BRAZILIAN_REAL);
+        assertEquals(result.getCurrency(), YEN);
         assertEquals(result.getNumber().numberValue(BigDecimal.class),
                 BigDecimal.TEN);
 
@@ -131,11 +131,11 @@ public class ECBHistoricRateProviderTest {
     }
 
     @Test
-    public void shouldConvertsBrazilianToDollar() {
+    public void shouldConvertsYenToDollar() {
         CurrencyConversion currencyConversion = provider
                 .getCurrencyConversion(DOLLAR);
         assertNotNull(currencyConversion);
-        MonetaryAmount money = Money.of(BigDecimal.TEN, BRAZILIAN_REAL);
+        MonetaryAmount money = Money.of(BigDecimal.TEN, YEN);
         MonetaryAmount result = currencyConversion.apply(money);
 
         assertEquals(result.getCurrency(), DOLLAR);
@@ -144,14 +144,14 @@ public class ECBHistoricRateProviderTest {
     }
 
     @Test
-    public void shouldConvertsDollarToBrazilian() {
+    public void shouldConvertsDollarToYen() {
         CurrencyConversion currencyConversion = provider
-                .getCurrencyConversion(BRAZILIAN_REAL);
+                .getCurrencyConversion(YEN);
         assertNotNull(currencyConversion);
         MonetaryAmount money = Money.of(BigDecimal.TEN, DOLLAR);
         MonetaryAmount result = currencyConversion.apply(money);
 
-        assertEquals(result.getCurrency(), BRAZILIAN_REAL);
+        assertEquals(result.getCurrency(), YEN);
         assertTrue(result.getNumber().doubleValue() > 0);
 
     }
