@@ -32,17 +32,17 @@ import static org.testng.Assert.assertTrue;
  * @author Werner
  * 
  */
-public class MonetaryUtilTest {
+public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#reciprocal()}.
+	 * {@link MonetaryOperators#reciprocal()}.
 	 */
 	@Test
 	public void testReciprocal() {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency("CHF").setNumber(200).create();
-		MonetaryAmount r = m.with(MonetaryUtil.reciprocal());
+		MonetaryAmount r = m.with(MonetaryOperators.reciprocal());
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
 						.setNumber(BigDecimal.ONE.divide(BigDecimal.valueOf(200)))
@@ -52,7 +52,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#permil(java.math.BigDecimal)}
+	 * {@link MonetaryOperators#permil(java.math.BigDecimal)}
 	 * .
 	 */
 	@Test
@@ -60,7 +60,7 @@ public class MonetaryUtilTest {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency(
 						"CHF").setNumber(100).create();
-		MonetaryAmount r = m.with(MonetaryUtil.permil(BigDecimal
+		MonetaryAmount r = m.with(MonetaryOperators.permil(BigDecimal
 				.valueOf(25)));
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
@@ -71,7 +71,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#permil(java.lang.Number)}
+	 * {@link MonetaryOperators#permil(java.lang.Number)}
 	 * .
 	 */
 	@Test
@@ -79,7 +79,7 @@ public class MonetaryUtilTest {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency(
 						"CHF").setNumber(100).create();
-		MonetaryAmount r = m.with(MonetaryUtil.permil(25));
+		MonetaryAmount r = m.with(MonetaryOperators.permil(25));
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
 						.setNumber(
@@ -89,7 +89,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#permil(java.lang.Number, java.math.MathContext)}
+	 * {@link MonetaryOperators#permil(java.lang.Number, java.math.MathContext)}
 	 * .
 	 */
 	@Test
@@ -97,7 +97,7 @@ public class MonetaryUtilTest {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency(
 						"CHF").setNumber(100).create();
-		MonetaryAmount r = m.with(MonetaryUtil.permil(25,
+		MonetaryAmount r = m.with(MonetaryOperators.permil(25,
 				MathContext.DECIMAL64));
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
@@ -108,7 +108,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(java.math.BigDecimal)}
+	 * {@link MonetaryOperators#percent(java.math.BigDecimal)}
 	 * .
 	 */
 	@Test
@@ -116,7 +116,7 @@ public class MonetaryUtilTest {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency(
 						"CHF").setNumber(100L).create();
-		MonetaryAmount r = m.with(MonetaryUtil.percent(BigDecimal
+		MonetaryAmount r = m.with(MonetaryOperators.percent(BigDecimal
 				.valueOf(25)));
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
@@ -127,7 +127,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(java.lang.Number)}
+	 * {@link MonetaryOperators#percent(java.lang.Number)}
 	 * .
 	 */
 	@Test
@@ -135,7 +135,7 @@ public class MonetaryUtilTest {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency(
 						"CHF").setNumber(100).create();
-		MonetaryAmount r = m.with(MonetaryUtil.percent((long) 25));
+		MonetaryAmount r = m.with(MonetaryOperators.percent((long) 25));
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
 						.setNumber(
@@ -145,30 +145,30 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(java.lang.Number)}
+	 * {@link MonetaryOperators#percent(java.lang.Number)}
 	 * .
 	 */
 	@Test
 	public void testPercentToString() {
-		MonetaryOperator p = MonetaryUtil.percent((short) 25);
+		MonetaryOperator p = MonetaryOperators.percent((short) 25);
 		assertTrue(p.toString().contains("25"));
 		assertTrue(p.toString().contains("%"));
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(java.lang.Number)}
+	 * {@link MonetaryOperators#percent(java.lang.Number)}
 	 * .
 	 */
 	@Test
 	public void testPercentGetDisplayName() {
-		MonetaryOperator p = MonetaryUtil.percent((byte) 25);
+		MonetaryOperator p = MonetaryOperators.percent((byte) 25);
 		assertEquals("25%", ((Percent) p).getDisplayName(Locale.ENGLISH));
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#minorPart()}.
+	 * {@link MonetaryOperators#minorPart()}.
 	 */
 	@Test
 	public void testMinorPart() {
@@ -176,7 +176,7 @@ public class MonetaryUtilTest {
 				.setCurrency(
 						"CHF").setNumber(new BigDecimal(
 						"1234.56789")).create();
-		MonetaryAmount r = m.with(MonetaryUtil.minorPart());
+		MonetaryAmount r = m.with(MonetaryOperators.minorPart());
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
 						.setNumber(
@@ -186,7 +186,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#majorPart()}.
+	 * {@link MonetaryOperators#majorPart()}.
 	 */
 	@Test
 	public void testMajorPart() {
@@ -194,7 +194,7 @@ public class MonetaryUtilTest {
 				.setCurrency(
 						"CHF").setNumber(new BigDecimal(
 						"1234.56789")).create();
-		MonetaryAmount r = m.with(MonetaryUtil.majorPart());
+		MonetaryAmount r = m.with(MonetaryOperators.majorPart());
 		assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency(
 						"CHF").setNumber(new BigDecimal("1234")).create(),
@@ -203,7 +203,7 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#minorUnits()}.
+	 * {@link MonetaryOperators#minorUnits()}.
 	 */
 	@Test
 	public void testMinorUnits() {
@@ -211,20 +211,20 @@ public class MonetaryUtilTest {
 				.setCurrency(
 						"CHF").setNumber(new BigDecimal(
 						"1234.56789")).create();
-		Long units = m.query(MonetaryUtil.minorUnits());
+		Long units = m.query(MonetaryOperators.minorUnits());
 		assertEquals(Long.valueOf(123456L), units);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#majorUnits()}.
+	 * {@link MonetaryOperators#majorUnits()}.
 	 */
 	@Test
 	public void testMajorUnits() {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency("CHF").setNumber(new BigDecimal(
 						"1234.56789")).create();
-		Long units = m.query(MonetaryUtil.majorUnits());
+		Long units = m.query(MonetaryOperators.majorUnits());
 		assertEquals(Long.valueOf(1234L), units);
 	}
 
@@ -232,82 +232,82 @@ public class MonetaryUtilTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#minorUnits()}.
+	 * {@link MonetaryOperators#minorUnits()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMinorUnits_Null() {
-		MonetaryUtil.minorUnits().queryFrom(null);
+		MonetaryOperators.minorUnits().queryFrom(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#majorUnits()}.
+	 * {@link MonetaryOperators#majorUnits()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMajorUnits_Null() {
-		MonetaryUtil.majorUnits().queryFrom(null);
+		MonetaryOperators.majorUnits().queryFrom(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#majorPart()}.
+	 * {@link MonetaryOperators#majorPart()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMajorPart_Null() {
-		MonetaryUtil.majorPart().apply(null);
+		MonetaryOperators.majorPart().apply(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#majorPart()}.
+	 * {@link MonetaryOperators#majorPart()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMinorPart_Null() {
-		MonetaryUtil.minorPart().apply(null);
+		MonetaryOperators.minorPart().apply(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(Number)}.
+	 * {@link MonetaryOperators#percent(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPercent_Null1() {
-		MonetaryUtil.percent(null);
+		MonetaryOperators.percent(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#percent(Number)}.
+	 * {@link MonetaryOperators#percent(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPercent_Null2() {
-		MonetaryUtil.percent(1).apply(null);
+		MonetaryOperators.percent(1).apply(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#permil(Number)}.
+	 * {@link MonetaryOperators#permil(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPermil_Null1() {
-		MonetaryUtil.permil(null);
+		MonetaryOperators.permil(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#permil(Number)}.
+	 * {@link MonetaryOperators#permil(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPermil_Null2() {
-		MonetaryUtil.permil(1).apply(null);
+		MonetaryOperators.permil(1).apply(null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link MonetaryUtil#reciprocal()}.
+	 * {@link MonetaryOperators#reciprocal()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testReciprocal_Null() {
-		MonetaryUtil.reciprocal().apply(null);
+		MonetaryOperators.reciprocal().apply(null);
 	}
 }
