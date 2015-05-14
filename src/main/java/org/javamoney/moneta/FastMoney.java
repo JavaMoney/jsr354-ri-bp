@@ -440,10 +440,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
      */
     @Override
     public FastMoney plus() {
-        if (this.number >= 0) {
-            return this;
-        }
-        return new FastMoney(multiplyExact(this.number, -1), getCurrency());
+    	return this;
     }
 
     /*

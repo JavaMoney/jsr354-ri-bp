@@ -30,7 +30,7 @@ import javax.money.MonetaryQuery;
  *
  * @author Anatole Tresch
  */
-public final class MonetaryUtil {
+public final class MonetaryOperators {
     /**
      * defaulkt Math context used.
      */
@@ -60,7 +60,7 @@ public final class MonetaryUtil {
     /**
      * Private singleton constructor.
      */
-    private MonetaryUtil() {
+    private MonetaryOperators() {
         // Singleton constructor
     }
 

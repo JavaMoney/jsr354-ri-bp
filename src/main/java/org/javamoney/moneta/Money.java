@@ -502,7 +502,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money plus() {
-        return new Money(this.number.plus(), getCurrency());
+    	return this;
     }
 
     /*

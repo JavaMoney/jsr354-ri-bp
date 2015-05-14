@@ -418,12 +418,7 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
      */
     @Override
     public RoundedMoney plus() {
-        MathContext mc = this.monetaryContext.get(MathContext.class);
-        if(mc==null){
-            mc = MathContext.DECIMAL64;
-        }
-        return new RoundedMoney(this.number.plus(mc),
-                this.currency, this.rounding);
+        return this;
     }
 
     /*
