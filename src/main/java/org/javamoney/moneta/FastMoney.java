@@ -370,9 +370,6 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
             return new FastMoney[]{zero, zero};
         }
         checkNumber(divisor);
-        if (isOne(divisor)) {
-            return new FastMoney[]{this, FastMoney.of(0, getCurrency())};
-        }
         BigDecimal div = MoneyUtils.getBigDecimal(divisor);
         BigDecimal[] res = getBigDecimal().divideAndRemainder(div);
         return new FastMoney[]{new FastMoney(res[0], getCurrency(), true), new FastMoney(res[1], getCurrency(), true)};
@@ -488,9 +485,6 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     @Override
     public FastMoney remainder(Number divisor) {
         checkNumber(divisor);
-        if (isOne(divisor)) {
-            return new FastMoney(0, getCurrency());
-        }
         return new FastMoney(this.number % getInternalNumber(divisor, false), getCurrency());
     }
 
