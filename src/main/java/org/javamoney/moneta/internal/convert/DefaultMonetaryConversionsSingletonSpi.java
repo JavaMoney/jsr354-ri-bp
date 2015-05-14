@@ -150,12 +150,19 @@ public class DefaultMonetaryConversionsSingletonSpi extends BaseMonetaryConversi
     public List<String> getDefaultProviderChain() {
         List<String> provList = new ArrayList<>();
         String defaultChain = MonetaryConfig.getConfig().get("conversion.default-chain");
-        String[] items = defaultChain.split(",");
-        for (String item : items) {
-            if (getProviderNames().contains(item.trim())) {
-                provList.add(item);
-            } else {
-                LOG.warning("Ignoring non existing default provider: " + item);
+        if(defaultChain!=null) {
+            String[] items = defaultChain.split(",");
+            for (String item : items) {
+                if (getProviderNames().contains(item.trim())) {
+                    provList.add(item);
+                } else {
+                    LOG.warning("Ignoring non existing default provider: " + item);
+                }
+            }
+        }
+        else{
+            for(ExchangeRateProvider p: Bootstrap.getServices(ExchangeRateProvider.class)) {
+                provList.add(p.getContext().getProviderName());
             }
         }
         return provList;
