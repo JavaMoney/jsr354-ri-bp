@@ -10,6 +10,7 @@ import javax.money.convert.ExchangeRateProviderSupplier;
  * <code>ExchangeRateProvider provider = MonetaryConversions.getExchangeRateProvider(ExchangeRateType.ECB);<code>
  *
  * @author otaviojava
+ * @deprecated Use org.javamoney.moneta.convert.ExchangeRateType instead
  */
 public enum ExchangeRateType implements ExchangeRateProviderSupplier {
     /**
