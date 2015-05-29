@@ -1,18 +1,3 @@
-/**
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package org.javamoney.moneta.function;
 
 import java.util.Collection;
@@ -23,13 +8,14 @@ import java.util.Set;
 import javax.money.CurrencyUnit;
 
 /**
- * This map is decorator of HashMap that returns an empty Summary when there
+ * This statisticsMap is decorator of HashMap that returns an empty Summary when there
  * isn't currency in get's method
  *
  * @author otaviojava
  */
 class MonetarySummaryMap implements
         Map<CurrencyUnit, MonetarySummaryStatistics> {
+
 
     private final Map<CurrencyUnit, MonetarySummaryStatistics> map = new HashMap<>();
 
@@ -113,7 +99,8 @@ class MonetarySummaryMap implements
         return false;
     }
 
-    public MonetarySummaryStatistics putIfAbsent(CurrencyUnit key,
+    @Override
+	public MonetarySummaryStatistics putIfAbsent(CurrencyUnit key,
                                                  MonetarySummaryStatistics value) {
         MonetarySummaryStatistics v = map.get(key);
         if (v==null) {

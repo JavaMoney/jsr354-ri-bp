@@ -100,20 +100,4 @@ class ExchangeRateMonetarySummaryStatistics  extends DefaultMonetarySummaryStati
 		return another;
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ExchangeRateMonetarySummaryStatistics)) return false;
-        if (!super.equals(o)) return false;
-
-        ExchangeRateMonetarySummaryStatistics that = (ExchangeRateMonetarySummaryStatistics) o;
-        return !(provider != null ? !provider.equals(that.provider) : that.provider != null);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (provider != null ? provider.hashCode() : 0);
-        return result;
-    }
 }

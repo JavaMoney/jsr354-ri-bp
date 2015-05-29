@@ -15,12 +15,7 @@
  */
 package org.javamoney.moneta.function;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryRounding;
-import javax.money.Monetary;
-import javax.money.RoundingQueryBuilder;
-
+import javax.money.*;
 import java.math.RoundingMode;
 import java.util.Objects;
 
@@ -29,15 +24,15 @@ import java.util.Objects;
  *
  * @author Anatole Tresch
  */
-final class MajorPart implements MonetaryOperator {
+final class ExtractorMajorPartOperator implements MonetaryOperator {
 
-    private static final MonetaryRounding downRounding =
+    private static final MonetaryRounding DOWN_ROUNDING =
             Monetary.getRounding(RoundingQueryBuilder.of().setScale(0).set(RoundingMode.DOWN).build());
 
     /**
-     * Access the shared instance of {@link MajorPart} for use.
+     * Access the shared instance of {@link ExtractorMajorPartOperator} for use.
      */
-    MajorPart() {
+    ExtractorMajorPartOperator() {
     }
 
     /**
@@ -57,7 +52,7 @@ final class MajorPart implements MonetaryOperator {
     @Override
     public MonetaryAmount apply(MonetaryAmount amount) {
         Objects.requireNonNull(amount, "Amount required.");
-        return amount.with(downRounding);
+        return amount.with(DOWN_ROUNDING);
     }
 
 }

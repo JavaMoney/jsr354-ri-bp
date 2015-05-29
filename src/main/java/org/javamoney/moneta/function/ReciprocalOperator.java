@@ -29,13 +29,13 @@ import javax.money.NumberValue;
  *
  * @author Anatole Tresch
  */
-final class Reciprocal implements MonetaryOperator{
+final class ReciprocalOperator implements MonetaryOperator{
 
 
     /**
-     * Access the shared instance of {@link Reciprocal} for use.
+     * Access the shared instance of {@link ReciprocalOperator} for use.
      */
-    Reciprocal(){
+    ReciprocalOperator(){
     }
 
 
@@ -51,7 +51,8 @@ final class Reciprocal implements MonetaryOperator{
     public MonetaryAmount apply(MonetaryAmount amount){
         Objects.requireNonNull(amount, "Amount required.");
         NumberValue num = amount.getNumber();
-        BigDecimal one = new BigDecimal("1.0").setScale(num.getScale() < 5 ? 5 : num.getScale(), RoundingMode.HALF_EVEN);
+        BigDecimal one = new BigDecimal("1.0").setScale(num.getScale() < 5 ? 5 : num.getScale(),
+                BigDecimal.ROUND_HALF_EVEN);
         return amount.getFactory().setNumber(one.divide(num.numberValue(BigDecimal.class), RoundingMode.HALF_EVEN))
                 .create();
     }

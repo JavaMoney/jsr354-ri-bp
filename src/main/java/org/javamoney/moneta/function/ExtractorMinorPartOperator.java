@@ -25,15 +25,16 @@ import javax.money.MonetaryOperator;
 /**
  * This class allows to extract the minor part of a {@link MonetaryAmount}
  * instance.
- * 
+ *
  * @author Anatole Tresch
+ * @author Otavio Santana
  */
-final class MinorPart implements MonetaryOperator {
+final class ExtractorMinorPartOperator implements MonetaryOperator {
 
 	/**
 	 * Package private constructor used from MonetaryFunctions.
 	 */
-	MinorPart() {
+	ExtractorMinorPartOperator() {
 	}
 
 	/**
@@ -47,7 +48,7 @@ final class MinorPart implements MonetaryOperator {
 	 * {@code BigDecimal} . This is to allow further calculations to be
 	 * performed on the result. Should you need a {@code BigDecimal}, simply
 	 * call {@code asType(BigDecimal.class)}.
-	 * 
+	 *
 	 * @return the minor units part of the amount, never {@code null}
 	 */
 	@Override

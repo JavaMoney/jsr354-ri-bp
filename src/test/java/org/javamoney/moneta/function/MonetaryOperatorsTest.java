@@ -15,35 +15,40 @@
  */
 package org.javamoney.moneta.function;
 
-import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
-import javax.money.MonetaryAmount;
-import javax.money.Monetary;
-import javax.money.MonetaryOperator;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Locale;
+import java.math.RoundingMode;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
+
+import org.javamoney.moneta.Money;
+import org.testng.annotations.Test;
 
 /**
  * @author Anatole
  * @author Werner
- * 
+ *
  */
 public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#reciprocal()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#reciprocal()}.
 	 */
 	@Test
 	public void testReciprocal() {
 		MonetaryAmount m = Monetary.getDefaultAmountFactory()
 				.setCurrency("CHF").setNumber(200).create();
 		MonetaryAmount r = m.with(MonetaryOperators.reciprocal());
-		assertEquals(
+        //noinspection BigDecimalMethodWithoutRoundingCalled
+        assertEquals(
 				Monetary.getDefaultAmountFactory().setCurrency("CHF")
 						.setNumber(BigDecimal.ONE.divide(BigDecimal.valueOf(200)))
 						.create(),
@@ -52,7 +57,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#permil(java.math.BigDecimal)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#permil(java.math.BigDecimal)}
 	 * .
 	 */
 	@Test
@@ -71,7 +76,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#permil(java.lang.Number)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#permil(java.lang.Number)}
 	 * .
 	 */
 	@Test
@@ -89,7 +94,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#permil(java.lang.Number, java.math.MathContext)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#permil(java.lang.Number, java.math.MathContext)}
 	 * .
 	 */
 	@Test
@@ -108,7 +113,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(java.math.BigDecimal)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#percent(java.math.BigDecimal)}
 	 * .
 	 */
 	@Test
@@ -127,7 +132,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(java.lang.Number)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#percent(java.lang.Number)}
 	 * .
 	 */
 	@Test
@@ -145,7 +150,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(java.lang.Number)}
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#percent(java.lang.Number)}
 	 * .
 	 */
 	@Test
@@ -157,18 +162,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(java.lang.Number)}
-	 * .
-	 */
-	@Test
-	public void testPercentGetDisplayName() {
-		MonetaryOperator p = MonetaryOperators.percent((byte) 25);
-		assertEquals("25%", ((Percent) p).getDisplayName(Locale.ENGLISH));
-	}
-
-	/**
-	 * Test method for
-	 * {@link MonetaryOperators#minorPart()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#minorPart()}.
 	 */
 	@Test
 	public void testMinorPart() {
@@ -186,7 +180,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#majorPart()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#majorPart()}.
 	 */
 	@Test
 	public void testMajorPart() {
@@ -201,56 +195,11 @@ public class MonetaryOperatorsTest {
 				r);
 	}
 
-	/**
-	 * Test method for
-	 * {@link MonetaryOperators#minorUnits()}.
-	 */
-	@Test
-	public void testMinorUnits() {
-		MonetaryAmount m = Monetary.getDefaultAmountFactory()
-				.setCurrency(
-						"CHF").setNumber(new BigDecimal(
-						"1234.56789")).create();
-		Long units = m.query(MonetaryOperators.minorUnits());
-		assertEquals(Long.valueOf(123456L), units);
-	}
+
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#majorUnits()}.
-	 */
-	@Test
-	public void testMajorUnits() {
-		MonetaryAmount m = Monetary.getDefaultAmountFactory()
-				.setCurrency("CHF").setNumber(new BigDecimal(
-						"1234.56789")).create();
-		Long units = m.query(MonetaryOperators.majorUnits());
-		assertEquals(Long.valueOf(1234L), units);
-	}
-
-	// Bad cases
-
-	/**
-	 * Test method for
-	 * {@link MonetaryOperators#minorUnits()}.
-	 */
-	@Test(expectedExceptions = NullPointerException.class)
-	public void testMinorUnits_Null() {
-		MonetaryOperators.minorUnits().queryFrom(null);
-	}
-
-	/**
-	 * Test method for
-	 * {@link MonetaryOperators#majorUnits()}.
-	 */
-	@Test(expectedExceptions = NullPointerException.class)
-	public void testMajorUnits_Null() {
-		MonetaryOperators.majorUnits().queryFrom(null);
-	}
-
-	/**
-	 * Test method for
-	 * {@link MonetaryOperators#majorPart()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#majorPart()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMajorPart_Null() {
@@ -259,7 +208,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#majorPart()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#majorPart()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testMinorPart_Null() {
@@ -268,7 +217,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(Number)}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#percent(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPercent_Null1() {
@@ -277,7 +226,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#percent(Number)}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#percent(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPercent_Null2() {
@@ -286,7 +235,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#permil(Number)}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#permil(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPermil_Null1() {
@@ -295,7 +244,7 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#permil(Number)}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#permil(Number)}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testPermil_Null2() {
@@ -304,10 +253,82 @@ public class MonetaryOperatorsTest {
 
 	/**
 	 * Test method for
-	 * {@link MonetaryOperators#reciprocal()}.
+	 * {@link org.javamoney.moneta.function.MonetaryOperators#reciprocal()}.
 	 */
 	@Test(expectedExceptions = NullPointerException.class)
 	public void testReciprocal_Null() {
 		MonetaryOperators.reciprocal().apply(null);
 	}
+
+	@Test
+	public void shouldRouding() {
+		CurrencyUnit euro = Monetary.getCurrency("EUR");
+		MonetaryAmount money = Money.parse("EUR 2.355432");
+		MonetaryAmount result = MonetaryOperators.rounding().apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), euro);
+		assertEquals(Double.valueOf(2.36), result.getNumber().doubleValue());
+	}
+
+	@Test(expectedExceptions = NullPointerException.class)
+	public void shouldReturnErrorWhenRoundingTypeIsNull() {
+		MonetaryAmount money = Money.parse("EUR 2.355432");
+		MonetaryOperators.rounding(null).apply(money);
+	}
+
+	@Test
+	public void shouldRoudingUsingRoundingMode() {
+		CurrencyUnit euro = Monetary.getCurrency("EUR");
+		MonetaryAmount money = Money.parse("EUR 2.355432");
+		MonetaryAmount result = MonetaryOperators.rounding(RoundingMode.HALF_EVEN).apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), euro);
+		assertEquals(Double.valueOf(2.36), result.getNumber().doubleValue());
+	}
+
+	@Test
+	public void shouldRoudingUsingRoundingModeAndScale() {
+		CurrencyUnit euro = Monetary.getCurrency("EUR");
+		MonetaryAmount money = Money.parse("EUR 2.355432");
+		MonetaryAmount result = MonetaryOperators.rounding(RoundingMode.HALF_EVEN, 4).apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), euro);
+		assertEquals(Double.valueOf(2.3554), result.getNumber().doubleValue());
+	}
+
+	@Test
+	public void shouldRoudingUsingScale() {
+		CurrencyUnit euro = Monetary.getCurrency("EUR");
+		MonetaryAmount money = Money.parse("EUR 2.355432");
+		MonetaryAmount result = MonetaryOperators.rounding(4).apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), euro);
+		assertEquals(Double.valueOf(2.3554), result.getNumber().doubleValue());
+	}
+	//
+	@Test(expectedExceptions = NullPointerException.class)
+	public void shouldReturnErrorWhenExchangeCurrencyIsNull() {
+		MonetaryOperators.exchange(null);
+	}
+
+	@Test
+	public void shouldExchangeCurrencyPositiveValue() {
+		CurrencyUnit real = Monetary.getCurrency("BRL");
+		MonetaryAmount money = Money.parse("EUR 2.35");
+		MonetaryAmount result = MonetaryOperators.exchange(real).apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), real);
+		assertEquals(Double.valueOf(2.35), result.getNumber().doubleValue());
+	}
+
+	@Test
+	public void shouldExchangeCurrencyNegativeValue() {
+		CurrencyUnit real = Monetary.getCurrency("BRL");
+		MonetaryAmount money = Money.parse("BHD -1.345");
+		MonetaryAmount result = MonetaryOperators.exchange(real).apply(money);
+		assertNotNull(result);
+		assertEquals(result.getCurrency(), real);
+		assertEquals(Double.valueOf(-1.345), result.getNumber().doubleValue());
+	}
 }
+

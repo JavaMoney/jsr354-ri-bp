@@ -18,27 +18,28 @@ package org.javamoney.moneta.function;
 import java.math.RoundingMode;
 import java.util.Objects;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
-import javax.money.Monetary;
-import javax.money.RoundingQueryBuilder;
+import javax.money.*;
 
 /**
- * This class allows to extract the major part of a {@link javax.money.MonetaryAmount}
- * instance.
- *
+ * This class allows to extract the major part of a {@link MonetaryAmount}
+ * instance. Gets the amount in major units as a {@code long}.
+ * <p>
+ * For example, 'EUR 2.35' will return 2,
+ * and 'BHD -1.345' will return -1.
+ * <p>
+ * @return the major units part of the amount
  * @author Anatole Tresch
+ * @author Otavio Santana
  */
-final class MajorUnits implements MonetaryQuery<Long> {
+final class ExtractorMajorPartQuery implements MonetaryQuery<Long> {
 
     private final MonetaryOperator downRounding =
             Monetary.getRounding(RoundingQueryBuilder.of().setScale(0).set(RoundingMode.DOWN).build());
 
     /**
-     * Access the shared instance of {@link MajorUnits} for use.
+     * Access the shared instance of {@link ExtractorMajorPartQuery} for use.
      */
-    MajorUnits() {
+    ExtractorMajorPartQuery() {
     }
 
     /**
