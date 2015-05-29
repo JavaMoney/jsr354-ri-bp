@@ -246,6 +246,49 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         return of(number, currency);
     }
 
+    /**
+     * Obtains an instance of Money representing zero.
+     * @param currency
+     * @return
+     */
+    public static FastMoney zero(CurrencyUnit currency) {
+        return of(BigDecimal.ZERO, currency);
+    }
+
+    /**
+     * Obtains an instance of {@code FastMoney} from an amount in minor units.
+     * For example, {@code ofMinor(USD, 1234)} creates the instance {@code USD 12.34}.
+     * @param currency  the currency, not null
+     * @param amountMinor  the amount of money in the minor division of the currency
+     * @return the monetary amount from minor units
+     * @see {@link CurrencyUnit#getDefaultFractionDigits()}
+     * @see {@link FastMoney#ofMinor(CurrencyUnit, long, int)}
+     * @throws NullPointerException when the currency is null
+     * @throws IllegalArgumentException when {@link CurrencyUnit#getDefaultFractionDigits()} is lesser than zero.
+     */
+    public static FastMoney ofMinor(CurrencyUnit currency, long amountMinor) {
+    	return ofMinor(currency, amountMinor, currency.getDefaultFractionDigits());
+    }
+
+    /**
+     * Obtains an instance of {@code FastMoney} from an amount in minor units.
+     * For example, {@code ofMinor(USD, 1234, 2)} creates the instance {@code USD 12.34}.
+     * @param currency  the currency, not null
+     * @param amountMinor  the amount of money in the minor division of the currency
+     * @param factionDigits number of digits
+     * @return the monetary amount from minor units
+     * @see {@link CurrencyUnit#getDefaultFractionDigits()}
+     * @see {@link FastMoney#ofMinor(CurrencyUnit, long, int)}
+     * @throws NullPointerException when the currency is null
+     * @throws IllegalArgumentException when the factionDigits is negative
+     */
+    public static FastMoney ofMinor(CurrencyUnit currency, long amountMinor, int factionDigits) {
+    	if(factionDigits < 0) {
+    		throw new IllegalArgumentException("The factionDigits cannot be negative");
+    	}
+    	return of(BigDecimal.valueOf(amountMinor, factionDigits), currency);
+    }
+
     /*
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
