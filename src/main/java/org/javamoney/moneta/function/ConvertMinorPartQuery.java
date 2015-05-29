@@ -24,18 +24,23 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryQuery;
 
 /**
- * This class allows to extract the minor units of a {@link MonetaryAmount}
+ * This class allows to convert to minor part a {@link MonetaryAmount}
  * instance.
- * 
+ *  Recovery all value as minor units as a {@code long}.
+ * <p>
+ * This returns the monetary amount in terms of the minor units of the
+ * currency, truncating the amount if necessary. For example, 'EUR 2.35'
+ * will return 235, and 'BHD -1.345' will return -1345.
+ * <p>
  * @author Anatole Tresch
  */
-final class MinorUnits implements MonetaryQuery<Long> {
+final class ConvertMinorPartQuery implements MonetaryQuery<Long> {
 
 	/**
 	 * Private constructor, there is only one instance of this class, accessible
 	 * calling {@link MonetaryOperators#minorUnits()} ()}.
 	 */
-	MinorUnits() {
+	ConvertMinorPartQuery() {
 	}
 
 	/**
@@ -46,7 +51,7 @@ final class MinorUnits implements MonetaryQuery<Long> {
 	 * will return 235, and 'BHD -1.345' will return -1345.
 	 * <p>
 	 * This method matches the API of {@link java.math.BigDecimal}.
-	 * 
+	 *
 	 * @return the minor units part of the amount
 	 * @throws ArithmeticException
 	 *             if the amount is too large for a {@code long}
@@ -57,7 +62,7 @@ final class MinorUnits implements MonetaryQuery<Long> {
 		BigDecimal number = amount.getNumber().numberValue(BigDecimal.class);
 		CurrencyUnit cur = amount.getCurrency();
 		int scale = cur.getDefaultFractionDigits();
-		if(scale<0){
+		if (scale < 0) {
 			scale = 0;
 		}
 		number = number.setScale(scale, RoundingMode.DOWN);

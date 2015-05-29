@@ -23,7 +23,8 @@ import javax.money.MonetaryAmount;
 import org.javamoney.moneta.FastMoney;
 
 /**
- * The default implementations of {@link MonetarySummaryStatistics}.
+ * the default implementations of {@link MonetarySummaryStatistics} This
+ * implementations cannot do exchange rate
  *
  * @author otaviojava
  * @author Anatole Tresch
@@ -89,10 +90,10 @@ class DefaultMonetarySummaryStatistics implements MonetarySummaryStatistics {
         return this;
     }
 
-    private void doSummary(MonetaryAmount moneraty) {
-        min = MonetaryFunctions.min(min, moneraty);
-        max = MonetaryFunctions.max(max, moneraty);
-        sum = sum.add(moneraty);
+    private void doSummary(MonetaryAmount monetaryAmount) {
+        min = MonetaryFunctions.min(min, monetaryAmount);
+        max = MonetaryFunctions.max(max, monetaryAmount);
+        sum = sum.add(monetaryAmount);
         average = sum.divide(++count);
     }
 

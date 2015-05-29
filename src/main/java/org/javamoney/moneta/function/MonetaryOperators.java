@@ -17,186 +17,278 @@ package org.javamoney.moneta.function;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.concurrent.atomic.AtomicLong;
+import java.math.RoundingMode;
+import java.util.Objects;
 
+import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
+
+import org.javamoney.moneta.spi.DefaultNumberValue;
 
 /**
  * This singleton class provides access to the predefined monetary functions.
  * <p>
  * The class is thread-safe, which is also true for all functions returned by
  * this class.
- *
+ * <pre>
+ * {@code
+ * 	MonetaryAmount money = Money.parse("EUR 2.35");
+ *  MonetaryAmount result = operator.apply(money);
+ * }
+ * </pre>
+ * <p>Or using: </p>
+ * <pre>
+ * {@code
+ * 	MonetaryAmount money = Money.parse("EUR 2.35");
+ *  MonetaryAmount result = money.with(operator);
+ * }
+ * </pre>
+ * @see {@link MonetaryAmount#with(MonetaryOperator)}
+ * @see {@link MonetaryOperator}
+ * @see {@link MonetaryOperator#apply(MonetaryAmount)}
  * @author Anatole Tresch
+ * @author Otavio Santana
  */
 public final class MonetaryOperators {
-    /**
-     * defaulkt Math context used.
-     */
-    private static final MathContext DEFAULT_MATH_CONTEXT = initDefaultMathContext();
-    /**
-     * Shared reciprocal instance.
-     */
-    private static final Reciprocal RECIPROCAL = new Reciprocal();
 
-    /**
-     * The shared instance of this class.
-     */
-    private static final MinorPart MINORPART = new MinorPart();
-    /**
-     * SHared minor units class.
-     */
-    private static final MinorUnits MINORUNITS = new MinorUnits();
-    /**
-     * Shared major part instance.
-     */
-    private static final MajorPart MAJORPART = new MajorPart();
-    /**
-     * Shared major units instance.
-     */
-    private static final MajorUnits MAJORUNITS = new MajorUnits();
+    private static final MathContext DEFAULT_MATH_CONTEXT = MathContext.DECIMAL64;
 
-    /**
-     * Private singleton constructor.
-     */
+    private static final ReciprocalOperator RECIPROCAL = new ReciprocalOperator();
+
+    private static final ExtractorMinorPartOperator EXTRACTOR_MINOR_PART = new ExtractorMinorPartOperator();
+
+    private static final ExtractorMajorPartOperator EXTRACTOR_MAJOR_PART = new ExtractorMajorPartOperator();
+
+    private static final RoudingMonetaryAmountOperator ROUNDING_MONETARY_AMOUNT = new RoudingMonetaryAmountOperator();
+
     private MonetaryOperators() {
-        // Singleton constructor
     }
 
     /**
-     * Get {@link MathContext} for {@link Permil} instances.
-     *
-     * @return the {@link MathContext} to be used, by default
-     * {@link MathContext#DECIMAL64}.
-     */
-    private static MathContext initDefaultMathContext() {
-        // TODO Initialize default, e.g. by system properties, or better:
-        // classpath properties!
-        return MathContext.DECIMAL64;
-    }
-
-    /**
-     * Return a {@link MonetaryOperator} realizing the recorpocal value of
-     * {@code f(R) = 1/R}.
-     *
-     * @return the reciprocal operator, never {@code null}
-     */
+	 * Gets the reciprocal of {@link MonetaryAmount}
+	 * <p>
+	 * Gets the amount as reciprocal, multiplicative inverse value (1/n).
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.0");
+	 *MonetaryAmount result = MonetaryOperators.reciprocal().apply(money);//EUR 0.5
+	 *}
+	 *</pre>
+	 * @return the reciprocal part as {@link MonetaryOperator}
+	 */
     public static MonetaryOperator reciprocal() {
         return RECIPROCAL;
     }
 
     /**
-     * Factory method creating a new instance with the given {@code BigDecimal} permil value.
-     *
-     * @param decimal the decimal value of the permil operator being created.
-     * @return a new  {@code Permil} operator
-     */
+	 * Gets the permil of the amount.
+	 * <p>
+	 * This returns the monetary amount in permil. For example, for 10% 'EUR
+	 * 2.35' will return 0.235.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR EUR 2.35");
+	 *MonetaryAmount result = MonetaryOperators.permil(BigDecimal.TEN).apply(money);//EUR 0.0235
+	 *}
+	 *</pre>
+	 * @return the permil as {@link MonetaryOperator}
+	 */
     public static MonetaryOperator permil(BigDecimal decimal) {
-        return new Permil(decimal);
+        return new PermilOperator(decimal);
     }
 
     /**
-     * Factory method creating a new instance with the given {@code Number} permil value.
-     *
-     * @param number the number value of the permil operator being created.
-     * @return a new  {@code Permil} operator
+     * Returns the {@link MonetaryOperators#percent(BigDecimal)} converting
+     * this number to {@link BigDecimal} and using the {@link MonetaryOperators#DEFAULT_MATH_CONTEXT}
+     * @param number to be converted to {@link BigDecimal}
+     * @see {@link MonetaryOperators#permil(BigDecimal)}
+     * @return the permil {@link MonetaryOperator}
      */
     public static MonetaryOperator permil(Number number) {
         return permil(number, DEFAULT_MATH_CONTEXT);
     }
 
+
     /**
-     * Factory method creating a new instance with the given {@code Number} permil value.
-     *
-     * @param number the number value of the permil operator being created.
-     * @return a new  {@code Permil} operator
+     * Returns the {@link MonetaryOperators#percent(BigDecimal)} converting
+     * this number to {@link BigDecimal} and using the {@link MathContext} in parameters
+     * @param number to be converted to {@link BigDecimal}
+     * @param mathContext the mathContext to be used
+     * @see {@link MonetaryOperators#permil(BigDecimal)}
+     * @return the permil {@link MonetaryOperator}
      */
     public static MonetaryOperator permil(Number number, MathContext mathContext) {
-        return new Permil(getBigDecimal(number, mathContext));
+        return new PermilOperator(new DefaultNumberValue(number).numberValue(BigDecimal.class));
     }
 
-    /**
-     * Factory method creating a new instance with the given {@code BigDecimal} percent value.
-     *
-     * @param decimal the decimal value of the percent operator being created.
-     * @return a new  {@code Percent} operator
-     */
+	/**
+	 * Gets the percentage of the amount.
+	 * <p>
+	 * This returns the monetary amount in percent. For example, for 10% 'EUR
+	 * 2.35' will return 0.235.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 200.0");
+	 *MonetaryAmount result = MonetaryOperators.percent(BigDecimal.TEN).apply(money);//EUR 20.0
+	 *}
+	 *</pre>
+	 * @param decimal the value to percent
+	 * @return the percent of {@link MonetaryOperator}
+	 */
     public static MonetaryOperator percent(BigDecimal decimal) {
-        return new Percent(decimal); // TODO caching, e.g. array for 1-100 might
-        // work.
+        return new PercentOperator(decimal);
     }
 
     /**
-     * Factory method creating a new instance with the given {@code Number} percent value.
-     *
-     * @param number the number value of the percent operator being created.
-     * @return a new  {@code Percent} operator
+     * Gets the percentage of the amount.
+     * @param number to be used in percent
+     * @see {@link MonetaryOperators#percent(BigDecimal)}
+     * @return the percent of {@link MonetaryOperator}
      */
     public static MonetaryOperator percent(Number number) {
-        return percent(getBigDecimal(number, DEFAULT_MATH_CONTEXT));
+        return percent(new DefaultNumberValue(number).numberValue(BigDecimal.class));
     }
 
-    /**
-     * Access the shared instance of {@link MinorPart} for use.
-     *
-     * @return the shared instance, never {@code null}.
-     */
+	/**
+	 * Extract minor part of {@link MonetaryAmount}
+	 * <p>
+	 * This returns the monetary amount in terms of the minor units of the
+	 * currency, truncating the whole part if necessary. For example, 'EUR 2.35'
+	 * will return 'EUR 0.35', and 'BHD -1.345' will return 'BHD -0.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.35");
+	 *MonetaryAmount result = MonetaryOperators.minorPart().apply(money);//EUR 0.35
+	 *}
+	 *</pre>
+	 * @return the minor part as {@link MonetaryOperator}
+	 */
     public static MonetaryOperator minorPart() {
-        return MINORPART;
+        return EXTRACTOR_MINOR_PART;
     }
 
-    /**
-     * Access the shared instance of {@link MajorPart} for use.
-     *
-     * @return the shared instance, never {@code null}.
-     */
-    public static MonetaryOperator majorPart() {
-        return MAJORPART;
-    }
+	/**
+	 * Extract major part of {@link MonetaryAmount}
+	 * <p>
+	 * This returns the monetary amount in terms of the minor units of the
+	 * currency, truncating the whole part if necessary. For example, 'EUR 2.35'
+	 * will return 'EUR 0.35', and 'BHD -1.345' will return 'BHD -0.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.35");
+	 *MonetaryAmount result = MonetaryOperators.majorPart().apply(money);//EUR 2.0
+	 *}
+	 *</pre>
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator majorPart() {
+		return EXTRACTOR_MAJOR_PART;
+	}
 
-    /**
-     * Access the shared instance of {@link MinorUnits} for use.
-     *
-     * @return the shared instance, never {@code null}.
-     */
-    public static MonetaryQuery<Long> minorUnits() {
-        return MINORUNITS;
-    }
+	/**
+	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
+	 * and {@link RoundingMode#HALF_EVEN}.
+	 * <p>
+	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
+	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.355432");
+	 *MonetaryAmount result = MonetaryOperators.rounding().apply(money);//EUR 2.36
+	 *}
+	 *</pre>
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator rounding() {
+		return ROUNDING_MONETARY_AMOUNT;
+	}
 
-    /**
-     * Access the shared instance of {@link MajorUnits} for use.
-     *
-     * @return the shared instance, never {@code null}.
-     */
-    public static MonetaryQuery<Long> majorUnits() {
-        return MAJORUNITS;
-    }
+	/**
+	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
+	 * and {@link RoundingMode}.
+	 * <p>
+	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
+	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.355432");
+	 *MonetaryAmount result = MonetaryOperators.rounding(RoundingMode.HALF_EVEN).apply(money);//EUR 2.35
+	 *}
+	 *</pre>
+	 * @param roundingMode rounding to be used
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator rounding(RoundingMode roundingMode) {
+		return new RoudingMonetaryAmountOperator(Objects.requireNonNull(roundingMode));
+	}
 
-    /**
-     * Converts to {@link BigDecimal}, if necessary, or casts, if possible.
-     *
-     * @param num         The {@link Number}
-     * @param mathContext the {@link MathContext}
-     * @return the {@code number} as {@link BigDecimal}
-     */
-    private static BigDecimal getBigDecimal(Number num,
-                                            MathContext mathContext) {
-        if (num instanceof BigDecimal) {
-            return (BigDecimal) num;
-        }
-        if (num instanceof Long || num instanceof Integer
-                || num instanceof Byte || num instanceof AtomicLong) {
-            return BigDecimal.valueOf(num.longValue());
-        }
-        if (num instanceof Float || num instanceof Double) {
-            return new BigDecimal(num.toString());
-        }
-        try {
-            // Avoid imprecise conversion to double value if at all possible
-            return new BigDecimal(num.toString(), mathContext);
-        } catch (NumberFormatException ignored) {
-        }
-        return BigDecimal.valueOf(num.doubleValue());
-    }
+	/**
+	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
+	 * and {@link RoundingMode}.
+	 * <p>
+	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
+	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.355432");
+	 *MonetaryAmount result = MonetaryOperators.rounding(RoundingMode.HALF_EVEN, 3).apply(money);//EUR 2.352
+	 *}
+	 *</pre>
+	 * @param roundingMode rounding to be used
+	 * @param scale to be used
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator rounding(RoundingMode roundingMode, int scale) {
+		return new RoudingMonetaryAmountOperator(Objects.requireNonNull(roundingMode), scale);
+	}
+
+	/**
+	 * Rounding the {@link MonetaryAmount} using the scale informed
+	 * and {@link RoundingMode#HALF_EVEN}.
+	 * <p>
+	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
+	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *MonetaryAmount money = Money.parse("EUR 2.355432");
+	 *MonetaryAmount result = MonetaryOperators.rounding(2).apply(money);//EUR 2.35
+	 *}
+	 *</pre>
+	 * @param roundingMode rounding to be used
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator rounding(int scale) {
+		return new RoudingMonetaryAmountOperator(RoudingMonetaryAmountOperator.DEFAULT_ROUDING_MONETARY_AMOUNT, scale);
+	}
+
+	/**
+	 * Do exchange of currency, in other words, create the monetary amount with the
+	 * same value but with currency different.
+	 * <p>
+	 * For example, 'EUR 2.35', using the currency 'USD' as exchange parameter, will return 'USD 2.35',
+	 * and 'BHD -1.345', using the currency 'USD' as exchange parameter, will return 'BHD -1.345'.
+	 * <p>
+	 *<pre>
+	 *{@code
+	 *Currency real = Monetary.getCurrency("BRL");
+	 *MonetaryAmount money = Money.parse("EUR 2.355");
+	 *MonetaryAmount result = MonetaryOperators.exchangeCurrency(real).apply(money);//BRL 2.355
+	 *}
+	 *</pre>
+	 * @param roundingMode rounding to be used
+	 * @return the major part as {@link MonetaryOperator}
+	 */
+	public static MonetaryOperator exchange(CurrencyUnit currencyUnit){
+		return new ExchangeCurrencyOperator(Objects.requireNonNull(currencyUnit));
+	}
 }

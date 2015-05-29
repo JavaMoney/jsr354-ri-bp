@@ -15,7 +15,16 @@
  */
 package org.javamoney.moneta.function;
 
-import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Calendar;
+import java.util.Currency;
+import java.util.GregorianCalendar;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -25,22 +34,16 @@ import javax.money.MonetaryOperator;
 import javax.money.MonetaryRounding;
 import javax.money.RoundingQueryBuilder;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Calendar;
-import java.util.Currency;
-import java.util.GregorianCalendar;
-
-import static org.testng.Assert.*;
+import org.testng.annotations.Test;
 
 /**
- * Test for the {@link Monetary} singleton (rounding functionality).
+ * Test for the {@link MonetaryRoundings} singleton.
  *
  * @author Anatole Tresch
  */
 public class MonetaryRoundingsTest {
 
-    /**
+	 /**
      * Test method for {@link javax.money.Monetary#getDefaultRounding()}.
      */
     @Test
@@ -261,5 +264,6 @@ public class MonetaryRoundingsTest {
     public void testGetRounding_Null2() {
         Monetary.getRounding(Monetary.getCurrency("USD")).apply(null);
     }
+
 
 }
