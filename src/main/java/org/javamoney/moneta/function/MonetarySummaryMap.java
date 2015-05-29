@@ -100,16 +100,6 @@ class MonetarySummaryMap implements
     }
 
     @Override
-	public MonetarySummaryStatistics putIfAbsent(CurrencyUnit key,
-                                                 MonetarySummaryStatistics value) {
-        MonetarySummaryStatistics v = map.get(key);
-        if (v==null) {
-            v = put(key, value);
-        }
-        return v;
-    }
-
-    @Override
     public int hashCode() {
         return map.hashCode();
     }
