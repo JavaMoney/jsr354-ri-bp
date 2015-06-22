@@ -74,7 +74,6 @@ abstract class ECBAbstractRateProvider extends AbstractRateProvider implements
         saxParserFactory.setValidating(false);
         LoaderService loader = Bootstrap.getService(LoaderService.class);
         loader.addLoaderListener(this, getDataId());
-        loader.loadDataAsync(getDataId());
     }
 
     public abstract String getDataId();
