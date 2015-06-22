@@ -49,7 +49,7 @@ import org.javamoney.moneta.spi.LoaderService;
  *
  * @author otaviojava
  */
-abstract class AbstractECBRateProvider extends AbstractRateProvider implements
+abstract class ECBAbstractRateProvider extends AbstractRateProvider implements
         LoaderService.LoaderListener {
 
     static final String BASE_CURRENCY_CODE = "EUR";
@@ -68,7 +68,7 @@ abstract class AbstractECBRateProvider extends AbstractRateProvider implements
      */
     private final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
-    public AbstractECBRateProvider(ProviderContext context) {
+    public ECBAbstractRateProvider(ProviderContext context) {
         super(context);
         saxParserFactory.setNamespaceAware(false);
         saxParserFactory.setValidating(false);
