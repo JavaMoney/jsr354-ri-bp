@@ -15,6 +15,7 @@ import javax.money.MonetaryOperator;
  * @see {@link MonetaryRoundedFactory#of(MonetaryOperator)}
  * @see {@link MonetaryRoundedFactory#withRoundingMode(RoundingMode)}
  * @author Otavio Santana
+ * @since 1.0.1
  */
 public abstract class MonetaryRoundedFactory {
 

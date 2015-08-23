@@ -33,6 +33,7 @@ import org.javamoney.moneta.internal.convert.IdentityRateProvider;
  *
  * @author otaviojava
  * @author Werner Keil
+ * @since 1.0.1
  */
 public enum ExchangeRateType implements ExchangeRateProviderSupplier {
     /**

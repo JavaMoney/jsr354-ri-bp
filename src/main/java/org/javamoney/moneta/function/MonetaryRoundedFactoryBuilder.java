@@ -7,8 +7,9 @@ import java.math.RoundingMode;
  * Builder to {@link MonetaryRoundedFactory} once the {@link RoundingMode}, is possible
  * choose the <b>scale</b>, the number of digits to the right of the decimal point, and the <b>precision</b>, the total number of digits in a number or both.
  * @author Otavio Santana
- *@see {@link MonetaryRoundedFactoryBuilder#withScale(int)}
- *@see {@link MonetaryRoundedFactoryBuilder#withPrecision(int)}
+ * @see {@link MonetaryRoundedFactoryBuilder#withScale(int)}
+ * @see {@link MonetaryRoundedFactoryBuilder#withPrecision(int)}
+ * @since 1.0.1
  */
 public final class MonetaryRoundedFactoryBuilder {
 

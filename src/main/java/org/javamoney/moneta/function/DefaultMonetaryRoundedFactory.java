@@ -12,6 +12,7 @@ import org.javamoney.moneta.RoundedMoney;
  *The default implementation to {@link MonetaryRoundedFactory}, this implementation returns the {@link RoundedMoney}.
  *@see {@link MonetaryRoundedFactory#create(Number, CurrencyUnit)}
  * @author Otavio Santana
+ * @since 1.0.1
  */
 class DefaultMonetaryRoundedFactory extends MonetaryRoundedFactory {
 
