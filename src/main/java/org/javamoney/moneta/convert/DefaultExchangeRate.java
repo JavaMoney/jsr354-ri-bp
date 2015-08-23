@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.moneta;
+package org.javamoney.moneta.convert;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,9 +85,7 @@ import javax.money.convert.ExchangeRate;
  * @see <a
  * href="https://en.wikipedia.org/wiki/Exchange_rate#Quotations">Wikipedia:
  * Exchange Rate (Quotations)</a>
- * @deprecated Use org.javamoney.moneta.convert.DefaultExchangeRate instead
  */
-@Deprecated
 class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<ExchangeRate> {
 
     /**
@@ -160,8 +158,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      *
      * @return the conversion context, never null.
      */
-    @Override
-	public final ConversionContext getContext() {
+    public final ConversionContext getContext() {
         return this.conversionContext;
     }
 
@@ -170,8 +167,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      *
      * @return the base {@link javax.money.CurrencyUnit}.
      */
-    @Override
-	public final CurrencyUnit getBaseCurrency() {
+    public final CurrencyUnit getBaseCurrency() {
         return this.base;
     }
 
@@ -180,8 +176,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      *
      * @return the term {@link javax.money.CurrencyUnit}.
      */
-    @Override
-	public final CurrencyUnit getCurrency() {
+    public final CurrencyUnit getCurrency() {
         return this.term;
     }
 
@@ -190,8 +185,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      *
      * @return the bid factor for this exchange rate, or {@code null}.
      */
-    @Override
-	public final NumberValue getFactor() {
+    public final NumberValue getFactor() {
         return this.factor;
     }
 
@@ -202,8 +196,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      * several instances. For a direct exchange rate, this equals to
      * <code>new ExchangeRate[]{this}</code>.
      */
-    @Override
-	public final List<ExchangeRate> getExchangeRateChain() {
+    public final List<ExchangeRate> getExchangeRateChain() {
         return this.chain;
     }
 
@@ -219,8 +212,7 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
      *
      * @return true, if the exchange rate is derived.
      */
-    @Override
-	public final boolean isDerived() {
+    public final boolean isDerived() {
         return this.chain.size() > 1;
     }
 

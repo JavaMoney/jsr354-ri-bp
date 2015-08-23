@@ -22,7 +22,8 @@ import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
 import javax.money.convert.ProviderContextBuilder;
 import javax.money.convert.RateType;
-import org.javamoney.moneta.ExchangeRateBuilder;
+
+import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 
@@ -54,12 +55,14 @@ public class IdentityRateProvider extends AbstractRateProvider {
      * @param conversionQuery the required {@link ConversionQuery}, not {@code null}
      * @return true, if the contained base and term currencies are known to this provider.
      */
-    public boolean isAvailable(ConversionQuery conversionQuery) {
+    @Override
+	public boolean isAvailable(ConversionQuery conversionQuery) {
         return conversionQuery.getBaseCurrency().getCurrencyCode()
                 .equals(conversionQuery.getCurrency().getCurrencyCode());
     }
 
-    public ExchangeRate getExchangeRate(ConversionQuery query) {
+    @Override
+	public ExchangeRate getExchangeRate(ConversionQuery query) {
         if (query.getBaseCurrency().getCurrencyCode().equals(query.getCurrency().getCurrencyCode())) {
             ExchangeRateBuilder builder = new ExchangeRateBuilder(getContext().getProviderName(), RateType.OTHER)
                     .setBase(query.getBaseCurrency());
