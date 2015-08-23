@@ -48,7 +48,7 @@ import javax.money.convert.RateType;
 import javax.money.spi.Bootstrap;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
-import org.javamoney.moneta.ExchangeRateBuilder;
+import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.LoaderService;

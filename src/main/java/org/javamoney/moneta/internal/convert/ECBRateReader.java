@@ -11,7 +11,7 @@ import javax.money.convert.ExchangeRate;
 import javax.money.convert.ProviderContext;
 import javax.money.convert.RateType;
 
-import org.javamoney.moneta.ExchangeRateBuilder;
+import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -29,7 +29,10 @@ import org.xml.sax.helpers.DefaultHandler;
  * <Cube time="2013-02-19"> <Cube currency="USD" rate="1.3349"/> <Cube
  * currency="JPY" rate="124.81"/> <Cube currency="BGN" rate="1.9558"/> <Cube
  * currency="CZK" rate="25.434"/> <Cube currency="DKK" rate="7.4599"/> <Cube
- * currency="GBP" rate="0.8631"/> <Cube currency="HUF" rate="290.79"/> <Cube
+ * currency="GBP" rate="0.8631"/> <Cube currency="HUF"
+
+import org.javamoney.moneta.convert.ExchangeRateBuilder;
+ rate="290.79"/> <Cube
  * currency="LTL" rate="3.4528"/> ...
  *
  * @author Anatole Tresch
