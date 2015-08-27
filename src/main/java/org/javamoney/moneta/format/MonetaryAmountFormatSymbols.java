@@ -66,7 +66,7 @@ public abstract class MonetaryAmountFormatSymbols implements MonetaryAmountForma
 	 * @see {@link MonetaryAmountProducer}
 	 * @see {@link DecimalFormat}
 	 */
-	public static MonetaryAmountFormatSymbols getDefafult() {
+	public static MonetaryAmountFormatSymbols getDefault() {
 		return new DefaultMonetaryAmountFormatSymbols(new MonetaryAmountSymbols(), new MoneyProducer());
 	}
 
