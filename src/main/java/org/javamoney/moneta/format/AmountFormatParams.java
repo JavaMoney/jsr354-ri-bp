@@ -22,7 +22,7 @@ package org.javamoney.moneta.format;
 public final class AmountFormatParams {
 
     /**
-     * Singleton class.
+     * Non instantiatable class.
      */
     private AmountFormatParams() {
     }
