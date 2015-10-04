@@ -1,9 +1,9 @@
-package org.javamoney.moneta.function;
+package org.javamoney.moneta.convert;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
-import static org.javamoney.moneta.function.StreamFactory.BRAZILIAN_REAL;
-import static org.javamoney.moneta.function.StreamFactory.DOLLAR;
+import static org.javamoney.moneta.convert.ConversionConstants.BRAZILIAN_REAL;
+import static org.javamoney.moneta.convert.ConversionConstants.DOLLAR;
 import static org.junit.Assert.assertNotNull;
 
 import javax.money.CurrencyUnit;
@@ -11,6 +11,9 @@ import javax.money.convert.ExchangeRateProvider;
 import javax.money.convert.MonetaryConversions;
 
 import org.javamoney.moneta.Money;
+import org.javamoney.moneta.convert.ExchangeRateMonetarySummaryStatistics;
+import org.javamoney.moneta.function.DefaultMonetarySummaryStatistics;
+import org.javamoney.moneta.function.MonetarySummaryStatistics;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -91,7 +94,7 @@ public class ExchangeRateMonetarySummaryStatisticsTest {
 
 	private MonetarySummaryStatistics createSummaryDefault(
 			CurrencyUnit currencyUnit) {
-		MonetarySummaryStatistics summary = new DefaultMonetarySummaryStatistics(
+		MonetarySummaryStatistics summary = DefaultMonetarySummaryStatistics.of(
 				currencyUnit);
 
 		summary.accept(Money.of(10, currencyUnit));

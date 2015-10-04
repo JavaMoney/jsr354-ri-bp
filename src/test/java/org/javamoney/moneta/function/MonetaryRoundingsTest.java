@@ -240,7 +240,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link MonetaryOperators#reciprocal()}.
+     * {@link ConversionOperators#reciprocal()}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null1() {
@@ -249,7 +249,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link MonetaryOperators#reciprocal()}.
+     * {@link ConversionOperators#reciprocal()}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null3() {
@@ -258,7 +258,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link MonetaryOperators#reciprocal()}.
+     * {@link ConversionOperators#reciprocal()}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null2() {
