@@ -61,6 +61,19 @@ public final class MonetaryFunctions {
 		}
 
 		/**
+		 * comparator to sort the {@link MonetaryAmount} considering the
+		 * {@link ExchangeRate}
+		 * @param provider the rate provider to be used.
+		 * @return the sort of {@link MonetaryAmount} using {@link ExchangeRate}
+		 * @deprecated call #sortValuable instead of.
+		 */
+		@Deprecated
+		public static Comparator<? super MonetaryAmount> sortValiable(final ExchangeRateProvider provider) {
+			return sortValuable(provider);
+		}
+
+
+		/**
 		 * Descending order of
 		 * {@link MonetaryFunctions#sortValuable(ExchangeRateProvider)}
 		 * @param provider the rate provider to be used.
@@ -75,6 +88,25 @@ public final class MonetaryFunctions {
 	                return sortValuable(provider).compare(o1, o2) * -1;
 	            }
 	        };
+		}
+
+		/**
+		 * Descending order of
+		 * {@link MonetaryFunctions#sortValuable(ExchangeRateProvider)}
+		 * @param provider the rate provider to be used.
+		 * @return the Descending order of
+		 *         {@link MonetaryFunctions#sortValuable(ExchangeRateProvider)}
+		 * @deprecated Use #sortValiableDesc instead of.
+		 */
+		@Deprecated
+		public static Comparator<? super MonetaryAmount> sortValiableDesc(
+				final ExchangeRateProvider provider) {
+			return new Comparator<MonetaryAmount>() {
+				@Override
+				public int compare(MonetaryAmount o1, MonetaryAmount o2) {
+					return sortValuable(provider).compare(o1, o2) * -1;
+				}
+			};
 		}
 
 	    /**
