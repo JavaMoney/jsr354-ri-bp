@@ -91,7 +91,6 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
      * @param currency the currency, not null.
      * @param number   the amount, not null.
      */
-    @Deprecated
     public RoundedMoney(Number number, CurrencyUnit currency, MonetaryOperator rounding) {
         this(number, currency, null, rounding);
     }
