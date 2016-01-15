@@ -19,7 +19,7 @@
 
 	<artifactId>moneta-bp</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>Moneta (JSR 354 RI) for Java 7</name>
 
 	<description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
