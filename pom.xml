@@ -54,8 +54,8 @@
 	</ciManagement>
 
 	<issueManagement>
-		<system>GITHUB</system>
-		<url>https://github.com/JavaMoney/javamoney-moneta-bp/issues</url>
+		<system>JIRA</system>
+		<url>http://java.net/jira/browse/JAVAMONEY</url>
 	</issueManagement>
 
 	<scm>
