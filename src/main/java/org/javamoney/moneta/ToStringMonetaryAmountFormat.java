@@ -114,6 +114,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
             }
         };
 
+        private static final long serialVersionUID = 6606016328162974467L;
         abstract MonetaryAmount to(ParserMonetaryAmount amount);
     }
 

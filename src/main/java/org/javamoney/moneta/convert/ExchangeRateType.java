@@ -20,7 +20,6 @@ import javax.money.convert.ExchangeRateProviderSupplier;
 import org.javamoney.moneta.internal.convert.ECBCurrentRateProvider;
 import org.javamoney.moneta.internal.convert.ECBHistoric90RateProvider;
 import org.javamoney.moneta.internal.convert.ECBHistoricRateProvider;
-//import org.javamoney.moneta.internal.convert.IMFHistoricRateProvider;
 import org.javamoney.moneta.internal.convert.IMFRateProvider;
 import org.javamoney.moneta.internal.convert.IdentityRateProvider;
 
@@ -36,6 +35,7 @@ import org.javamoney.moneta.internal.convert.IdentityRateProvider;
  * @since 1.0.1
  */
 public enum ExchangeRateType implements ExchangeRateProviderSupplier {
+
     /**
      * Exchange rate to the European Central Bank. Uses the
      * {@link ECBCurrentRateProvider} implementation.
@@ -48,7 +48,7 @@ public enum ExchangeRateType implements ExchangeRateProviderSupplier {
     IMF("IMF", "Exchange rate to the International Monetary Fond."),
     /**
      * Exchange rate to the International Monetary Fond from historic. Uses the
-     * {@link IMFHistoricRateProvider} implementation.
+     * {@code IMFHistoricRateProvider} implementation.
      */
     IMF_HIST("IMF-HIST", "Exchange rate to the International Monetary Fond that retrieve historical information on lazy way."),
     /**
@@ -69,6 +69,8 @@ public enum ExchangeRateType implements ExchangeRateProviderSupplier {
     IDENTITY(
             "IDENT",
             "Exchange rate rate with factor one for identical base/term currencies");
+
+    private static final long serialVersionUID = 7769702054407198263L;
 
     private final String type;
 
