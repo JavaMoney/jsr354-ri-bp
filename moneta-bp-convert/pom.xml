@@ -2,11 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.javamoney</groupId>
 		<artifactId>moneta-bp-parent</artifactId>
 		<version>1.2-SNAPSHOT</version>
+		<groupId>org.javamoney</groupId>
 	</parent>
-	<groupId>org.javamoney.moneta</groupId>
 	<artifactId>moneta-bp-convert-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Moneta Currency Conversion (Parent)</name>
@@ -33,4 +32,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<groupId>org.javamoney.moneta-bp</groupId>
 </project>

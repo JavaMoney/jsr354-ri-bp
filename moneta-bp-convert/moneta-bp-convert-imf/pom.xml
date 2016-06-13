@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.javamoney.moneta</groupId>
+		<groupId>org.javamoney.moneta-bp</groupId>
 		<artifactId>moneta-bp-convert-parent</artifactId>
 		<version>1.2-SNAPSHOT</version>
 	</parent>
