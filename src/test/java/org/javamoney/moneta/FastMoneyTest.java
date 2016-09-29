@@ -409,6 +409,12 @@ public class FastMoneyTest{
         assertEquals(FastMoney.of(200, "CHF"), m.multiply(2));
         assertEquals(FastMoney.of(new BigDecimal("50.0"), "CHF"), m.multiply(0.5));
 
+        // Zero test
+        m = FastMoney.of(100, "CHF");
+        assertEquals( m.multiply(0), FastMoney.of(0, "CHF"));
+        m = FastMoney.of(0, "CHF");
+        assertEquals( m.multiply(10), FastMoney.of(0, "CHF"));
+        
         try {
             // the maximum value for FastMoney is 92233720368547.75807 so this should overflow
             FastMoney.of(90000000000000L, "CHF").multiply(90000000000000L);
@@ -562,6 +568,9 @@ public class FastMoneyTest{
         } catch (ArithmeticException e) {
             // should happen
         }
+        
+        m = FastMoney.of(0, "CHF");
+        assertEquals(m.negate(), FastMoney.of(0, "CHF"));
     }
 
     /**
