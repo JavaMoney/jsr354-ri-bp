@@ -422,7 +422,16 @@ public class FastMoneyTest{
         } catch (ArithmeticException e) {
             // should happen
         }
-    }
+        try {
+            // the maximum value for FastMoney is 92233720368547.75807 
+            // these values are lower, but the overflow detection does not work
+            // correct.
+            FastMoney.of(-53484567177043L, "CHF").multiply(2178802625L);
+            fail("overflow should raise ArithmeticException");
+        } catch (ArithmeticException e) {
+            // should happen
+        }
+   }
 
     /**
      * Test method for {@link FastMoney#multiply(double)}.
