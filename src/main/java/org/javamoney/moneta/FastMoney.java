@@ -453,18 +453,34 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if(num1==0 || num2==0){
             return 0;
         }
-        boolean pos = num1>0 && num2 >0;
-        boolean neg = num1<0 && num2 <0;
+        
+         // Hacker's Delight, 
+        int leadingZeros =
+        		Long.numberOfLeadingZeros(num1) +
+        		Long.numberOfLeadingZeros(~num1) +
+        	    Long.numberOfLeadingZeros(num2) +
+        	    Long.numberOfLeadingZeros(~num2);
+        
+		if (leadingZeros > Long.SIZE + 1 ) {
+			// in this case, an overflow is impossible
+        	return num1 * num2;
+        }
+
+        if (leadingZeros < Long.SIZE){
+        	if(Long.signum(num1)*Long.signum(num2) > 0){
+        		throw new ArithmeticException("Long evaluation positive overflow.");
+           	} else {
+        		throw new ArithmeticException("Long evaluation negative overflow.");
+        	}
+        }
+        
         long exact = num1 * num2;
-        if(pos && exact <=0){
-            throw new ArithmeticException("Long evaluation positive overflow.");
+
+        // very expensive - this check is only executed in special cases
+        if( num1 != 0 && exact / num1 != num2 ) {
+        	throw new ArithmeticException("overflow");
         }
-        if(neg && exact <=0){
-            throw new ArithmeticException("Long evaluation negative overflow.");
-        }
-        if(!neg && !pos && exact >=0){
-            throw new ArithmeticException("Long negative overflow.");
-        }
+        
         return exact;
     }
 
