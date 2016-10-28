@@ -477,7 +477,8 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         long exact = num1 * num2;
 
         // very expensive - this check is only executed in special cases
-        if( num1 != 0 && exact / num1 != num2 ) {
+        // zero check is not needed, see above
+        if( exact / num1 != num2 ) {
         	throw new ArithmeticException("overflow");
         }
         
