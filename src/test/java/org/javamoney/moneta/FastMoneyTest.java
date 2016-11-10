@@ -290,9 +290,11 @@ public class FastMoneyTest{
         assertNotNull(moneyResult);
         assertEquals(11d, moneyResult.getNumber().doubleValue(), 0d);
         
+        // 87978089321359 + 4866358678300 = 92844447999659 > 92233720368547.75807
+
         // This example produce a false positive in the old version
-        money1 = FastMoney.of(44474249632057L, EURO);
-        money2 = FastMoney.of(72913073429160L, EURO);
+        money1 = FastMoney.of(87978089321359L, EURO);
+        money2 = FastMoney.of(4866358678300L, EURO);
 
         try {
             moneyResult = money1.add(money2); 
@@ -301,7 +303,7 @@ public class FastMoneyTest{
             // should happen
         }
         
-        // check greates    92233720368547.75807 value
+        // check greates FM 92233720368547.75807 value
         long fastMoneyMax = 92233720368547L;
 		FastMoney money3 = FastMoney.of(fastMoneyMax, "CHF");
         

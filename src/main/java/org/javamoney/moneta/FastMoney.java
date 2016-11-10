@@ -368,11 +368,6 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         boolean pos = num1>0 && num2 >0;
         boolean neg = num1<0 && num2 <0;
         long exact = num1 + num2;
-
-//        if((num1 ^ num2) >= 0 & (num1 ^ exact) < 0){
-//        	throw new ArithmeticException("Long evaluation overflow.");
-//        }
-        
         if(pos && exact <=0){
             throw new ArithmeticException("Long evaluation positive overflow.");
         }
@@ -481,7 +476,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         
         long exact = num1 * num2;
 
-        // very expensive - this check is only executed in special cases
+        // very expensive - this check is only executed in edge cases
         // zero check is not needed, see above
         if( exact / num1 != num2 ) {
         	throw new ArithmeticException("overflow");
@@ -529,14 +524,14 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if(num1==num2){
             return 0;
         }
-//        boolean pos = num1>num2;
+        boolean pos = num1>num2;
         long exact = num1 - num2;
-//        if(pos && exact <=0){
-//            throw new ArithmeticException("Long evaluation negative overflow.");
-//        }
-//        if(!pos && exact >=0){
-//            throw new ArithmeticException("Long evaluation positive overflow.");
-//        }
+        if(pos && exact <=0){
+            throw new ArithmeticException("Long evaluation negative overflow.");
+        }
+        if(!pos && exact >=0){
+            throw new ArithmeticException("Long evaluation positive overflow.");
+        }
         return exact;
     }
 
