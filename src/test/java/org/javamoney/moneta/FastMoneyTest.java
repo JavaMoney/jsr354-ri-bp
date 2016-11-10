@@ -289,10 +289,9 @@ public class FastMoneyTest{
         FastMoney moneyResult = money1.add(money2);
         assertNotNull(moneyResult);
         assertEquals(11d, moneyResult.getNumber().doubleValue(), 0d);
-        
-        // 87978089321359 + 4866358678300 = 92844447999659 > 92233720368547.75807
 
-        // This example produce a false positive in the old version
+        // This example create a sum that is to big for fastmoney, it should overflow
+        // 87978089321359 + 4866358678300 = 92844447999659 > 92233720368547.75807
         money1 = FastMoney.of(87978089321359L, EURO);
         money2 = FastMoney.of(4866358678300L, EURO);
 

@@ -456,14 +456,14 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         
          // Hacker's Delight, 
         int leadingZeros =
-        		Long.numberOfLeadingZeros(num1) +
-        		Long.numberOfLeadingZeros(~num1) +
+                Long.numberOfLeadingZeros(num1) +
+                Long.numberOfLeadingZeros(~num1) +
         	    Long.numberOfLeadingZeros(num2) +
         	    Long.numberOfLeadingZeros(~num2);
         
-		if (leadingZeros > Long.SIZE + 1 ) {
-			// in this case, an overflow is impossible
-        	return num1 * num2;
+        if (leadingZeros > Long.SIZE + 1 ) {
+            // in this case, an overflow is impossible
+            return num1 * num2;
         }
 
         if (leadingZeros < Long.SIZE){
