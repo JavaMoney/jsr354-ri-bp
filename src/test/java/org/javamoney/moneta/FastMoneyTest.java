@@ -15,24 +15,32 @@
  */
 package org.javamoney.moneta;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryQuery;
-import javax.money.NumberValue;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
-import org.junit.Assert;
-import org.testng.annotations.Test;
-
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.testng.Assert.*;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
+import javax.money.MonetaryOperator;
+import javax.money.MonetaryQuery;
+
+import org.junit.Assert;
+import org.testng.annotations.Test;
 
 /**
  * @author Anatole
@@ -282,25 +290,28 @@ public class FastMoneyTest{
         assertNotNull(moneyResult);
         assertEquals(11d, moneyResult.getNumber().doubleValue(), 0d);
         
-        // This example produce a false positive
+        // This example produce a false positive in the old version
         money1 = FastMoney.of(44474249632057L, EURO);
         money2 = FastMoney.of(72913073429160L, EURO);
-        moneyResult = money1.add(money2);
-        assertNotNull(moneyResult);
-        assertEquals(money1, moneyResult.subtract(money2));
-        // Values greater   92233720368547.75807 not allowed, but we got no long overflow
+
+        try {
+            moneyResult = money1.add(money2); 
+            fail("overflow should raise ArithmeticException");
+        } catch (ArithmeticException e) {
+            // should happen
+        }
+        
+        // check greates    92233720368547.75807 value
         long fastMoneyMax = 92233720368547L;
 		FastMoney money3 = FastMoney.of(fastMoneyMax, "CHF");
-        money1=money3.add(money3);
-        assertEquals(money1, money3.multiply(2));
         
-//        try {
-//            // the maximum value for FastMoney is 92233720368547.75807 so this should overflow
-//            money3.add(money3);
-//            fail("overflow should raise ArithmeticException");
-//        } catch (ArithmeticException e) {
-//            // should happen
-//        }
+        try {
+            // the maximum value for FastMoney is 92233720368547.75807 so this should overflow
+            money3.add(money3);
+            fail("overflow should raise ArithmeticException");
+        } catch (ArithmeticException e) {
+            // should happen
+        }
     }
 
     /**
