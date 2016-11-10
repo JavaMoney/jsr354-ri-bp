@@ -365,15 +365,24 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if(num2==0){
             return num1;
         }
-        boolean pos = num1>0 && num2 >0;
-        boolean neg = num1<0 && num2 <0;
+//        boolean pos = num1>0 && num2 >0;
+//        boolean neg = num1<0 && num2 <0;
+        int lz1 = Long.numberOfLeadingZeros(num1);
+        int lz2 = Long.numberOfLeadingZeros(num2);
         long exact = num1 + num2;
-        if(pos && exact <=0){
-            throw new ArithmeticException("Long evaluation positive overflow.");
+        if(lz1>2 && lz2>2){
+          return exact;
         }
-        if(neg && exact >=0){
-            throw new ArithmeticException("Long evaluation negative overflow.");
+        
+        if(exact-num1 != num2){
+        	throw new ArithmeticException("Long evaluation overflow.");
         }
+//        if(pos && exact <=0){
+//            throw new ArithmeticException("Long evaluation positive overflow.");
+//        }
+//        if(neg && exact >=0){
+//            throw new ArithmeticException("Long evaluation negative overflow.");
+//        }
         return exact;
     }
 
@@ -524,14 +533,14 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if(num1==num2){
             return 0;
         }
-        boolean pos = num1>num2;
+//        boolean pos = num1>num2;
         long exact = num1 - num2;
-        if(pos && exact <=0){
-            throw new ArithmeticException("Long evaluation negative overflow.");
-        }
-        if(!pos && exact >=0){
-            throw new ArithmeticException("Long evaluation positive overflow.");
-        }
+//        if(pos && exact <=0){
+//            throw new ArithmeticException("Long evaluation negative overflow.");
+//        }
+//        if(!pos && exact >=0){
+//            throw new ArithmeticException("Long evaluation positive overflow.");
+//        }
         return exact;
     }
 
