@@ -15,6 +15,24 @@
  */
 package org.javamoney.moneta;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.invoke.MethodHandles;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
@@ -23,15 +41,6 @@ import javax.money.MonetaryQuery;
 
 import org.junit.Assert;
 import org.testng.annotations.Test;
-
-import java.io.*;
-import java.lang.invoke.MethodHandles;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.testng.Assert.*;
 
 /**
  * @author Anatole
@@ -281,7 +290,22 @@ public class FastMoneyTest{
         assertNotNull(moneyResult);
         assertEquals(11d, moneyResult.getNumber().doubleValue(), 0d);
 
-        FastMoney money3 = FastMoney.of(90000000000000L, "CHF");
+        // This example create a sum that is to big for fastmoney, it should overflow
+        // 87978089321359 + 4866358678300 = 92844447999659 > 92233720368547.75807
+        money1 = FastMoney.of(87978089321359L, EURO);
+        money2 = FastMoney.of(4866358678300L, EURO);
+
+        try {
+            moneyResult = money1.add(money2); 
+            fail("overflow should raise ArithmeticException");
+        } catch (ArithmeticException e) {
+            // should happen
+        }
+        
+        // check greates FM 92233720368547.75807 value
+        long fastMoneyMax = 92233720368547L;
+		FastMoney money3 = FastMoney.of(fastMoneyMax, "CHF");
+        
         try {
             // the maximum value for FastMoney is 92233720368547.75807 so this should overflow
             money3.add(money3);
@@ -409,6 +433,12 @@ public class FastMoneyTest{
         assertEquals(FastMoney.of(200, "CHF"), m.multiply(2));
         assertEquals(FastMoney.of(new BigDecimal("50.0"), "CHF"), m.multiply(0.5));
 
+        // Zero test
+        m = FastMoney.of(100, "CHF");
+        assertEquals( m.multiply(0), FastMoney.of(0, "CHF"));
+        m = FastMoney.of(0, "CHF");
+        assertEquals( m.multiply(10), FastMoney.of(0, "CHF"));
+        
         try {
             // the maximum value for FastMoney is 92233720368547.75807 so this should overflow
             FastMoney.of(90000000000000L, "CHF").multiply(90000000000000L);
@@ -416,7 +446,16 @@ public class FastMoneyTest{
         } catch (ArithmeticException e) {
             // should happen
         }
-    }
+        try {
+            // the maximum value for FastMoney is 92233720368547.75807 
+            // these values are lower, but the overflow detection does not work
+            // correct.
+            FastMoney.of(-53484567177043L, "CHF").multiply(2178802625L);
+            fail("overflow should raise ArithmeticException");
+        } catch (ArithmeticException e) {
+            // should happen
+        }
+   }
 
     /**
      * Test method for {@link FastMoney#multiply(double)}.
@@ -562,6 +601,9 @@ public class FastMoneyTest{
         } catch (ArithmeticException e) {
             // should happen
         }
+        
+        m = FastMoney.of(0, "CHF");
+        assertEquals(m.negate(), FastMoney.of(0, "CHF"));
     }
 
     /**
