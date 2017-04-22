@@ -147,15 +147,15 @@ public class LoadableResource {
             clearCache();
         }
         if (!readCache()) {
-            if (shouldReadDataFromCallBack()) {
+            if (shouldReadDataFromFallback()) {
                 return loadFallback();
             }
         }
         return true;
     }
 
-    private boolean shouldReadDataFromCallBack() {
-         return LoaderService.UpdatePolicy.NEVER.equals(updatePolicy) || !loadRemote();
+    private boolean shouldReadDataFromFallback() {
+        return LoaderService.UpdatePolicy.NEVER.equals(updatePolicy) || !loadRemote();
     }
 
     /**
@@ -229,12 +229,12 @@ public class LoadableResource {
     public boolean loadRemote() {
         for (URI itemToLoad : remoteResources) {
             try {
-                return !load(itemToLoad, false);
+                return load(itemToLoad, false);
             } catch (Exception e) {
                 LOG.log(Level.INFO, "Failed to load resource: " + itemToLoad, e);
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -328,8 +328,6 @@ public class LoadableResource {
             setData(bos.toByteArray());
             if (!fallbackLoad) {
                 writeCache();
-            }
-            if (!fallbackLoad) {
                 lastLoaded = System.currentTimeMillis();
                 loadCount.incrementAndGet();
             }
@@ -372,7 +370,7 @@ public class LoadableResource {
                 synchronized (LOCK) {
                     currentData = this.data == null ? null : this.data.get();
                     if (currentData==null) {
-                        if (shouldReadDataFromCallBack()) {
+                        if (shouldReadDataFromFallback()) {
                             loadFallback();
                         }
                     }
@@ -407,7 +405,7 @@ public class LoadableResource {
      *
      * @return true on success.
      */
-    public boolean resetToFallback(){
+    public boolean resetToFallback() {
         if (loadFallback()) {
             loadCount.set(0);
             return true;
