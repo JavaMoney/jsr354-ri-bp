@@ -477,7 +477,9 @@ public class DefaultLoaderService implements LoaderService {
             @Override
             public void run() {
                 try {
-                    load.load();
+                    if (load.load()) {
+                        triggerListeners(load.getResourceId(), load.getDataStream());
+                    }
                 } catch (Exception e) {
                     LOG.log(Level.SEVERE, "Failed to update remote resource: " + load.getResourceId(), e);
                 }
