@@ -27,22 +27,25 @@ import javax.money.CurrencyUnit;
 /**
  * Default implementation of a {@link CurrencyUnit} based on the using the JDK's
  * {@link Currency}.
- * 
+ *
  * @version 0.5.1
  * @author Anatole Tresch
  * @author Werner Keil
  */
 public class JDKCurrencyProvider extends BaseCurrencyProviderSpi {
 
-	/** Internal shared cache of {@link javax.money.CurrencyUnit} instances. */
-	private static final Map<String, CurrencyUnit> CACHED = new HashMap<>();
+    /** Internal shared cache of {@link javax.money.CurrencyUnit} instances. */
+    private static final Map<String, CurrencyUnit> CACHED = loadCurrencies();
 
-	public JDKCurrencyProvider() {
-		for (Currency jdkCurrency : Currency.getAvailableCurrencies()) {
-			CurrencyUnit cu = new JDKCurrencyAdapter(jdkCurrency);
-			CACHED.put(cu.getCurrencyCode(), cu);
-		}
-	}
+    private static Map<String, CurrencyUnit> loadCurrencies() {
+        Set<Currency> availableCurrencies = Currency.getAvailableCurrencies();
+        Map<String, CurrencyUnit> result = new HashMap<>(availableCurrencies.size());
+        for (Currency jdkCurrency : availableCurrencies) {
+            CurrencyUnit cu = new JDKCurrencyAdapter(jdkCurrency);
+            result.put(cu.getCurrencyCode(), cu);
+        }
+        return Collections.unmodifiableMap(result);
+    }
 
     @Override
     public String getProviderName(){
