@@ -21,22 +21,17 @@ import javax.money.spi.Bootstrap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.javamoney.moneta.spi.LoadDataInformation;
+import org.javamoney.moneta.spi.LoadDataInformationBuilder;
+
 
 /**
  * This class provides a mechanism to register resources, that may be updated
@@ -60,7 +55,7 @@ public class DefaultLoaderService implements LoaderService {
     /**
      * The registered {@link LoaderListener} instances.
      */
-    private final Map<String, List<LoaderListener>> listenersMap = new ConcurrentHashMap<>();
+     private final DefaultLoaderListener listener = new DefaultLoaderListener();
 
     /**
      * The local resource cache, to allow keeping current data on the local
@@ -70,7 +65,9 @@ public class DefaultLoaderService implements LoaderService {
     /**
      * The thread pool used for loading of data, triggered by the timer.
      */
-    private final ExecutorService executors = Executors.newCachedThreadPool();
+    private final ExecutorService executors = Executors.newCachedThreadPool(DaemonThreadFactory.INSTANCE);
+
+    private DefaultLoaderServiceFacade defaultLoaderServiceFacade;
 
     /**
      * The timer used for schedules.
@@ -87,6 +84,7 @@ public class DefaultLoaderService implements LoaderService {
     /**
      * This method reads initial loads from the javamoney.properties and installs the according timers.
      */
+    @Deprecated
     protected void initialize() {
         // Cancel any running tasks
         Timer oldTimer = timer;
@@ -96,6 +94,7 @@ public class DefaultLoaderService implements LoaderService {
         }
         // (re)initialize
         LoaderConfigurator configurator = new LoaderConfigurator(this);
+        defaultLoaderServiceFacade = new DefaultLoaderServiceFacade(timer, listener, resources);
         configurator.load();
     }
 
@@ -147,26 +146,33 @@ public class DefaultLoaderService implements LoaderService {
      * java.net.URL, java.net.URL[])
      */
     @Override
-    public void registerData(String resourceId, UpdatePolicy updatePolicy, Map<String, String> properties,
-                             LoaderListener loaderListener,
-                             URI backupResource, URI... resourceLocations) {
-        if (resources.containsKey(resourceId)) {
-            throw new IllegalArgumentException("Resource : " + resourceId + " already registered.");
+    public void registerData(LoadDataInformation loadDataInformation) {
+
+        if (resources.containsKey(loadDataInformation.getResourceId())) {
+            throw new IllegalArgumentException("Resource : " + loadDataInformation.getResourceId() + " already registered.");
         }
-        LoadableResource res = new LoadableResource(resourceId, CACHE, updatePolicy, properties, backupResource, resourceLocations);
-        this.resources.put(resourceId, res);
-        if (loaderListener != null) {
-            this.addLoaderListener(loaderListener, resourceId);
+
+		LoadableResource resource = new LoadableResourceBuilder()
+				.withCache(CACHE).withLoadDataInformation(loadDataInformation)
+				.build();
+        this.resources.put(loadDataInformation.getResourceId(), resource);
+
+        if (loadDataInformation.getLoaderListener() != null) {
+            this.addLoaderListener(loadDataInformation.getLoaderListener(), loadDataInformation.getResourceId());
         }
-        switch (updatePolicy) {
+
+        if(loadDataInformation.isStartRemote()) {
+        	defaultLoaderServiceFacade.loadDataRemote(loadDataInformation.getResourceId(), resources);
+        }
+        switch (loadDataInformation.getUpdatePolicy()) {
             case NEVER:
-                loadDataLocal(resourceId);
+                loadDataLocal(loadDataInformation.getResourceId());
                 break;
             case ONSTARTUP:
-                loadDataAsync(resourceId);
+                loadDataAsync(loadDataInformation.getResourceId());
                 break;
             case SCHEDULED:
-                addScheduledLoad(res);
+            	defaultLoaderServiceFacade.scheduledData(resource);
                 break;
             case LAZY:
             default:
@@ -174,29 +180,50 @@ public class DefaultLoaderService implements LoaderService {
         }
     }
 
-    /*
-    * (non-Javadoc)
-    *
-    * @see
-    * LoaderService#registerAndLoadData(java.lang.String,
-    * LoaderService.UpdatePolicy, java.util.Map,
-    * java.net.URL, java.net.URL[])
-    */
     @Override
-    public void registerAndLoadData(String resourceId, UpdatePolicy updatePolicy, Map<String, String> properties,
-                                    LoaderListener loaderListener,
-                                    URI backupResource, URI... resourceLocations) {
+    public void registerAndLoadData(LoadDataInformation loadDataInformation) {
+        registerData(loadDataInformation);
+        loadData(loadDataInformation.getResourceId());
+    }
+
+    @Override
+    public void registerAndLoadData(String resourceId, UpdatePolicy updatePolicy, Map<String, String> properties, LoaderListener loaderListener, URI backupResource, URI... resourceLocations) {
+        registerAndLoadData(new LoadDataInformationBuilder()
+                .withResourceId(resourceId)
+                .withUpdatePolicy(updatePolicy)
+                .withProperties(properties)
+                .withLoaderListener(loaderListener)
+                .withBackupResource(backupResource)
+                .withResourceLocations(resourceLocations)
+                .build());
+    }
+
+    @Override
+    public void registerData(String resourceId, UpdatePolicy updatePolicy, Map<String, String> properties, LoaderListener loaderListener, URI backupResource, URI... resourceLocations) {
         if (resources.containsKey(resourceId)) {
             throw new IllegalArgumentException("Resource : " + resourceId + " already registered.");
         }
-        LoadableResource res = new LoadableResource(resourceId, CACHE, updatePolicy, properties, backupResource, resourceLocations);
-        this.resources.put(resourceId, res);
-        if (loaderListener != null) {
-            this.addLoaderListener(loaderListener, resourceId);
+        LoadDataInformation loadInfo = new LoadDataInformationBuilder()
+                .withResourceId(resourceId)
+                .withUpdatePolicy(updatePolicy)
+                .withProperties(properties)
+                .withLoaderListener(loaderListener)
+                .withBackupResource(backupResource)
+                .withResourceLocations(resourceLocations)
+                .build();
+
+        LoadableResource resource = new LoadableResourceBuilder()
+                .withCache(CACHE).withLoadDataInformation(loadInfo)
+                .build();
+        this.resources.put(loadInfo.getResourceId(), resource);
+
+        if (loadInfo.getLoaderListener() != null) {
+            this.addLoaderListener(loadInfo.getLoaderListener(), loadInfo.getResourceId());
         }
-        switch (updatePolicy) {
+
+        switch (loadInfo.getUpdatePolicy()) {
             case SCHEDULED:
-                addScheduledLoad(res);
+                defaultLoaderServiceFacade.scheduledData(resource);
                 break;
             case LAZY:
             default:
@@ -205,13 +232,6 @@ public class DefaultLoaderService implements LoaderService {
         loadData(resourceId);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#getUpdateConfiguration(java.lang
-     * .String)
-     */
     @Override
     public Map<String, String> getUpdateConfiguration(String resourceId) {
         LoadableResource load = this.resources.get(resourceId);
@@ -221,32 +241,16 @@ public class DefaultLoaderService implements LoaderService {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#isResourceRegistered(java.lang.String)
-     */
     @Override
     public boolean isResourceRegistered(String dataId) {
         return this.resources.containsKey(dataId);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see LoaderService#getResourceIds()
-     */
     @Override
     public Set<String> getResourceIds() {
         return this.resources.keySet();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see LoaderService#getData(java.lang.String)
-     */
     @Override
     public InputStream getData(String resourceId) throws IOException {
         LoadableResource load = this.resources.get(resourceId);
@@ -256,145 +260,48 @@ public class DefaultLoaderService implements LoaderService {
         throw new IllegalArgumentException("No such resource: " + resourceId);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see LoaderService#loadData(java.lang.String)
-     */
     @Override
     public boolean loadData(String resourceId) {
-        return loadDataSynch(resourceId);
+        return defaultLoaderServiceFacade.loadData(resourceId, resources);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#loadDataAsync(java.lang.String)
-     */
     @Override
     public Future<Boolean> loadDataAsync(final String resourceId) {
         return executors.submit(new Callable<Boolean>() {
             @Override
-            public Boolean call() {
-                return loadDataSynch(resourceId);
+            public Boolean call() throws Exception {
+                return defaultLoaderServiceFacade.loadData(resourceId, resources);
             }
         });
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#loadDataLocal(java.lang.String)
-     */
     @Override
     public boolean loadDataLocal(String resourceId) {
-        LoadableResource load = this.resources.get(resourceId);
-        if (load!=null) {
-            try {
-                if (load.loadFallback()) {
-                    triggerListeners(resourceId, load.getDataStream());
-                    return true;
-                }
-            } catch (Exception e) {
-                LOG.log(Level.SEVERE, "Failed to load resource locally: " + resourceId, e);
-            }
-        } else {
-            throw new IllegalArgumentException("No such resource: " + resourceId);
-        }
-        return false;
+    	return defaultLoaderServiceFacade.loadDataLocal(resourceId);
     }
 
-    /**
-     * Reload data for a resource synchronously.
-     *
-     * @param resourceId the resource id, not null.
-     * @return true, if loading succeeded.
-     */
-    private boolean loadDataSynch(String resourceId) {
-        LoadableResource load = this.resources.get(resourceId);
-        if (load!=null) {
-            try {
-                if (load.load()) {
-                    triggerListeners(resourceId, load.getDataStream());
-                    return true;
-                }
-            } catch (Exception e) {
-                LOG.log(Level.SEVERE, "Failed to load resource: " + resourceId, e);
-            }
-        } else {
-            throw new IllegalArgumentException("No such resource: " + resourceId);
-        }
-        return false;
-    }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see LoaderService#resetData(java.lang.String)
-     */
     @Override
-    public void resetData(String dataId) throws IOException {
-        LoadableResource load = this.resources.get(dataId);
+    public void resetData(String resourceId) throws IOException {
+        LoadableResource load = this.resources.get(resourceId);
         if (load == null) {
-            throw new IllegalArgumentException("No such resource: " + dataId);
+            throw new IllegalArgumentException("No such resource: " + resourceId);
         }
         if (load.resetToFallback()) {
-            triggerListeners(dataId, load.getDataStream());
+        	listener.trigger(resourceId, load.getDataStream());
         }
     }
 
-    /**
-     * Trigger the listeners registered for the given dataId.
-     *
-     * @param dataId the data id, not null.
-     * @param is     the InputStream, containing the latest data.
-     */
-    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
-    private void triggerListeners(String dataId, InputStream is) {
-        List<LoaderListener> listeners = getListeners("");
-        synchronized (listeners) {
-            for (LoaderListener ll : listeners) {
-                try {
-                    ll.newDataLoaded(dataId, is);
-                } catch (Exception e) {
-                    LOG.log(Level.SEVERE, "Error calling LoadListener: " + ll, e);
-                }
-            }
-        }
-        if (!(dataId==null || dataId.isEmpty())) {
-            listeners = getListeners(dataId);
-            synchronized (listeners) {
-                for (LoaderListener ll : listeners) {
-                    try {
-                        ll.newDataLoaded(dataId, is);
-                    } catch (Exception e) {
-                        LOG.log(Level.SEVERE, "Error calling LoadListener: " + ll, e);
-                    }
-                }
-            }
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#addLoaderListener(org.javamoney
-     * .moneta.spi.LoaderService.LoaderListener, java.lang.String[])
-     */
-    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void addLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {
-            List<LoaderListener> listeners = getListeners("");
+            List<LoaderListener> listeners = listener.getListeners("");
             synchronized (listeners) {
                 listeners.add(l);
             }
         } else {
             for (String dataId : dataIds) {
-                List<LoaderListener> listeners = getListeners(dataId);
+                List<LoaderListener> listeners = listener.getListeners(dataId);
                 synchronized (listeners) {
                     listeners.add(l);
                 }
@@ -402,48 +309,16 @@ public class DefaultLoaderService implements LoaderService {
         }
     }
 
-    /**
-     * Evaluate the {@link LoaderListener} instances, listening fo a dataId
-     * given.
-     *
-     * @param dataId The dataId, not null
-     * @return the according listeners
-     */
-    private List<LoaderListener> getListeners(String dataId) {
-        if (dataId==null) {
-            dataId = "";
-        }
-        List<LoaderListener> listeners = this.listenersMap.get(dataId);
-        if (listeners==null) {
-            synchronized (listenersMap) {
-                listeners = this.listenersMap.get(dataId);
-                if (listeners==null) {
-                    listeners = Collections.synchronizedList(new ArrayList<LoaderListener>());
-                    this.listenersMap.put(dataId, listeners);
-                }
-            }
-        }
-        return listeners;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#removeLoaderListener(org.javamoney
-     * .moneta.spi.LoaderService.LoaderListener, java.lang.String[])
-     */
-    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void removeLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {
-            List<LoaderListener> listeners = getListeners("");
+            List<LoaderListener> listeners = listener.getListeners("");
             synchronized (listeners) {
                 listeners.remove(l);
             }
         } else {
             for (String dataId : dataIds) {
-                List<LoaderListener> listeners = getListeners(dataId);
+                List<LoaderListener> listeners = listener.getListeners(dataId);
                 synchronized (listeners) {
                     listeners.remove(l);
                 }
@@ -451,12 +326,6 @@ public class DefaultLoaderService implements LoaderService {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * LoaderService#getUpdatePolicy(java.lang.String)
-     */
     @Override
     public UpdatePolicy getUpdatePolicy(String resourceId) {
         LoadableResource load = this.resources.get(resourceId);
@@ -464,115 +333,6 @@ public class DefaultLoaderService implements LoaderService {
             throw new IllegalArgumentException("No such resource: " + resourceId);
         }
         return load.getUpdatePolicy();
-    }
-
-    /**
-     * Create the schedule for the given {@link LoadableResource}.
-     *
-     * @param load the load item to be managed, not null.
-     */
-    private void addScheduledLoad(final LoadableResource load) {
-        Objects.requireNonNull(load);
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    if (load.load()) {
-                        triggerListeners(load.getResourceId(), load.getDataStream());
-                    }
-                } catch (Exception e) {
-                    LOG.log(Level.SEVERE, "Failed to update remote resource: " + load.getResourceId(), e);
-                }
-            }
-        };
-        Map<String, String> props = load.getProperties();
-        if (props!=null) {
-            String value = props.get("period");
-            long periodMS = parseDuration(value);
-            value = props.get("delay");
-            long delayMS = parseDuration(value);
-            if (periodMS > 0) {
-                timer.scheduleAtFixedRate(task, delayMS, periodMS);
-            } else {
-                value = props.get("at");
-                if (value!=null) {
-                    List<GregorianCalendar> dates = parseDates(value);
-                    for(GregorianCalendar date:dates){
-                        timer.schedule(task, date.getTime(), 3_600_000 * 24 /* daily */);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Parse the dates of type HH:mm:ss:nnn, whereas minutes and smaller are
-     * optional.
-     *
-     * @param value the input text
-     * @return the parsed
-     */
-    private List<GregorianCalendar> parseDates(String value) {
-        String[] parts = value.split(",");
-        List<GregorianCalendar> result = new ArrayList<>();
-        for (String part : parts) {
-            if (part.isEmpty()) {
-                continue;
-            }
-            String[] subparts = part.split(":");
-            GregorianCalendar cal = new GregorianCalendar();
-            for (int i = 0; i < subparts.length; i++) {
-                switch (i) {
-                    case 0:
-                        cal.set(GregorianCalendar.HOUR_OF_DAY, Integer.parseInt(subparts[i]));
-                        break;
-                    case 1:
-                        cal.set(GregorianCalendar.MINUTE, Integer.parseInt(subparts[i]));
-                        break;
-                    case 2:
-                        cal.set(GregorianCalendar.SECOND, Integer.parseInt(subparts[i]));
-                        break;
-                    case 3:
-                        cal.set(GregorianCalendar.MILLISECOND, Integer.parseInt(subparts[i]));
-                        break;
-                }
-            }
-            result.add(cal);
-        }
-        return result;
-    }
-
-    /**
-     * Parse a duration of the form HH:mm:ss:nnn, whereas only hours are non
-     * optional.
-     *
-     * @param value the input value
-     * @return the duration in ms.
-     */
-    protected long parseDuration(String value) {
-        long periodMS = 0L;
-        if (value!=null) {
-            String[] parts = value.split(":");
-            for (int i = 0; i < parts.length; i++) {
-                switch (i) {
-                    case 0: // hours
-                        periodMS += (Integer.parseInt(parts[i])) * 3600000L;
-                        break;
-                    case 1: // minutes
-                        periodMS += (Integer.parseInt(parts[i])) * 60000L;
-                        break;
-                    case 2: // seconds
-                        periodMS += (Integer.parseInt(parts[i])) * 1000L;
-                        break;
-                    case 3: // ms
-                        periodMS += (Integer.parseInt(parts[i]));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        return periodMS;
     }
 
     @Override

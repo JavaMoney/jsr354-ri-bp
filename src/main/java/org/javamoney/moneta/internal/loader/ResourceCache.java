@@ -15,6 +15,7 @@
  */
 package org.javamoney.moneta.internal.loader;
 
+import java.io.IOException;
 
 /**
  * Abstraction of a {@link ResourceCache}. By default a file cache is used:
@@ -31,8 +32,10 @@ public interface ResourceCache {
      *            the resource id, never {@code null}.
      * @param data
      *            the data
+     * @throws IOException
+     *             when an IO error occurs.
      */
-    void write(String resourceId, byte[] data);
+    void write(String resourceId, byte[] data)throws IOException;
 
     /**
      * Allows to query if a resource with the given id is present within the

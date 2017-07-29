@@ -47,7 +47,7 @@ public interface LoaderService {
      *
      * @author Anatole Tresch
      */
-    public enum UpdatePolicy {
+    enum UpdatePolicy {
         /**
          * The resource will never be updated from remote, only the fallback URL
          * will be evaluated.
@@ -77,7 +77,7 @@ public interface LoaderService {
      * @see #resetData(String)
      * @see #loadData(String)
      */
-    public static interface LoaderListener {
+    interface LoaderListener {
         /**
          * Callback called from the {@link LoaderService}, when new data was
          * read for a given data item.
@@ -85,7 +85,7 @@ public interface LoaderService {
          * @param resourceId the resource id
          * @param is         the input stream for accessing the data
          */
-        public void newDataLoaded(String resourceId, InputStream is);
+        void newDataLoaded(String resourceId, InputStream is);
     }
 
     /**
@@ -93,14 +93,17 @@ public interface LoaderService {
      * backed up by a classpath resource {@code backupResource}, reachable as
      * {@code dataId}.
      *
-     * @param resourceId        The unique identifier of the resource that must also be used
+     *resourceId        The unique identifier of the resource that must also be used
      *                          for accessing the resource, not {@code null}.
-     * @param resourceLocations The remote resource locations, not {@code null}.
-     * @param backupResource    The backup resource location in the classpath, not
+     *resourceLocations The remote resource locations, not {@code null}.
+     *backupResource    The backup resource location in the classpath, not
      *                          {@code null}.
-     * @param loaderListener    An (optional) LoaderListener to be registered.
+     *loaderListener    An (optional) LoaderListener to be registered.
      */
-    public void registerData(String resourceId, UpdatePolicy updatePolicy,
+    void registerData(LoadDataInformation loadDataInformation);
+
+    @Deprecated
+    void registerData(String resourceId, UpdatePolicy updatePolicy,
                              Map<String, String> properties, LoaderListener loaderListener,
                              URI backupResource,
                              URI... resourceLocations);
@@ -110,14 +113,17 @@ public interface LoaderService {
      * backed up by a classpath resource {@code backupResource}, reachable as
      * {@code dataId} and (synchronously) loads the data.
      *
-     * @param resourceId        The unique identifier of the resource that must also be used
+     * resourceId        The unique identifier of the resource that must also be used
      *                          for accessing the resource, not {@code null}.
-     * @param resourceLocations The remote resource locations, not {@code null}.
-     * @param backupResource    The backup resource location in the classpath, not
+     * resourceLocations The remote resource locations, not {@code null}.
+     * backupResource    The backup resource location in the classpath, not
      *                          {@code null}.
-     * @param loaderListener    An (optional) LoaderListener to be registered.
+     * loaderListener    An (optional) LoaderListener to be registered.
      */
-    public void registerAndLoadData(String resourceId, UpdatePolicy updatePolicy,
+    void registerAndLoadData(LoadDataInformation loadDataInformation);
+
+    @Deprecated
+    void registerAndLoadData(String resourceId, UpdatePolicy updatePolicy,
                                     Map<String, String> properties, LoaderListener loaderListener,
                                     URI backupResource,
                                     URI... resourceLocations);
@@ -129,7 +135,7 @@ public interface LoaderService {
      * @return the {@link UpdatePolicy}, not {@code null}
      * @throws IllegalArgumentException if no such dataId is available.
      */
-    public UpdatePolicy getUpdatePolicy(String resourceId);
+    UpdatePolicy getUpdatePolicy(String resourceId);
 
     /**
      * Get the update configuration for the given dataId.
@@ -138,7 +144,7 @@ public interface LoaderService {
      * @return the update configuration properties, not {@code null}
      * @throws IllegalArgumentException if no such dataId is available.
      */
-    public Map<String, String> getUpdateConfiguration(String resourceId);
+    Map<String, String> getUpdateConfiguration(String resourceId);
 
     /**
      * Add a {@link LoaderListener} callback that is informed when a data
@@ -151,7 +157,7 @@ public interface LoaderService {
      * @param l           The listener to be added
      * @see #removeLoaderListener(LoaderListener, String...)
      */
-    public void addLoaderListener(LoaderListener l, String... resourceIds);
+    void addLoaderListener(LoaderListener l, String... resourceIds);
 
     /**
      * Remove a registered {@link LoaderListener} callback.
@@ -160,7 +166,7 @@ public interface LoaderService {
      * @param l           The listener to be removed
      * @see #addLoaderListener(LoaderListener, String...)
      */
-    public void removeLoaderListener(LoaderListener l, String... resourceIds);
+    void removeLoaderListener(LoaderListener l, String... resourceIds);
 
     /**
      * Allows to check if a data resource with the given dataId is registered.
@@ -168,7 +174,7 @@ public interface LoaderService {
      * @param resourceId The unique identifier of the resource, not {@code null}.
      * @return {@code true}, if such a data resource is registered.
      */
-    public boolean isResourceRegistered(String resourceId);
+    boolean isResourceRegistered(String resourceId);
 
     /**
      * Get a {@link Set} of all registered data resource identifiers.
@@ -176,7 +182,7 @@ public interface LoaderService {
      * @return a {@link Set} of all registered data resource identifiers, never
      * {@code null}.
      */
-    public Set<String> getResourceIds();
+    Set<String> getResourceIds();
 
     /**
      * Access the input stream of the given data resource.
@@ -192,7 +198,7 @@ public interface LoaderService {
      * @return The {@link InputStream} for reading the data.
      * @throws IOException if a problem occurred.
      */
-    public InputStream getData(String resourceId) throws IOException;
+    InputStream getData(String resourceId) throws IOException;
 
     /**
      * Explicitly triggers the loading of the registered data, regardless of its
@@ -202,7 +208,7 @@ public interface LoaderService {
      * @param resourceId The unique identifier of the resource, not {@code null}.
      * @return true if load was successful.
      */
-    public boolean loadDataLocal(String resourceId);
+    boolean loadDataLocal(String resourceId);
 
     /**
      * Explicitly triggers the remote loading of the registered data, regardless
@@ -212,7 +218,7 @@ public interface LoaderService {
      * @return true if load was successful.
      * @throws IOException if a problem occurred.
      */
-    public boolean loadData(String resourceId) throws IOException;
+    boolean loadData(String resourceId) throws IOException;
 
     /**
      * Explicitly asynchronously triggers the remote loading of the registered
@@ -223,7 +229,7 @@ public interface LoaderService {
      * load was successful (either from remote or from the fallback
      * resource).
      */
-    public Future<Boolean> loadDataAsync(String resourceId);
+    Future<Boolean> loadDataAsync(String resourceId);
 
     /**
      * Explicitly triggers the resetToFallback (loading of the registered data from the
@@ -232,6 +238,6 @@ public interface LoaderService {
      * @param resourceId The unique identifier of the resource, not {@code null}.
      * @throws IOException if a problem occurred.
      */
-    public void resetData(String resourceId) throws IOException;
+    void resetData(String resourceId) throws IOException;
 
 }

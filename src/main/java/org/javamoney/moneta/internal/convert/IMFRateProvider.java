@@ -32,11 +32,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import javax.money.CurrencyContextBuilder;
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
+import javax.money.MonetaryException;
 import javax.money.convert.ConversionContext;
 import javax.money.convert.ConversionContextBuilder;
 import javax.money.convert.ConversionQuery;
@@ -82,6 +85,10 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
 
     private Map<CurrencyUnit, List<ExchangeRate>> sdrToCurrency = new HashMap<>();
 
+    protected volatile String loadState;
+
+    protected volatile CountDownLatch loadLock = new CountDownLatch(1);
+
     private static final Map<String, CurrencyUnit> currenciesByName = new HashMap<>();
 
     static {
@@ -123,9 +130,15 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
     @Override
     public void newDataLoaded(String data, InputStream is) {
         try {
+            int oldSize = this.sdrToCurrency.size();
             loadRatesTSV(is);
+            int newSize = this.sdrToCurrency.size();
+            loadState = "Loaded " + DATA_ID + " exchange rates for days:" + (newSize - oldSize);
+            LOGGER.info(loadState);
+            loadLock.countDown();
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error", e);
+            loadState = "Last Error during data load: " + e.getMessage();
+            throw new IllegalArgumentException("Failed to load IMF data provided.", e);
         }
     }
 
@@ -137,6 +150,9 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         f.setGroupingUsed(false);
         BufferedReader pr = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         String line = pr.readLine();
+        if(line.contains("Request Rejected")){
+            throw new IOException("Request has been rejected by IMF server.");
+        }
         // int lineType = 0;
         boolean currencyToSdr = true;
         // SDRs per Currency unit (2)
@@ -269,53 +285,67 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
 
     @Override
     public ExchangeRate getExchangeRate(ConversionQuery conversionQuery) {
-        if (!isAvailable(conversionQuery)) {
-            return null;
-        }
-        CurrencyUnit base = conversionQuery.getBaseCurrency();
-        CurrencyUnit term = conversionQuery.getCurrency();
-        Calendar timestamp = conversionQuery.get(Calendar.class);
-        if (timestamp == null) {
-            timestamp = conversionQuery.get(GregorianCalendar.class);
-        }
-        ExchangeRate rate1;
-        ExchangeRate rate2;
-        LocalDate localDate;
-        if (timestamp == null) {
-            localDate = LocalDate.yesterday();
-            rate1 = lookupRate(currencyToSdr.get(base), localDate);
-            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
-            if(rate1==null || rate2==null){
-                localDate = LocalDate.beforeDays(2);
+        try {
+            if (loadLock.await(30, TimeUnit.SECONDS)) {
+                if (currencyToSdr.isEmpty()) {
+                    return null;
+                }
+                if (!isAvailable(conversionQuery)) {
+                    return null;
+                }
+                CurrencyUnit base = conversionQuery.getBaseCurrency();
+                CurrencyUnit term = conversionQuery.getCurrency();
+                Calendar timestamp = conversionQuery.get(Calendar.class);
+                if (timestamp == null) {
+                    timestamp = conversionQuery.get(GregorianCalendar.class);
+                }
+                ExchangeRate rate1;
+                ExchangeRate rate2;
+                LocalDate localDate;
+                if (timestamp == null) {
+                    localDate = LocalDate.yesterday();
+                    rate1 = lookupRate(currencyToSdr.get(base), localDate);
+                    rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+                    if(rate1==null || rate2==null){
+                        localDate = LocalDate.beforeDays(2);
+                    }
+                    rate1 = lookupRate(currencyToSdr.get(base), localDate);
+                    rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+                    if(rate1==null || rate2==null){
+                        localDate = LocalDate.beforeDays(3);
+                        rate1 = lookupRate(currencyToSdr.get(base), localDate);
+                        rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+                    }
+                }
+                else{
+                    localDate = LocalDate.from(timestamp);
+                    rate1 = lookupRate(currencyToSdr.get(base), localDate);
+                    rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+                }
+                if(rate1==null || rate2==null){
+                    return null;
+                }
+                if (base.equals(SDR)) {
+                    return rate2;
+                } else if (term.equals(SDR)) {
+                    return rate1;
+                }
+                ExchangeRateBuilder builder =
+                        new ExchangeRateBuilder(ConversionContext.of(CONTEXT.getProviderName(), RateType.HISTORIC));
+                builder.setBase(base);
+                builder.setTerm(term);
+                builder.setFactor(multiply(rate1.getFactor(), rate2.getFactor()));
+                builder.setRateChain(rate1, rate2);
+                return builder.build();
+            }else{
+                // Lets wait for a successful load only once, then answer requests as data is present.
+                loadLock.countDown();
+                throw new MonetaryException("Failed to load currency conversion data: " + loadState);
             }
-            rate1 = lookupRate(currencyToSdr.get(base), localDate);
-            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
-            if(rate1==null || rate2==null){
-                localDate = LocalDate.beforeDays(3);
-                rate1 = lookupRate(currencyToSdr.get(base), localDate);
-                rate2 = lookupRate(sdrToCurrency.get(term), localDate);
-            }
         }
-        else{
-            localDate = LocalDate.from(timestamp);
-            rate1 = lookupRate(currencyToSdr.get(base), localDate);
-            rate2 = lookupRate(sdrToCurrency.get(term), localDate);
+        catch(InterruptedException e){
+            throw new MonetaryException("Failed to load currency conversion data: Load task has been interrupted.", e);
         }
-        if(rate1==null || rate2==null){
-            return null;
-        }
-        if (base.equals(SDR)) {
-            return rate2;
-        } else if (term.equals(SDR)) {
-            return rate1;
-        }
-        ExchangeRateBuilder builder =
-                new ExchangeRateBuilder(ConversionContext.of(CONTEXT.getProviderName(), RateType.HISTORIC));
-        builder.setBase(base);
-        builder.setTerm(term);
-        builder.setFactor(multiply(rate1.getFactor(), rate2.getFactor()));
-        builder.setRateChain(rate1, rate2);
-        return builder.build();
     }
 
     private ExchangeRate lookupRate(List<ExchangeRate> list, LocalDate localDate) {

@@ -15,8 +15,6 @@
  */
 package org.javamoney.moneta.internal.loader;
 
-import org.javamoney.moneta.spi.LoaderService;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,14 +23,22 @@ import java.lang.ref.SoftReference;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.javamoney.moneta.spi.LoadDataInformation;
+import org.javamoney.moneta.spi.LoaderService;
+
 /**
  * This class represent a resource that automatically is reloaded, if needed.
- *
+ * To create this instance use: {@link LoadableResourceBuilder}
  * @author Anatole Tresch
  */
 public class LoadableResource {
@@ -44,7 +50,7 @@ public class LoadableResource {
     /**
      * Lock for this instance.
      */
-    private final Object LOCK = new Object();
+    private final Object lock = new Object();
     /**
      * resource id.
      */
@@ -92,30 +98,22 @@ public class LoadableResource {
     private final Map<String, String> properties;
 
 
-    /**
-     * Create a new instance.
-     *
-     * @param resourceId       The dataId.
-     * @param cache            The cache to be used for storing remote data locally.
-     * @param properties       The configuration properties.
-     * @param fallbackLocation teh fallback ULR, not null.
-     * @param locations        the remote locations, not null (but may be empty!)
-     */
-    public LoadableResource(String resourceId, ResourceCache cache, LoaderService.UpdatePolicy updatePolicy,
-                            Map<String, String> properties, URI fallbackLocation, URI... locations) {
-        Objects.requireNonNull(resourceId, "resourceId required");
-        Objects.requireNonNull(properties, "properties required");
-        Objects.requireNonNull(updatePolicy, "updatePolicy required");
-        String val = properties.get("cacheTTLMillis");
+    LoadableResource(ResourceCache cache, LoadDataInformation loadDataInformation) {
+
+
+        Objects.requireNonNull(loadDataInformation.getResourceId(), "resourceId required");
+        Objects.requireNonNull(loadDataInformation.getProperties(), "properties required");
+        Objects.requireNonNull(loadDataInformation.getUpdatePolicy(), "updatePolicy required");
+        String val = loadDataInformation.getProperties().get("cacheTTLMillis");
         if (val != null) {
             this.cacheTTLMillis = Long.parseLong(val);
         }
         this.cache = cache;
-        this.resourceId = resourceId;
-        this.updatePolicy = updatePolicy;
-        this.properties = properties;
-        this.fallbackLocation = fallbackLocation;
-        this.remoteResources.addAll(Arrays.asList(locations));
+        this.resourceId = loadDataInformation.getResourceId();
+        this.updatePolicy = loadDataInformation.getUpdatePolicy();
+        this.properties = loadDataInformation.getProperties();
+        this.fallbackLocation = loadDataInformation.getBackupResource();
+        this.remoteResources.addAll(Arrays.asList(loadDataInformation.getResourceLocations()));
     }
 
     /**
@@ -294,7 +292,7 @@ public class LoadableResource {
      * default writes an file containing the data into the user's local home directory, so subsequent or later calls,
      * even after a VM restart, should be able to recover this information.
      */
-    protected void writeCache() {
+    protected void writeCache() throws IOException {
         if (this.cache != null) {
             byte[] data = this.data == null ? null : this.data.get();
             if (data == null) {
@@ -311,21 +309,20 @@ public class LoadableResource {
      *
      * @param itemToLoad   the target {@link URL}
      * @param fallbackLoad true, for a fallback URL.
-     * @return true, if load was successful.
      */
     protected boolean load(URI itemToLoad, boolean fallbackLoad) {
         InputStream is = null;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
             URLConnection conn = itemToLoad.toURL().openConnection();
             byte[] data = new byte[4096];
             is = conn.getInputStream();
             int read = is.read(data);
             while (read > 0) {
-                bos.write(data, 0, read);
+                stream.write(data, 0, read);
                 read = is.read(data);
             }
-            setData(bos.toByteArray());
+            setData(stream.toByteArray());
             if (!fallbackLoad) {
                 writeCache();
                 lastLoaded = System.currentTimeMillis();
@@ -335,7 +332,7 @@ public class LoadableResource {
         } catch (Exception e) {
             LOG.log(Level.INFO, "Failed to load resource input for " + resourceId + " from " + itemToLoad, e);
         } finally {
-            if (is!=null) {
+            if (Objects.nonNull(is)) {
                 try {
                     is.close();
                 } catch (Exception e) {
@@ -343,7 +340,7 @@ public class LoadableResource {
                 }
             }
             try {
-                bos.close();
+                stream.close();
             } catch (IOException e) {
                 LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
             }
@@ -366,10 +363,10 @@ public class LoadableResource {
         if (result == null && loadIfNeeded) {
             accessCount.incrementAndGet();
             byte[] currentData = this.data == null ? null : this.data.get();
-            if (currentData==null) {
-                synchronized (LOCK) {
+            if (Objects.isNull(currentData)) {
+                synchronized (lock) {
                     currentData = this.data == null ? null : this.data.get();
-                    if (currentData==null) {
+                    if (Objects.isNull(currentData)) {
                         if (shouldReadDataFromFallback()) {
                             loadFallback();
                         }
@@ -377,7 +374,7 @@ public class LoadableResource {
                 }
             }
             currentData = this.data == null ? null : this.data.get();
-            if (currentData==null) {
+            if (Objects.isNull(currentData)) {
                 throw new IllegalStateException("Failed to load remote as well as fallback resources for " + this);
             }
             return currentData.clone();
@@ -391,7 +388,7 @@ public class LoadableResource {
 
 
     public void unload() {
-        synchronized (LOCK) {
+        synchronized (lock) {
             int count = accessCount.decrementAndGet();
             if (count == 0) {
                 this.data = null;
@@ -404,6 +401,7 @@ public class LoadableResource {
      * load counter.
      *
      * @return true on success.
+     * @throws IOException
      */
     public boolean resetToFallback() {
         if (loadFallback()) {
@@ -429,7 +427,7 @@ public class LoadableResource {
 
         private final InputStream wrapped;
 
-        public WrappedInputStream(InputStream wrapped) {
+        WrappedInputStream(InputStream wrapped) {
             this.wrapped = wrapped;
         }
 

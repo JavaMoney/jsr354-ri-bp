@@ -25,10 +25,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
+import javax.money.MonetaryException;
 import javax.money.convert.ConversionContextBuilder;
 import javax.money.convert.ConversionQuery;
 import javax.money.convert.CurrencyConversionException;
@@ -68,6 +71,11 @@ abstract class ECBAbstractRateProvider extends AbstractRateProvider implements
      */
     private final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
+    protected volatile String loadState;
+
+    protected volatile CountDownLatch loadLock = new CountDownLatch(1);
+
+
     public ECBAbstractRateProvider(ProviderContext context) {
         super(context);
         saxParserFactory.setNamespaceAware(false);
@@ -81,15 +89,18 @@ abstract class ECBAbstractRateProvider extends AbstractRateProvider implements
 
     @Override
     public void newDataLoaded(String data, InputStream is) {
-        final int oldSize = this.rates.size();
         try {
+            final int oldSize = this.rates.size();
             SAXParser parser = saxParserFactory.newSAXParser();
             parser.parse(is, new ECBRateReader(rates, getContext()));
+            int newSize = this.rates.size();
+            loadState = "Loaded " + getDataId() + " exchange rates for days:" + (newSize - oldSize);
+            LOGGER.info(loadState);
+            loadLock.countDown();
         } catch (Exception e) {
-            LOGGER.log(Level.FINEST, "Error during data load.", e);
+            loadState = "Last Error during data load: " + e.getMessage();
+            throw new IllegalArgumentException("Failed to load ECB data provided.", e);
         }
-        int newSize = this.rates.size();
-        LOGGER.info("Loaded " + getDataId() + " exchange rates for days:" + (newSize - oldSize));
     }
 
 
@@ -116,24 +127,41 @@ abstract class ECBAbstractRateProvider extends AbstractRateProvider implements
     @Override
     public ExchangeRate getExchangeRate(ConversionQuery query) {
         Objects.requireNonNull(query);
-        LocalDate selectedDate = null;
-        Map<String, ExchangeRate> targets = null;
-        for(LocalDate date: getTargetDates(query)){
-            targets = this.rates.get(date);
-            if(targets!=null){
-                selectedDate = date;
-                break;
+        try {
+            if (loadLock.await(30, TimeUnit.SECONDS)) {
+                if (rates.isEmpty()) {
+                    return null;
+                }
+                if (!isAvailable(query)) {
+                    return null;
+                }
+                LocalDate selectedDate = null;
+                Map<String, ExchangeRate> targets = null;
+                for(LocalDate date: getTargetDates(query)){
+                    targets = this.rates.get(date);
+                    if(targets!=null){
+                        selectedDate = date;
+                        break;
+                    }
+                }
+                if (targets==null) {
+                    return null;
+                }
+                ExchangeRateBuilder builder = getBuilder(query, selectedDate);
+                ExchangeRate sourceRate = targets.get(query.getBaseCurrency()
+                        .getCurrencyCode());
+                ExchangeRate target = targets
+                        .get(query.getCurrency().getCurrencyCode());
+                return createExchangeRate(query, builder, sourceRate, target);
+            }else{
+                // Lets wait for a successful load only once, then answer requests as data is present.
+                loadLock.countDown();
+                throw new MonetaryException("Failed to load currency conversion data: " + loadState);
             }
         }
-        if (targets==null) {
-            return null;
+        catch(InterruptedException e){
+            throw new MonetaryException("Failed to load currency conversion data: Load task has been interrupted.", e);
         }
-        ExchangeRateBuilder builder = getBuilder(query, selectedDate);
-        ExchangeRate sourceRate = targets.get(query.getBaseCurrency()
-                .getCurrencyCode());
-        ExchangeRate target = targets
-                .get(query.getCurrency().getCurrencyCode());
-        return createExchangeRate(query, builder, sourceRate, target);
     }
 
     private ExchangeRate createExchangeRate(ConversionQuery query,
