@@ -62,7 +62,7 @@ final class ConvertMinorPartQuery implements MonetaryQuery<Long> {
 		BigDecimal number = amount.getNumber().numberValue(BigDecimal.class);
 		CurrencyUnit cur = amount.getCurrency();
 		int scale = cur.getDefaultFractionDigits();
-		if (scale < 0) {
+		if(scale<0){
 			scale = 0;
 		}
 		number = number.setScale(scale, RoundingMode.DOWN);

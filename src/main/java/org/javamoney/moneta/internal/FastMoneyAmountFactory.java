@@ -15,23 +15,22 @@
  */
 package org.javamoney.moneta.internal;
 
-import java.math.RoundingMode;
+import org.javamoney.moneta.FastMoney;
+import org.javamoney.moneta.spi.AbstractAmountBuilder;
+import org.javamoney.moneta.spi.AbstractAmountFactory;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryContextBuilder;
 import javax.money.NumberValue;
-import org.javamoney.moneta.FastMoney;
-import org.javamoney.moneta.spi.AbstractAmountBuilder;
+import java.math.RoundingMode;
 
 /**
  * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link FastMoney}.
  *
  * @author Anatole Tresch
- * @deprecated use {@link FastMoneyAmountFactory} instead of.
  */
-@Deprecated
-public class FastMoneyAmountBuilder extends AbstractAmountBuilder<FastMoney> {
+public class FastMoneyAmountFactory extends AbstractAmountFactory<FastMoney> {
 
     static final MonetaryContext DEFAULT_CONTEXT =
             MonetaryContextBuilder.of(FastMoney.class).setPrecision(19).setMaxScale(5).setFixedScale(true)

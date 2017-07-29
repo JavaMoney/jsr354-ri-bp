@@ -15,33 +15,37 @@
  */
 package org.javamoney.moneta.internal;
 
-import java.math.RoundingMode;
+import org.javamoney.moneta.RoundedMoney;
+import org.javamoney.moneta.spi.AbstractAmountBuilder;
+import org.javamoney.moneta.spi.AbstractAmountFactory;
 
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryContextBuilder;
 import javax.money.NumberValue;
-
-import org.javamoney.moneta.Money;
-import org.javamoney.moneta.spi.AbstractAmountBuilder;
+import java.math.RoundingMode;
 
 /**
- * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta.Money}.
+ * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta
+ * .RoundedMoney}.
  *
  * @author Anatole Tresch
- * @deprecated use {@link MoneyAmountFactory} instead of.
  */
-@Deprecated
-public class MoneyAmountBuilder extends AbstractAmountBuilder<Money> {
+public class RoundedMoneyAmountFactory extends AbstractAmountFactory<RoundedMoney> {
 
     static final MonetaryContext DEFAULT_CONTEXT =
-            MonetaryContextBuilder.of(Money.class).set(64).setMaxScale(63).set(RoundingMode.HALF_EVEN).build();
+            MonetaryContextBuilder.of(RoundedMoney.class).setPrecision(0).set(RoundingMode.HALF_EVEN).build();
     static final MonetaryContext MAX_CONTEXT =
-            MonetaryContextBuilder.of(Money.class).setPrecision(0).setMaxScale(-1).set(RoundingMode.HALF_EVEN).build();
+            MonetaryContextBuilder.of(RoundedMoney.class).setPrecision(0).set(RoundingMode.HALF_EVEN).build();
 
+    /*
+     * (non-Javadoc)
+     * @see org.javamoney.moneta.bp.spi.AbstractAmountFactory#of(CurrencyUnit,
+     * java.lang.Number, MonetaryContext)
+     */
     @Override
-    protected Money create(Number number, CurrencyUnit currency, MonetaryContext monetaryContext) {
-        return Money.of(number, currency, MonetaryContext.from(monetaryContext, Money.class));
+    protected RoundedMoney create(Number number, CurrencyUnit currency, MonetaryContext monetaryContext) {
+        return RoundedMoney.of(number, currency, monetaryContext);
     }
 
     @Override
@@ -54,16 +58,28 @@ public class MoneyAmountBuilder extends AbstractAmountBuilder<Money> {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see MonetaryAmountFactory#getAmountType()
+     */
     @Override
-    public Class<Money> getAmountType() {
-        return Money.class;
+    public Class<RoundedMoney> getAmountType() {
+        return RoundedMoney.class;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.javamoney.moneta.bp.spi.AbstractAmountFactory#loadDefaultMonetaryContext()
+     */
     @Override
     protected MonetaryContext loadDefaultMonetaryContext() {
         return DEFAULT_CONTEXT;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.javamoney.moneta.bp.spi.AbstractAmountFactory#loadMaxMonetaryContext()
+     */
     @Override
     protected MonetaryContext loadMaxMonetaryContext() {
         return MAX_CONTEXT;

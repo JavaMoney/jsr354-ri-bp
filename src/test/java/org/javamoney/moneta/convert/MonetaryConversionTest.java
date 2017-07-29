@@ -23,11 +23,10 @@ import static org.testng.Assert.assertTrue;
 import java.util.Collection;
 
 import javax.money.Monetary;
-import javax.money.convert.ExchangeRate;
-import javax.money.convert.ExchangeRateProvider;
-import javax.money.convert.MonetaryConversions;
+import javax.money.convert.*;
 
 import org.javamoney.moneta.internal.convert.ECBCurrentRateProvider;
+import org.javamoney.moneta.internal.convert.LocalDate;
 import org.javamoney.moneta.spi.CompoundRateProvider;
 import org.testng.annotations.Test;
 

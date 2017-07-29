@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
+ * Copyright (c) 2012, 2017, Anatole Tresch, Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,14 +15,7 @@
  */
 package org.javamoney.moneta.spi;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryContextBuilder;
-import javax.money.MonetaryException;
-
+import javax.money.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -30,10 +23,8 @@ import java.util.Objects;
  * Basic implementation of {@link javax.money.MonetaryAmountFactory}, which simplifies development of the SPI interface.
  *
  * @param <T> the target class implementing {@link javax.money.MonetaryAmount}.
- * @deprecated Use AbstractAmountFactory
  */
-@Deprecated
-public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements MonetaryAmountFactory<T> {
+public abstract class AbstractAmountFactory<T extends MonetaryAmount> implements MonetaryAmountFactory<T> {
 
     /**
      * The default {@link MonetaryContext} applied, if not set explicitly on creation.
@@ -109,13 +100,13 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
     }
 
     /**
-     * Creates a new instance of {@link javax.money.Monetary}, using the default {@link MonetaryContext}.
+     * Creates a new instance of {@link Monetary}, using the default {@link MonetaryContext}.
      *
      * @param number numeric value.
      * @return a {@code Money} combining the numeric value and currency unit.
      * @throws ArithmeticException      If the number exceeds the capabilities of the default {@link MonetaryContext}
      *                                  used.
-     * @throws javax.money.UnknownCurrencyException if the currency code can not be resolved to {@link CurrencyUnit}.
+     * @throws UnknownCurrencyException if the currency code can not be resolved to {@link CurrencyUnit}.
      */
     @Override
     public MonetaryAmountFactory<T> setNumber(double number) {
@@ -179,7 +170,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
      * Converts (if necessary) the given {@link MonetaryAmount} to a new {@link MonetaryAmount}
      * instance, hereby supporting the {@link MonetaryContext} given.
      *
-     * @param amt the amount to be converted, if necessary.
+     * @param smount the amount to be converted, if necessary.
      * @return an according Money instance.
      */
     @Override

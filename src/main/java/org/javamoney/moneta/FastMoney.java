@@ -248,9 +248,9 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     }
 
     /**
-     * Obtains an instance of Money representing zero.
+     * Obtains an instance of {@link FastMoney} representing zero.
      * @param currency
-     * @return
+     * @return an instance of {@link FastMoney} representing zero.
      * @since 1.0.1
      */
     public static FastMoney zero(CurrencyUnit currency) {
@@ -779,7 +779,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         }
         if (bd.scale() > SCALE) {
             String val = MonetaryConfig.getConfig()
-                    .get("FastMoney.enforceScaleCompatibility");
+                    .get("org.javamoney.moneta.FastMoney.enforceScaleCompatibility");
             if(val==null){
                 val = "false";
             }
@@ -861,63 +861,63 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
     }
 
     @Override
-    public FastMoney multiply(double amount) {
-        Money.checkNoInfinityOrNaN(amount);
-        if (amount == 1.0) {
+    public FastMoney multiply(double multiplicand) {
+        NumberVerifier.checkNoInfinityOrNaN(multiplicand);
+        if (multiplicand == 1.0) {
             return this;
         }
-        if (amount == 0.0) {
+        if (multiplicand == 0.0) {
             return new FastMoney(0, this.currency);
         }
-        return new FastMoney(Math.round(this.number * amount), this.currency);
+        return new FastMoney(Math.round(this.number * multiplicand), this.currency);
     }
 
     @Override
-    public FastMoney divide(long amount) {
-        if (amount == 1L) {
+    public FastMoney divide(long divisor) {
+        if (divisor == 1L) {
             return this;
         }
-        return new FastMoney(this.number / amount, this.currency);
+        return new FastMoney(this.number / divisor, this.currency);
     }
 
     @Override
-    public FastMoney divide(double number) {
-        if (Money.isInfinityAndNotNaN(number)) {
+    public FastMoney divide(double divisor) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return new FastMoney(0L, getCurrency());
         }
-        if (number == 1.0d) {
+        if (divisor == 1.0d) {
             return this;
         }
         return new FastMoney(Math.round(this.number / number), getCurrency());
     }
 
     @Override
-    public FastMoney remainder(long number) {
-        return remainder(BigDecimal.valueOf(number));
+    public FastMoney remainder(long divisor) {
+        return remainder(BigDecimal.valueOf(divisor));
     }
 
     @Override
-    public FastMoney remainder(double amount) {
-        if (Money.isInfinityAndNotNaN(amount)) {
+    public FastMoney remainder(double divisor) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return new FastMoney(0L, getCurrency());
         }
-        return remainder(new BigDecimal(String.valueOf(amount)));
+        return remainder(new BigDecimal(String.valueOf(divisor)));
     }
 
     @Override
-    public FastMoney[] divideAndRemainder(long amount) {
-        return divideAndRemainder(BigDecimal.valueOf(amount));
+    public FastMoney[] divideAndRemainder(long divisor) {
+        return divideAndRemainder(BigDecimal.valueOf(divisor));
     }
 
     @Override
-    public FastMoney[] divideAndRemainder(double amount) {
-        if (Money.isInfinityAndNotNaN(amount)) {
+    public FastMoney[] divideAndRemainder(double divisor) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             FastMoney zero = new FastMoney(0L, getCurrency());
             return new FastMoney[]{zero, zero};
-        } else if (Double.isNaN(amount)) {
+        } else if (Double.isNaN(divisor)) {
             throw new ArithmeticException("Not a number: NaN.");
         }
-        return divideAndRemainder(new BigDecimal(String.valueOf(amount)));
+        return divideAndRemainder(new BigDecimal(String.valueOf(divisor)));
     }
 
     @Override
@@ -946,7 +946,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     @Override
     public FastMoney divideToIntegralValue(double divisor) {
-        if (Money.isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return new FastMoney(0L, getCurrency());
         }
         if (divisor == 1.0) {

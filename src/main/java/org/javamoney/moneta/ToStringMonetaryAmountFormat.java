@@ -69,19 +69,26 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
     @Override
     public MonetaryAmount parse(CharSequence text)
             throws MonetaryParseException {
-        ParserMonetaryAmount amount = parserMonetaryAmount(text);
-        return style.to(amount);
+		try {
+			ParserMonetaryAmount amount = parserMonetaryAmount(text);
+			return style.to(amount);
+		} catch (Exception e) {
+			throw new MonetaryParseException(e.getMessage(), text, 0);
+		}
     }
 
     private ParserMonetaryAmount parserMonetaryAmount(CharSequence text) {
         String[] array = Objects.requireNonNull(text).toString().split(" ");
+        if(array.length != 2) {
+        	throw new MonetaryParseException("An error happened when try to parse the Monetary Amount.",text,0);
+        }
         CurrencyUnit currencyUnit = Monetary.getCurrency(array[0]);
         BigDecimal number = new BigDecimal(array[1]);
         return new ParserMonetaryAmount(currencyUnit, number);
     }
 
     private static class ParserMonetaryAmount {
-        public ParserMonetaryAmount(CurrencyUnit currencyUnit, BigDecimal number) {
+        ParserMonetaryAmount(CurrencyUnit currencyUnit, BigDecimal number) {
             this.currencyUnit = currencyUnit;
             this.number = number;
         }
@@ -94,7 +101,7 @@ class ToStringMonetaryAmountFormat extends BaseMonetaryAmountFormat {
      * indicates with implementation will used to format or parser in
      * ToStringMonetaryAmountFormat
      */
-    enum ToStringMonetaryAmountFormatStyle {
+    public enum ToStringMonetaryAmountFormatStyle {
         MONEY {
             @Override
             MonetaryAmount to(ParserMonetaryAmount amount) {

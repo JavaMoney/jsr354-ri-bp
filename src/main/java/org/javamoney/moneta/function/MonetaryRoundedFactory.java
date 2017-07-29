@@ -25,7 +25,7 @@ import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 
 /**
- * this interface is used to create {@link RoundedMoney} using the {@link MonetaryOperator} as rounding.
+ * this interface is used to create {@link org.javamoney.moneta.RoundedMoney} using the {@link MonetaryOperator} as rounding.
  * @see {@link MonetaryRoundedFactory#of(MathContext)}
  * @see {@link MonetaryRoundedFactory#of(MonetaryOperator)}
  * @see {@link MonetaryRoundedFactory#withRoundingMode(RoundingMode)}

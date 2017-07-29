@@ -17,17 +17,16 @@ package org.javamoney.moneta.format;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Objects;
-
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.format.AmountFormatContext;
 import javax.money.format.AmountFormatContextBuilder;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryParseException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Objects;
 
 import org.javamoney.moneta.function.MonetaryAmountProducer;
 
@@ -66,6 +65,15 @@ class MonetaryAmountDecimalFormat implements MonetaryAmountFormat {
 
     CurrencyUnit getCurrencyUnit() {
         return currencyUnit;
+    }
+
+
+    public String toLocalizedPattern() {
+        return decimalFormat.toLocalizedPattern();
+    }
+
+    public String toPattern() {
+        return decimalFormat.toPattern();
     }
 
     @Override
@@ -115,6 +123,7 @@ class MonetaryAmountDecimalFormat implements MonetaryAmountFormat {
         }
         return false;
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

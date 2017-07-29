@@ -34,7 +34,7 @@ import javax.money.UnknownCurrencyException;
 import javax.money.format.MonetaryAmountFormat;
 
 import org.javamoney.moneta.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
-import org.javamoney.moneta.internal.MoneyAmountBuilder;
+import org.javamoney.moneta.internal.MoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MoneyUtils;
 
@@ -55,10 +55,10 @@ import org.javamoney.moneta.spi.MoneyUtils;
  * # Default MathContext for Money
  * #-------------------------------
  * # Custom MonetaryContext, overrides default entries from
- * # Money.monetaryContext
+ * # org.javamoney.moneta.Money.monetaryContext
  * # RoundingMode hereby is optional (default = HALF_EVEN)
- * Money.defaults.precision=256
- * Money.defaults.roundingMode=HALF_EVEN
+ * org.javamoney.moneta.Money.defaults.precision=256
+ * org.javamoney.moneta.Money.defaults.roundingMode=HALF_EVEN
  * </pre>
  *
  * @author Anatole Tresch
@@ -222,7 +222,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money divide(double divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return Money.of(0, getCurrency());
         }
         if (divisor == 1.0) {
@@ -250,7 +250,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money[] divideAndRemainder(double divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             Money zero = Money.of(0, getCurrency());
             return new Money[]{zero, zero};
         }
@@ -277,7 +277,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money multiply(double multiplicand) {
-        checkNoInfinityOrNaN(multiplicand);
+    	NumberVerifier.checkNoInfinityOrNaN(multiplicand);
         if (multiplicand == 1.0d) {
             return this;
         }
@@ -301,7 +301,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money remainder(double divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return Money.of(0, getCurrency());
         }
         return remainder(new BigDecimal(String.valueOf(divisor)));
@@ -310,7 +310,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isZero()
+     * @see javax.money.MonetaryAmount#isZero()
      */
     @Override
     public boolean isZero() {
@@ -320,7 +320,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isPositive()
+     * @see javax.money.MonetaryAmount#isPositive()
      */
     @Override
     public boolean isPositive() {
@@ -330,7 +330,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isPositiveOrZero()
+     * @see javax.money.MonetaryAmount#isPositiveOrZero()
      */
     @Override
     public boolean isPositiveOrZero() {
@@ -340,7 +340,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isNegative()
+     * @see javax.money.MonetaryAmount#isNegative()
      */
     @Override
     public boolean isNegative() {
@@ -350,7 +350,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isNegativeOrZero()
+     * @see javax.money.MonetaryAmount#isNegativeOrZero()
      */
     @Override
     public boolean isNegativeOrZero() {
@@ -361,7 +361,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * }(non-Javadoc)
      *
-     * @see MonetaryAmount#query(MonetaryQuery)
+     * @see javax.money.MonetaryAmount#query(javax.money.MonetaryQuery)
      */
     @Override
     public <R> R query(MonetaryQuery<R> query) {
@@ -378,7 +378,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#with(MonetaryOperator)
+     * @see javax.money.MonetaryAmount#with(javax.money.MonetaryOperator)
      */
     @Override
     public Money with(MonetaryOperator operator) {
@@ -395,7 +395,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#add(MonetaryAmount)
+     * @see javax.money.MonetaryAmount#add(javax.money.MonetaryAmount)
      */
     @Override
     public Money add(MonetaryAmount amount) {
@@ -409,11 +409,11 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#divide(java.lang.Number)
+     * @see javax.money.MonetaryAmount#divide(java.lang.Number)
      */
     @Override
     public Money divide(Number divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return Money.of(0, getCurrency());
         }
         BigDecimal divisorBD = MoneyUtils.getBigDecimal(divisor);
@@ -427,7 +427,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
 
     @Override
     public Money[] divideAndRemainder(Number divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             Money zero = Money.of(0, getCurrency());
             return new Money[]{zero, zero};
         }
@@ -453,7 +453,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
 
     @Override
     public Money divideToIntegralValue(double divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return Money.of(0, getCurrency());
         }
         return divideToIntegralValue(MoneyUtils.getBigDecimal(divisor));
@@ -461,7 +461,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
 
     @Override
     public Money divideToIntegralValue(Number divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return Money.of(0, getCurrency());
         }
         BigDecimal divisorBD = MoneyUtils.getBigDecimal(divisor);
@@ -476,7 +476,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money multiply(Number multiplicand) {
-        checkNoInfinityOrNaN(multiplicand);
+    	  NumberVerifier.checkNoInfinityOrNaN(multiplicand);
         BigDecimal multiplicandBD = MoneyUtils.getBigDecimal(multiplicand);
         if (multiplicandBD.equals(BigDecimal.ONE)) {
             return this;
@@ -488,7 +488,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#negate()
+     * @see javax.money.MonetaryAmount#negate()
      */
     @Override
     public Money negate() {
@@ -498,7 +498,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#plus()
+     * @see javax.money.MonetaryAmount#plus()
      */
     @Override
     public Money plus() {
@@ -508,7 +508,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#subtract(MonetaryAmount)
+     * @see javax.money.MonetaryAmount#subtract(javax.money.MonetaryAmount)
      */
     @Override
     public Money subtract(MonetaryAmount subtrahend) {
@@ -522,7 +522,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#stripTrailingZeros()
+     * @see javax.money.MonetaryAmount#stripTrailingZeros()
      */
     @Override
     public Money stripTrailingZeros() {
@@ -539,7 +539,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money remainder(Number divisor) {
-        if (isInfinityAndNotNaN(divisor)) {
+        if (NumberVerifier.isInfinityAndNotNaN(divisor)) {
             return new Money(BigDecimal.ZERO, getCurrency());
         }
         BigDecimal bd = MoneyUtils.getBigDecimal(divisor);
@@ -549,7 +549,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#scaleByPowerOfTen(int)
+     * @see javax.money.MonetaryAmount#scaleByPowerOfTen(int)
      */
     @Override
     public Money scaleByPowerOfTen(int n) {
@@ -559,7 +559,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#signum()
+     * @see javax.money.MonetaryAmount#signum()
      */
     @Override
     public int signum() {
@@ -569,7 +569,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isLessThan(MonetaryAmount)
+     * @see javax.money.MonetaryAmount#isLessThan(javax.money.MonetaryAmount)
      */
     @Override
     public boolean isLessThan(MonetaryAmount amount) {
@@ -582,7 +582,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * MonetaryAmount#isLessThanOrEqualTo(MonetaryAmount
+     * javax.money.MonetaryAmount#isLessThanOrEqualTo(javax.money.MonetaryAmount
      * )
      */
     @Override
@@ -595,7 +595,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isGreaterThan(MonetaryAmount)
+     * @see javax.money.MonetaryAmount#isGreaterThan(javax.money.MonetaryAmount)
      */
     @Override
     public boolean isGreaterThan(MonetaryAmount amount) {
@@ -608,7 +608,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * (non-Javadoc)
      *
      * @see
-     * MonetaryAmount#isGreaterThanOrEqualTo(MonetaryAmount
+     * javax.money.MonetaryAmount#isGreaterThanOrEqualTo(javax.money.MonetaryAmount
      * ) #see
      */
     @Override
@@ -621,7 +621,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#isEqualTo(MonetaryAmount)
+     * @see javax.money.MonetaryAmount#isEqualTo(javax.money.MonetaryAmount)
      */
     @Override
     public boolean isEqualTo(MonetaryAmount amount) {
@@ -633,11 +633,11 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /*
      * (non-Javadoc)
      *
-     * @see MonetaryAmount#getFactory()
+     * @see javax.money.MonetaryAmount#getFactory()
      */
     @Override
     public MonetaryAmountFactory<Money> getFactory() {
-        return new MoneyAmountBuilder().setAmount(this);
+        return new MoneyAmountFactory().setAmount(this);
     }
 
     /*
@@ -791,7 +791,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     /**
      * Obtains an instance of {@link Money} representing zero.
      * @param currency
-     * @return
+     * @return an instance of {@link Money} representing zero.
      * @since 1.0.1
      */
     public static Money zero(CurrencyUnit currency) {
@@ -812,6 +812,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      public static Money ofMinor(CurrencyUnit currency, long amountMinor) {
     	 return ofMinor(currency, amountMinor, currency.getDefaultFractionDigits());
      }
+
      /**
       * Obtains an instance of {@code Money} from an amount in minor units.
       * For example, {@code ofMinor(USD, 1234, 2)} creates the instance {@code USD 12.34}.
@@ -886,12 +887,11 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
         }
     }
 
+    @Deprecated
     public static boolean isInfinityAndNotNaN(Number number) {
         if (Double.class == number.getClass() || Float.class == number.getClass()) {
             double dValue = number.doubleValue();
-            if (Double.isNaN(dValue)) {
-                throw new ArithmeticException("Not a valid input: NaN.");
-            } else if (Double.isInfinite(dValue)) {
+            if (!Double.isNaN(dValue) && Double.isInfinite(dValue)) {
                 return true;
             }
         }

@@ -29,7 +29,9 @@ import java.math.RoundingMode;
  * .RoundedMoney}.
  *
  * @author Anatole Tresch
+ * @deprecated use {@link RoundedMoneyAmountFactory} instead of.
  */
+@Deprecated
 public class RoundedMoneyAmountBuilder extends AbstractAmountBuilder<RoundedMoney> {
 
     static final MonetaryContext DEFAULT_CONTEXT =

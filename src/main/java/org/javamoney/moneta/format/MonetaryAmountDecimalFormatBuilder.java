@@ -15,18 +15,17 @@
  */
 package org.javamoney.moneta.format;
 
+import org.javamoney.moneta.function.MonetaryAmountProducer;
+import org.javamoney.moneta.function.MoneyProducer;
+
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.format.MonetaryAmountFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
-
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import javax.money.format.MonetaryAmountFormat;
-
-import org.javamoney.moneta.function.MonetaryAmountProducer;
-import org.javamoney.moneta.function.MoneyProducer;
 
 /**
  * Builder to {@link MonetaryAmountFormat}.
