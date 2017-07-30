@@ -16,7 +16,6 @@
 package org.javamoney.moneta.internal;
 
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.spi.AbstractAmountBuilder;
 import org.javamoney.moneta.spi.AbstractAmountFactory;
 
 import javax.money.CurrencyUnit;

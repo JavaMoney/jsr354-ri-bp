@@ -25,7 +25,7 @@ import javax.money.MonetaryAmount;
  * @see {@link MoneyProducer}
  * @see {@link RoundedMoneyProducer}
  */
-@FunctionalInterface
+//@FunctionalInterface
 public interface MonetaryAmountProducer {
 	/**
 	 * Creates a {@link MonetaryAmount} from {@link CurrencyUnit} and {@link Number}

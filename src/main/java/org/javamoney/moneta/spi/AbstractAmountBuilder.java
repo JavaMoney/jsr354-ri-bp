@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -180,15 +180,15 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
      * Converts (if necessary) the given {@link MonetaryAmount} to a new {@link MonetaryAmount}
      * instance, hereby supporting the {@link MonetaryContext} given.
      *
-     * @param amt the amount to be converted, if necessary.
+     * @param amount the amount to be converted, if necessary.
      * @return an according Money instance.
      */
     @Override
-    public MonetaryAmountFactory<T> setAmount(MonetaryAmount smount) {
-        this.currency = smount.getCurrency();
-        this.number = smount.getNumber().numberValue(BigDecimal.class);
+    public MonetaryAmountFactory<T> setAmount(MonetaryAmount amount) {
+        this.currency = amount.getCurrency();
+        this.number = amount.getNumber().numberValue(BigDecimal.class);
         this.monetaryContext = MonetaryContextBuilder.of(defaultMonetaryContext.getAmountType())
-                .importContext(smount.getContext()).build();
+                .importContext(amount.getContext()).build();
         return this;
     }
 
@@ -198,7 +198,7 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
      *
      * @param num the number type
      * @return the corresponding {@link BigDecimal}
-     * @Deprecated will be removed in next release
+     * @deprecated will be removed in next release
      */
     @Deprecated
     protected static BigDecimal getBigDecimal(Number num) {

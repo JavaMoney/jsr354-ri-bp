@@ -23,7 +23,7 @@ import javax.money.MonetaryContextBuilder;
 import javax.money.NumberValue;
 
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.spi.AbstractAmountBuilder;
+import org.javamoney.moneta.spi.AbstractAmountFactory;
 
 /**
  * Implementation of {@link javax.money.MonetaryAmountFactory} creating instances of {@link org.javamoney.moneta.Money}.
@@ -32,7 +32,7 @@ import org.javamoney.moneta.spi.AbstractAmountBuilder;
  * @deprecated use {@link MoneyAmountFactory} instead of.
  */
 @Deprecated
-public class MoneyAmountBuilder extends AbstractAmountBuilder<Money> {
+public class MoneyAmountBuilder extends AbstractAmountFactory<Money> {
 
     static final MonetaryContext DEFAULT_CONTEXT =
             MonetaryContextBuilder.of(Money.class).set(64).setMaxScale(63).set(RoundingMode.HALF_EVEN).build();

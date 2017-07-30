@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2015, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +40,7 @@ class DefaultLoaderListener {
      * @return the according listeners
      */
     public List<LoaderListener> getListeners(String dataId) {
-        if (Objects.isNull(dataId)) {
+        if (dataId==null) {
             dataId = "";
         }
         List<LoaderListener> listeners = this.listenersMap.get(dataId);
@@ -74,7 +73,7 @@ class DefaultLoaderListener {
                 }
             }
         }
-        if (!(Objects.isNull(dataId) || dataId.isEmpty())) {
+        if (!(dataId==null || dataId.isEmpty())) {
             listeners = getListeners(dataId);
             synchronized (listeners) {
                 for (LoaderListener ll : listeners) {

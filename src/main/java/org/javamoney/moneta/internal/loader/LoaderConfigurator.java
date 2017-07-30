@@ -71,14 +71,14 @@ class LoaderConfigurator {
         Map<String, String> props = mapProperties(allProps, name);
         UpdatePolicy updatePolicy = UpdatePolicy.valueOf(props.get(TYPE));
         String fallbackRes = props.get("resource");
-        if (Objects.isNull(fallbackRes)) {
+        if (fallbackRes==null) {
             throw new IllegalArgumentException(LOAD + name + ".resource (classpath resource) required.");
         }
         String resourcesString = props.get("urls");
-        boolean startRemote = Boolean.valueOf(props.get("startRemote"));
+        boolean startRemote = Boolean.parseBoolean(props.get("startRemote"));
         String[] resources;
-        if (Objects.isNull(resourcesString)) {
-            LOG.info("No update URLs configured for: " + name);
+        if (resourcesString==null) {
+            LOG.log(Level.INFO, "No update URLs configured for: %s", name);
             resources = new String[0];
         } else {
             resources = resourcesString.split(",");
@@ -110,13 +110,13 @@ class LoaderConfigurator {
     private URI getClassLoaderLocation(String res) {
         URL url = null;
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        if (Objects.nonNull(cl)) {
+        if (cl!=null) {
             url = cl.getResource(res);
         }
-        if (Objects.isNull(url)) {
+        if (url==null) {
             url = getClass().getResource(res);
         }
-        if (Objects.isNull(url)) {
+        if (url==null) {
             throw new IllegalArgumentException("Resource not found: " + res);
         }
         try {

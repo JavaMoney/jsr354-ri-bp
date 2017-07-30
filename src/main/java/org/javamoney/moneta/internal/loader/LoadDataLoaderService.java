@@ -16,7 +16,6 @@
 package org.javamoney.moneta.internal.loader;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +33,7 @@ public class LoadDataLoaderService {
 			Map<String, LoadableResource> resources) {
 
 		LoadableResource load = resources.get(resourceId);
-		if (Objects.nonNull(load)) {
+		if (load!=null) {
 			try {
 				if (load.load()) {
 					LOG.log(Level.INFO, "Read data from: " + load.getRemoteResources());

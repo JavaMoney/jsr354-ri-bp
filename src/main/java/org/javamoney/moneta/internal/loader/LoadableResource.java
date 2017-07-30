@@ -144,10 +144,8 @@ public class LoadableResource {
         if ((lastLoaded + cacheTTLMillis) <= System.currentTimeMillis()) {
             clearCache();
         }
-        if (!readCache()) {
-            if (shouldReadDataFromFallback()) {
-                return loadFallback();
-            }
+        if (!readCache() && shouldReadDataFromFallback()) {
+            return loadFallback();
         }
         return true;
     }
@@ -272,16 +270,14 @@ public class LoadableResource {
      * caching mechanism implemented. By default it tries to read a file from the current user's home directory.
      * If the data could be read, #setData(byte[]) should be called to apply the data read.
      *
-     * @return true, if data could be read and applied from the cache sucdcessfully.
+     * @return true, if data could be read and applied from the cache successfully.
      */
     protected boolean readCache() {
-        if (this.cache != null) {
-            if (this.cache.isCached(resourceId)) {
-                byte[] data = this.cache.read(resourceId);
-                if (data != null) {
-                    setData(data);
-                    return true;
-                }
+        if (this.cache != null && this.cache.isCached(resourceId)) {
+            byte[] cachedData = this.cache.read(resourceId);
+            if (cachedData != null) {
+                setData(cachedData);
+                return true;
             }
         }
         return false;
@@ -294,11 +290,11 @@ public class LoadableResource {
      */
     protected void writeCache() throws IOException {
         if (this.cache != null) {
-            byte[] data = this.data == null ? null : this.data.get();
-            if (data == null) {
+            byte[] cachedData = this.data == null ? null : this.data.get();
+            if (cachedData == null) {
                 return;
             }
-            this.cache.write(resourceId, data);
+            this.cache.write(resourceId, cachedData);
         }
     }
 
@@ -315,12 +311,12 @@ public class LoadableResource {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
             URLConnection conn = itemToLoad.toURL().openConnection();
-            byte[] data = new byte[4096];
+            byte[] cachedData = new byte[4096];
             is = conn.getInputStream();
-            int read = is.read(data);
+            int read = is.read(cachedData);
             while (read > 0) {
-                stream.write(data, 0, read);
-                read = is.read(data);
+                stream.write(cachedData, 0, read);
+                read = is.read(cachedData);
             }
             setData(stream.toByteArray());
             if (!fallbackLoad) {
@@ -332,7 +328,7 @@ public class LoadableResource {
         } catch (Exception e) {
             LOG.log(Level.INFO, "Failed to load resource input for " + resourceId + " from " + itemToLoad, e);
         } finally {
-            if (Objects.nonNull(is)) {
+            if (is!=null) {
                 try {
                     is.close();
                 } catch (Exception e) {
@@ -363,18 +359,16 @@ public class LoadableResource {
         if (result == null && loadIfNeeded) {
             accessCount.incrementAndGet();
             byte[] currentData = this.data == null ? null : this.data.get();
-            if (Objects.isNull(currentData)) {
+            if (currentData==null) {
                 synchronized (lock) {
                     currentData = this.data == null ? null : this.data.get();
-                    if (Objects.isNull(currentData)) {
-                        if (shouldReadDataFromFallback()) {
-                            loadFallback();
-                        }
+                    if (currentData==null && shouldReadDataFromFallback()) {
+                        loadFallback();
                     }
                 }
             }
             currentData = this.data == null ? null : this.data.get();
-            if (Objects.isNull(currentData)) {
+            if (currentData==null) {
                 throw new IllegalStateException("Failed to load remote as well as fallback resources for " + this);
             }
             return currentData.clone();
@@ -401,7 +395,6 @@ public class LoadableResource {
      * load counter.
      *
      * @return true on success.
-     * @throws IOException
      */
     public boolean resetToFallback() {
         if (loadFallback()) {

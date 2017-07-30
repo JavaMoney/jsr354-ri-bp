@@ -16,7 +16,6 @@
 package org.javamoney.moneta.internal.loader;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,13 +33,13 @@ class LoadRemoteDataLoaderService {
 			Map<String, LoadableResource> resources) {
 
 		LoadableResource load = resources.get(resourceId);
-		if (Objects.nonNull(load)) {
+		if (load!=null) {
 			try {
 				load.readCache();
 				listener.trigger(resourceId, load.getDataStream());
 				load.loadRemote();
 				listener.trigger(resourceId, load.getDataStream());
-				LOG.info("The exchange rate with resourceId " + resourceId + " was started remotely");
+				LOG.log(Level.INFO, "The exchange rate with resourceId %s was started remotely", resourceId);
 				return true;
 			} catch (Exception e) {
 				LOG.log(Level.SEVERE, "Failed to load resource: " + resourceId,

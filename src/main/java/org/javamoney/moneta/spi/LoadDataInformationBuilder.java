@@ -17,7 +17,6 @@ package org.javamoney.moneta.spi;
 
 import java.net.URI;
 import java.util.Map;
-import java.util.Objects;
 
 import org.javamoney.moneta.spi.LoaderService.LoaderListener;
 import org.javamoney.moneta.spi.LoaderService.UpdatePolicy;
@@ -87,16 +86,16 @@ public class LoadDataInformationBuilder {
 	}
 
 	public LoadDataInformation build() {
-		if(Objects.isNull(resourceId) || resourceId.isEmpty()) {
+		if(resourceId==null || resourceId.isEmpty()) {
 			throw new IllegalStateException("The resourceId should be informed");
 		}
-		else if (Objects.isNull(updatePolicy)) {
+		else if (updatePolicy==null) {
 			throw new IllegalStateException("The updatePolicy should be informed");
 		}
-		else if (Objects.isNull(properties)) {
+		else if (properties==null) {
 			throw new IllegalStateException("The properties should be informed");
 		}
-		else if (Objects.isNull(resourceLocations)) {
+		else if (resourceLocations==null) {
 			throw new IllegalStateException("The properties should be informed");
 		}
 		return new LoadDataInformation(resourceId, updatePolicy, properties,

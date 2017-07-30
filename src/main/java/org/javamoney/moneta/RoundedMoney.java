@@ -27,7 +27,6 @@ import javax.money.MonetaryQuery;
 import javax.money.NumberValue;
 import javax.money.RoundingQueryBuilder;
 
-import org.javamoney.moneta.internal.RoundedMoneyAmountBuilder;
 import org.javamoney.moneta.internal.RoundedMoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MoneyUtils;
@@ -58,11 +57,12 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
      * serialVersionUID.
      */
     private static final long serialVersionUID = -6716367273185192901L;
+    public static final String MONETARY_ROUNDING_KEY = "MonetaryRounding";
     /**
      * The default {@link MonetaryContext} applied.
      */
     public static final MonetaryContext DEFAULT_MONETARY_CONTEXT = MonetaryContextBuilder.of(RoundedMoney.class)
-            .set("MonetaryRounding", Monetary.getDefaultRounding()).
+            .set(MONETARY_ROUNDING_KEY, Monetary.getDefaultRounding()).
                     build();
 
     /**
@@ -102,7 +102,9 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
         this.currency = currency;
         this.rounding = Monetary.getRounding(RoundingQueryBuilder.of().set(mathContext).build());
         this.monetaryContext =
-                DEFAULT_MONETARY_CONTEXT.toBuilder().set("MonetaryRounding", rounding).set(mathContext)
+                DEFAULT_MONETARY_CONTEXT.toBuilder()
+                        .set(MONETARY_ROUNDING_KEY, rounding)
+                        .set(mathContext)
                         .build();
         Objects.requireNonNull(number, "Number is required.");
         checkNumber(number);
@@ -116,13 +118,11 @@ public final class RoundedMoney implements MonetaryAmount, Comparable<MonetaryAm
         Objects.requireNonNull(number, "Number is required.");
         checkNumber(number);
         MonetaryContextBuilder monetaryContextBuilder = DEFAULT_MONETARY_CONTEXT.toBuilder();
-
-        this.rounding = RoundedMoneyMonetaryOperatorFactory.INSTANCE.getDefaultMonetaryOperator(rounding, context, monetaryContextBuilder);
-
-        monetaryContextBuilder.set("MonetaryRounding", this.rounding);
         if (context != null) {
             monetaryContextBuilder.importContext(context);
         }
+        this.rounding = RoundedMoneyMonetaryOperatorFactory.INSTANCE.getDefaultMonetaryOperator(rounding, monetaryContextBuilder.build());
+        monetaryContextBuilder.set(MONETARY_ROUNDING_KEY, this.rounding);
 
         this.monetaryContext = monetaryContextBuilder.build();
         this.number = MoneyUtils.getBigDecimal(number, monetaryContext);

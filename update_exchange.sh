@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 wget http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
 mv eurofxref-daily.xml src/main/resources/java-money/defaults/ECB/eurofxref-daily.xml
 wget http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml

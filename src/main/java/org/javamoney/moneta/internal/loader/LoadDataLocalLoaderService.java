@@ -16,7 +16,6 @@
 package org.javamoney.moneta.internal.loader;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +37,7 @@ class LoadDataLocalLoaderService {
 
 	public boolean execute(String resourceId) {
 	        LoadableResource load = this.resources.get(resourceId);
-	        if (Objects.nonNull(load)) {
+	        if (load!=null) {
 	            try {
 	                if (load.loadFallback()) {
 	                	listener.trigger(resourceId, load.getDataStream());

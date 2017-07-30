@@ -15,8 +15,6 @@
  */
 package org.javamoney.moneta.internal.loader;
 
-import java.util.Objects;
-
 import org.javamoney.moneta.spi.LoadDataInformation;
 
 /**
@@ -43,10 +41,10 @@ public class LoadableResourceBuilder {
 	}
 
 	public LoadableResource build() {
-		if(Objects.isNull(cache)) {
+		if(cache==null) {
 			throw new IllegalStateException("The cache should be informed");
 		}
-		if(Objects.isNull(loadDataInformation)) {
+		if(loadDataInformation==null) {
 			throw new IllegalStateException("The loadDataInformation should be informed");
 		}
 		return new LoadableResource(cache, loadDataInformation);

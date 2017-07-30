@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -51,7 +51,7 @@ class DefaultMonetaryContextFactory {
         try {
             Map<String, String> config = MonetaryConfig.getConfig();
             String value = config.get("org.javamoney.moneta.Money.defaults.precision");
-            if (value==null) {
+            if (value!=null) {
                 return createMonetaryContextNonNullConfig(config, Integer.parseInt(value));
             } else {
                 return createContextWithConfig(config);

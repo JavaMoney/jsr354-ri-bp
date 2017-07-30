@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -49,10 +49,9 @@ class DefaultMonetaryRoundedFactory extends MonetaryRoundedFactory {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DefaultMonetaryRoundedFactory.class.getName()).append('{')
-		.append("roundingOperator: ").append(roundingOperator).append('}');
-		return sb.toString();
+		String sb = DefaultMonetaryRoundedFactory.class.getName() + '{' +
+				"roundingOperator: " + roundingOperator + '}';
+		return sb;
 	}
 
 }
