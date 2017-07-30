@@ -15,17 +15,20 @@
  */
 package org.javamoney.moneta.internal;
 
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryAmountFactory;
-import javax.money.MonetaryAmountFactoryQuery;
-import javax.money.MonetaryContext;
-import javax.money.MonetaryException;
+import javax.money.*;
+
 import org.javamoney.moneta.spi.base.BaseMonetaryAmountsSingletonQuerySpi;
 
 import javax.money.spi.Bootstrap;
 import javax.money.spi.MonetaryAmountFactoryProviderSpi;
 import javax.money.spi.MonetaryAmountFactoryProviderSpi.QueryInclusionPolicy;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Default implementation ot {@link javax.money.spi.MonetaryAmountsSingletonSpi} loading the SPIs on startup
@@ -76,17 +79,17 @@ public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmounts
         Objects.requireNonNull(factoryQuery);
         List<MonetaryAmountFactory<?>> factories = new ArrayList<>();
         // first check for explicit type
-        for(@SuppressWarnings("unchecked") MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount> f : Bootstrap
+        for(@SuppressWarnings("unchecked") MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount> prov : Bootstrap
                 .getServices(MonetaryAmountFactoryProviderSpi.class)){
-            if(f.getQueryInclusionPolicy() == QueryInclusionPolicy.NEVER){
+            if(prov.getQueryInclusionPolicy() == QueryInclusionPolicy.NEVER){
                 continue;
             }
-            if(factoryQuery.getTargetType() == f.getAmountType()){
-                if(isPrecisionOK(factoryQuery, f.getMaximalMonetaryContext())){
-                    factories.add(f.createMonetaryAmountFactory());
+            if(factoryQuery.getTargetType() == prov.getAmountType()){
+                if(isPrecisionOK(factoryQuery, prov.getMaximalMonetaryContext())){
+                    factories.add(createFactory(prov, factoryQuery));
                 }else{
                     throw new MonetaryException("Incompatible context required=" + factoryQuery + ", maximal=" +
-                                                        f.getMaximalMonetaryContext());
+                                                        prov.getMaximalMonetaryContext());
                 }
             }
         }
@@ -115,11 +118,32 @@ public class DefaultMonetaryAmountsSingletonQuerySpi extends BaseMonetaryAmounts
             }
         }
         if(selection.size() == 1){
-            factories.add(selection.get(0).createMonetaryAmountFactory());
+            factories.add(createFactory(selection.get(0), factoryQuery));
         }
         Collections.sort(selection, CONTEXT_COMPARATOR);
-        factories.add(selection.get(0).createMonetaryAmountFactory());
+        factories.add(createFactory(selection.get(0), factoryQuery));
         return factories;
+    }
+
+    /**
+     * Creates a {@link MonetaryAmountFactory} using the given provider and configures the
+     * {@link MonetaryContext} based on the given {@link MonetaryAmountFactoryQuery}.
+     *
+     * This code should actually be done in "createMonetaryAmountFactory", see issue #65.
+     * @param prov the factory provider, not null
+     * @param factoryQuery the original query
+     * @return the configured amount factory, never null.
+     */
+    private MonetaryAmountFactory<?> createFactory(MonetaryAmountFactoryProviderSpi<? extends MonetaryAmount> prov, MonetaryAmountFactoryQuery factoryQuery) {
+        MonetaryAmountFactory<?> factory = prov.createMonetaryAmountFactory();
+        if(factoryQuery!=null) {
+            MonetaryContextBuilder cb = factory.getDefaultMonetaryContext().toBuilder();
+            for (String key : factoryQuery.getKeys(Object.class)) {
+                cb.set(key, factoryQuery.get(key, Object.class));
+            }
+            factory.setContext(cb.build());
+        }
+        return factory;
     }
 
     private boolean isPrecisionOK(MonetaryAmountFactoryQuery requiredContext, MonetaryContext maximalMonetaryContext){

@@ -150,7 +150,8 @@ public abstract class AbstractAmountBuilder<T extends MonetaryAmount> implements
             throw new MonetaryException(
                     "Contexts exceeds maximal capabilities (precision) of this type: " + monetaryContext);
         }
-        this.monetaryContext = monetaryContext;
+        this.monetaryContext = monetaryContext.toBuilder()
+            .setAmountType(getAmountType()).build();
         return this;
     }
 

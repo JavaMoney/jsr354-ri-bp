@@ -23,19 +23,23 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Platform RI: This utility class simplifies implementing {@link MonetaryAmount},
  * by providing the common functionality. The different explicitly typed methods
  * are all reduced to methods using {@link BigDecimal} as input, hereby
- * performing any conversion to {@link BigDecimal} as needed. Obviosly this
+ * performing any conversion to {@link BigDecimal} as needed. Obviously this
  * takes some time, so implementors that want to avoid this overhead should
  * implement {@link MonetaryAmount} directly.
  *
  * @author Anatole Tresch
  */
 public final class MoneyUtils {
-
+    /**
+     * The logger used.
+     */
+    private static final Logger LOG = Logger.getLogger(MoneyUtils.class.getName());
 
     private MoneyUtils() {
     }
@@ -90,9 +94,14 @@ public final class MoneyUtils {
      * @return the corresponding {@link BigDecimal}
      */
     public static BigDecimal getBigDecimal(Number num, MonetaryContext moneyContext) {
-        BigDecimal bd = getBigDecimal(num);
+    	BigDecimal bd = getBigDecimal(num);
         if (moneyContext!=null) {
-            return new BigDecimal(bd.toString(), getMathContext(moneyContext, RoundingMode.HALF_EVEN));
+            MathContext mc = getMathContext(moneyContext, RoundingMode.HALF_EVEN);
+            bd = new BigDecimal(bd.toString(), mc);
+            if (moneyContext.getMaxScale() > 0) {
+                LOG.fine(String.format("Got Max Scale %s", moneyContext.getMaxScale()));
+                bd = bd.setScale(moneyContext.getMaxScale(), mc.getRoundingMode());
+            }
         }
         return bd;
     }

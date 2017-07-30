@@ -51,14 +51,14 @@ public class ToStringMonetaryAmountFormatTest {
 		format.parse(null);
 	}
 
-	@Test(expectedExceptions = NumberFormatException.class)
+	@Test(expectedExceptions = javax.money.format.MonetaryParseException.class)
 	public void shouldRunNumberFormatException() {
 		ToStringMonetaryAmountFormat format = ToStringMonetaryAmountFormat
 				.of(ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle.FAST_MONEY);
 		format.parse("BRL 23AD");
 	}
 
-	@Test(expectedExceptions = UnknownCurrencyException.class)
+	@Test(expectedExceptions = javax.money.format.MonetaryParseException.class)
 	public void shouldRunUnknownCurrencyException() {
 		ToStringMonetaryAmountFormat format = ToStringMonetaryAmountFormat
 				.of(ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle.FAST_MONEY);

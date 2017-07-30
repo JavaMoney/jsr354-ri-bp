@@ -502,7 +502,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      */
     @Override
     public Money plus() {
-    	return this;
+        return this;
     }
 
     /*
@@ -552,8 +552,8 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
      * @see javax.money.MonetaryAmount#scaleByPowerOfTen(int)
      */
     @Override
-    public Money scaleByPowerOfTen(int n) {
-        return new Money(this.number.scaleByPowerOfTen(n), getCurrency());
+    public Money scaleByPowerOfTen(int power) {
+        return new Money(this.number.scaleByPowerOfTen(power), getCurrency());
     }
 
     /*
@@ -876,17 +876,12 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
     private static final ToStringMonetaryAmountFormat DEFAULT_FORMATTER = ToStringMonetaryAmountFormat
             .of(ToStringMonetaryAmountFormatStyle.MONEY);
 
-    public static void checkNoInfinityOrNaN(Number number) {
-        if (Double.class == number.getClass() || Float.class == number.getClass()) {
-            double dValue = number.doubleValue();
-            if (Double.isNaN(dValue)) {
-                throw new ArithmeticException("Not a valid input: NaN.");
-            } else if (Double.isInfinite(dValue)) {
-                throw new ArithmeticException("Not a valid input: INFINITY: " + dValue);
-            }
-        }
-    }
-
+    /**
+     * Just to don't break the compatibility.
+     * Don't use it
+     * @param number
+     * @deprecated Will be removed.
+     */
     @Deprecated
     public static boolean isInfinityAndNotNaN(Number number) {
         if (Double.class == number.getClass() || Float.class == number.getClass()) {
@@ -896,6 +891,25 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
             }
         }
         return false;
+    }
+
+
+    /**
+     * Just to don't break the compatibility.
+     * Don't use it
+     * @param number
+     * @deprecated Will be removed.
+     */
+    @Deprecated
+    public static void checkNoInfinityOrNaN(Number number) {
+        if (Double.class == number.getClass() || Float.class == number.getClass()) {
+            double dValue = number.doubleValue();
+            if (Double.isNaN(dValue)) {
+                throw new ArithmeticException("Not a valid input: NaN.");
+            } else if (Double.isInfinite(dValue)) {
+                throw new ArithmeticException("Not a valid input: INFINITY: " + dValue);
+            }
+        }
     }
 
 }

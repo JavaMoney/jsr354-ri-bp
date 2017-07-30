@@ -888,7 +888,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
         if (divisor == 1.0d) {
             return this;
         }
-        return new FastMoney(Math.round(this.number / number), getCurrency());
+        return new FastMoney(Math.round(this.number / divisor), getCurrency());
     }
 
     @Override
