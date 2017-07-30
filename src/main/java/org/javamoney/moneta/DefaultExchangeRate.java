@@ -87,6 +87,7 @@ import javax.money.convert.ExchangeRate;
  * Exchange Rate (Quotations)</a>
  * @deprecated Use org.javamoney.moneta.convert.DefaultExchangeRate instead
  */
+@Deprecated
 class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<ExchangeRate> {
 
     /**
@@ -275,7 +276,8 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
             DefaultExchangeRate other = (DefaultExchangeRate) obj;
             return Objects.equals(base, other.base) &&
                     Objects.equals(conversionContext, other.conversionContext) &&
-                    Objects.equals(factor, other.factor) && Objects.equals(term, other.term);
+                    factor.compareTo(other.factor) == 0 &&
+                    Objects.equals(term, other.term);
         }
         return false;
     }
