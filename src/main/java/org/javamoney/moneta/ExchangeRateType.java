@@ -27,7 +27,7 @@ import javax.money.convert.ExchangeRateProviderSupplier;
  * @author otaviojava
  * @deprecated Use org.javamoney.moneta.convert.ExchangeRateType instead
  */
-@Depre
+@Deprecated
 public enum ExchangeRateType implements ExchangeRateProviderSupplier {
     /**
      * Exchange rate to the European Central Bank. Uses the
