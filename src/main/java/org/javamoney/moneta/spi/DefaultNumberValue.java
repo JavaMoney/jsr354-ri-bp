@@ -15,20 +15,20 @@
  */
 package org.javamoney.moneta.spi;
 
+import javax.money.NumberValue;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
 
-import javax.money.NumberValue;
 
 /**
  * Default implementation of {@link NumberValue} based on {@link BigDecimal}.
- * 
+ *
  * @author Anatole Tresch
  * @author Werner Keil
  */
 public final class DefaultNumberValue extends NumberValue {
-	
+
 	/**
 	 * serialVersionUID.
 	 */
@@ -59,36 +59,36 @@ public final class DefaultNumberValue extends NumberValue {
 		return new DefaultNumberValue(number);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getNumberType()
-	 */
-	@Override
-	public Class<?> getNumberType() {
-		return this.number.getClass();
-	}
+    /*
+     * (non-Javadoc)
+     * @see javax.money.NumberValue#getNumberType()
+     */
+    @Override
+    public Class<?> getNumberType() {
+        return this.number.getClass();
+    }
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getPrecision()
+	 * @see javax.money.NumberValue#getPrecision()
 	 */
 	@Override
 	public int getPrecision() {
 		return numberValue(BigDecimal.class).precision();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getScale()
-	 */
-	@Override
-	public int getScale() {
-		return getBigDecimal(number).scale();
-	}
+    /*
+     * (non-Javadoc)
+     * @see javax.money.NumberValue#getScale()
+     */
+    @Override
+    public int getScale() {
+        return ConvertBigDecimal.of(number).scale();
+    }
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getIntValue()
+	 * @see javax.money.NumberValue#getIntValue()
 	 */
 	@Override
 	public int intValue() {
@@ -97,16 +97,16 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getIntValueExact()
+	 * @see javax.money.NumberValue#getIntValueExact()
 	 */
 	@Override
 	public int intValueExact() {
-		return getBigDecimal(number).intValueExact();
+		return ConvertBigDecimal.of(number).intValueExact();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getLongValue()
+	 * @see javax.money.NumberValue#getLongValue()
 	 */
 	@Override
 	public long longValue() {
@@ -115,16 +115,16 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getLongValueExact()
+	 * @see javax.money.NumberValue#getLongValueExact()
 	 */
 	@Override
 	public long longValueExact() {
-		return getBigDecimal(number).longValueExact();
+		return ConvertBigDecimal.of(number).longValueExact();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getFloatValue()
+	 * @see javax.money.NumberValue#getFloatValue()
 	 */
 	@Override
 	public float floatValue() {
@@ -133,7 +133,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getDoubleValue()
+	 * @see javax.money.NumberValue#getDoubleValue()
 	 */
 	@Override
 	public double doubleValue() {
@@ -142,7 +142,7 @@ public final class DefaultNumberValue extends NumberValue {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getDoubleValueExact()
+	 * @see javax.money.NumberValue#getDoubleValueExact()
 	 */
 	@Override
 	public double doubleValueExact() {
@@ -154,24 +154,24 @@ public final class DefaultNumberValue extends NumberValue {
 		return d;
 	}
 
-    /*
+	/*
      * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getAmountFractionNumerator()
+     * @see javax.money.NumberValue#getAmountFractionNumerator()
      */
-    @Override
-    public long getAmountFractionNumerator(){
-        BigDecimal bd = getBigDecimal(number).remainder(BigDecimal.ONE);
-        return bd.movePointRight(getScale()).longValueExact();
-    }
+	@Override
+	public long getAmountFractionNumerator() {
+		BigDecimal bd = ConvertBigDecimal.of(number).remainder(BigDecimal.ONE);
+		return bd.movePointRight(getScale()).longValueExact();
+	}
 
-    /*
+	/*
      * (non-Javadoc)
-	 * @see org.javamoney.bp.NumberValue#getAmountFractionDenominator()
+     * @see javax.money.NumberValue#getAmountFractionDenominator()
      */
-    @Override
-    public long getAmountFractionDenominator(){
-        return BigDecimal.valueOf(10).pow(getScale()).longValueExact();
-    }
+	@Override
+	public long getAmountFractionDenominator() {
+		return getScale() < 0 ? 1 : BigDecimal.valueOf(10).pow(getScale()).longValueExact();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -203,14 +203,7 @@ public final class DefaultNumberValue extends NumberValue {
 		return ConvertNumberValue.ofExact(numberType, number);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return String.valueOf(number);
-	}
+
 
 	/**
 	 * Creates a {@link BigDecimal} from the given {@link Number} doing the valid conversion
@@ -219,9 +212,21 @@ public final class DefaultNumberValue extends NumberValue {
 	 * @param num
 	 *            the number type
 	 * @return the corresponding {@link BigDecimal}
+	 * @deprecated will be removed.
 	 */
+	@Deprecated
 	protected static BigDecimal getBigDecimal(Number num) {
 		return ConvertBigDecimal.of(num);
 	}
+
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
 
 }
