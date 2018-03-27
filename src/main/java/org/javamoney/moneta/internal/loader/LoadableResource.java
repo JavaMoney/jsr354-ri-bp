@@ -20,9 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.SoftReference;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -310,7 +308,33 @@ public class LoadableResource {
         InputStream is = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
-            URLConnection conn = itemToLoad.toURL().openConnection();
+            URLConnection conn;
+
+            String proxyPort = this.properties.get("proxy.port");
+            String proxyHost = this.properties.get("proxy.host");
+            String proxyType = this.properties.get("procy.type");
+            if(proxyType!=null){
+                Proxy proxy = new Proxy(Proxy.Type.valueOf(proxyType.toUpperCase()),
+                        InetSocketAddress.createUnresolved(proxyHost, Integer.parseInt(proxyPort)));
+                conn = itemToLoad.toURL().openConnection(proxy);
+            }else{
+                conn = itemToLoad.toURL().openConnection();
+            }
+            String timeout = this.properties.get("connection.connect.timeout");
+            if(timeout!=null){
+                int seconds = Integer.parseInt(timeout);
+                conn.setConnectTimeout(seconds*1000);
+            }else{
+                conn.setConnectTimeout(10000);
+            }
+            timeout = this.properties.get("connection.read.timeout");
+            if(timeout!=null){
+                int seconds = Integer.parseInt(timeout);
+                conn.setReadTimeout(seconds*1000);
+            }else{
+                conn.setReadTimeout(10000);
+            }
+
             byte[] cachedData = new byte[4096];
             is = conn.getInputStream();
             int read = is.read(cachedData);
@@ -327,6 +351,7 @@ public class LoadableResource {
             return true;
         } catch (Exception e) {
             LOG.log(Level.INFO, "Failed to load resource input for " + resourceId + " from " + itemToLoad, e);
+            return false;
         } finally {
             if (is!=null) {
                 try {
@@ -341,7 +366,6 @@ public class LoadableResource {
                 LOG.log(Level.INFO, "Error closing resource input for " + resourceId, e);
             }
         }
-        return false;
     }
 
     /**

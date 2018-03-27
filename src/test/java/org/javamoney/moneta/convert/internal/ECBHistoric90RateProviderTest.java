@@ -160,8 +160,8 @@ public class ECBHistoric90RateProviderTest {
     public void shouldSetTimeInLocalDateTime() {
 
         Calendar localDate = GregorianCalendar.getInstance();
-        localDate.add(Calendar.DAY_OF_YEAR, -80);
-        localDate.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        localDate.add(Calendar.DAY_OF_YEAR, -20);
+        localDate.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
 
         ConversionQuery conversionQuery = ConversionQueryBuilder.of()
                 .setTermCurrency(EURO).set(localDate).build();
