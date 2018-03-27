@@ -18,12 +18,17 @@ package org.javamoney.moneta;
 import static org.testng.Assert.assertEquals;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.money.UnknownCurrencyException;
+import javax.money.format.AmountFormatQueryBuilder;
+import javax.money.format.MonetaryAmountFormat;
+import javax.money.format.MonetaryFormats;
 
+import org.javamoney.moneta.format.CurrencyStyle;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -81,6 +86,24 @@ public class ToStringMonetaryAmountFormatTest {
 	public void parserRoundedMoneyTest() {
 		executeTest(roundedMoney, fastMoney, money,
 				ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle.ROUNDED_MONEY);
+	}
+
+	/**
+	 * Test related to {@see https://java.net/jira/browse/JAVAMONEY-151}.
+	 */
+	@Test
+	public void testBulgarianLev(){
+		MonetaryAmount money = Money.of(1123000.50, "BGN");
+		Locale locale = new Locale("", "BG");
+		MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(
+				AmountFormatQueryBuilder.of(locale).set(CurrencyStyle.SYMBOL)
+						.build());
+		assertEquals(format.format(money), "1 123 000,50 лв");
+
+		format = MonetaryFormats.getAmountFormat(
+				AmountFormatQueryBuilder.of(locale).set(CurrencyStyle.CODE)
+						.build());
+		assertEquals(format.format(money), "1 123 000,50 BGN");
 	}
 
 	private void executeTest(MonetaryAmount expectedMoney, MonetaryAmount a,

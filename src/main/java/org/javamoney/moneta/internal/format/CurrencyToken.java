@@ -95,6 +95,10 @@ final class CurrencyToken implements FormatToken {
             case NAME:
                 return getCurrencyName(amount.getCurrency());
             case SYMBOL:
+                // Fix for https://github.com/JavaMoney/jsr354-ri/issues/151
+                if("BG".equals(locale.getCountry())){
+                    return "лв";
+                }
                 return getCurrencySymbol(amount.getCurrency());
             default:
             case CODE:

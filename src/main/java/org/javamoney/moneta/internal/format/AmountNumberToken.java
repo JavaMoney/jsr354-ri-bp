@@ -62,6 +62,16 @@ final class AmountNumberToken implements FormatToken {
         }
         formatFormat.applyPattern(this.partialNumberPattern);
         parseFormat.applyPattern(this.partialNumberPattern.trim());
+        // Fix for https://github.com/JavaMoney/jsr354-ri/issues/151
+        if ("BG".equals(amountFormatContext.getLocale().getCountry())) {
+            formatFormat.setGroupingSize(3);
+            formatFormat.setGroupingUsed(true);
+            syms = formatFormat.getDecimalFormatSymbols();
+            syms.setDecimalSeparator(',');
+            syms.setGroupingSeparator(' ');
+            formatFormat.setDecimalFormatSymbols(syms);
+            parseFormat.setDecimalFormatSymbols(syms);
+        }
     }
 
     /**
