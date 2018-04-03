@@ -27,7 +27,7 @@ import javax.money.MonetaryQuery;
 import javax.money.NumberValue;
 import javax.money.format.MonetaryAmountFormat;
 
-import org.javamoney.moneta.internal.FastMoneyAmountBuilder;
+import org.javamoney.moneta.internal.FastMoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MonetaryConfig;
 import org.javamoney.moneta.spi.MoneyUtils;
@@ -981,7 +981,7 @@ public final class FastMoney implements MonetaryAmount, Comparable<MonetaryAmoun
 
     @Override
     public MonetaryAmountFactory<FastMoney> getFactory() {
-        return new FastMoneyAmountBuilder().setAmount(this);
+        return new FastMoneyAmountFactory().setAmount(this);
     }
 
 }
