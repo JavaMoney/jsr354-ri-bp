@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -102,7 +102,7 @@ public class FastMoneyTest{
         FastMoney result = money1.divideToIntegralValue(new BigDecimal("0.5001"));
         assertEquals(result.getNumber().numberValue(BigDecimal.class),BigDecimal.ONE);
         result = money1.divideToIntegralValue(new BigDecimal("0.2001"));
-        assertEquals(result.getNumber().numberValue(BigDecimal.class),BigDecimal.valueOf(4l));
+        assertEquals(result.getNumber().numberValue(BigDecimal.class),BigDecimal.valueOf(4L));
         result = money1.divideToIntegralValue(BigDecimal.valueOf(5));
         assertTrue(result.getNumber().numberValue(BigDecimal.class).intValueExact() == 0);
     }
@@ -1237,7 +1237,7 @@ public class FastMoneyTest{
    @Test
    public void shouldRerturnMonetaryAmount() {
    	MonetaryAmount amount = FastMoney.ofMinor(DOLLAR, 1234L);
-   	assertEquals(Double.valueOf(12.34), amount.getNumber().doubleValue());
+   	assertEquals(12.34, amount.getNumber().doubleValue());
    	assertEquals(DOLLAR, amount.getCurrency());
    }
 
@@ -1254,7 +1254,7 @@ public class FastMoneyTest{
    @Test
    public void shouldRerturnMonetaryAmountUsingFractionDigits() {
    	MonetaryAmount amount = FastMoney.ofMinor(DOLLAR, 1234L, 3);
-   	assertEquals(Double.valueOf(1.234), amount.getNumber().doubleValue());
+   	assertEquals(1.234, amount.getNumber().doubleValue());
    	assertEquals(DOLLAR, amount.getCurrency());
    }
 }

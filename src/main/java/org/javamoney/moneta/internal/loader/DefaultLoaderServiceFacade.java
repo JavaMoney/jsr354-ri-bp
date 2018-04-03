@@ -52,11 +52,10 @@ class DefaultLoaderServiceFacade {
 	}
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(DefaultLoaderServiceFacade.class.getName()).append('{')
-		.append(" scheduledDataLoaderService: ").append(scheduledDataLoaderService).append(',')
-		.append(" asyncLoaderService: ").append(loadDataLoaderService).append(',')
-		.append(" loadDataLocalLoaderService: ").append(loadDataLocalLoaderService).append(',');
-		return sb.toString();
+        String sb = DefaultLoaderServiceFacade.class.getName() + '{' +
+                " scheduledDataLoaderService: " + scheduledDataLoaderService + ',' +
+                " asyncLoaderService: " + loadDataLoaderService + ',' +
+                " loadDataLocalLoaderService: " + loadDataLocalLoaderService + ',';
+        return sb;
 	}
 }

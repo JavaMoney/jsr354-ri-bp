@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2015, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -18,11 +18,7 @@ package org.javamoney.moneta.internal.loader;
 import org.javamoney.moneta.spi.LoadDataInformation;
 
 /**
- * @param resourceId       The dataId.
- * @param cache            The cache to be used for storing remote data locally.
- * @param properties       The configuration properties.
- * @param fallbackLocation teh fallback ULR, not null.
- * @param locations        the remote locations, not null (but may be empty!)
+ * Builder of {@link LoadableResource}.
  */
 public class LoadableResourceBuilder {
 
@@ -52,10 +48,9 @@ public class LoadableResourceBuilder {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(LoadableResourceBuilder.class.getName()).append('{')
-		.append(" loadDataInformation: ").append(loadDataInformation).append(',')
-		.append(" cache: ").append(loadDataInformation).append('}');
-		return sb.toString();
+		String sb = LoadableResourceBuilder.class.getName() + '{' +
+				" loadDataInformation: " + loadDataInformation + ',' +
+				" cache: " + loadDataInformation + '}';
+		return sb;
 	}
 }

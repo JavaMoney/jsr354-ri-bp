@@ -26,7 +26,6 @@ import javax.money.Monetary;
 import javax.money.convert.*;
 
 import org.javamoney.moneta.internal.convert.ECBCurrentRateProvider;
-import org.javamoney.moneta.internal.convert.LocalDate;
 import org.javamoney.moneta.spi.CompoundRateProvider;
 import org.testng.annotations.Test;
 

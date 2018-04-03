@@ -46,6 +46,10 @@
 		<!-- dependency versions -->
 		<testng.version>6.9.12</testng.version>
 		<revapi.version>0.5.2</revapi.version>
+		<!-- OSGO support -->
+		<osgi.version>5.0.0</osgi.version>
+		<osgi.compendium.version>${osgi.version}</osgi.compendium.version>
+		<osgi.annotation.version>6.0.0</osgi.annotation.version>
 	</properties>
 
 	<ciManagement>
@@ -97,7 +101,53 @@
 		</repository>
 	</repositories>
 
+	<dependencyManagement>
+		<dependencies>
+			<!-- OSGI support -->
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.annotation</artifactId>
+				<scope>provided</scope>
+				<version>${osgi.annotation.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.compendium</artifactId>
+				<scope>provided</scope>
+				<version>${osgi.compendium.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>${osgi.version}</version>
+				<scope>provided</scope>
+				<optional>true</optional>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.annotation</artifactId>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>

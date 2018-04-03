@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -34,9 +34,9 @@ import javax.money.MonetaryQuery;
  * 	Long result = query.queryFrom(monetaryAmount);// 2L
  * }
  * </pre>
- * @see {@link MonetaryAmount#query(MonetaryQuery)}
- * @see {@link MonetaryQuery}
- * @see {@link MonetaryQuery#queryFrom(MonetaryAmount)}
+ * @see {MonetaryAmount#query(MonetaryQuery)
+ * @see  MonetaryQuery
+ * @see MonetaryQuery#queryFrom(MonetaryAmount)
  * @author Otavio Santana
  * @since 1.0.1
  */

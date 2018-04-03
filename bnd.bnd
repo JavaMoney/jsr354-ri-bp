@@ -1,0 +1,47 @@
+-buildpath: \
+	osgi.annotation; version=6.0.0,\
+	osgi.core; version=6.0,\
+	osgi.cmpn; version=6.0
+
+-testpath: \
+	${junit}
+
+javac.source: 1.7
+javac.target: 1.7
+
+Automatic-Module-Name: org.javamoney.moneta
+Bundle-Version: ${version}.${tstamp}
+Bundle-Name: JavaMoney Moneta RI
+Bundle-SymbolicName: org.javamoney.moneta
+Bundle-Description:JavaMoney Moneta Reference Implementation (Backport)
+Bundle-Category: Implementation
+Bundle-Copyright: (C) Credit Suisse AG
+Bundle-License: JSR 354 Spec Evaluation/Implementation License
+Bundle-Vendor: Credit Suisse AG
+Bundle-DocURL: http://www.javamoney.org
+Bundle-Activator: org.javamoney.moneta.internal.OSGIActivator
+Export-Package: \
+	org.javamoney.moneta,\
+    org.javamoney.moneta.spi,\
+    org.javamoney.moneta.spi.base,\
+    org.javamoney.moneta.function,\
+    org.javamoney.moneta.format,\
+    org.javamoney.moneta.convert
+Import-Package: \
+	javax.money,\
+    javax.money.spi,\
+    javax.money.convert,\
+    javax.money.format
+Export-Service:\
+    javax.money.spi.ExchangeRateProvider.class,\
+    javax.money.spi.CurrencyProviderSpi.class,\
+    javax.money.spi.MonetaryAmountFactoryProviderSpi.class,\
+    javax.money.spi.MonetaryAmountFormatProviderSpi.class,\
+    javax.money.spi.MonetaryAmountsSingletonQuerySpi.class,\
+    javax.money.spi.MonetaryAmountsSingletonQuerySpi.class,\
+    javax.money.spi.MonetaryAmountsSingletonSpi.class,\
+    javax.money.spi.MonetaryConversionsSingletonSpi.class,\
+    javax.money.spi.MonetaryCurrenciesSingletonSpi.class,\
+    javax.money.spi.RoundingProviderSpi.class,\
+    org.javamoney.moneta.spi.LoaderService
+

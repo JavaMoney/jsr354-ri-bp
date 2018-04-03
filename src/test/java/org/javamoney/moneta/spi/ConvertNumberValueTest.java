@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -47,7 +47,7 @@ public class ConvertNumberValueTest {
 	@Test
 	public void longTest() {
 		Number valueTest = 20d;
-		Long expectedValue = 20l;
+		Long expectedValue = 20L;
 		Long number = ConvertNumberValue.of(Long.class, valueTest);
 		Long numberExact = ConvertNumberValue.ofExact(Long.class, valueTest);
 		
@@ -159,7 +159,7 @@ public class ConvertNumberValueTest {
 	@Test
 	public void atomicLongTest() {
 		Number valueTest = 20d;
-		AtomicLong expectedValue = new AtomicLong(20l);
+		AtomicLong expectedValue = new AtomicLong(20L);
 		AtomicLong number = ConvertNumberValue.of(AtomicLong.class, valueTest);
 		AtomicLong numberExact = ConvertNumberValue.ofExact(AtomicLong.class, valueTest);
 		

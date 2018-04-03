@@ -26,18 +26,12 @@ import java.util.Calendar;
 import java.util.Currency;
 import java.util.GregorianCalendar;
 
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryException;
-import javax.money.MonetaryOperator;
-import javax.money.MonetaryRounding;
-import javax.money.RoundingQueryBuilder;
+import javax.money.*;
 
 import org.testng.annotations.Test;
 
 /**
- * Test for the {@link MonetaryRoundings} singleton.
+ * Test for the {@link Monetary} singleton.
  *
  * @author Anatole Tresch
  */
@@ -240,7 +234,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link ConversionOperators#reciprocal()}.
+     * {@link Monetary#getRounding(CurrencyUnit, String...)} ()}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null1() {
@@ -249,7 +243,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link ConversionOperators#reciprocal()}.
+     * {@link Monetary#getRounding(String, String...)}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null3() {
@@ -258,7 +252,7 @@ public class MonetaryRoundingsTest {
 
     /**
      * Test method for
-     * {@link ConversionOperators#reciprocal()}.
+     * {@link Monetary#getRounding(CurrencyUnit, String...)}.
      */
     @Test(expectedExceptions = NullPointerException.class)
     public void testGetRounding_Null2() {

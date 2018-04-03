@@ -78,7 +78,7 @@ public class ExchangeCurrencyOperatorTest {
 		MonetaryAmount result = ConversionOperators.exchange(real).apply(money);
 		assertNotNull(result);
 		assertEquals(result.getCurrency(), real);
-		assertEquals(Double.valueOf(2.35), result.getNumber().doubleValue());
+		assertEquals(2.35, result.getNumber().doubleValue());
 	}
 
 	@Test
@@ -88,6 +88,6 @@ public class ExchangeCurrencyOperatorTest {
 		MonetaryAmount result = ConversionOperators.exchange(real).apply(money);
 		assertNotNull(result);
 		assertEquals(result.getCurrency(), real);
-		assertEquals(Double.valueOf(-1.345), result.getNumber().doubleValue());
+		assertEquals(-1.345, result.getNumber().doubleValue());
 	}
 }

@@ -292,6 +292,7 @@ public class DefaultLoaderService implements LoaderService {
         }
     }
 
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void addLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {
@@ -309,6 +310,7 @@ public class DefaultLoaderService implements LoaderService {
         }
     }
 
+    @SuppressWarnings("SynchronizationOnLocalVariableOrMethodParameter")
     @Override
     public void removeLoaderListener(LoaderListener l, String... dataIds) {
         if (dataIds.length == 0) {

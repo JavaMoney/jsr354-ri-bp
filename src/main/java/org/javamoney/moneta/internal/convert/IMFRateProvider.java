@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -273,7 +273,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
         // Currency May 01, 2013 April 30, 2013 April 29, 2013 April 26, 2013
         // April 25, 2013
         SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
-        String[] parts = line.split("\\\t");
+        @SuppressWarnings("Annotator") String[] parts = line.split("\\\t");
         List<LocalDate> dates = new ArrayList<>(parts.length);
         for (int i = 1; i < parts.length; i++) {
             Calendar date = GregorianCalendar.getInstance();

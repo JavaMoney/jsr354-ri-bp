@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, 2015, Anatole Tresch, Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -44,9 +44,9 @@ import org.javamoney.moneta.spi.DefaultNumberValue;
  *  MonetaryAmount result = money.with(operator);
  * }
  * </pre>
- * @see {@link MonetaryAmount#with(MonetaryOperator)}
- * @see {@link MonetaryOperator}
- * @see {@link MonetaryOperator#apply(MonetaryAmount)}
+ * @see MonetaryAmount#with(MonetaryOperator)
+ * @see MonetaryOperator
+ * @see MonetaryOperator#apply(MonetaryAmount)
  * @author Anatole Tresch
  * @author Otavio Santana
  * @since 1.0.1
@@ -105,7 +105,7 @@ public final class MonetaryOperators {
      * Returns the {@link #percent(BigDecimal)} converting
      * this number to {@link BigDecimal} and using the {@link #DEFAULT_MATH_CONTEXT}
      * @param number to be converted to {@link BigDecimal}
-     * @see {@link #permil(BigDecimal)}
+     * @see #permil(BigDecimal)
      * @return the permil {@link MonetaryOperator}
      */
     public static MonetaryOperator permil(Number number) {
@@ -118,7 +118,7 @@ public final class MonetaryOperators {
      * this number to {@link BigDecimal} and using the {@link MathContext} in parameters
      * @param number to be converted to {@link BigDecimal}
      * @param mathContext the mathContext to be used
-     * @see {@link #permil(BigDecimal)}
+     * @see #permil(BigDecimal)
      * @return the permil {@link MonetaryOperator}
      */
     public static MonetaryOperator permil(Number number, MathContext mathContext) {
@@ -147,7 +147,7 @@ public final class MonetaryOperators {
     /**
      * Gets the percentage of the amount.
      * @param number to be used in percent
-     * @see {@link #percent(BigDecimal)}
+     * @see #percent(BigDecimal)
      * @return the percent of {@link MonetaryOperator}
      */
     public static MonetaryOperator percent(Number number) {

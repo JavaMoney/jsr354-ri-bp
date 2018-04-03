@@ -64,6 +64,7 @@ class DefaultLoaderListener {
      */
     public void trigger(String dataId, InputStream is) {
         List<LoaderListener> listeners = getListeners("");
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (listeners) {
             for (LoaderListener ll : listeners) {
                 try {
@@ -75,6 +76,7 @@ class DefaultLoaderListener {
         }
         if (!(dataId==null || dataId.isEmpty())) {
             listeners = getListeners(dataId);
+            //noinspection SynchronizationOnLocalVariableOrMethodParameter
             synchronized (listeners) {
                 for (LoaderListener ll : listeners) {
                     try {
@@ -89,9 +91,8 @@ class DefaultLoaderListener {
 
     @Override
     public String toString() {
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(DefaultLoaderListener.class.getName()).append('{')
-    	.append("listenersMap: ").append(listenersMap).append('}');
-    	return sb.toString();
+        String sb = DefaultLoaderListener.class.getName() + '{' +
+                "listenersMap: " + listenersMap + '}';
+        return sb;
     }
 }
