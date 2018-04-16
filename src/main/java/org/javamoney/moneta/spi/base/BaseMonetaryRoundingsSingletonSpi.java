@@ -21,7 +21,7 @@ import java.util.Collection;
 /**
  * This class models the accessor for rounding instances, modeled as
  * {@link javax.money.MonetaryOperator}.
- * <p>
+ *
  * This class is thread-safe.
  *
  * @author Anatole Tresch

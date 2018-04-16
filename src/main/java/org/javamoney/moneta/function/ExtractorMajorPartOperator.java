@@ -37,15 +37,15 @@ final class ExtractorMajorPartOperator implements MonetaryOperator {
 
     /**
      * Gets the amount in major units as a {@code MonetaryAmount} with scale 0.
-     * <p>
+     *
      * This returns the monetary amount in terms of the major units of the currency, truncating the
      * amount if necessary. For example, 'EUR 2.35' will return 'EUR 2', and 'BHD -1.345' will
      * return 'BHD -1'.
-     * <p>
+     *
      * This is returned as a {@code MonetaryAmount} rather than a {@code BigInteger} . This is to
      * allow further calculations to be performed on the result. Should you need a
      * {@code BigInteger}, simply call {@code asType(BigInteger.class)}.
-     * <p>
+     *
      *
      * @return the major units part of the amount, never {@code null}
      */

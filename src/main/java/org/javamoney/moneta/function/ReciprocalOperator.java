@@ -41,7 +41,7 @@ final class ReciprocalOperator implements MonetaryOperator{
 
     /**
      * Gets the amount as reciprocal / multiplicative inversed value (1/n).
-     * <p>
+     *
      * E.g. 'EUR 2.0' will be converted to 'EUR 0.5'.
      *
      * @return the reciprocal / multiplicative inversed of the amount

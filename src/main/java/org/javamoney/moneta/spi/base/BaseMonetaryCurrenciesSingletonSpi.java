@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * Factory singleton backing interface for {@link javax.money.Monetary} that provides access to
  * different registered {@link javax.money.spi.CurrencyProviderSpi} instances.
- * <p>
+ *
  * Implementations of this interface must be thread safe.
  *
  * @author Anatole Tresch

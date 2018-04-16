@@ -110,7 +110,7 @@ final class CurrencyToken implements FormatToken {
      * This method tries to evaluate the localized display name for a
      * {@link CurrencyUnit}. It uses {@link Currency#getDisplayName(Locale)} if
      * the given currency code maps to a JDK {@link Currency} instance.
-     * <p>
+     *
      * If not found {@code currency.getCurrencyCode()} is returned.
      *
      * @param currency The currency, not {@code null}
@@ -143,7 +143,7 @@ final class CurrencyToken implements FormatToken {
      * This method tries to evaluate the localized symbol name for a
      * {@link CurrencyUnit}. It uses {@link Currency#getSymbol(Locale)} if the
      * given currency code maps to a JDK {@link Currency} instance.
-     * <p>
+     *
      * If not found {@code currency.getCurrencyCode()} is returned.
      *
      * @param currency The currency, not {@code null}

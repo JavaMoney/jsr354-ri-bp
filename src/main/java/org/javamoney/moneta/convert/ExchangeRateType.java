@@ -24,11 +24,11 @@ import org.javamoney.moneta.internal.convert.IMFRateProvider;
 import org.javamoney.moneta.internal.convert.IdentityRateProvider;
 
 /**
- * <p>
+ *
  * This enum contains all implementations by Moneta. Using this enum will easier
  * to choose an available implementation.
- * </p>
- * <code>ExchangeRateProvider provider = MonetaryConversions.getExchangeRateProvider(ExchangeRateType.ECB);<code>
+ *
+ * {@code ExchangeRateProvider provider = MonetaryConversions.getExchangeRateProvider(ExchangeRateType.ECB);}
  *
  * @author otaviojava
  * @author Werner Keil

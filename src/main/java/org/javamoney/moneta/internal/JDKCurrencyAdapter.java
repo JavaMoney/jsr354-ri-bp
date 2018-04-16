@@ -57,11 +57,11 @@ public final class JDKCurrencyAdapter implements CurrencyUnit, Serializable, Com
     /**
      * Gets the unique currency code, the effective code depends on the
      * currency.
-     * <p>
+     *
      * Since each currency is identified by this code, the currency code is
      * required to be defined for every {@link CurrencyUnit} and not
      * {@code null} or empty.
-     * <p>
+     *
      * For ISO codes the 3-letter ISO code should be returned. For non ISO
      * currencies no constraints are defined.
      *
@@ -80,11 +80,11 @@ public final class JDKCurrencyAdapter implements CurrencyUnit, Serializable, Com
      * Gets a numeric currency code. Within the ISO-4217 name space, this equals
      * to the ISO numeric code. In other currency name spaces this number may be
      * different, or even undefined (-1).
-     * <p>
+     *
      * The numeric code is an optional alternative to the standard currency
      * code. If defined, the numeric code is required to be unique.
-     * <p>
-     * This method matches the API of <type>java.util.Currency</type>.
+     *
+     * This method matches the API of {@link java.util.Currency}.
      *
      * @return the numeric currency code
      * @see CurrencyUnit#getNumericCode()
@@ -95,13 +95,13 @@ public final class JDKCurrencyAdapter implements CurrencyUnit, Serializable, Com
 
     /**
      * Gets the number of fractional digits typically used by this currency.
-     * <p>
+     *
      * Different currencies have different numbers of fractional digits by
      * default. * For example, 'GBP' has 2 fractional digits, but 'JPY' has
      * zero. * virtual currencies or those with no applicable fractional are
      * indicated by -1. *
-     * <p>
-     * This method matches the API of <type>java.util.Currency</type>.
+     *
+     * This method matches the API of {@link java.util.Currency}.
      *
      * @return the fractional digits, from 0 to 9 (normally 0, 2 or 3), or 0 for
      * pseudo-currencies.

@@ -49,10 +49,10 @@ final class PercentOperator implements MonetaryOperator {
 
 	/**
 	 * Gets the percentage of the amount.
-	 * <p>
+	 *
 	 * This returns the monetary amount in percent. For example, for 10% 'EUR
 	 * 2.35' will return 0.235.
-	 * <p>
+	 *
 	 * This is returned as a {@code MonetaryAmount}.
 	 *
 	 * @return the percent result of the amount, never {@code null}

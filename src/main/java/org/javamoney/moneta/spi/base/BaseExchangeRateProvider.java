@@ -34,9 +34,9 @@ import java.util.Objects;
  * in the chain that returns a non null result determines the final result of a call. Nevertheless adapting the
  * {@link javax.money.spi.MonetaryConversionsSingletonSpi} allows
  * to implement also alternate strategies, e.g. honoring different priorities of providers as well.
- * <p>
+ *
  * Implementations of this interface are required to be thread save.
- * <p>
+ *
  * Implementations of this class must neither be immutable nor serializable.
  *
  * @author Anatole Tresch

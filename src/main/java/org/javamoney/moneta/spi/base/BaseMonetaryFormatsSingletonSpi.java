@@ -18,7 +18,7 @@ import java.util.Locale;
 
 /**
  * This interface models the singleton functionality of {@link javax.money.format.MonetaryFormats}.
- * <p>
+ *
  * Implementations of this interface must be thread-safe.
  *
  * @author Anatole Tresch

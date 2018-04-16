@@ -41,16 +41,16 @@ import org.javamoney.moneta.spi.MoneyUtils;
 /**
  * Default immutable implementation of {@link MonetaryAmount} based
  * on {@link BigDecimal} as numeric representation.
- * <p>
+ *
  * As required by {@link MonetaryAmount} this class is final, thread-safe,
  * immutable and serializable.
- * </p><p>
+ *
  * This class can be configured with an arbitrary {@link MonetaryContext}. The
  * default {@link MonetaryContext} used models by default the same settings as
  * {@link MathContext#DECIMAL64} . This default {@link MonetaryContext} can also
  * be reconfigured by adding a file {@code /javamoney.properties} to the
  * classpath, with the following content:
- * </p>
+ *
  * <pre>
  * # Default MathContext for Money
  * #-------------------------------

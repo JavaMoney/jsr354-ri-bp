@@ -13,10 +13,10 @@ import javax.money.format.MonetaryAmountFormat;
 import java.io.IOException;
 
 /**
- * <p>
+ *
  * Formats instances of {@code MonetaryAmount} to a {@link String} or an {@link Appendable}.
- * </p>
- * <p>
+ *
+ *
  * To obtain a <code>MonetaryAmountFormat</code> for a specific locale, including the default
  * locale, call {@link javax.money.format.MonetaryFormats#getAmountFormat(java.util.Locale, String...)}.
  *
@@ -24,43 +24,41 @@ import java.io.IOException;
  * .MonetaryAmountFormatProviderSpi}.
  * The spi implementation creates new instances of {@link BaseMonetaryAmountFormat} based on the
  * <i>styleId</i> and <i> (arbitrary) attributes</i> passed within the {@link javax.money.format.AmountFormatContext}.
- * </p>
- * <p>In general, do prefer
+ *
+ * In general, do prefer
  * accessing <code>MonetaryAmountFormat</code> instances from the {@link javax.money.format.MonetaryFormats} singleton,
  * instead of instantiating implementations directly, since the <code>MonetaryFormats</code> factory
  * method may return different subclasses or may implement contextual behaviour (in a EE context).
  * If you need to customize the format object, do something like this:
- * <p>
+ *
  * <blockquote>
- * <p>
+ *
  * <pre>
  * MonetaryAmountFormat f = MonetaryFormats.getInstance(loc);
  * f.setStyle(f.getStyle().toBuilder().setPattern(&quot;###.##;(###.##)&quot;).build());
  * </pre>
- * <p>
+ *
  * </blockquote>
- * <p>
- * <h4>Special Values</h4>
- * <p>
- * <p>
+ *
+ * <b>Special Values</b>
+ *
+ *
  * Negative zero (<code>"-0"</code>) should always parse to
  * <ul>
  * <li><code>0</code></li>
  * </ul>
- * <p>
- * <h4><a name="synchronization">Synchronization</a></h4>
- * <p>
- * <p>
+ *
+ * <b><a name="synchronization">Synchronization</a></b>
+ *
+ *
  * Instances of this class are not required to be thread-safe. It is recommended to of separate
  * format instances for each thread. If multiple threads access a format concurrently, it must be
  * synchronized externally.
- * <p>
- * <h4>Example</h4>
- * <p>
- * <blockquote>
- * <p>
- * <pre>
- * <strong>// Print out a number using the localized number, currency,
+ *
+ * <b>Example</b>
+ *
+ * {@code
+ * // Print out a number using the localized number, currency,
  * // for each locale</strong>
  * Locale[] locales = MonetaryFormats.getAvailableLocales();
  * MonetaryAmount amount = ...;
@@ -80,9 +78,7 @@ import java.io.IOException;
  *         } catch (ParseException e) {}
  *     }
  * }
- * </pre>
- * <p>
- * </blockquote>
+ * }
  */
 public abstract class BaseMonetaryAmountFormat implements MonetaryAmountFormat{
 

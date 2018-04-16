@@ -23,10 +23,10 @@ import javax.money.*;
 /**
  * This class allows to extract the major part of a {@link MonetaryAmount}
  * instance. Gets the amount in major units as a {@code long}.
- * <p>
+ *
  * For example, 'EUR 2.35' will return 2,
  * and 'BHD -1.345' will return -1.
- * <p>
+ *
  * @author Anatole Tresch
  * @author Otavio Santana
  */
@@ -43,11 +43,11 @@ final class ExtractorMajorPartQuery implements MonetaryQuery<Long> {
 
     /**
      * Gets the amount in major units as a {@code long}.
-     * <p>
+     *
      * This returns the monetary amount in terms of the major units of the
      * currency, truncating the amount if necessary. For example, 'EUR 2.35'
      * will return 2, and 'BHD -1.345' will return -1.
-     * <p>
+     *
      * This method matches the API of {@link java.math.BigDecimal}.
      *
      * @return the major units part of the amount

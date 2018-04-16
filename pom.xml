@@ -19,7 +19,7 @@
 
 	<artifactId>moneta-bp</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>Moneta (JSR 354 RI) for Java 7</name>
 
 	<description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
@@ -36,7 +36,7 @@
 	</licenses>
 
 	<properties>
-		<jsr.version>1.0.1</jsr.version>
+		<jsr.version>1.0.3</jsr.version>
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
@@ -232,69 +232,6 @@
 							<id>prepare-agent</id>
 							<goals>
 								<goal>prepare-agent</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.github.siom79.japicmp</groupId>
-					<artifactId>japicmp-maven-plugin</artifactId>
-					<version>0.6.2</version>
-					<configuration>
-						<oldVersion>
-							<dependency>
-								<groupId>${project.groupId}</groupId>
-								<artifactId>${project.artifactId}</artifactId>
-								<version>1.0</version>
-								<type>jar</type>
-							</dependency>
-						</oldVersion>
-						<newVersion>
-							<file>
-								<path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
-							</file>
-						</newVersion>
-						<parameter>
-							<onlyModified>false</onlyModified>
-							<includes>
-								<include>org.javamoney.moneta</include>
-								<include>org.javamoney.moneta.convert</include>
-								<include>org.javamoney.moneta.format</include>
-								<include>org.javamoney.moneta.function</include>
-								<include>org.javamoney.moneta.spi</include>
-							</includes>
-							<excludes>
-								<exclude>org.javamoney.moneta.internal</exclude>
-                                <exclude>org.javamoney.moneta.internal.convert</exclude>
-                                <exclude>org.javamoney.moneta.internal.format</exclude>
-                                <exclude>org.javamoney.moneta.internal.loader</exclude>
-							</excludes>
-							<accessModifier>protected</accessModifier>
-							<breakBuildOnModifications>false</breakBuildOnModifications>
-							<breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
-							<onlyBinaryIncompatible>false</onlyBinaryIncompatible>
-							<includeSynthetic>false</includeSynthetic>
-							<ignoreMissingClasses>false</ignoreMissingClasses>
-							<skipPomModules>true</skipPomModules>
-							<!--<htmlStylesheet>path/to/stylesheet.css</htmlStylesheet>-->
-							<htmlTitle>JSR 354 - Java 7 RI Compatibility Report</htmlTitle>
-							<noAnnotations>false</noAnnotations>
-							<ignoreNonResolvableArtifacts>false</ignoreNonResolvableArtifacts>
-						</parameter>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.commons</groupId>
-								<artifactId>commons-math3</artifactId>
-								<version>3.4</version>
-							</dependency>
-						</dependencies>
-						<skip>false</skip>
-					</configuration>
-					<executions>
-						<execution>
-							<phase>verify</phase>
-							<goals>
-								<goal>cmp</goal>
 							</goals>
 						</execution>
 					</executions>
@@ -550,6 +487,144 @@
 								<id>attach-sources</id>
 								<goals>
 									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-gpg-plugin</artifactId>
+							<version>1.4</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<configuration>
+							<defaultKeyring>false</defaultKeyring>
+							<keyname>11A1E4D6</keyname>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>compareapi</id>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- this plugin requires the following maven opts to be set in Java 9 and beyond:
+                           - -add-modules java.xml.bind -->
+						<groupId>com.github.siom79.japicmp</groupId>
+						<artifactId>japicmp-maven-plugin</artifactId>
+						<version>0.11.1</version>
+						<configuration>
+							<oldVersion>
+								<dependency>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>1.0</version>
+									<type>jar</type>
+								</dependency>
+							</oldVersion>
+							<newVersion>
+								<file>
+									<path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
+								</file>
+							</newVersion>
+							<parameter>
+								<onlyModified>false</onlyModified>
+								<includes>
+									<include>org.javamoney.moneta</include>
+									<include>org.javamoney.moneta.convert</include>
+									<include>org.javamoney.moneta.format</include>
+									<include>org.javamoney.moneta.function</include>
+									<include>org.javamoney.moneta.spi</include>
+								</includes>
+								<excludes>
+									<exclude>org.javamoney.moneta.internal</exclude>
+									<exclude>org.javamoney.moneta.internal.convert</exclude>
+									<exclude>org.javamoney.moneta.internal.format</exclude>
+									<exclude>org.javamoney.moneta.internal.loader</exclude>
+								</excludes>
+								<accessModifier>protected</accessModifier>
+								<breakBuildOnModifications>false</breakBuildOnModifications>
+								<breakBuildOnBinaryIncompatibleModifications>true</breakBuildOnBinaryIncompatibleModifications>
+								<onlyBinaryIncompatible>false</onlyBinaryIncompatible>
+								<includeSynthetic>false</includeSynthetic>
+								<ignoreMissingClasses>false</ignoreMissingClasses>
+								<skipPomModules>true</skipPomModules>
+								<!--<htmlStylesheet>path/to/stylesheet.css</htmlStylesheet>-->
+								<htmlTitle>JSR 354 - Java 7 RI Compatibility Report</htmlTitle>
+								<noAnnotations>false</noAnnotations>
+								<ignoreNonResolvableArtifacts>false</ignoreNonResolvableArtifacts>
+							</parameter>
+							<dependencies>
+								<dependency>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-math3</artifactId>
+									<version>3.4</version>
+								</dependency>
+								<dependency>
+
+								</dependency>
+							</dependencies>
+							<skip>false</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>cmp</goal>
 								</goals>
 							</execution>
 						</executions>

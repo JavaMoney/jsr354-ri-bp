@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 /**
  * Factory singleton for {@link javax.money.CurrencyUnit} instances as provided by the
  * different registered {@link javax.money.spi.CurrencyProviderSpi} instances.
- * <p/>
+ *
  * This class is thread safe.
  *
  * @author Anatole Tresch

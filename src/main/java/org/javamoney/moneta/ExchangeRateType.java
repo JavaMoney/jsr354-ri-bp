@@ -18,11 +18,11 @@ package org.javamoney.moneta;
 import javax.money.convert.ExchangeRateProviderSupplier;
 
 /**
- * <p>
+ *
  * This enum contains all implementation of moneta. Using this enum will easier
  * to choose an available implementation.
- * </p>
- * <code>ExchangeRateProvider provider = MonetaryConversions.getExchangeRateProvider(ExchangeRateType.ECB);<code>
+ *
+ * {@code ExchangeRateProvider provider = MonetaryConversions.getExchangeRateProvider(ExchangeRateType.ECB);}
  *
  * @author otaviojava
  * @deprecated Use org.javamoney.moneta.convert.ExchangeRateType instead

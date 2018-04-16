@@ -44,7 +44,7 @@ public interface MonetarySummaryStatistics {
 
    /**
      * Get the number of items added to this summary instance.
-     * @return the number of summarized items, >= 0.
+     * @return the number of summarized items, &gt;= 0.
      */
     long getCount();
 

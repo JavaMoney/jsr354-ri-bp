@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * <p>Decorator to {@link Executors#defaultThreadFactory()} that make thread as daemon.</p>
+ * Decorator to {@link Executors#defaultThreadFactory()} that make thread as daemon.
  * Set {@link Thread#setDaemon(boolean)} as <code>true</code>
  * @see Thread
  * @author Otavio Santana

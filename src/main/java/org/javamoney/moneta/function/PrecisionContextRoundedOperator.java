@@ -26,8 +26,8 @@ import javax.money.MonetaryOperator;
 import org.javamoney.moneta.RoundedMoney;
 
 /**
- * <p>This implementation uses a {@link MathContext} to does the rounding operations. The implementation will use the <b>precision</b>, in other words, the total number of digits in a number</p>
- * <p>The derived class will implements the {@link RoundedMoney} with this rounding monetary operator</p>
+ * This implementation uses a {@link MathContext} to does the rounding operations. The implementation will use the <b>precision</b>, in other words, the total number of digits in a number
+ * The derived class will implements the {@link RoundedMoney} with this rounding monetary operator
  *  <pre>
  *   {@code
  *
@@ -39,7 +39,7 @@ import org.javamoney.moneta.RoundedMoney;
  *
  *    }
 * </pre>
-* <p>Case the parameter in {@link MonetaryOperator#apply(MonetaryAmount)} be null, the apply will return a {@link NullPointerException}</p>
+* Case the parameter in {@link MonetaryOperator#apply(MonetaryAmount)} be null, the apply will return a {@link NullPointerException}
  * @author Otavio Santana
  * @see PrecisionContextRoundedOperator#of(MathContext)
  * @see RoundedMoney

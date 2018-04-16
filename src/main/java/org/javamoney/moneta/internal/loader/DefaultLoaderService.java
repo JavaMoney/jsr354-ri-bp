@@ -39,7 +39,7 @@ import org.javamoney.moneta.spi.LoadDataInformationBuilder;
  * loads/updates the resources from arbitrary locations and stores it to the
  * format file cache. Default loading tasks can be configured within the javamoney.properties
  * file, @see org.javamoney.moneta.loader.format.LoaderConfigurator .
- * <p/>
+ *
  *
  * @author Anatole Tresch
  */

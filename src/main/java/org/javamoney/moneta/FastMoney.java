@@ -40,47 +40,47 @@ import java.util.logging.Logger;
 
 /**
  * <code>long</code> based implementation of {@link MonetaryAmount}.This class internally uses a
- * single long number as numeric representation, which basically is interpreted as minor units.<p>
+ * single long number as numeric representation, which basically is interpreted as minor units.
  * It suggested to have a performance advantage of a 10-15 times faster compared to {@link Money},
  * which internally uses {@link BigDecimal}. Nevertheless this comes with a price of less precision.
  * As an example performing the following calculation one million times, results in slightly
  * different results:
- * </p>
+ *
  * <pre><code>
  * Money money1 = money1.add(Money.of("EUR", 1234567.3444));
  * money1 = money1.subtract(Money.of("EUR", 232323));
  * money1 = money1.multiply(3.4);
  * money1 = money1.divide(5.456);
  * </code></pre>
- * <p>
+ *
  * Executed one million (1000000) times this results in {@code EUR 1657407.962529182}, calculated in
  * 3680 ms, or roughly 3ns/loop.
- * <p>
+ *
  * whereas
- * </p>
+ *
  * <pre><code>
  * FastMoney money1 = money1.add(FastMoney.of("EUR", 1234567.3444));
  * money1 = money1.subtract(FastMoney.of("EUR", 232323));
  * money1 = money1.multiply(3.4);
  * money1 = money1.divide(5.456);
  * </code></pre>
- * <p>
+ *
  * executed one million (1000000) times results in {@code EUR 1657407.96251}, calculated in 179 ms,
  * which is less than 1ns/loop.
- * </p><p>
+ *
  * Also note than mixing up types may drastically change the performance behavior. E.g. replacing the
  * code above with the following: *
- * </p>
+ *
  * <pre><code>
  * FastMoney money1 = money1.add(Money.of("EUR", 1234567.3444));
  * money1 = money1.subtract(FastMoney.of("EUR", 232323));
  * money1 = money1.multiply(3.4);
  * money1 = money1.divide(5.456);
  * </code></pre>
- * <p>
+ *
  * executed one million (1000000) times may execute significantly longer, since monetary amount type
  * conversion is involved.
- * </p><p>
+ *
  * Basically, when mixing amount implementations, the performance of the amount, on which most of
  * the operations are operated, has the most significant impact on the overall performance behavior.
  *

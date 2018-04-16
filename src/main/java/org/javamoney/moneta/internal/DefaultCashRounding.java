@@ -30,7 +30,7 @@ import java.util.Objects;
  * Implementation class providing cash rounding {@link javax.money.MonetaryOperator}
  * instances for {@link CurrencyUnit} instances. modeling rounding based on
  * minimal minor units available for cash payments.
- * <p>
+ *
  * This class is thread safe.
  *
  * @author Anatole Tresch

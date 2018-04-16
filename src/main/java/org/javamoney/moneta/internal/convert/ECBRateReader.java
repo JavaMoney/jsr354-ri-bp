@@ -34,7 +34,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * SAX Event Handler that reads the quotes.
- * <p>
+ *
  * Format: <gesmes:Envelope
  * xmlns:gesmes="http://www.gesmes.org/xml/2002-08-01"
  * xmlns="http://www.ecb.int/vocabulary/2002-08-01/eurofxref">

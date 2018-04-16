@@ -60,7 +60,7 @@ import javax.money.convert.ExchangeRate;
  * reversing a ExchangeRate one must access an {@link javax.money.convert.ExchangeRateProvider} and
  * query for the reverse rate.</li>
  * </ul>
- * <p>
+ *
  * The class also implements {@link Comparable} to allow sorting of multiple
  * exchange rates using the following sorting order;
  * <ul>
@@ -69,7 +69,7 @@ import javax.money.convert.ExchangeRate;
  * <li>base currency</li>
  * <li>term currency</li>
  * </ul>
- * <p>
+ *
  * Finally ExchangeRate is modeled as an immutable and thread safe type. Also
  * exchange rates are {@link java.io.Serializable}, hereby serializing in the following
  * form and order:
@@ -203,11 +203,11 @@ class DefaultExchangeRate implements ExchangeRate, Serializable, Comparable<Exch
 
     /**
      * Allows to evaluate if this exchange rate is a derived exchange rate.
-     * <p>
+     *
      * Derived exchange rates are defined by an ordered list of subconversions
      * with intermediate steps, whereas a direct conversion is possible in one
      * steps.
-     * <p>
+     *
      * This method always returns {@code true}, if the chain contains more than
      * one rate. Direct rates, have also a chain, but with exact one rate.
      *

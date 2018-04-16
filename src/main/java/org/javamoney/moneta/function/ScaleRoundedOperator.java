@@ -26,8 +26,8 @@ import javax.money.MonetaryOperator;
 import org.javamoney.moneta.RoundedMoney;
 
 /**
- * <p>This implementation uses a scale and {@link RoundingMode} to does the rounding operations. The implementation will use the <b>scale</b>, in other words, the number of digits to the right of the decimal point</p>
- * <p>The derived class will implements the {@link RoundedMoney} with this rounding monetary operator</p>
+ * This implementation uses a scale and {@link RoundingMode} to does the rounding operations. The implementation will use the <b>scale</b>, in other words, the number of digits to the right of the decimal point
+ * The derived class will implements the {@link RoundedMoney} with this rounding monetary operator
  *  <pre>
  *   {@code
  *
@@ -38,12 +38,12 @@ import org.javamoney.moneta.RoundedMoney;
  *
  *    }
 * </pre>
- * <p>Case the parameter in {@link MonetaryOperator#apply(MonetaryAmount)} be null, the apply will return a {@link NullPointerException}</p>
+ * Case the parameter in {@link MonetaryOperator#apply(MonetaryAmount)} be null, the apply will return a {@link NullPointerException}
  * @author Otavio Santana
- * @see ScaleRoundedOperator(int, MathContext)
+ * @see #ScaleRoundedOperator(int, RoundingMode)
  * @see RoundedMoney
  * @see MonetaryOperator
- * @see {BigDecimal#scale()
+ * @see BigDecimal#scale()
  */
 public final class ScaleRoundedOperator implements MonetaryOperator {
 

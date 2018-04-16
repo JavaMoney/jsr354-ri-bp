@@ -38,7 +38,7 @@ import javax.money.format.MonetaryParseException;
 /**
  * Formats instances of {@code MonetaryAmount} to a {@link String} or an
  * {@link Appendable}.
- * <p>
+ *
  * Instances of this class are not thread-safe. Basically when using
  * {@link MonetaryAmountFormat} instances a new instance should be created on
  * each access.
@@ -138,7 +138,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
 
     /**
      * Prints a item value to an {@code Appendable}.
-     * <p>
+     *
      * Example implementations of {@code Appendable} are {@code StringBuilder},
      * {@code StringBuffer} or {@code Writer}. Note that {@code StringBuilder}
      * and {@code StringBuffer} never throw an {@code IOException}.
@@ -162,7 +162,7 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
 
     /**
      * Fully parses the text into an instance of {@code MonetaryAmount}.
-     * <p>
+     *
      * The parse must complete normally and parse the entire text. If the parse
      * completes without reading the entire length of the text, an exception is
      * thrown. If any other problem occurs during parsing, an exception is

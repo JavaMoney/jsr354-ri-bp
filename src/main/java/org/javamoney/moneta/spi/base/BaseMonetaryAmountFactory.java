@@ -19,11 +19,11 @@ import javax.money.Monetary;
  * <li>calling {@link javax.money.MonetaryAmount#getFactory()}, returning a {@link BaseMonetaryAmountFactory}
  * creating amounts of the same implementation type, which also provided the factory instance.</li>
  * <li>calling {@link javax.money.Monetary#getAmountFactory(Class)} accessing a
- * {@link BaseMonetaryAmountFactory} for a concrete type <code>Class<T></code>.</li>
+ * {@link BaseMonetaryAmountFactory} for a concrete type {@code Class<T>}.</li>
  * <li>calling {@link javax.money.Monetary#getDefaultAmountFactory()} accessing a default
  * {@link BaseMonetaryAmountFactory}.
  * </ul>
- * <p>
+ *
  * Implementations of this interface allow to get {@link javax.money.MonetaryAmount} instances providing
  * different data as required:
  * <ul>
@@ -38,7 +38,7 @@ import javax.money.Monetary;
  * </ul>
  * If not defined a default {@link javax.money.MonetaryContext} is used, which can also be configured by adding
  * configuration to a file {@code /javamoney.properties} to the classpath.
- * <p>
+ *
  * Hereby the entries. e.g. for a class {@code MyMoney} should start with {@code a.b.MyMoney.ctx}. The entries valid
  * must be documented
  * on the according implementation class, where the following entries are defined for all implementation types
@@ -48,7 +48,7 @@ import javax.money.Monetary;
  * <li>{@code a.b.MyMoney.ctx.maxScale} to define the maximal supported scale.</li>
  * <li>{@code a.b.MyMoney.ctx.fixedScale} to define the scale to be fixed (constant).</li>
  * </ul>
- * <p>
+ *
  * <h2>Implementation specification</h2> Instances of this interface are <b>not</b> required to be
  * thread-safe!
  *

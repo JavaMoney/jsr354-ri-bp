@@ -24,7 +24,7 @@ import javax.money.format.MonetaryParseException;
 /**
  * {@link FormatToken} which adds an arbitrary literal constant value to the
  * output.
- * <p>
+ *
  * This class is thread safe, immutable and serializable.
  *
  * @author Anatole Tresch

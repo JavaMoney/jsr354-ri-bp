@@ -39,11 +39,11 @@ final class ExtractorMinorPartQuery implements MonetaryQuery<Long> {
 
 	/**
 	 * Extract the minor part of a {@code MonetaryAmount} with the same scale.
-	 * <p>
+	 *
 	 * This returns the monetary amount in terms of the minor units of the
 	 * currency, truncating the whole part if necessary. For example, 'EUR 2.35'
 	 * will return 35, and 'BHD -1.345' will return -345.
-	 * <p>
+	 *
 	 * This is returned as a {@code MonetaryAmount} rather than a
 	 * {@code BigDecimal} . This is to allow further calculations to be
 	 * performed on the result. Should you need a {@code BigDecimal}, simply

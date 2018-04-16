@@ -26,7 +26,7 @@ import java.util.Objects;
  * {@code MonetaryConversions} singleton accessor. It should be registered as a
  * service using the JDK {@code ServiceLoader}. Hereby only one instance can be
  * registered at a time.
- * <p>
+ *
  * This interface is designed to support also contextual behaviour, e.g. in Java
  * EE containers each application may provide its own
  * {@link javax.money.convert.ExchangeRateProvider} instances, e.g. by registering them as CDI
@@ -34,10 +34,10 @@ import java.util.Objects;
  * {@link BaseMonetaryConversionsSingletonSpi} that manages the different application
  * contexts transparently. In a SE environment this class is expected to behave
  * like an ordinary singleton, loading its SPIs from the {@link java.util.ServiceLoader}.
- * <p>
+ *
  * Instances of this class must be thread safe. It is not a requirement that
  * they are serializable.
- * <p>
+ *
  * Only one instance can be registered using the {@link java.util.ServiceLoader}. When
  * registering multiple instances the {@link javax.money.convert.MonetaryConversions} accessor will
  * not work.

@@ -31,8 +31,8 @@ import org.javamoney.moneta.spi.MonetaryConfig;
  * Evaluates the default {@link MonetaryContext} to be used for {@link Money}.
  * The default {@link MonetaryContext} can be configured by adding a file
  * {@code /javamoney.properties} from the classpath with the following content:
- * <p>
- * <p>
+ *
+ *
  * <pre>
  * # Default MathContext for Money
  * #-------------------------------
@@ -41,7 +41,7 @@ import org.javamoney.moneta.spi.MonetaryConfig;
  * org.javamoney.moneta.Money.defaults.precision=256
  * org.javamoney.moneta.Money.defaults.roundingMode=HALF_EVEN
  * </pre>
- * <p>
+ *
  * Hereby the roundingMode constants are the same as defined on
  * {@link RoundingMode}.
  */

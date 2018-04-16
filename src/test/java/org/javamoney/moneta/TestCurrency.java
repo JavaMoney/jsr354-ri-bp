@@ -195,7 +195,7 @@ public final class TestCurrency implements CurrencyUnit, Serializable, Comparabl
     /**
      * Adapter that implements the new {@link CurrencyUnit} interface using the
      * JDK's {@link Currency}.
-     * <p>
+     *
      * This adapter will be removed in the final platform implementation.
      *
      * @author Anatole Tresch

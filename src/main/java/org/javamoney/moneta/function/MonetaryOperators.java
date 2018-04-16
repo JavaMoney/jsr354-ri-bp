@@ -28,7 +28,7 @@ import org.javamoney.moneta.spi.DefaultNumberValue;
 
 /**
  * This singleton class provides access to the predefined monetary functions.
- * <p>
+ *
  * The class is thread-safe, which is also true for all functions returned by
  * this class.
  * <pre>
@@ -37,7 +37,7 @@ import org.javamoney.moneta.spi.DefaultNumberValue;
  *  MonetaryAmount result = operator.apply(money);
  * }
  * </pre>
- * <p>Or using: </p>
+ * Or using:
  * <pre>
  * {@code
  * 	MonetaryAmount money = Money.parse("EUR 2.35");
@@ -68,9 +68,9 @@ public final class MonetaryOperators {
 
     /**
 	 * Gets the reciprocal of {@link MonetaryAmount}
-	 * <p>
+	 *
 	 * Gets the amount as reciprocal, multiplicative inverse value (1/n).
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.0");
@@ -85,10 +85,10 @@ public final class MonetaryOperators {
 
     /**
 	 * Gets the permil of the amount.
-	 * <p>
+	 *
 	 * This returns the monetary amount in permil. For example, for 10% 'EUR
 	 * 2.35' will return 0.235.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR EUR 2.35");
@@ -127,10 +127,10 @@ public final class MonetaryOperators {
 
 	/**
 	 * Gets the percentage of the amount.
-	 * <p>
+	 *
 	 * This returns the monetary amount in percent. For example, for 10% 'EUR
 	 * 2.35' will return 0.235.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 200.0");
@@ -156,11 +156,11 @@ public final class MonetaryOperators {
 
 	/**
 	 * Extract minor part of {@link MonetaryAmount}
-	 * <p>
+	 *
 	 * This returns the monetary amount in terms of the minor units of the
 	 * currency, truncating the whole part if necessary. For example, 'EUR 2.35'
 	 * will return 'EUR 0.35', and 'BHD -1.345' will return 'BHD -0.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.35");
@@ -175,11 +175,11 @@ public final class MonetaryOperators {
 
 	/**
 	 * Extract major part of {@link MonetaryAmount}
-	 * <p>
+	 *
 	 * This returns the monetary amount in terms of the minor units of the
 	 * currency, truncating the whole part if necessary. For example, 'EUR 2.35'
 	 * will return 'EUR 0.35', and 'BHD -1.345' will return 'BHD -0.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.35");
@@ -195,10 +195,10 @@ public final class MonetaryOperators {
 	/**
 	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
 	 * and {@link RoundingMode#HALF_EVEN}.
-	 * <p>
+	 *
 	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
 	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.355432");
@@ -214,10 +214,10 @@ public final class MonetaryOperators {
 	/**
 	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
 	 * and {@link RoundingMode}.
-	 * <p>
+	 *
 	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
 	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.355432");
@@ -234,10 +234,10 @@ public final class MonetaryOperators {
 	/**
 	 * Rounding the {@link MonetaryAmount} using {@link CurrencyUnit#getDefaultFractionDigits()}
 	 * and {@link RoundingMode}.
-	 * <p>
+	 *
 	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
 	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.355432");
@@ -255,10 +255,10 @@ public final class MonetaryOperators {
 	/**
 	 * Rounding the {@link MonetaryAmount} using the scale informed
 	 * and {@link RoundingMode#HALF_EVEN}.
-	 * <p>
+	 *
 	 * For example, 'EUR 2.3523' will return 'EUR 2.35',
 	 * and 'BHD -1.34534432' will return 'BHD -1.345'.
-	 * <p>
+	 *
 	 *<pre>
 	 *{@code
 	 *MonetaryAmount money = Money.parse("EUR 2.355432");

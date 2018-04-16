@@ -26,11 +26,11 @@ import java.util.concurrent.Future;
  * This interface defines an updatable/reloadable data cache for providing data
  * sources that are updatable by any remote {@link URI}s. Initial version are
  * loaded from the classpath, or other fallback URL.
- * <p>
+ *
  * This class is used for managing/updating/reloading of data sources, e.g. data
  * streams for exchange rates, additional currency data, historical currency
  * data and so on.
- * <p>
+ *
  * Note: this class is implementation specific and not part of the official
  * JSR's API.
  *
@@ -186,10 +186,10 @@ public interface LoaderService {
 
     /**
      * Access the input stream of the given data resource.
-     * <p>This method is called by the modules that depend on the given data
+     * This method is called by the modules that depend on the given data
      * item. The method always returns the most current data, either from the
      * classpath or the local cache, depending which flavors are available
-     * and recently updated.</p><p>
+     * and recently updated.
      * The method must be thread safe and can be accessed in parallel. Hereby it
      * is possible that, when an intermediate update of the data by update
      * occurs, that different input stream content is returned.

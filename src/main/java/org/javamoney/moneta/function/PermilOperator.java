@@ -60,10 +60,10 @@ final class PermilOperator implements MonetaryOperator {
 
 	/**
 	 * Gets the permil of the amount.
-	 * <p>
+	 *
 	 * This returns the monetary amount in permil. For example, for 10% 'EUR
 	 * 2.35' will return 0.235.
-	 * <p>
+	 *
 	 * This is returned as a {@code MonetaryAmount}.
 	 *
 	 * @return the permil result of the amount, never {@code null}

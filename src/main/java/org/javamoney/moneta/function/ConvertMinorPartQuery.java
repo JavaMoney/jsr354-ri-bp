@@ -27,11 +27,11 @@ import javax.money.MonetaryQuery;
  * This class allows to convert to minor part a {@link MonetaryAmount}
  * instance.
  *  Recovery all value as minor units as a {@code long}.
- * <p>
+ *
  * This returns the monetary amount in terms of the minor units of the
  * currency, truncating the amount if necessary. For example, 'EUR 2.35'
  * will return 235, and 'BHD -1.345' will return -1345.
- * <p>
+ *
  * @author Anatole Tresch
  */
 final class ConvertMinorPartQuery implements MonetaryQuery<Long> {
@@ -45,11 +45,11 @@ final class ConvertMinorPartQuery implements MonetaryQuery<Long> {
 
 	/**
 	 * Gets the amount in minor units as a {@code long}.
-	 * <p>
+	 *
 	 * This returns the monetary amount in terms of the minor units of the
 	 * currency, truncating the amount if necessary. For example, 'EUR 2.35'
 	 * will return 235, and 'BHD -1.345' will return -1345.
-	 * <p>
+	 *
 	 * This method matches the API of {@link java.math.BigDecimal}.
 	 *
 	 * @return the minor units part of the amount

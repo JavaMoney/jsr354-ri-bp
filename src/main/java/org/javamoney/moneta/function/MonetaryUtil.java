@@ -25,7 +25,7 @@ import javax.money.MonetaryQuery;
 
 /**
  * This singleton class provides access to the predefined monetary functions.
- * <p>
+ *
  * The class is thread-safe, which is also true for all functions returned by
  * this class.
  *

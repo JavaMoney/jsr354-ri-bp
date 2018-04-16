@@ -19,7 +19,7 @@ import javax.money.MonetaryQuery;
  * heavily vary for different usage scenarios. E.g. product calculations may require high precision
  * and scale, whereas low latency order and trading systems require high calculation performance for
  * algorithmic operations.
- * <p>
+ *
  * Each instance of an amount provides additional meta-data in form of a {@link javax.money.MonetaryContext}.
  * This context contains detailed information on the numeric capabilities, e.g. the supported
  * precision and maximal scale, as well as the common implementation flavor.
@@ -28,7 +28,7 @@ import javax.money.MonetaryQuery;
  * numeric value, of the amount. And finally {@link #getFactory()} provides a
  * {@link javax.money.MonetaryAmountFactory}, which allows to of instances of {@link BaseMonetaryAmount} based
  * on the same numeric implementation.
- * <p>
+ *
  * This JSR additionally recommends to consider the following aspects:
  * <ul>
  * <li>Arithmetic operations should throw an {@link ArithmeticException}, if performing arithmetic
@@ -55,17 +55,17 @@ import javax.money.MonetaryQuery;
  * would contain the following method:
  *
  * <blockquote>
- * <p>
+ *
  * <pre>
  * public final class MyMoney implements MonetaryAmount{
  *   ...
  *   public static MyMoney from(MonetaryAmount amount)(...)
  * }
  * </pre>
- * <p>
+ *
  * </blockquote></li>
  * </ul>
- * <h4>Implementation specification</h4>
+ * <b>Implementation specification</b>
  * Implementations of this interface must be
  * <ul>
  * <li>thread-safe</li>
@@ -90,7 +90,7 @@ import javax.money.MonetaryQuery;
  * This also means that two different implementations types with the same currency and numeric value
  * are NOT equal.</li>
  * </ul>
- * <p>
+ *
  *
  * @author Anatole Tresch
  * @author Werner Keil
@@ -101,9 +101,9 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
 
     /**
      * Queries this monetary amount for a value.
-     * <p>
+     *
      * This queries this amount using the specified query strategy object.
-     * <p>
+     *
      * Implementations must ensure that no observable state is altered when this read-only method is
      * invoked.
      *
@@ -119,37 +119,30 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
      * Returns an operated object <b>of the same type</b> as this object with the operation made.
      * Hereby returning an instance <b>of the same type</b> is very important to prevent
      * uncontrolled mixup of implementations. Switching between implementations is still easily
-     * possible, e.g. by using according {@link javax.money.MonetaryAmountFactory} instances: <blockquote>
-     * <p>
-     * <pre>
+     * possible, e.g. by using according {@link javax.money.MonetaryAmountFactory} instances:
+     *
+     * {@code
      * // converting from Money to MyMoney
      * Money m = ...;
      * MonetaryAmountFactory<MyMoney> f = Monetary.queryAmountFactory(MyMoney.class);
      * MyMoney myMoney = f.setAmount(m).of();
-     * </blockquote>
-     * </pre>
-     * <p>
+     * }
+     *
      * This converts this monetary amount according to the rules of the specified operator. A
      * typical operator will change the amount and leave the currency unchanged. A more complex
      * operator might also change the currency.
-     * <p>
+     *
      * Some example code indicating how and why this method is used:
-     * <p>
-     * <blockquote>
-     * <p>
-     * <pre>
+     *
+     * {@code
      * MonetaryAmount money = money.with(amountMultipliedBy(2));
      * money = money.with(amountRoundedToNearestWholeUnit());
-     * </pre>
-     * <p>
-     * </blockquote>
-     * <p>
+     * }
+     *
      * Hereby also the method signature on the implementation type must return the concrete type, to
      * enable a fluent API, e.g.
-     * <p>
-     * <blockquote>
-     * <p>
-     * <pre>
+     *
+     * {@code
      * public final class MyMoney implements MonetaryAmount{
      *   ...
      *   public MyMoney with(MonetaryOperator operator){
@@ -158,9 +151,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
      *
      *   ...
      * }
-     * </pre>
-     * <p>
-     * </blockquote>
+     * }
      *
      * @param operator the operator to use, not null
      * @return an object of the same type with the specified conversion made, not null
@@ -173,7 +164,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
     /**
      * Checks if a {@code MonetaryAmount} is negative.
      *
-     * @return {@code true} if {@link #signum()} < 0.
+     * @return {@code true} if {@link #signum()} &lt; 0.
      */
     public boolean isNegative(){
         return signum() < 0;
@@ -182,7 +173,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
     /**
      * Checks if a {@code MonetaryAmount} is negative or zero.
      *
-     * @return {@code true} if {@link #signum()} <= 0.
+     * @return {@code true} if {@link #signum()} &lt;= 0.
      */
     public boolean isNegativeOrZero(){
         return signum() <= 0;
@@ -191,7 +182,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
     /**
      * Checks if a {@code MonetaryAmount} is positive.
      *
-     * @return {@code true} if {@link #signum()} > 0.
+     * @return {@code true} if {@link #signum()} &gt; 0.
      */
     public boolean isPositive(){
         return signum() > 0;
@@ -200,7 +191,7 @@ public abstract class BaseMonetaryAmount implements MonetaryAmount{
     /**
      * Checks if a {@code MonetaryAmount} is positive or zero.
      *
-     * @return {@code true} if {@link #signum()} >= 0.
+     * @return {@code true} if {@link #signum()} &gt;= 0.
      */
     public boolean isPositiveOrZero(){
         return signum() >= 0;

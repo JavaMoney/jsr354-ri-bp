@@ -29,7 +29,7 @@ import java.util.Objects;
  * Implementation class providing rounding {@link javax.money.MonetaryOperator} instances
  * for {@link javax.money.CurrencyUnit} instances. modeling rounding based on standard JDK
  * math, a scale and {@link RoundingMode}.
- * <p>
+ *
  * This class is thread safe.
  *
  * @author Anatole Tresch

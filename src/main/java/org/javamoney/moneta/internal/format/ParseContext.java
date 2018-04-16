@@ -27,7 +27,7 @@ import javax.money.format.MonetaryAmountFormat;
  * input stream using a {@link MonetaryAmountFormat}. It allows to inspect the
  * next tokens, the whole input String, or just the current input substring,
  * based on the current parsing position etc.
- * <p>
+ *
  * This class is mutable and intended for use by a single thread. A new instance
  * is created for each parse.
  */
