@@ -93,27 +93,27 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
 
     static {
         for (Currency currency : Currency.getAvailableCurrencies()) {
-            currenciesByName.put(currency.getDisplayName(Locale.ENGLISH),
+            currenciesByName.put(currency.getDisplayName(Locale.ENGLISH).toLowerCase(Locale.ENGLISH),
                     Monetary.getCurrency(currency.getCurrencyCode()));
         }
         // Additional IMF differing codes:
         // This mapping is required to fix data issues in the input stream, it has nothing to do with i18n
-        currenciesByName.put("U.K. Pound Sterling", Monetary.getCurrency("GBP"));
-        currenciesByName.put("U.S. Dollar", Monetary.getCurrency("USD"));
-        currenciesByName.put("Bahrain Dinar", Monetary.getCurrency("BHD"));
-        currenciesByName.put("Botswana Pula", Monetary.getCurrency("BWP"));
-        currenciesByName.put("Czech Koruna", Monetary.getCurrency("CZK"));
-        currenciesByName.put("Icelandic Krona", Monetary.getCurrency("ISK"));
-        currenciesByName.put("Korean Won", Monetary.getCurrency("KRW"));
-        currenciesByName.put("Rial Omani", Monetary.getCurrency("OMR"));
-        currenciesByName.put("Nuevo Sol", Monetary.getCurrency("PEN"));
-        currenciesByName.put("Qatar Riyal", Monetary.getCurrency("QAR"));
-        currenciesByName.put("Saudi Arabian Riyal", Monetary.getCurrency("SAR"));
-        currenciesByName.put("Sri Lanka Rupee", Monetary.getCurrency("LKR"));
-        currenciesByName.put("Trinidad And Tobago Dollar", Monetary.getCurrency("TTD"));
-        currenciesByName.put("U.A.E. Dirham", Monetary.getCurrency("AED"));
-        currenciesByName.put("Peso Uruguayo", Monetary.getCurrency("UYU"));
-        currenciesByName.put("Bolivar Fuerte", Monetary.getCurrency("VEF"));
+        currenciesByName.put("U.K. pound".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("GBP"));
+        currenciesByName.put("U.S. dollar".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("USD"));
+        currenciesByName.put("Bahrain dinar".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("BHD"));
+        currenciesByName.put("Botswana pula".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("BWP"));
+        currenciesByName.put("Czech koruna".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("CZK"));
+        currenciesByName.put("Icelandic krona".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("ISK"));
+        currenciesByName.put("Korean won".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("KRW"));
+        currenciesByName.put("Omani rial".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("OMR"));
+        currenciesByName.put("Peruvian sol".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("PEN"));
+        currenciesByName.put("Qatari riyal".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("QAR"));
+        currenciesByName.put("Saudi Arabian riyal".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("SAR"));
+        currenciesByName.put("Sri Lankan rupee".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("LKR"));
+        currenciesByName.put("Trinidadian dollar".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("TTD"));
+        currenciesByName.put("U.A.E. dirham".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("AED"));
+        currenciesByName.put("Uruguayan peso".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("UYU"));
+        currenciesByName.put("Bolivar Fuerte".toLowerCase(Locale.ENGLISH), Monetary.getCurrency("VEF"));
     }
 
     public IMFRateProvider() {
@@ -187,7 +187,7 @@ public class IMFRateProvider extends AbstractRateProvider implements LoaderListe
                 continue;
             }
             String[] parts = line.split("\\t");
-            CurrencyUnit currency = currenciesByName.get(parts[0]);
+            CurrencyUnit currency = currenciesByName.get(parts[0].toLowerCase(Locale.ENGLISH));
             if (currency==null) {
                 LOGGER.finest("Uninterpretable data from IMF data feed: " + parts[0]);
                 line = pr.readLine();
