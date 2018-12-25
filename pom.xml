@@ -36,7 +36,7 @@
 	</licenses>
 
 	<properties>
-		<jsr.version>1.0.3</jsr.version>
+		<jsr.version>1.1-SNAPSHOT</jsr.version>
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>

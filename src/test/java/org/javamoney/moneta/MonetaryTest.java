@@ -92,4 +92,11 @@ public class MonetaryTest {
 		assertNotNull(currency);
 		assertEquals(currency.getCurrencyCode(), "GNF");
 	}
+	
+	@Test
+	public void accessDanishCrown() {
+		CurrencyUnit currency = Monetary.getCurrency("DKK");
+		assertNotNull(currency);
+		assertEquals(currency.getCurrencyCode(), "DKK");
+	}
 }
