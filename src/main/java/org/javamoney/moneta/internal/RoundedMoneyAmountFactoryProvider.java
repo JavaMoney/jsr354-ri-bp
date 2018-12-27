@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
+ * Copyright (c) 2012, 2018, Anatole Tresch, Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -36,7 +36,7 @@ public final class RoundedMoneyAmountFactoryProvider implements MonetaryAmountFa
 
     @Override
     public MonetaryAmountFactory<RoundedMoney> createMonetaryAmountFactory(){
-        return new RoundedMoneyAmountBuilder();
+        return new RoundedMoneyAmountFactory();
     }
 
     /*
@@ -50,12 +50,12 @@ public final class RoundedMoneyAmountFactoryProvider implements MonetaryAmountFa
 
     @Override
     public MonetaryContext getDefaultMonetaryContext(){
-        return RoundedMoneyAmountBuilder.DEFAULT_CONTEXT;
+        return RoundedMoneyAmountFactory.DEFAULT_CONTEXT;
     }
 
     @Override
     public MonetaryContext getMaximalMonetaryContext(){
-        return RoundedMoneyAmountBuilder.MAX_CONTEXT;
+        return RoundedMoneyAmountFactory.MAX_CONTEXT;
     }
 
 }
