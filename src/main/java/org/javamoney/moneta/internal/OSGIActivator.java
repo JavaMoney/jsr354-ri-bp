@@ -18,7 +18,7 @@
  */
 package org.javamoney.moneta.internal;
 
-import org.javamoney.moneta.internal.convert.*;
+import org.javamoney.moneta.convert.internal.*;
 import org.javamoney.moneta.internal.loader.DefaultLoaderService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

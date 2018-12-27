@@ -16,4 +16,4 @@
 /**
  * Contains {@link javax.money.convert.ExchangeRateProvider} implementations.
  */
-package org.javamoney.moneta.internal.convert;
+package org.javamoney.moneta.convert.internal;

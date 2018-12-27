@@ -34,7 +34,7 @@ import javax.money.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.convert.ExchangeRateType;
-import org.javamoney.moneta.internal.convert.ECBHistoric90RateProvider;
+import org.javamoney.moneta.convert.internal.ECBHistoric90RateProvider;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 

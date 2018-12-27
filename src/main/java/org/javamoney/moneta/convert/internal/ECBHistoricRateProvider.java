@@ -13,10 +13,11 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.javamoney.moneta.internal.convert;
+package org.javamoney.moneta.convert.internal;
 
 import java.net.MalformedURLException;
 
+import javax.money.convert.ConversionContext;
 import javax.money.convert.ProviderContext;
 import javax.money.convert.ProviderContextBuilder;
 import javax.money.convert.RateType;
@@ -25,7 +26,7 @@ import javax.money.convert.RateType;
  *
  * This class implements an {@link javax.money.convert.ExchangeRateProvider}
  * that loads data from the European Central Bank data feed (XML). It loads the
- * current exchange rates, as well as historic rates for the past 90 days. The
+ * current exchange rates, as well as historic rates for the past 1500 days. The
  * provider loads all data up to 1999 into its historic data cache.
  *
  * The default date is yesterday or the most recent day of week. To uses exchange rate from a specific date, you can use this way:
@@ -40,16 +41,22 @@ import javax.money.convert.RateType;
  * @author Werner Keil
  * @author otaviojava
  */
-public class ECBHistoric90RateProvider extends ECBAbstractRateProvider {
+public class ECBHistoricRateProvider extends ECBAbstractRateProvider {
 
+    /**
+     * The data id used for the LoaderService.
+     */
+    private static final String DATA_ID = ECBHistoricRateProvider.class.getSimpleName();
 
-    private static final String DATA_ID = ECBHistoric90RateProvider.class.getSimpleName();
-
+    /**
+     * The {@link ConversionContext} of this provider.
+     */
     private static final ProviderContext CONTEXT =
-            ProviderContextBuilder.of("ECB-HIST90", RateType.HISTORIC, RateType.DEFERRED)
-                    .set("providerDescription", "European Central Bank (last 90 days)").set("days", 90).build();
+            ProviderContextBuilder.of("ECB-HIST", RateType.HISTORIC, RateType.DEFERRED)
+                    .set("providerDescription", "European Central Bank").set("days", 1500).build();
 
-    public ECBHistoric90RateProvider() throws MalformedURLException {
+
+    public ECBHistoricRateProvider() throws MalformedURLException {
         super(CONTEXT);
     }
 

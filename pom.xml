@@ -592,7 +592,7 @@
 								</includes>
 								<excludes>
 									<exclude>org.javamoney.moneta.internal</exclude>
-									<exclude>org.javamoney.moneta.internal.convert</exclude>
+									<exclude>org.javamoney.moneta.convert.internal</exclude>
 									<exclude>org.javamoney.moneta.internal.format</exclude>
 									<exclude>org.javamoney.moneta.internal.loader</exclude>
 								</excludes>

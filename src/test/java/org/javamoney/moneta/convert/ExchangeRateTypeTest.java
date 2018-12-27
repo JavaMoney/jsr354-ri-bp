@@ -21,11 +21,11 @@ import static org.testng.Assert.assertNotNull;
 import javax.money.convert.ExchangeRateProvider;
 import javax.money.convert.MonetaryConversions;
 
-import org.javamoney.moneta.internal.convert.ECBCurrentRateProvider;
-import org.javamoney.moneta.internal.convert.ECBHistoric90RateProvider;
-import org.javamoney.moneta.internal.convert.ECBHistoricRateProvider;
-import org.javamoney.moneta.internal.convert.IMFRateProvider;
-import org.javamoney.moneta.internal.convert.IdentityRateProvider;
+import org.javamoney.moneta.convert.internal.ECBCurrentRateProvider;
+import org.javamoney.moneta.convert.internal.ECBHistoric90RateProvider;
+import org.javamoney.moneta.convert.internal.ECBHistoricRateProvider;
+import org.javamoney.moneta.convert.internal.IMFRateProvider;
+import org.javamoney.moneta.convert.internal.IdentityRateProvider;
 import org.testng.annotations.Test;
 
 public class ExchangeRateTypeTest {
