@@ -58,7 +58,7 @@ public class MonetaryFormatsTest {
 	
 	/**
      * Test related to parsing and formatting for India.
-     * https://github.com/JavaMoney/jsr354-ri/issues/275
+     * https://github.com/JavaMoney/jsr354-ri-bp/issues/55
      */
     @Test(enabled=false)
     public void testRupeeFormatting() {
