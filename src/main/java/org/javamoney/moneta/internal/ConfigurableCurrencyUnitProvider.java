@@ -83,7 +83,7 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
     }
 
     /**
-     * Registers a bew currency unit under its currency code and potentially numeric code.
+     * Registers a new currency unit under its currency code and potentially numeric code.
      *
      * @param currencyUnit the new currency to be registered, not null.
      * @return any unit instance registered previously by this instance, or null.
@@ -99,7 +99,7 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
     }
 
     /**
-     * Registers a bew currency unit under the given Locale.
+     * Registers a new currency unit under the given Locale.
      *
      * @param currencyUnit the new currency to be registered, not null.
      * @param locale       the Locale, not null.
