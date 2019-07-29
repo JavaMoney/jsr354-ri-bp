@@ -32,6 +32,10 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
      */
     private static final Map<String, CurrencyUnit> currencyUnits = new ConcurrentHashMap<>();
     /**
+     * The currency units, identified by numeric code.
+     */
+    private static final Map<Integer, CurrencyUnit> currencyUnitsByNumericCode = new ConcurrentHashMap<>();
+    /**
      * The currency units identified by Locale.
      */
     private static final Map<Locale, CurrencyUnit> currencyUnitsByLocale = new ConcurrentHashMap<>();
@@ -65,23 +69,37 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
             }
             return result;
         }
+        if (!currencyQuery.getNumericCodes().isEmpty()) {
+            for (Integer numericCode : currencyQuery.getNumericCodes()) {
+                CurrencyUnit cu = currencyUnitsByNumericCode.get(numericCode);
+                if (cu != null) {
+                    result.add(cu);
+                }
+            }
+            return result;
+        }
         result.addAll(currencyUnits.values());
         return result;
     }
 
     /**
-     * Registers a bew currency unit under its currency code.
+     * Registers a new currency unit under its currency code and potentially numeric code.
      *
      * @param currencyUnit the new currency to be registered, not null.
      * @return any unit instance registered previously by this instance, or null.
      */
     public static CurrencyUnit registerCurrencyUnit(CurrencyUnit currencyUnit) {
         Objects.requireNonNull(currencyUnit);
-        return ConfigurableCurrencyUnitProvider.currencyUnits.put(currencyUnit.getCurrencyCode(), currencyUnit);
+        CurrencyUnit registered = ConfigurableCurrencyUnitProvider.currencyUnits.put(currencyUnit.getCurrencyCode(), currencyUnit);
+        int numericCode = currencyUnit.getNumericCode();
+        if (numericCode != -1) {
+            ConfigurableCurrencyUnitProvider.currencyUnitsByNumericCode.put(numericCode, currencyUnit);
+        }
+        return registered;
     }
 
     /**
-     * Registers a bew currency unit under the given Locale.
+     * Registers a new currency unit under the given Locale.
      *
      * @param currencyUnit the new currency to be registered, not null.
      * @param locale       the Locale, not null.
@@ -101,7 +119,14 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
      */
     public static CurrencyUnit removeCurrencyUnit(String currencyCode) {
         Objects.requireNonNull(currencyCode);
-        return ConfigurableCurrencyUnitProvider.currencyUnits.remove(currencyCode);
+        CurrencyUnit removed = ConfigurableCurrencyUnitProvider.currencyUnits.remove(currencyCode);
+        if (removed != null) {
+            int numericCode = removed.getNumericCode();
+            if (numericCode != -1) {
+                ConfigurableCurrencyUnitProvider.currencyUnitsByNumericCode.remove(numericCode);
+            }
+        }
+        return removed;
     }
 
     /**
@@ -122,8 +147,9 @@ public class ConfigurableCurrencyUnitProvider extends BaseCurrencyProviderSpi {
      */
     @Override
     public String toString() {
-        return "ConfigurableCurrencyUnitProvider [currencyUnits=" + currencyUnits + ", currencyUnitsByLocale=" +
-                currencyUnitsByLocale + ']';
+        return "ConfigurableCurrencyUnitProvider [currencyUnits=" + currencyUnits
+                + ", currencyUnitsByNumericCode=" + currencyUnitsByNumericCode
+                + ", currencyUnitsByLocale=" + currencyUnitsByLocale + ']';
     }
 
 }
