@@ -10,7 +10,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>org.javamoney</groupId>
 		<artifactId>javamoney-parent</artifactId>
@@ -36,7 +35,7 @@
 	</licenses>
 
 	<properties>
-		<jsr.version>1.1-SNAPSHOT</jsr.version>
+		<jsr.version>1.0.4-SNAPSHOT</jsr.version>
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
@@ -58,8 +57,8 @@
 	</ciManagement>
 
 	<issueManagement>
-		<system>JIRA</system>
-		<url>http://java.net/jira/browse/JAVAMONEY</url>
+		<system>Github</system>
+		<url>https://github.com/JavaMoney/jsr354-ri-bp/issues</url>
 	</issueManagement>
 
 	<scm>
@@ -226,7 +225,7 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>0.7.2.201409121644</version>
+					<version>0.8.5</version>
 					<executions>
 						<execution>
 							<id>prepare-agent</id>
@@ -593,8 +592,8 @@
 								<excludes>
 									<exclude>org.javamoney.moneta.internal</exclude>
 									<exclude>org.javamoney.moneta.convert.internal</exclude>
-									<exclude>org.javamoney.moneta.internal.format</exclude>
-									<exclude>org.javamoney.moneta.internal.loader</exclude>
+									<exclude>org.javamoney.moneta.spi.format</exclude>
+									<exclude>org.javamoney.moneta.spi.loader</exclude>
 								</excludes>
 								<accessModifier>protected</accessModifier>
 								<breakBuildOnModifications>false</breakBuildOnModifications>

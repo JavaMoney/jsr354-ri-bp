@@ -27,7 +27,7 @@ import javax.money.MonetaryQuery;
 import javax.money.NumberValue;
 import javax.money.format.MonetaryAmountFormat;
 
-import org.javamoney.moneta.internal.FastMoneyAmountFactory;
+import org.javamoney.moneta.spi.FastMoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MonetaryConfig;
 import org.javamoney.moneta.spi.MoneyUtils;

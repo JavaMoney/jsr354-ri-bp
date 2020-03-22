@@ -27,7 +27,7 @@ import javax.money.MonetaryQuery;
 import javax.money.NumberValue;
 import javax.money.RoundingQueryBuilder;
 
-import org.javamoney.moneta.internal.RoundedMoneyAmountFactory;
+import org.javamoney.moneta.spi.RoundedMoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MoneyUtils;
 

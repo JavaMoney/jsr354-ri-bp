@@ -17,12 +17,6 @@ package org.javamoney.moneta.convert;
 
 import javax.money.convert.ExchangeRateProviderSupplier;
 
-import org.javamoney.moneta.convert.internal.ECBCurrentRateProvider;
-import org.javamoney.moneta.convert.internal.ECBHistoric90RateProvider;
-import org.javamoney.moneta.convert.internal.ECBHistoricRateProvider;
-import org.javamoney.moneta.convert.internal.IMFRateProvider;
-import org.javamoney.moneta.convert.internal.IdentityRateProvider;
-
 /**
  *
  * This enum contains all implementations by Moneta. Using this enum will easier
@@ -42,15 +36,15 @@ public enum ExchangeRateType implements ExchangeRateProviderSupplier {
      */
     ECB("ECB", "Exchange rate to the European Central Bank."),
     /**
-     * Exchange rate to the International Monetary Fond. Uses the
+     * Exchange rate to the International Monetary Fund. Uses the
      * {@link IMFRateProvider} implementation.
      */
-    IMF("IMF", "Exchange rate to the International Monetary Fond."),
+    IMF("IMF", "Exchange rate to the International Monetary Fund."),
     /**
-     * Exchange rate to the International Monetary Fond from historic. Uses the
+     * Exchange rate to the International Monetary Fund from historic. Uses the
      * {@code IMFHistoricRateProvider} implementation.
      */
-    IMF_HIST("IMF-HIST", "Exchange rate to the International Monetary Fond that retrieve historical information on lazy way."),
+    IMF_HIST("IMF-HIST", "Exchange rate to the International Monetary Fund that retrieve historical information on lazy way."),
     /**
      * Exchange rate to European Central Bank (last 90 days). Uses the
      * {@link ECBHistoric90RateProvider} implementation.

@@ -13,6 +13,7 @@ Release Notes
 * **[1.0](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.0)** Initial revision along the API.
 * **[1.1](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.1)** First Patch release.
 * **[1.2](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.2)** Minor Patch release.
+* **[1.3](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.3)** Patch release.
 
 [![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
 

@@ -29,7 +29,7 @@ import javax.money.convert.ExchangeRateProvider;
 
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.convert.ExchangeRateType;
-import org.javamoney.moneta.convert.internal.IdentityRateProvider;
+import org.javamoney.moneta.convert.IdentityRateProvider;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 

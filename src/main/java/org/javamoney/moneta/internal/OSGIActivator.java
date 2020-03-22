@@ -18,8 +18,9 @@
  */
 package org.javamoney.moneta.internal;
 
-import org.javamoney.moneta.convert.internal.*;
-import org.javamoney.moneta.internal.loader.DefaultLoaderService;
+import org.javamoney.moneta.convert.*;
+import org.javamoney.moneta.spi.*;
+import org.javamoney.moneta.spi.loader.DefaultLoaderService;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -58,7 +59,7 @@ public class OSGIActivator implements BundleActivator {
         OSGIServiceProvider.registerService(context.getBundle(), MonetaryAmountFactoryProviderSpi.class, MoneyAmountFactoryProvider.class);
         OSGIServiceProvider.registerService(context.getBundle(), MonetaryAmountFactoryProviderSpi.class, RoundedMoneyAmountFactoryProvider.class);
 
-        OSGIServiceProvider.registerService(context.getBundle(), MonetaryAmountFormatProviderSpi.class, org.javamoney.moneta.internal.format.DefaultAmountFormatProviderSpi.class);
+        OSGIServiceProvider.registerService(context.getBundle(), MonetaryAmountFormatProviderSpi.class, org.javamoney.moneta.spi.format.DefaultAmountFormatProviderSpi.class);
 
         OSGIServiceProvider.registerService(context.getBundle(), javax.money.spi.MonetaryAmountsSingletonQuerySpi.class, DefaultMonetaryAmountsSingletonQuerySpi.class);
 
@@ -87,7 +88,7 @@ public class OSGIActivator implements BundleActivator {
             OSGIServiceProvider.unregisterService(context.getBundle(), MonetaryAmountFactoryProviderSpi.class, MoneyAmountFactoryProvider.class);
             OSGIServiceProvider.unregisterService(context.getBundle(), MonetaryAmountFactoryProviderSpi.class, RoundedMoneyAmountFactoryProvider.class);
 
-            OSGIServiceProvider.unregisterService(context.getBundle(), MonetaryAmountFormatProviderSpi.class, org.javamoney.moneta.internal.format.DefaultAmountFormatProviderSpi.class);
+            OSGIServiceProvider.unregisterService(context.getBundle(), MonetaryAmountFormatProviderSpi.class, org.javamoney.moneta.spi.format.DefaultAmountFormatProviderSpi.class);
 
             OSGIServiceProvider.unregisterService(context.getBundle(), javax.money.spi.MonetaryAmountsSingletonQuerySpi.class, DefaultMonetaryAmountsSingletonQuerySpi.class);
 

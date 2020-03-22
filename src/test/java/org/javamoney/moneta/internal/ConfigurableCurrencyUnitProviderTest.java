@@ -23,6 +23,7 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
+import org.javamoney.moneta.spi.ConfigurableCurrencyUnitProvider;
 import org.testng.annotations.Test;
 
 /**

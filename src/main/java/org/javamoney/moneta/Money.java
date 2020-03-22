@@ -34,7 +34,7 @@ import javax.money.UnknownCurrencyException;
 import javax.money.format.MonetaryAmountFormat;
 
 import org.javamoney.moneta.ToStringMonetaryAmountFormat.ToStringMonetaryAmountFormatStyle;
-import org.javamoney.moneta.internal.MoneyAmountFactory;
+import org.javamoney.moneta.spi.MoneyAmountFactory;
 import org.javamoney.moneta.spi.DefaultNumberValue;
 import org.javamoney.moneta.spi.MoneyUtils;
 
