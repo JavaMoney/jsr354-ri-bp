@@ -565,7 +565,7 @@
                            - -add-modules java.xml.bind -->
 						<groupId>com.github.siom79.japicmp</groupId>
 						<artifactId>japicmp-maven-plugin</artifactId>
-						<version>0.11.1</version>
+						<version>0.14.3</version>
 						<configuration>
 							<oldVersion>
 								<dependency>
