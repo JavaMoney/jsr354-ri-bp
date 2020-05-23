@@ -14,6 +14,7 @@ Release Notes
 * **[1.1](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.1)** First Patch release.
 * **[1.2](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.2)** Minor Patch release.
 * **[1.3](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.3)** Patch release.
+* **[1.4](https://github.com/JavaMoney/jsr354-ri-bp/releases/tag/1.4)** Backport of Maintenance Release 1.
 
 [![Built with Maven](http://maven.apache.org/images/logos/maven-feather.png)](http://maven.org/)
 
