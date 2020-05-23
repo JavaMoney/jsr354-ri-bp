@@ -122,7 +122,7 @@ public class MonetaryFormatsTest {
     public void testFormat_INR_en_IN() {
         MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(INDIA);
         assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 67,890,000,000,000.00");
-//TODO        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00");
+//        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00"); TODO: https://github.com/JavaMoney/jsr354-ri-bp/issues/55
     }
 
     @Test
