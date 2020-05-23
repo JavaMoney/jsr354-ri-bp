@@ -18,7 +18,7 @@
 
 	<artifactId>moneta-bp</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4</version>
 	<name>Moneta (JSR 354 RI) for Java 7</name>
 
 	<description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
@@ -35,7 +35,7 @@
 	</licenses>
 
 	<properties>
-		<jsr.version>1.0.4-SNAPSHOT</jsr.version>
+		<jsr.version>1.0.4</jsr.version>
 		<jdkVersion>1.7</jdkVersion>
 		<maven.compile.targetLevel>${jdkVersion}</maven.compile.targetLevel>
 		<maven.compile.sourceLevel>${jdkVersion}</maven.compile.sourceLevel>
