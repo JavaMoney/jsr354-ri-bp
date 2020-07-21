@@ -36,7 +36,7 @@ import org.testng.annotations.Test;
 public class MonetaryFormatsTest {
     private static final Locale DANISH = new Locale("da");
     private static final Locale BULGARIA = new Locale("bg", "BG");
-    public static final Locale INDIA = new Locale("en, IN");
+    public static final Locale INDIA = new Locale("en", "IN");
 
     @Test
     public void testParse_DKK_da() {
@@ -121,8 +121,8 @@ public class MonetaryFormatsTest {
     @Test
     public void testFormat_INR_en_IN() {
         MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(INDIA);
-        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 67,890,000,000,000.00");
-//        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00"); TODO: https://github.com/JavaMoney/jsr354-ri-bp/issues/55
+       //assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 67,890,000,000,000.00");
+        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00"); //TODO: https://github.com/JavaMoney/jsr354-ri-bp/issues/55
     }
 
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
+ * Copyright (c) 2012, 2020, Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,6 +19,8 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryAmountFactory;
 import javax.money.Monetary;
+
+import org.javamoney.moneta.format.AmountFormatParams;
 import org.javamoney.moneta.format.CurrencyStyle;
 
 import java.io.IOException;
@@ -32,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.money.format.AmountFormatContext;
+import javax.money.format.AmountFormatContextBuilder;
 import javax.money.format.MonetaryAmountFormat;
 import javax.money.format.MonetaryParseException;
 
@@ -77,6 +80,25 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
      * @param amountFormatContext the {@link javax.money.format.AmountFormatContext} to be used, not {@code null}.
      */
     DefaultMonetaryAmountFormat(AmountFormatContext amountFormatContext) {
+        Locale locale = amountFormatContext.getLocale();
+        if(locale != null && "IN".equals(locale.getCountry())
+                && amountFormatContext.get(AmountFormatParams.GROUPING_SIZES, int[].class)==null) {
+            // Fix invalid JDK grouping for rupees...
+            amountFormatContext = amountFormatContext.toBuilder().set(AmountFormatParams.GROUPING_SIZES, new int[]{3,2})
+                    .build();
+        }
+        if(locale != null && "BG".equals(locale.getCountry())) {
+            AmountFormatContextBuilder builder = amountFormatContext.toBuilder();
+            if(amountFormatContext.get(AmountFormatParams.GROUPING_SIZES, int[].class)==null) {
+                // Fix invalid JDK grouping for leva...
+                builder.set(AmountFormatParams.GROUPING_SIZES, new int[]{3}).build();
+            }
+            if(amountFormatContext.get(AmountFormatParams.GROUPING_GROUPING_SEPARATORS, int[].class)==null) {
+                // Fix invalid JDK grouping for leva...
+                builder.set(AmountFormatParams.GROUPING_GROUPING_SEPARATORS, new String[]{"\u00A0"}).build();
+            }
+            amountFormatContext = builder.build();
+        }
         setAmountFormatContext(amountFormatContext);
     }
 
@@ -232,7 +254,10 @@ final class DefaultMonetaryAmountFormat implements MonetaryAmountFormat {
             // Fix for https://github.com/JavaMoney/jsr354-ri/issues/151
             if (amountFormatContext.getLocale() != null && "BG".equals(amountFormatContext.getLocale().getCountry())) {
                 pattern = "#,##0.00 ¤";
-            }else {
+            // At least in Java 7 there is no space between INR and the decimal pattern
+            } else if (amountFormatContext.getLocale() != null && "IN".equals(amountFormatContext.getLocale().getCountry())) {
+                pattern = "¤ #,##0.00";
+            } else {
                 pattern = ((DecimalFormat) DecimalFormat.getCurrencyInstance(amountFormatContext.getLocale())).toPattern();
             }
         }
