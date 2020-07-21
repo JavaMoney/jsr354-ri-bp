@@ -15,6 +15,10 @@
  */
 package org.javamoney.moneta.internal;
 
+/**
+ * This is a drop-in-replacement for some convenience methods like <code>nonNull</code> added to the
+ * <type>Objects</type> class in Java 8 or beyond.
+ */
 public class JDKObjects {
     /**
      * JDK Drop-in-replacement
