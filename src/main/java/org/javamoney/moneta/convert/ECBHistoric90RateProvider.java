@@ -31,7 +31,7 @@ import javax.money.convert.RateType;
  * The default date is yesterday or the most recent day of week. To uses exchange rate from a specific date, you can use this way:
  * <code>CurrencyUnit termCurrency = ...;</code>
  * <code>LocalDate localDate = ...;</code>
- * <code>ConversionQuery conversionQuery = ConversionQueryBuilder.of().setTermCurrency(euro).set(localDate).build();</code>v
+ * <code>ConversionQuery conversionQuery = ConversionQueryBuilder.of().setTermCurrency(euro).setTimestamp(localDate).build();</code>v
  * <code>CurrencyConversion currencyConversion = provider.getCurrencyConversion(conversionQuery);</code>
  * <code>MonetaryAmount money = ...;</code>
  * <code>MonetaryAmount result = currencyConversion.apply(money);</code>

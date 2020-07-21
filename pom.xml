@@ -18,7 +18,7 @@
 
 	<artifactId>moneta-bp</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.4.1-SNAPSHOT</version>
+	<version>1.4.1</version>
 	<name>Moneta (JSR 354 RI) for Java 7</name>
 
 	<description>JSR 354 provides an API for representing, transporting, and performing comprehensive calculations with
@@ -53,7 +53,7 @@
 
 	<ciManagement>
 		<system>Travis-CI</system>
-		<url>https://travis-ci.org/JavaMoney/javamoney-moneta-bp</url>
+		<url>https://travis-ci.org/JavaMoney/jsr354-ri-bp</url>
 	</ciManagement>
 
 	<issueManagement>
@@ -62,10 +62,10 @@
 	</issueManagement>
 
 	<scm>
-		<connection>scm:git:https://github.com/JavaMoney/javamoney-moneta-bp.git</connection>
+		<connection>scm:git:https://github.com/JavaMoney/jsr354-ri-bp.git</connection>
 		<tag>master</tag>
-		<developerConnection>scm:git:https://github.com/JavaMoney/javamoney-moneta-bp.git</developerConnection>
-		<url>https://github.com/JavaMoney/javamoney-moneta-bp</url>
+		<developerConnection>scm:git:https://github.com/JavaMoney/jsr354-ri-bp.git</developerConnection>
+		<url>https://github.com/JavaMoney/jsr354-ri-bp</url>
 	</scm>
 
 	<distributionManagement>

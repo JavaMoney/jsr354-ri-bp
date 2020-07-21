@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, 2019, Werner Keil and others by the @author tag.
+ * Copyright (c) 2012, 2020, Werner Keil and others by the @author tag.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -121,8 +121,7 @@ public class MonetaryFormatsTest {
     @Test
     public void testFormat_INR_en_IN() {
         MonetaryAmountFormat format = MonetaryFormats.getAmountFormat(INDIA);
-       //assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 67,890,000,000,000.00");
-        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00"); //TODO: https://github.com/JavaMoney/jsr354-ri-bp/issues/55
+        assertMoneyFormat(format, Money.of(67890000000000L, "INR"), "INR 6,78,90,00,00,00,000.00");
     }
 
     @Test

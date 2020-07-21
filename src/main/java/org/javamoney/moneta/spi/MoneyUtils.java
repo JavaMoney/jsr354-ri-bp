@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2012, 2020, Werner Keil, Otavio Santana and others by the @author tag.
+  Copyright (c) 2012, 2014, Credit Suisse (Anatole Tresch), Werner Keil and others by the @author tag.
 
   Licensed under the Apache License, Version 2.0 (the "License"); you may not
   use this file except in compliance with the License. You may obtain a copy of
@@ -15,21 +15,15 @@
  */
 package org.javamoney.moneta.spi;
 
-import org.javamoney.moneta.internal.JDKObjects;
-
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryContext;
 import javax.money.MonetaryException;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Objects;
 import java.util.logging.Logger;
-
-import static java.math.RoundingMode.HALF_EVEN;
-import static java.util.Objects.requireNonNull;
-import static java.util.logging.Level.FINEST;
 
 /**
  * Platform RI: This utility class simplifies implementing {@link MonetaryAmount},
@@ -40,16 +34,12 @@ import static java.util.logging.Level.FINEST;
  * implement {@link MonetaryAmount} directly.
  *
  * @author Anatole Tresch
- * @author Werner Keil
  */
 public final class MoneyUtils {
-
+    /**
+     * The logger used.
+     */
     private static final Logger LOG = Logger.getLogger(MoneyUtils.class.getName());
-
-    public static final String NBSP_STRING = "\u00A0";
-    public static final String NNBSP_STRING = "\u202F";
-    public static final char NBSP = NBSP_STRING.charAt(0);
-    public static final char NNBSP = NNBSP_STRING.charAt(0);
 
     private MoneyUtils() {
     }
@@ -104,18 +94,13 @@ public final class MoneyUtils {
      * @return the corresponding {@link BigDecimal}
      */
     public static BigDecimal getBigDecimal(Number num, MonetaryContext moneyContext) {
-        BigDecimal bd = getBigDecimal(num);
-        if (JDKObjects.nonNull(moneyContext)) {
-            MathContext mc = getMathContext(moneyContext, HALF_EVEN);
+    	BigDecimal bd = getBigDecimal(num);
+        if (moneyContext!=null) {
+            MathContext mc = getMathContext(moneyContext, RoundingMode.HALF_EVEN);
             bd = new BigDecimal(bd.toString(), mc);
-            int maxScale = moneyContext.getMaxScale();
-            if (maxScale > 0) {
-                if (bd.scale() > maxScale) {
-                    if (LOG.isLoggable(FINEST)) {
-                        LOG.log(FINEST, "The number scale is " + bd.scale() + " but Max Scale is " + maxScale);
-                    }
-                    bd = bd.setScale(maxScale, mc.getRoundingMode());
-                }
+            if (moneyContext.getMaxScale() > 0) {
+                LOG.fine(String.format("Got Max Scale %s", moneyContext.getMaxScale()));
+                bd = bd.setScale(moneyContext.getMaxScale(), mc.getRoundingMode());
             }
         }
         return bd;
@@ -131,12 +116,15 @@ public final class MoneyUtils {
      */
     public static MathContext getMathContext(MonetaryContext monetaryContext, RoundingMode defaultMode) {
         MathContext ctx = monetaryContext.get(MathContext.class);
-        if (JDKObjects.nonNull(ctx)) {
+        if (ctx!=null) {
             return ctx;
         }
         RoundingMode roundingMode = monetaryContext.get(RoundingMode.class);
         if (roundingMode == null) {
-            roundingMode = HALF_EVEN;
+            roundingMode = defaultMode;
+        }
+        if (roundingMode == null) {
+            roundingMode = RoundingMode.HALF_EVEN;
         }
         return new MathContext(monetaryContext.getPrecision(), roundingMode);
     }
@@ -151,9 +139,9 @@ public final class MoneyUtils {
      *                           {@link CurrencyUnit#getCurrencyCode()}).
      */
     public static void checkAmountParameter(MonetaryAmount amount, CurrencyUnit currencyUnit) {
-        requireNonNull(amount, "Amount must not be null.");
+        Objects.requireNonNull(amount, "Amount must not be null.");
         final CurrencyUnit amountCurrency = amount.getCurrency();
-        if (!currencyUnit.getCurrencyCode().equals(amountCurrency.getCurrencyCode())) {
+        if (!(currencyUnit.getCurrencyCode().equals(amountCurrency.getCurrencyCode()))) {
             throw new MonetaryException("Currency mismatch: " + currencyUnit + '/' + amountCurrency);
         }
     }
@@ -165,14 +153,7 @@ public final class MoneyUtils {
      * @throws IllegalArgumentException If the number is null
      */
     public static void checkNumberParameter(Number number) {
-        requireNonNull(number, "Number is required.");
+        Objects.requireNonNull(number, "Number is required.");
     }
 
-    /**
-     * Replaces the non-breaking space character U+00A0 and Narrow non-breaking space U+202F from the string with usual space.
-     * https://en.wikipedia.org/wiki/Non-breaking_space}
-     */
-    public static String replaceNbspWithSpace(String s) {
-        return s.replace(NBSP, ' ').replace(NNBSP, ' ');
-    }
 }
