@@ -1,5 +1,6 @@
 JavaMoney Moneta Reference Implementation for Java 7
 ====================================================
+[![Maven Central](https://img.shields.io/maven-central/v/org.javamoney/moneta-bp.svg)](https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.javamoney%22%20AND%20a%3A%22moneta-bp%22)
 [![Build Status](https://api.travis-ci.org/JavaMoney/jsr354-ri-bp.png?branch=master)](https://travis-ci.org/JavaMoney/jsr354-ri-bp) [![License](http://img.shields.io/badge/license-Apache2-red.svg)](http://opensource.org/licenses/apache-2.0)
 [![Stability: Maintenance](https://masterminds.github.io/stability/maintenance.svg)](https://masterminds.github.io/stability/maintenance.html)
 
