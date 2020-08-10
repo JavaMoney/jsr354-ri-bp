@@ -63,7 +63,7 @@ import org.javamoney.moneta.spi.MoneyUtils;
  *
  * @author Anatole Tresch
  * @author Werner Keil
- * @version 0.7
+ * @version 1.0
  */
 public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, Serializable {
 
@@ -124,7 +124,7 @@ public final class Money implements MonetaryAmount, Comparable<MonetaryAmount>, 
             this.monetaryContext = DEFAULT_MONETARY_CONTEXT;
         }
         Objects.requireNonNull(number, "Number is required.");
-        this.number = MoneyUtils.getBigDecimal(number, monetaryContext);
+        this.number = MoneyUtils.getBigDecimal(number, this.monetaryContext);
     }
 
     /**
