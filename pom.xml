@@ -53,7 +53,7 @@
 
 	<ciManagement>
 		<system>Travis-CI</system>
-		<url>https://travis-ci.org/JavaMoney/jsr354-ri-bp</url>
+		<url>https://travis-ci.com/github/JavaMoney/jsr354-ri-bp</url>
 	</ciManagement>
 
 	<issueManagement>
